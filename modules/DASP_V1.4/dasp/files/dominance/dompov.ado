@@ -3,7 +3,7 @@
 /* DASP  : Distributive Analysis Stata Package  (version 1.4)             */
 /*************************************************************************/
 /* Conceived and programmed by Dr. Araar Abdelkrim  (2007                */
-/* Universit� Laval, Quebec, Canada                                    */
+/* Université Laval, Quebec, Canada                                    */
 /* email : aabd@ecn.ulaval.ca                                            */
 /* Web   : www.dasp-two.vercel.app                                        */
 /* Phone : 1 418 656 7507                                                */

@@ -177,8 +177,8 @@ if ("`lan'"~="fr")  local cnam `"`cnam' "P-Value""';
                                          
 
 
-if ("`lan'"=="fr")  local cnam `"`cnam' "Niveau de pauvret�""';
-if ("`lan'"=="fr")  local cnam `"`cnam' "Le changement dans la pauvret�""';
+if ("`lan'"=="fr")  local cnam `"`cnam' "Niveau de pauvreté""';
+if ("`lan'"=="fr")  local cnam `"`cnam' "Le changement dans la pauvreté""';
 if ("`lan'"=="fr")  local cnam `"`cnam' "Erreur type""';
 if ("`lan'"=="fr")  local cnam `"`cnam' "P-Value""';
 

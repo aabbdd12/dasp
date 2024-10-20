@@ -1,7 +1,7 @@
 MIME-Version: 1.0
 Content-Type: multipart/related; boundary="----=_NextPart_01CF4D90.924DDF00"
 
-Ce document est une page Web � fichier unique, ou fichier archive Web.  Si ce message est affich�, votre navigateur ou votre �diteur ne prend pas en charge les fichiers archives Web.  T�l�chargez un navigateur qui prend en charge les archives Web, par exemple Windows� Internet Explorer�.
+Ce document est une page Web é fichier unique, ou fichier archive Web.  Si ce message est affiché, votre navigateur ou votre éditeur ne prend pas en charge les fichiers archives Web.  Téléchargez un navigateur qui prend en charge les archives Web, par exemple Windowsé Internet Exploreré.
 
 ------=_NextPart_01CF4D90.924DDF00
 Content-Location: file:///C:/A7195C3F/SUBSIM2_Quick_Start__20_February2014__.htm
@@ -508,7 +508,7 @@ p.MsoCommentText, li.MsoCommentText, div.MsoCommentText
 	mso-fareast-language:EN-US;}
 p.MsoHeader, li.MsoHeader, div.MsoHeader
 	{mso-style-priority:99;
-	mso-style-link:"En-t�te Car";
+	mso-style-link:"En-téte Car";
 	margin:0cm;
 	margin-bottom:.0001pt;
 	mso-pagination:widow-orphan;
@@ -781,11 +781,11 @@ span.ObjetducommentaireCar
 	mso-ansi-language:EN-CA;
 	font-weight:bold;}
 span.En-tteCar
-	{mso-style-name:"En-t�te Car";
+	{mso-style-name:"En-téte Car";
 	mso-style-priority:99;
 	mso-style-unhide:no;
 	mso-style-locked:yes;
-	mso-style-link:En-t�te;
+	mso-style-link:En-téte;
 	mso-ansi-language:EN-CA;}
 span.PieddepageCar
 	{mso-style-name:"Pied de page Car";
@@ -1597,7 +1597,7 @@ style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></i=
 ></b></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
-style=3D'font-family:"Times New Roman","serif"'>Add the command �SUBSIM� to=
+style=3D'font-family:"Times New Roman","serif"'>Add the command éSUBSIMé to=
  your
 Stata menu. You have three options to do that:<o:p></o:p></span></p>
 
@@ -1612,9 +1612,9 @@ es New Roman"'><span
 style=3D'mso-list:Ignore'>1)<span style=3D'font:7.0pt "Times New Roman"'>&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span dir=3DLTR></span><span lang=3DEN-CA
-style=3D'font-family:"Times New Roman","serif"'>Add the command �_subsim_me=
-nu� to
-your Stata profile file �c:/ado/personal/profile.do�. This will ensure that
+style=3D'font-family:"Times New Roman","serif"'>Add the command é_subsim_me=
+nué to
+your Stata profile file éc:/ado/personal/profile.doé. This will ensure that
 Stata loads SUBSIM each time that is launched. <o:p></o:p></span></p>
 
 <p class=3DMsoListParagraphCxSpMiddle style=3D'text-align:justify'><span
@@ -1629,10 +1629,10 @@ es New Roman"'><span
 style=3D'mso-list:Ignore'>2)<span style=3D'font:7.0pt "Times New Roman"'>&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span dir=3DLTR></span><span lang=3DEN-CA
-style=3D'font-family:"Times New Roman","serif"'>If you don�t have the
-�profile.do� file, you can create one by simply saving the command
-�_subsim_menu� in a do file with the name �profile.do� in the directory
-�c:/ado/personal/�.<o:p></o:p></span></p>
+style=3D'font-family:"Times New Roman","serif"'>If you donét have the
+éprofile.doé file, you can create one by simply saving the command
+é_subsim_menué in a do file with the name éprofile.doé in the directory
+éc:/ado/personal/é.<o:p></o:p></span></p>
 
 <p class=3DMsoListParagraphCxSpMiddle style=3D'text-align:justify'><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o=
@@ -1647,7 +1647,7 @@ style=3D'mso-list:Ignore'>3)<span style=3D'font:7.0pt "Times New Roman"'>&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span dir=3DLTR></span><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'>Alternatively, execute the
-command �_subsim_menu� when you open Stata and every time you wish to use t=
+command é_subsim_menué when you open Stata and every time you wish to use t=
 he SUBSIM
 menu. <o:p></o:p></span></p>
 
@@ -1657,7 +1657,7 @@ style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'>You will now be able to see
-SUBSIM under the User�s menu as shown in the figure below.<o:p></o:p></span=
+SUBSIM under the Userés menu as shown in the figure below.<o:p></o:p></span=
 ></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><b><i><span lang=3DEN-CA
@@ -1766,7 +1766,7 @@ style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'>The following examples are =
 based
-on the dummy data �example.dta� provided with the toolkit. It is recommende=
+on the dummy data éexample.dtaé provided with the toolkit. It is recommende=
 d to
 run the example with the data provided before testing SUBSIM with other dat=
 a. This
@@ -1807,7 +1807,7 @@ style=3D'font-family:"Times New Roman","serif"'>or <o:p></o:p></span></p>
 style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
-style=3D'font-family:"Times New Roman","serif"'>type �db asubsim� in the co=
+style=3D'font-family:"Times New Roman","serif"'>type édb asubsimé in the co=
 mmand
 window. The following window will open up.<o:p></o:p></span></p>
 
@@ -1848,7 +1848,7 @@ t:-18.0pt;
 mso-list:l0 level1 lfo1'><![if !supportLists]><span lang=3DEN-CA
 style=3D'font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-fa=
 mily:
-Symbol'><span style=3D'mso-list:Ignore'>�<span style=3D'font:7.0pt "Times N=
+Symbol'><span style=3D'mso-list:Ignore'>é<span style=3D'font:7.0pt "Times N=
 ew Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span dir=3DLTR></span><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'>Main,<o:p></o:p></span></p>
@@ -1858,7 +1858,7 @@ nt:-18.0pt;
 mso-list:l0 level1 lfo1'><![if !supportLists]><span lang=3DEN-CA
 style=3D'font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-fa=
 mily:
-Symbol'><span style=3D'mso-list:Ignore'>�<span style=3D'font:7.0pt "Times N=
+Symbol'><span style=3D'mso-list:Ignore'>é<span style=3D'font:7.0pt "Times N=
 ew Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span dir=3DLTR></span><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'>Items<o:p></o:p></span></p>
@@ -1868,7 +1868,7 @@ nt:-18.0pt;
 mso-list:l0 level1 lfo1'><![if !supportLists]><span lang=3DEN-CA
 style=3D'font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-fa=
 mily:
-Symbol'><span style=3D'mso-list:Ignore'>�<span style=3D'font:7.0pt "Times N=
+Symbol'><span style=3D'mso-list:Ignore'>é<span style=3D'font:7.0pt "Times N=
 ew Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span dir=3DLTR></span><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'>Tables options<o:p></o:p></=
@@ -1879,7 +1879,7 @@ span></p>
 mso-list:l0 level1 lfo1'><![if !supportLists]><span lang=3DEN-CA
 style=3D'font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-fa=
 mily:
-Symbol'><span style=3D'mso-list:Ignore'>�<span style=3D'font:7.0pt "Times N=
+Symbol'><span style=3D'mso-list:Ignore'>é<span style=3D'font:7.0pt "Times N=
 ew Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span dir=3DLTR></span><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'>Graph options<o:p></o:p></s=
@@ -1890,9 +1890,9 @@ lang=3DEN-CA style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o=
 :p></span></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
-style=3D'font-family:"Times New Roman","serif"'>The tabs �Main� and �Items�=
+style=3D'font-family:"Times New Roman","serif"'>The tabs éMainé and éItemsé=
  are
-designed for data inputs. The tabs �Tables options� and �Graphs options� are
+designed for data inputs. The tabs éTables optionsé and éGraphs optionsé are
 designed to select outputs options. <o:p></o:p></span></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
@@ -1913,7 +1913,7 @@ normal'><span lang=3DEN-CA style=3D'font-family:"Times New Roman","serif"'>=
 <p class=3DMsoNormal style=3D'text-align:justify'><b style=3D'mso-bidi-font=
 -weight:
 normal'><span lang=3DEN-CA style=3D'font-family:"Times New Roman","serif"'>=
-TAB: �Main�<o:p></o:p></span></b></p>
+TAB: éMainé<o:p></o:p></span></b></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
@@ -1940,11 +1940,11 @@ information already saved into the SUBSIM window or to save the information
 inserted in the dialogue box in a file to be stored for future simulations.
 This information is stored in text files with the extension *.prj. You can =
 test
-this feature by uploading the file �example_1.prj� provided with the toolki=
+this feature by uploading the file éexample_1.prjé provided with the toolki=
 t.
-Note that you can load the file from one directory (�Load the Inputs�) and =
+Note that you can load the file from one directory (éLoad the Inputsé) and =
 save
-it in a different directory with a different name (�Save the Inputs�).<o:p>=
+it in a different directory with a different name (éSave the Inputsé).<o:p>=
 </o:p></span></p>
 
 <p class=3DMsoNormal style=3D'margin-left:18.0pt;text-align:justify'><span
@@ -1961,7 +1961,7 @@ mso-fareast-font-family:"Times New Roman"'>General information</span></i></=
 b><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";mso-fareast-fon=
 t-family:
-"Times New Roman"'>.<span style=3D'mso-spacerun:yes'>� </span>The group box
+"Times New Roman"'>.<span style=3D'mso-spacerun:yes'>é </span>The group box
 General information enables the user to insert some helpful information, li=
 ke
 the name of the country or the local currency. This information will be sav=
@@ -2006,7 +2006,7 @@ an
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";mso-fareast-fon=
 t-family:
 "Times New Roman"'>. The box Group variable enables the user to insert a
-population group variable.<span style=3D'mso-spacerun:yes'>� </span>This va=
+population group variable.<span style=3D'mso-spacerun:yes'>é </span>This va=
 riable
 captures a socio-demographic group such as gender or urban-rural. By defaul=
 t,
@@ -2040,7 +2040,7 @@ on
 wellbeing is measured with the equivalent gain. For more information, see t=
 he
 Annex.</span><i style=3D'mso-bidi-font-style:normal'> <span
-style=3D'mso-spacerun:yes'>�</span><o:p></o:p></i></span></p>
+style=3D'mso-spacerun:yes'>é</span><o:p></o:p></i></span></p>
 
 <ul style=3D'margin-top:0cm' type=3Ddisc>
  <li class=3DMsoNormal style=3D'text-align:justify;mso-list:l0 level1 lfo1'=
@@ -2048,7 +2048,7 @@ style=3D'mso-spacerun:yes'>�</span><o:p></o:p></i></span></p>
      lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";mso-fareas=
 t-font-family:
      "Times New Roman"'>The marginal approach <span
-     style=3D'mso-spacerun:yes'>�</span>(impact=3DdQ*dP)<o:p></o:p></span><=
+     style=3D'mso-spacerun:yes'>é</span>(impact=3DdQ*dP)<o:p></o:p></span><=
 /li>
  <li class=3DMsoNormal style=3D'text-align:justify;mso-list:l0 level1 lfo1'=
 ><span
@@ -2080,7 +2080,7 @@ ont-family:
 "Times New Roman","serif";mso-fareast-font-family:"Times New Roman"'>Type of
 transfer</span></i><span lang=3DEN-CA style=3D'font-family:"Times New Roman=
 ","serif";
-mso-fareast-font-family:"Times New Roman"'>: The box �Lump-sum transfer�<i
+mso-fareast-font-family:"Times New Roman"'>: The box éLump-sum transferé<i
 style=3D'mso-bidi-font-style:normal'> </i>enables the user to indicate info=
 rmation
 on cash transfers (lump-sum transfer) and choose whether this transfer shou=
@@ -2122,10 +2122,10 @@ mso-fareast-font-family:"Times New Roman"'>Remember to set the survey setti=
 ngs
 before you launch SUBSIM including sampling weights and sampling design inf=
 ormation.
-This can be done with the command �svyset� in Stata or you can use the butt=
+This can be done with the command ésvyseté in Stata or you can use the butt=
 on
-�Survey Settings�� located in the bottom right-hand corner of the SUBSIM �M=
-ain�
+éSurvey Settingséé located in the bottom right-hand corner of the SUBSIM éM=
+ainé
 tab. For more information on survey settings, see the Stata manual.<o:p></o=
 :p></span></p>
 
@@ -2137,7 +2137,7 @@ mso-fareast-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></b></p>
 <p class=3DMsoNormal style=3D'text-align:justify'><b style=3D'mso-bidi-font=
 -weight:
 normal'><span lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";
-mso-fareast-font-family:"Times New Roman"'>TAB �Items�</span></b><span
+mso-fareast-font-family:"Times New Roman"'>TAB éItemsé</span></b><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";mso-fareast-fon=
 t-family:
 "Times New Roman"'><o:p></o:p></span></p>
@@ -2152,7 +2152,7 @@ height:
 height:
 115%'><span lang=3DEN-US style=3D'font-family:"Times New Roman","serif";mso=
 -fareast-font-family:
-"Times New Roman";mso-ansi-language:EN-US'>The Tab �Items� is conceived to
+"Times New Roman";mso-ansi-language:EN-US'>The Tab éItemsé is conceived to
 insert information about the goods concerned by the simulation including
 initial prices, final prices and unit subsidies. <o:p></o:p></span></p>
 
@@ -2167,10 +2167,10 @@ information with</span></i></b><span lang=3DEN-US style=3D'font-family:"Tim=
 es New Roman","serif";
 mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US'>: The
 information on products can be initialized by manually inserting the
-information for each item (option �parameters values�) or by selecting
-variables already created and available in the data set (option: �variables=
-�). The
-�example.dta� already contains these special variables. <o:p></o:p></span><=
+information for each item (option éparameters valuesé) or by selecting
+variables already created and available in the data set (option: évariables=
+é). The
+éexample.dtaé already contains these special variables. <o:p></o:p></span><=
 /p>
 
 <p class=3DMsoNormal style=3D'margin-bottom:10.0pt;text-align:justify;line-=
@@ -2186,7 +2186,7 @@ gure
 bellow shows an example concerning two goods: Flour and Rice. The user shou=
 ld
 start by selecting the number of items, which is two in our example.<span
-style=3D'mso-spacerun:yes'>� </span><o:p></o:p></span></p>
+style=3D'mso-spacerun:yes'>é </span><o:p></o:p></span></p>
 
 <p class=3DMsoNormal style=3D'margin-bottom:10.0pt;text-align:justify;line-=
 height:
@@ -2194,7 +2194,7 @@ height:
 yle:
 normal'><span lang=3DEN-US style=3D'font-family:"Times New Roman","serif";
 mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US'>Option
-�Parameter values�</span></i></b><span lang=3DEN-US style=3D'font-family:"T=
+éParameter valuesé</span></i></b><span lang=3DEN-US style=3D'font-family:"T=
 imes New Roman","serif";
 mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US'>: With t=
 his
@@ -2306,7 +2306,7 @@ height:
 yle:
 normal'><span lang=3DEN-US style=3D'font-family:"Times New Roman","serif";
 mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US'>Option
-�Variables�</span></i></b><b style=3D'mso-bidi-font-weight:normal'><span
+éVariablesé</span></i></b><b style=3D'mso-bidi-font-weight:normal'><span
 lang=3DEN-US style=3D'font-family:"Times New Roman","serif";mso-fareast-fon=
 t-family:
 "Times New Roman";mso-ansi-language:EN-US'>:</span></b><span lang=3DEN-US
@@ -2329,7 +2329,7 @@ height:
 font-family:
 "Times New Roman","serif";mso-fareast-font-family:"Times New Roman";mso-ans=
 i-language:
-EN-US'>TAB �Tables options�<o:p></o:p></span></b></p>
+EN-US'>TAB éTables optionsé<o:p></o:p></span></b></p>
 
 <p class=3DMsoNormal style=3D'margin-bottom:10.0pt;text-align:justify;line-=
 height:
@@ -2337,7 +2337,7 @@ height:
 -fareast-font-family:
 "Times New Roman";mso-ansi-language:EN-US'>This tab allows the user to sele=
 ct
-the tables� options. The default option when you do not select the tables a=
+the tablesé options. The default option when you do not select the tables a=
 nd
 override options is the production of all tables. </span><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif";mso-fareast-font-family:"Tim=
@@ -2357,9 +2357,9 @@ number of tables the code of these tables can be indicated in the box. The =
 list
 of codes with the titles of the tables can be seen by clicking on the quest=
 ion
-mark button ?. For example, you can type �<i style=3D'mso-bidi-font-style:n=
+mark button ?. For example, you can type é<i style=3D'mso-bidi-font-style:n=
 ormal'>11
-23</i>� to produce tables 1.1 and 2.3 only (no commas, one space between
+23</i>é to produce tables 1.1 and 2.3 only (no commas, one space between
 numbers).<i style=3D'mso-bidi-font-style:normal'> </i><o:p></o:p></span></p>
 
 <p class=3DMsoNormal style=3D'margin-bottom:10.0pt;text-align:justify;line-=
@@ -2380,8 +2380,8 @@ For example, you may want to aggregate the results for various types of sug=
 ar (items
 4, 5 and 6) and various types of flour (items 7 and 8). Or you may want to =
 add
-results for rice and flour. This may be done by adding the option: �1 2 :
-&quot;Rice and Flour�. <o:p></o:p></span></p>
+results for rice and flour. This may be done by adding the option: é1 2 :
+&quot;Rice and Flouré. <o:p></o:p></span></p>
 
 <p class=3DMsoNormal style=3D'margin-bottom:10.0pt;text-align:justify;line-=
 height:
@@ -2397,7 +2397,7 @@ mso-ansi-language:EN-US'>. This box allows the user to define the Excel file
 where all tables should be stored. The user can select an existing file to
 override or create a new file. The user can either specify the name of the =
 file
-or not. If the name is not specified, the file will be saved as �Tables� by
+or not. If the name is not specified, the file will be saved as éTablesé by
 default. <o:p></o:p></span></p>
 
 <p class=3DMsoNormal style=3D'margin-bottom:10.0pt;text-align:justify;line-=
@@ -2428,7 +2428,7 @@ style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></b=
 ></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><b><span lang=3DEN-CA
-style=3D'font-family:"Times New Roman","serif"'>TAB: �Graph options�<o:p></=
+style=3D'font-family:"Times New Roman","serif"'>TAB: éGraph optionsé<o:p></=
 o:p></span></b></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
@@ -2454,8 +2454,8 @@ the graphs can be </span><span lang=3DEN-CA style=3D'font-family:"Times New=
 mso-bidi-font-weight:bold'>seen by clicking on the question mark button ?. =
 For
 example, if the user wishes to produce only Graphs 1, 2 and 4, the user will
-simply type �1 2 4� (no commas, one space between numbers).<span
-style=3D'mso-spacerun:yes'>� </span><o:p></o:p></span></p>
+simply type é1 2 4é (no commas, one space between numbers).<span
+style=3D'mso-spacerun:yes'>é </span><o:p></o:p></span></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><b><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></b=
@@ -2471,7 +2471,7 @@ t-family:
 user to select the directory where the saved graphs should be stored. Note =
 that
 all graph files are saved in three formats: .gph. .pdf and .wmf. SUBSIM will
-save a folder with the name �Graphs� in the directory selected.<o:p></o:p><=
+save a folder with the name éGraphsé in the directory selected.<o:p></o:p><=
 /span></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
@@ -2516,7 +2516,7 @@ t:-18.0pt;
 mso-list:l6 level1 lfo6'><![if !supportLists]><span lang=3DEN-CA
 style=3D'font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-fa=
 mily:
-Symbol'><span style=3D'mso-list:Ignore'>�<span style=3D'font:7.0pt "Times N=
+Symbol'><span style=3D'mso-list:Ignore'>é<span style=3D'font:7.0pt "Times N=
 ew Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span dir=3DLTR></span><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'>Quota system<o:p></o:p></sp=
@@ -2527,7 +2527,7 @@ an></p>
 mso-list:l6 level1 lfo6'><![if !supportLists]><span lang=3DEN-CA
 style=3D'font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-fa=
 mily:
-Symbol'><span style=3D'mso-list:Ignore'>�<span style=3D'font:7.0pt "Times N=
+Symbol'><span style=3D'mso-list:Ignore'>é<span style=3D'font:7.0pt "Times N=
 ew Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span dir=3DLTR></span><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'>Blocks system<o:p></o:p></s=
@@ -2541,9 +2541,9 @@ style=3D'font-family:"Times New Roman","serif"'>The <b style=3D'mso-bidi-fo=
 nt-weight:
 normal'>quota</b> system refers to subsidies administered via quotas. For
 example, households may be entitled to a subsidized price for bread up to a
-certain quantity purchased � say � 10 kg./month. Beyond that quantity,
+certain quantity purchased é say é 10 kg./month. Beyond that quantity,
 consumers buy bread on the free market at unsubsidized prices. This system
-usually makes use of �cards� where households are given ratio (quantity) ca=
+usually makes use of écardsé where households are given ratio (quantity) ca=
 rds
 that allow them to purchase certain quantities at subsidised prices.<o:p></=
 o:p></span></p>
@@ -2554,8 +2554,8 @@ style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'>The <b style=3D'mso-bidi-fo=
 nt-weight:
-normal'>blocks</b> system refers to subsidies that change following a �bloc=
-k�
+normal'>blocks</b> system refers to subsidies that change following a ébloc=
+ké
 structure with different prices applying to different blocks of quantities
 consumed. This is typically the case of electricity or water subsidies where
 the electricity or water prices are set by the regulator at different price=
@@ -2581,7 +2581,7 @@ explanations apply to the blocks system. <o:p></o:p></span></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'><span
-style=3D'mso-spacerun:yes'>�</span><o:p></o:p></span></p>
+style=3D'mso-spacerun:yes'>é</span><o:p></o:p></span></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'>Suppose now that subsidies =
@@ -2638,7 +2638,7 @@ xt 1.0pt;
   solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
   style=3D'font-family:"Times New Roman","serif"'><span
-  style=3D'mso-spacerun:yes'>�</span>Price<o:p></o:p></span></p>
+  style=3D'mso-spacerun:yes'>é</span>Price<o:p></o:p></span></p>
   <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
   style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span><=
 /p>
@@ -2809,8 +2809,8 @@ imes New Roman"'><span
   style=3D'mso-list:Ignore'>B.<span style=3D'font:7.0pt "Times New Roman"'>=
 &nbsp;&nbsp;&nbsp;&nbsp;
   </span></span></span><![endif]><span dir=3DLTR></span><span lang=3DEN-CA
-  style=3D'font-family:"Times New Roman","serif"'>Click on the button �Init=
-ialise�
+  style=3D'font-family:"Times New Roman","serif"'>Click on the button éInit=
+ialiseé
   <o:p></o:p></span></p>
   </td>
   <td width=3D313 valign=3Dtop style=3D'width:234.75pt;border-top:none;bord=
@@ -2882,7 +2882,7 @@ e011.png"
   </v:shape><![endif]--><![if !vml]><img border=3D0 width=3D306 height=3D272
   src=3D"SUBSIM2_Quick_Start__20_February2014___fichiers/image012.jpg" v:sh=
 apes=3D"Image_x0020_8"><![endif]><span
-  style=3D'mso-spacerun:yes'>�</span><o:p></o:p></span></p>
+  style=3D'mso-spacerun:yes'>é</span><o:p></o:p></span></p>
   <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
   style=3D'font-family:"Times New Roman","serif";color:#1F497D;mso-themecol=
 or:
@@ -2933,7 +2933,7 @@ e013.png"
   src=3D"SUBSIM2_Quick_Start__20_February2014___fichiers/image014.png" v:sh=
 apes=3D"_x0000_i1025"><![endif]></span><![endif]><span
   lang=3DEN-CA style=3D'font-family:"Times New Roman","serif"'><span
-  style=3D'mso-spacerun:yes'>�</span><o:p></o:p></span></p>
+  style=3D'mso-spacerun:yes'>é</span><o:p></o:p></span></p>
   <p class=3DMsoListParagraphCxSpLast style=3D'text-align:justify'><span
   lang=3DEN-CA style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;<=
 /o:p></span></p>
@@ -2981,7 +2981,7 @@ dy
 reform concerns a large number of items that may even exceed 10 items. In t=
 his
 case, the user can insert information on items using variables. This can be
-done by selecting the option �Variables� from the tab �Items�. Note that th=
+done by selecting the option éVariablesé from the tab éItemsé. Note that th=
 e spreadsheet
 has to contain all the information needed for the analysis in the form of
 variables as shown in the example below.<o:p></o:p></span></p>
@@ -3075,7 +3075,7 @@ style=3D'font-family:"Times New Roman","serif"'>You are now ready to launch
 SUBSIM. When SUBSIM is launched, it will display all results in the Stata
 output window. The user can stop the command at any stage of execution by u=
 sing
-the Stata �Break� button. If the user has selected to save the table result=
+the Stata éBreaké button. If the user has selected to save the table result=
 s in
 an Excel file, this file is automatically opened once the computation ends.=
  The
@@ -3083,7 +3083,7 @@ excel file produced contains one table per sheet and all tables produced by=
  the
 program. All graphs produced by the program are instead saved in a folder w=
 ith
-the name �Graphs�, and in three formats (pdf, gph and wmf). <o:p></o:p></sp=
+the name éGraphsé, and in three formats (pdf, gph and wmf). <o:p></o:p></sp=
 an></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
@@ -3120,7 +3120,7 @@ page-break-before:always'>
 style=3D'font-family:"Times New Roman","serif";color:#1F497D;mso-themecolor=
 :text2'><o:p>&nbsp;</o:p></span></p>
 
-<h2 style=3D'text-align:justify'><span lang=3DEN-CA>ANNEX � SUBSIM Basic Fo=
+<h2 style=3D'text-align:justify'><span lang=3DEN-CA>ANNEX é SUBSIM Basic Fo=
 rmulae</span></h2>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
@@ -3136,7 +3136,7 @@ Reforming Subsidies: A Toolkit for Policy Simulations, World Bank Policy
 Research Working Paper No. 6148. The paper includes a general section on
 subsidies simulations, a section on the economic theory behind SUBSIM and t=
 he
-SUBSIM 1.0 users� guide. The sections below integrate and update the
+SUBSIM 1.0 usersé guide. The sections below integrate and update the
 theoretical part of the paper for SUBSIM 2.0. <o:p></o:p></span></p>
 
 <h2 style=3D'text-align:justify'><span lang=3DEN-CA>Changes in welfare</spa=
@@ -3216,7 +3216,7 @@ src=3D"SUBSIM2_Quick_Start__20_February2014___fichiers/image026.png" v:shap=
 es=3D"_x0000_i1025"><![endif]></span><![endif]><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif"'>=3Dquantities =
 with the
-superscripts � representing the post-reform values, the subscript 1
+superscripts é representing the post-reform values, the subscript 1
 representing the subsidized product and the subscript 2 representing the bu=
 ndle
 of all other consumed products. The change in welfare due to an increase in=
@@ -3699,7 +3699,7 @@ es=3D"_x0000_i1025"><![endif]></span><![endif]><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";mso-fareast-fon=
 t-family:
 "Times New Roman";mso-fareast-theme-font:minor-fareast'><span
-style=3D'mso-spacerun:yes'>�</span>should be interpreted as a decrease in w=
+style=3D'mso-spacerun:yes'>é</span>should be interpreted as a decrease in w=
 elfare
 due to the price increase.</span><span lang=3DEN-CA style=3D'font-family:"T=
 imes New Roman","serif"'><o:p></o:p></span></p>
@@ -4032,7 +4032,7 @@ es=3D"_x0000_i1025"><![endif]></span><![endif]><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";mso-fareast-fon=
 t-family:
 "Times New Roman";mso-fareast-theme-font:minor-fareast'><span
-style=3D'mso-spacerun:yes'>�</span>is </span><span lang=3DEN-CA style=3D'fo=
+style=3D'mso-spacerun:yes'>é</span>is </span><span lang=3DEN-CA style=3D'fo=
 nt-family:
 "Times New Roman","serif"'>the average weighted post reform price (the post
 reform price in the linear case) of household </span><!--[if gte msEquation=
@@ -4058,7 +4058,7 @@ mso-ansi-language:EN-CA;mso-fareast-language:EN-US;mso-bidi-language:AR-SA'=
 src=3D"SUBSIM2_Quick_Start__20_February2014___fichiers/image048.png" v:shap=
 es=3D"_x0000_i1025"><![endif]></span><![endif]><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif"'><span
-style=3D'mso-spacerun:yes'>�</span>for the good </span><!--[if gte msEquati=
+style=3D'mso-spacerun:yes'>é</span>for the good </span><!--[if gte msEquati=
 on 12]><m:oMath><i
  style=3D'mso-bidi-font-style:normal'><span lang=3DEN-CA style=3D'font-fami=
 ly:"Cambria Math","serif";
@@ -4081,7 +4081,7 @@ mso-ansi-language:EN-CA;mso-fareast-language:EN-US;mso-bidi-language:AR-SA'=
 src=3D"SUBSIM2_Quick_Start__20_February2014___fichiers/image050.png" v:shap=
 es=3D"_x0000_i1025"><![endif]></span><![endif]><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif"'><span
-style=3D'mso-spacerun:yes'>�</span>and </span><!--[if gte msEquation 12]><m=
+style=3D'mso-spacerun:yes'>é</span>and </span><!--[if gte msEquation 12]><m=
 :oMath><m:sSub><m:sSubPr><span
    style=3D'font-family:"Cambria Math","serif";mso-ascii-font-family:"Cambr=
 ia Math";
@@ -4116,7 +4116,7 @@ es=3D"_x0000_i1025"><![endif]></span><![endif]><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";mso-fareast-fon=
 t-family:
 "Times New Roman";mso-fareast-theme-font:minor-fareast'><span
-style=3D'mso-spacerun:yes'>�</span>is </span><span lang=3DEN-CA style=3D'fo=
+style=3D'mso-spacerun:yes'>é</span>is </span><span lang=3DEN-CA style=3D'fo=
 nt-family:
 "Times New Roman","serif"'>the expenditure share of household </span><!--[i=
 f gte msEquation 12]><m:oMath><i
@@ -4141,8 +4141,8 @@ mso-ansi-language:EN-CA;mso-fareast-language:EN-US;mso-bidi-language:AR-SA'=
 src=3D"SUBSIM2_Quick_Start__20_February2014___fichiers/image048.png" v:shap=
 es=3D"_x0000_i1025"><![endif]></span><![endif]><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif"'><span
-style=3D'mso-spacerun:yes'>�</span>for the good<span style=3D'mso-spacerun:=
-yes'>�
+style=3D'mso-spacerun:yes'>é</span>for the good<span style=3D'mso-spacerun:=
+yes'>é
 </span></span><!--[if gte msEquation 12]><m:oMath><i style=3D'mso-bidi-font=
 -style:
  normal'><span lang=3DEN-CA style=3D'font-family:"Cambria Math","serif";mso=
@@ -4350,7 +4350,7 @@ es=3D"_x0000_i1025"><![endif]></span><![endif]><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";mso-fareast-fon=
 t-family:
 "Times New Roman";mso-fareast-theme-font:minor-fareast'><span
-style=3D'mso-spacerun:yes'>�</span>is typically negative and between 0 and =
+style=3D'mso-spacerun:yes'>é</span>is typically negative and between 0 and =
 -1. Note
 that we are assuming that all households behave equally so that the total
 impact on quantities is just the sum of the changes in quantities consumed
@@ -4433,7 +4433,7 @@ apply to prices that are not subsidized. The point elasticities at subsidiz=
 ed
 prices may be very different and cannot be assumed to be the same. Therefor=
 e,
-it is very difficult for subsidies analysts to simply �borrow� elasticities
+it is very difficult for subsidies analysts to simply éborrowé elasticities
 from elsewhere.<o:p></o:p></span></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
@@ -4542,7 +4542,7 @@ es=3D"_x0000_i1025"><![endif]></span><![endif]><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";mso-fareast-fon=
 t-family:
 "Times New Roman";mso-fareast-theme-font:minor-fareast'><span
-style=3D'mso-spacerun:yes'>�</span>can be very large. Therefore, subsidies
+style=3D'mso-spacerun:yes'>é</span>can be very large. Therefore, subsidies
 analysts cannot simply use standard parameters for elasticities like -0.3 or
 -0.5 but have to consider more specifically the relation between subsidized=
  and
@@ -4611,7 +4611,7 @@ es=3D"_x0000_i1025"><![endif]></span><![endif]><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";mso-fareast-fon=
 t-family:
 "Times New Roman";mso-fareast-theme-font:minor-fareast'><span
-style=3D'mso-spacerun:yes'>�</span>because the post-reform quantity has a l=
+style=3D'mso-spacerun:yes'>é</span>because the post-reform quantity has a l=
 ower
 bound of zero. However, one should be aware that when results on quantities=
  in
@@ -4761,11 +4761,11 @@ style=3D'font-family:"Times New Roman","serif";mso-fareast-font-family:"Tim=
 es New Roman";
 mso-fareast-theme-font:minor-fareast;mso-ansi-language:EN-US;mso-fareast-la=
 nguage:
-FR-CA'><span style=3D'mso-spacerun:yes'>�</span></span><!--[if gte msEquati=
+FR-CA'><span style=3D'mso-spacerun:yes'>é</span></span><!--[if gte msEquati=
 on 12]><m:oMath><i
  style=3D'mso-bidi-font-style:normal'><span lang=3DEN-CA style=3D'font-fami=
 ly:"Cambria Math","serif";
- mso-ansi-language:FR-CA'><m:r><span style=3D'mso-spacerun:yes'>�</span></m=
+ mso-ansi-language:FR-CA'><m:r><span style=3D'mso-spacerun:yes'>é</span></m=
 :r></span></i><m:sSub><m:sSubPr><span
    style=3D'font-family:"Cambria Math","serif";mso-ascii-font-family:"Cambr=
 ia Math";
@@ -5034,7 +5034,7 @@ mso-fareast-theme-font:minor-fareast'>Having discussed elasticities and cha=
 nges
 in quantities, we can now estimate changes in government revenues. We may f=
 ace
-two cases, one where we know the unit subsidy and one where we don�t know t=
+two cases, one where we know the unit subsidy and one where we donét know t=
 he
 unit subsidy in advance. If we know the unit subsidy, the formula is as
 follows:<o:p></o:p></span></p>
@@ -5276,11 +5276,11 @@ es=3D"_x0000_i1025"><![endif]></span><![endif]><span
 lang=3DEN-CA style=3D'font-family:"Times New Roman","serif";mso-fareast-fon=
 t-family:
 "Times New Roman";mso-fareast-theme-font:minor-fareast'><span
-style=3D'mso-spacerun:yes'>�</span>is the unit subsidy for product <i
-style=3D'mso-bidi-font-style:normal'>k</i>. If we don�t know the unit subsi=
+style=3D'mso-spacerun:yes'>é</span>is the unit subsidy for product <i
+style=3D'mso-bidi-font-style:normal'>k</i>. If we donét know the unit subsi=
 dy in advance,
 we can then approximate the change in government revenues with the change in
-producers� profits as follows:<o:p></o:p></span></p>
+producersé profits as follows:<o:p></o:p></span></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif";mso-fareast-font-family:"Tim=
@@ -5426,7 +5426,7 @@ mso-ansi-language:FR-CA;mso-bidi-font-style:italic'><o:p>&nbsp;</o:p></span=
 style=3D'font-family:"Times New Roman","serif"'>SUBSIM will use one or the =
 other
 formula depending on whether users specify unit subsidies or not in the Tab
-�Items�.<o:p></o:p></span></p>
+éItemsé.<o:p></o:p></span></p>
 
 <p class=3DMsoNormal style=3D'text-align:justify'><span lang=3DEN-CA
 style=3D'font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
@@ -18482,7 +18482,7 @@ r:footnote-continuation-separator'><![if !supportFootnotes]>
  <p class=3DMsoFooter align=3Dright style=3D'text-align:right'><!--[if supp=
 ortFields]><span
  lang=3DEN-CA><span style=3D'mso-element:field-begin'></span><span
- style=3D'mso-spacerun:yes'>�</span>PAGE<span style=3D'mso-spacerun:yes'>��
+ style=3D'mso-spacerun:yes'>é</span>PAGE<span style=3D'mso-spacerun:yes'>éé
  </span>\* MERGEFORMAT <span style=3D'mso-element:field-separator'></span><=
 /span><![endif]--><span
  lang=3DEN-CA><span style=3D'mso-no-proof:yes'>1</span></span><!--[if suppo=

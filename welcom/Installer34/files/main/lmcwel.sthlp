@@ -117,11 +117,11 @@ NOTE: All the examples illustrated in the present and in the following sections
 {title:Example 1: Estimating the impact of labor market concentration (Mexico 2014)}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace; 
 lmcwel pc_income, hhid(folioviv foliohog) hsize(hhhsize) pline(pline) 
 inisave(myexp) 
-incomes(http://dasp.ecn.ulaval.ca/welcom/examples/lmc/incomes.dta) 
-sectors(http://dasp.ecn.ulaval.ca/welcom/examples/lmc/sectors.dta) 
+incomes(http://dasp-two.vercel.app/welcom/examples/lmc/incomes.dta) 
+sectors(http://dasp-two.vercel.app/welcom/examples/lmc/sectors.dta) 
 epsilon(.5) xfil(myexcel) folgr(mygraphs)
 ;
 {txt}      ({stata "welcom_examples ex_lmc_01":example 1: click to run in command window})

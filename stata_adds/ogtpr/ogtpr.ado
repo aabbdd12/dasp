@@ -415,7 +415,7 @@ if (`ered' == 1) {;
             capture findfile difgt.ado ;
             local filelist `"`r(fn)'"';
 			if "`filelist'"=="" {;
-            di in r "The DASP difgt.ado not found (to estimate the change in poverty): Install DASP package from: http://dasp.ecn.ulaval.ca";
+            di in r "The DASP difgt.ado not found (to estimate the change in poverty): Install DASP package from: http://dasp-two.vercel.app";
             exit 198;
 
 			};

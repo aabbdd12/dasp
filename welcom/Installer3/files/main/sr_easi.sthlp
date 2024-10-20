@@ -78,7 +78,7 @@ NOTE: All the examples illustrated in the present and in the following sections
 {title:Example 1: Estimating the cereal elasticities : easi with power 3.}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
 set seed 1234;
 bsample 4000;
 sr_easi wcorn wwheat wrice wother wcomp, 
@@ -97,7 +97,7 @@ inpy(1) inpz(0) inzy(0);
 {title:Example 2: Estimating the cereal elasticities : easi with power 5.}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
 set seed 1234;
 bsample 4000;
 sr_easi wcorn wwheat wrice wother wcomp, 

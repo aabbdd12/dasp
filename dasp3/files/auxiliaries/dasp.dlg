@@ -13,8 +13,8 @@ BEGIN
                 label("Check for Updates") onpush(program check_dasp_ver)
 
         BUTTON   bt_refs      @        _xls  @         @, ///
-                label("DASP PDF user manual") onpush(view browse http://dasp.ecn.ulaval.ca/dasp3/manual/DASP_MANUAL_V302.pdf)
-        BUTTON   bt_www         @        _xls  @         @, label("Go to DASP Website") onpush(view browse http://dasp.ecn.ulaval.ca)
+                label("DASP PDF user manual") onpush(view browse http://dasp-two.vercel.app/dasp3/manual/DASP_MANUAL_V302.pdf)
+        BUTTON   bt_www         @        _xls  @         @, label("Go to DASP Website") onpush(view browse http://dasp-two.vercel.app)
 
 END
 

@@ -59,7 +59,7 @@ NOTE: All the examples illustrated in the present and in the following sections
 {title:Example 1: Estimating the cereal elasticities}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
 sids hh_q_corn pcorn hh_current_inc, hgroup(quintile)  indcon(age)  ;
 {txt}      ({stata "welcom_examples ex_sids_01":example 1: click to run in command window})
 
@@ -68,7 +68,7 @@ sids hh_q_corn pcorn hh_current_inc, hgroup(quintile)  indcon(age)  ;
 {title:Example 2: Estimating the cereal elasticities and the standard errors (with the bootstrap approach)}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
 sids hh_q_corn pcorn hh_current_inc, hgroup(sex) incpar(decile) indcon(age) incint(1)  xfil(myres)  dgra(1)   ;
 {txt}      ({stata "welcom_examples ex_sids_02":example 2: click to run in command window})
 

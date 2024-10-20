@@ -1,6 +1,6 @@
 /* The Stata code suggested code */
 #delimit;
-use http://dasp.ecn.ulaval.ca/ds/data/mexico_cereal , replace;
+use http://dasp-two.vercel.app/ds/data/mexico_cereal , replace;
 save "C:/PDATA/data/mexico_cereal",replace;
 sr_easi mexico_cereal , wdir("C:/PDATA/data/")
 shares( wcorn wwheat wrice wother wcomp )

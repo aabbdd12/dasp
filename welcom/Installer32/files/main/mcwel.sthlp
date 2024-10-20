@@ -152,7 +152,7 @@ For instance: gjops(1 2) . See also: {bf:{help jgraphs_mc}}. {p_end}
 
 {title:Example(s):}
 
-{p 4 8}{inp: use http://dasp.ecn.ulaval.ca/welcom/examples/mc_example.dta , clear}{p_end}
+{p 4 8}{inp: use http://dasp-two.vercel.app/welcom/examples/mc_example.dta , clear}{p_end}
 {p 4 8}{inp: mcwel communication, hsize(hsize) pline(pline) gvimp(1) typemc(3)}{p_end}
 
 
@@ -166,7 +166,7 @@ NOTE: All the examples illustrated in the present and in the following sections
 {title:Example 1: Estimating the impact using one item}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace; 
 mcwel pc_income, hsize(hhhsize) pline(pline) gvimp(1) 
 inisave(mcwel_example_01) nitems(1) 
 it1( sn(Combustible) vn(pcexp_comb) el(-0.904) st(3) si(0.4231) ) 
@@ -181,7 +181,7 @@ xfil(myexample2)  folgr(Graphs)
 {title:Example 2: Estimating the impact using three items and intermediate periods of adjustements}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace; 
 mcwel pc_income, hsize(hhhsize) pline(pline) gvimp(1) 
 inisave(mcwel_example_01) nitems(3) 
 it1( sn(Combustible) vn(pcexp_comb) el(-0.904) st(3) si(0.4231) ) 
@@ -199,7 +199,7 @@ xfil(myexample2)  folgr(Graphs)
 {title:Example 3: Similar to example 2, but by specifiying the size of firms at each step of adjustment. }
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace; 
 mcwel pc_income, hsize(hhsize) pline(pline) gvimp(1) 
 inisave(mcwel_example_03) nitems(3)  
 it1( sn(Combustible) vn(pcexp_comb)   el(elas1) st(3) si(0.4231) scen(0.3 0.2) ) 

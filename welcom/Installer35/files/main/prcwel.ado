@@ -847,5 +847,5 @@ end;
 /*
 //set trace on;
 set tracedepth 1;
-prcwel_ind pcexp, hsize(hhsize) pline(pline) hgroup(Urbrur) inisave(Example_1) xfil(example_1) tjobs(11 12 21 22 23 31 32 33 41 42 43 44 45 51 52 53 61 62 63 64) gvimp(0) it1( sn(Electricity and gas) it(pc_D0450) prc(dp_D0450) elas(elas) ) it2( sn(Purchase of vehicles) it(pc_G0710) prc(dp_G0710) elas(elas) ) nitems(2) iomatrix(http://dasp.ecn.ulaval.ca/welcom/examples/prc/IOM_EGY2015.dta) nshocks(5) iomodel(1) adshock(1) tyshock(1) nadp(1) shock1( secp(45) pr(-8) ) shock2( secp(36) pr(-10) ) shock3( secp(37) pr(-10) ) shock4( secp(38) pr(-10) ) shock5( secp(39) pr(-10) ) isnames(label) iitnames(item) match(code) initems(39) ;
+prcwel_ind pcexp, hsize(hhsize) pline(pline) hgroup(Urbrur) inisave(Example_1) xfil(example_1) tjobs(11 12 21 22 23 31 32 33 41 42 43 44 45 51 52 53 61 62 63 64) gvimp(0) it1( sn(Electricity and gas) it(pc_D0450) prc(dp_D0450) elas(elas) ) it2( sn(Purchase of vehicles) it(pc_G0710) prc(dp_G0710) elas(elas) ) nitems(2) iomatrix(http://dasp-two.vercel.app/welcom/examples/prc/IOM_EGY2015.dta) nshocks(5) iomodel(1) adshock(1) tyshock(1) nadp(1) shock1( secp(45) pr(-8) ) shock2( secp(36) pr(-10) ) shock3( secp(37) pr(-10) ) shock4( secp(38) pr(-10) ) shock5( secp(39) pr(-10) ) isnames(label) iitnames(item) match(code) initems(39) ;
 */

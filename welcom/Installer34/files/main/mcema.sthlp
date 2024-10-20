@@ -139,7 +139,7 @@ NOTE: All the examples illustrated in the present and in the following sections
 {title:Example 1:  Using average expenditures in PSU's for the prediction of expenditures on mobile communications. }
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014_Cellphones.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014_Cellphones.dta , replace; 
 mcema d_cell pc_exp_cell, expmod(1) grmod1(psu) welfare(pc_income) hsize(hhsize) hgroup(tam_loc) pline(pline) 
 indcat(socio educ) indcon(hhsize) pswp(.05) pchange(pchange) ichange(change_in_income) expshare(eshare) 
 um(1) dec(3) inisave(example1) xfil(myres1);
@@ -151,7 +151,7 @@ um(1) dec(3) inisave(example1) xfil(myres1);
 {title:Example 2:  Using a regression model for the prediction of expenditures on mobile communications. }
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014_Cellphones.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014_Cellphones.dta , replace; 
 mcema d_cell pc_exp_cell, expmod(3) welfare(pc_income) hsize(hhsize) hgroup(tam_loc) ///
 indcat(socio educ) indcon(hhsize) pswp(.05) pchange(pchange_2) ichange(change_in_income_2) ///
 expshare(eshare) ewgr(quintile) um(3) dec(3) fex(2) fpr(3) fin(2) cindcat(socio educ) ///
@@ -165,7 +165,7 @@ cindcon(age) inisave(example2) xfil(myres2) pline(pline) disgr(tam_loc);
 {title:Example 3:  Using exogenous information on total entrants -new cellphone users- in Mexico between 2014 and 2018. }
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014_2018_Cellphones.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014_2018_Cellphones.dta , replace; 
 mcema d_cell pc_exp_cell, expmod(3) grmod1(decile) grmod2(tam_loc) welfare(pc_income) hsize(hhsize) hgroup(tam_loc) pline(pline) 
 incpar(quintile) indcat(socio educ) indcon(hhsize) pswp(.05) pswe(.05) pchange(pchange) um(5) dec(3) fex(2) fpr(3) fin(2) 
 exnum(1) grmac(entity) totentr(new_users) cindcat(sex) cindcon(age) inisave(example3) xfil(myres3);

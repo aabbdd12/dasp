@@ -145,7 +145,7 @@ For instance: gjops(1 2) . See also: {bf:{help jgraphs_mc}}. {p_end}
 
 {title:Example(s):}
 
-{p 4 8}{inp: use http://dasp.ecn.ulaval.ca/welcom/examples/mc_example.dta , clear}{p_end}
+{p 4 8}{inp: use http://dasp-two.vercel.app/welcom/examples/mc_example.dta , clear}{p_end}
 {p 4 8}{inp: mcwel communication, hsize(hsize) pline(pline) gvimp(1) typemc(3)}{p_end}
 
 

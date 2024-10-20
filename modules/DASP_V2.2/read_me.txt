@@ -31,7 +31,7 @@ STEP B-2 (INSTALLING WITH THE NET):
 If you are connected to the internet, execute the following commands:
 
 set more off
-net from http://dasp.ecn.ulaval.ca/modules/DASP_V2.2/dasp
+net from http://dasp-two.vercel.app/modules/DASP_V2.2/dasp
 net install dasp_p1, force
 net install dasp_p2, force
 net install dasp_p3, force

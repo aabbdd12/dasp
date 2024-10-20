@@ -9,7 +9,7 @@ d TAXSIM is a product of the World Bank.
 d
 d Authors : {bf:Abdelkrim Araar}        {bf:Paolo Verme}
 d Emails  : {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}     {browse "mailto:pverme@worldbank.org":pverme@worldbank.org} 
-d Website : {browse "http://dasp.ecn.ulaval.ca/subsim/taxsim":www.subsim.org/taxsim}
+d Website : {browse "http://dasp-two.vercel.app/subsim/taxsim":www.subsim.org/taxsim}
 d
 p taxsim_part1      Stata Toolkit for Tax Reform
 p taxsim_part2      Stata Toolkit for Tax Reform

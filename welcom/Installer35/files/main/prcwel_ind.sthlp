@@ -178,7 +178,7 @@ For instance: tjops(11 21) . See also: {bf:{help jtables_mc}}. {p_end}
 
 {title:Example(s):}
 
-{p 4 8}{inp: use http://dasp.ecn.ulaval.ca/welcom/examples/mc_example.dta , clear}{p_end}
+{p 4 8}{inp: use http://dasp-two.vercel.app/welcom/examples/mc_example.dta , clear}{p_end}
 {p 4 8}{inp: prcwel communication, hsize(hsize) pline(pline) gvimp(1) typemc(3)}{p_end}
 
 
@@ -192,11 +192,11 @@ NOTE: All the examples illustrated in the present and in the following sections
 {title:Example 1: Estimating the impact using one item}
 {cmd}
 #delimit ; 
-use "http://dasp.ecn.ulaval.ca/welcom/examples/prc/hh_data_egypt.dta", replace ;
+use "http://dasp-two.vercel.app/welcom/examples/prc/hh_data_egypt.dta", replace ;
 prcwel_ind pcexp, hsize(hhsize) pline(pline) hgroup(Urbrur) inisave(Example_1) xfil(example_1) gvimp(1) 
 it1( sn(Electricity and gas) it(pc_D0450) prc(dp_D0450) elas(elas) )  
 it2( sn(Purchase of vehicles)  it(pc_G0710) prc(dp_G0710) elas(elas) ) nitems(2) 
-iomatrix("http://dasp.ecn.ulaval.ca/welcom/examples/prc/IOM_EGY2015.dta") nshocks(5)  
+iomatrix("http://dasp-two.vercel.app/welcom/examples/prc/IOM_EGY2015.dta") nshocks(5)  
 iomodel(1) adshock(1) tyshock(1)  
 shock1( secp(45) pr(-8) ) shock2( secp(36) pr(-10) ) shock3( secp(37) pr(-10) )  
 shock4( secp(38) pr(-10) ) shock5( secp(39) pr(-10) ) 

@@ -71,7 +71,7 @@ NOTE: All the examples illustrated in the present and in the following sections
 {title:Example 1: Estimating the cereal elasticities.}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
 wquaids wcorn wwheat wrice wother wcomp, anot(9.5) 
 prices(pcorn pwheat price pother pcomp) 
 snames(Corn Wheat Rice Other_cereal Rest) 
@@ -85,7 +85,7 @@ dregres(0) xfil(myfil) dislas(0); ;
 {title:Example 2: Estimating the cereal elasticities by adding some demographic variables.}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
 set seed 1234;
 bsample 2000;
 wquaids wcorn wwheat wrice wother wcomp, anot(9.5) 

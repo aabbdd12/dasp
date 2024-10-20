@@ -14,8 +14,8 @@ BEGIN
                 label("Check for Updates") onpush(program check_tax_ver)
 
         BUTTON   bt_refs      @        _xls  @         @, ///
-                label("Basic TSWEL References") onpush(view help http://dasp.ecn.ulaval.ca/TSWEL/ts/references/mi_user_manual_01.pdf)
-        BUTTON   bt_www         @        _xls  @         @, label("Go to TSWEL Website") onpush(view browse http://dasp.ecn.ulaval.ca/TSWEL/ts/)
+                label("Basic TSWEL References") onpush(view help http://dasp-two.vercel.app/TSWEL/ts/references/mi_user_manual_01.pdf)
+        BUTTON   bt_www         @        _xls  @         @, label("Go to TSWEL Website") onpush(view browse http://dasp-two.vercel.app/TSWEL/ts/)
 
 END
 

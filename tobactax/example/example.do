@@ -8,7 +8,7 @@ global mydir C:\temp
 
 /* Intalling the TOBACTAX Stata package */
 set more off
-net from http://dasp.ecn.ulaval.ca/tobactax/Installer 
+net from http://dasp-two.vercel.app/tobactax/Installer 
 net install tobactax, force
 
 
@@ -17,7 +17,7 @@ net install tobactax, force
 cd $mydir
 
 /* Coppying the zipped folder of the example in the WD */
-copy http://dasp.ecn.ulaval.ca/tobactax/example.zip "$mydir/example.zip", replace
+copy http://dasp-two.vercel.app/tobactax/example.zip "$mydir/example.zip", replace
 
 /* Unzipping the folder */
 qui unzipfile "$mydir/example.zip"

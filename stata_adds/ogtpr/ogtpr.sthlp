@@ -38,7 +38,7 @@ by default. {cmd:oogtpr} estimates thegroups lump sum transfers  to reduce optim
 
 {p 0 4} {cmdab:trans}        To set the fixed per capita lump sum transfer. {p_end}
 
-{p 0 4} {cmdab:ered}         Set the value to one ( ered(1) ) to estimate the reduction in aggregate poverty and the quality of the group indicator. This option requires the  {browse	"http://dasp.ecn.ulaval.ca": DASP Stata package} {p_end}
+{p 0 4} {cmdab:ered}         Set the value to one ( ered(1) ) to estimate the reduction in aggregate poverty and the quality of the group indicator. This option requires the  {browse	"http://dasp-two.vercel.app": DASP Stata package} {p_end}
 
 {p 0 4} {cmdab:dec}          To set the number of decimals used in the display of results. {p_end}
 
@@ -54,7 +54,7 @@ by default. {cmd:oogtpr} estimates thegroups lump sum transfers  to reduce optim
 Abdelkrim Araar
 
 {title:Reference(s)}  
-{p 4 4 2} 1 - Araar Abdelkrim (2017)	{browse	"http://dasp.ecn.ulaval.ca/references/OptTarg_Araar&Tiberti_March_2017.pdf": Optimal Population Group Targeting and Poverty Reduction},	mimeo {p_end}
+{p 4 4 2} 1 - Araar Abdelkrim (2017)	{browse	"http://dasp-two.vercel.app/references/OptTarg_Araar&Tiberti_March_2017.pdf": Optimal Population Group Targeting and Poverty Reduction},	mimeo {p_end}
 
 
 {title:Contact}

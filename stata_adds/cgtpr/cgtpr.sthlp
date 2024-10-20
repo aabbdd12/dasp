@@ -80,7 +80,7 @@ by default. {p_end}
 Abdelkrim Araar
 
 {title:Reference(s)}  
-{p 4 4 2} 1 - Araar Abdelkrim (2017)	{browse	"http://dasp.ecn.ulaval.ca/references/OptTarg_Araar_February_2017.pdf": Optimal Population Group Targeting and Poverty Reduction},	mimeo {p_end}
+{p 4 4 2} 1 - Araar Abdelkrim (2017)	{browse	"http://dasp-two.vercel.app/references/OptTarg_Araar_February_2017.pdf": Optimal Population Group Targeting and Poverty Reduction},	mimeo {p_end}
 
 {title:Contact}
 If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}

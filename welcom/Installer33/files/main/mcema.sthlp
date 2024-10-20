@@ -104,7 +104,7 @@ NOTE: All the examples illustrated in the present and in the following sections
 {title:Example 1:  Using a regression model for the prediction of expenditures on mobile communications. }
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014_Cellphones.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014_Cellphones.dta , replace; 
 mcema d_cell pc_exp_cell, mappr(2) welfare(pc_income) hsize(hhsize) hgroup(tam_loc) 
 indcat(socio educ) indcon(hhsize) pswp(.05) pchange(pchange) ichange(change_in_income) 
 expshare(eshare) ewgr(quintile) um(1) dec(3) fpr(3) fin(2) cindcat(sex educ) cindcon(age) 
@@ -117,7 +117,7 @@ inisave(myexp1) xfil(myres1)
 {title:Example 2:  Using average expenditures in PSU's for the prediction of expenditures on mobile communications. }
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014_Cellphones.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014_Cellphones.dta , replace; 
 mcema d_cell pc_exp_cell, grmod(psu) welfare(pc_income) hsize(hhsize) hgroup(tam_loc) 
 indcat(socio educ) indcon(hhsize) pswp(.05) pchange(pchange) ichange(change_in_income) 
 expshare(eshare) ewgr(quintile) um(1) dec(3) inisave(myexp2) xfil(myres2)

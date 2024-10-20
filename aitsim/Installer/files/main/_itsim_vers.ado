@@ -5,7 +5,7 @@ local  inst_ver   1.00
 local  inst_dat  "06April2016"
 
 dis _n
-qui include http://dasp.ecn.ulaval.ca/subsim/aitsim/Installer/version
+qui include http://dasp-two.vercel.app/subsim/aitsim/Installer/version
 dis _col(5) "- Installed AITSIM"_col(33) ": Version `inst_ver'" _col(50) "| Date: `inst_dat'  "
 dis _col(5) "- Available updated AITSIM" _col(33) ": Version $srv_ver " _col(50) "| Date: $srv_dat  "
 

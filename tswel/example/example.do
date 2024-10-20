@@ -8,7 +8,7 @@ global mydir C:\temp
 
 /* Intalling the TTRWEL Stata package */
 set more off
-net from http://dasp.ecn.ulaval.ca/ttrwel/Installer 
+net from http://dasp-two.vercel.app/ttrwel/Installer 
 net install ttrwel, force
 
 
@@ -17,7 +17,7 @@ net install ttrwel, force
 cd $mydir
 
 /* Coppying the zipped folder of the example in the WD */
-copy http://dasp.ecn.ulaval.ca/ttrwel/example.zip "$mydir/example.zip", replace
+copy http://dasp-two.vercel.app/ttrwel/example.zip "$mydir/example.zip", replace
 
 /* Unzipping the folder */
 qui unzipfile "$mydir/example.zip"

@@ -2,7 +2,7 @@
 
 clear all
 set more off
-net from http://dasp.ecn.ulaval.ca/shexp_beta_v2/Installer
+net from http://dasp-two.vercel.app/shexp_beta_v2/Installer
 net install shexp, force
 
 /* Additional required ado files */

@@ -2,7 +2,7 @@
 
 To install dasp 3.0: 
 
-1-	Load the zipped folder dasp3: https://dasp.ecn.ulaval.ca/dasp3.rar
+1-	Load the zipped folder dasp3: https://dasp-two.vercel.app/dasp3.rar
 2-	unzip and copy the folder in a given directory, ex: C:/temp/dasp3
 3-	run the following Stata commands:
 

@@ -105,7 +105,7 @@ NOTE: All the examples illustrated in the present and in the following sections
 {title:Example 1:}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/shexp/examples/fdata.dta , replace; 
+use http://dasp-two.vercel.app/shexp/examples/fdata.dta , replace; 
 shexp totexp , 
 expexm(excl_m) expexf(excl_f) expexk(excl_k) 
 fshare(f_share)   

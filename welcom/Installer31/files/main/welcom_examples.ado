@@ -15,7 +15,7 @@ end
 cap program drop ex_mc_01
 program ex_mc_01
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace; 
 mcwel pc_income, hsize(hhsize) pline(pline) gvimp(1) 
 inisave(mcwel_example_01) nitems(1) 
 it1( sn(Combustible) vn(pcexp_comb) el(-0.904) st(3) si(0.4231) ) 
@@ -30,7 +30,7 @@ end
 
 cap program drop ex_mc_db_01
 program ex_mc_db_01
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace
 discard
 db mcwel
 .mcwel_dlg.main.dbsamex.setvalue "mcwel_example_033"
@@ -72,7 +72,7 @@ end
 cap program drop ex_mc_02
 program ex_mc_02
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace; 
 mcwel pc_income, hsize(hhsize) pline(pline) gvimp(1) 
 inisave(mcwel_example_01) nitems(3) 
 it1( sn(Combustible) vn(pcexp_comb) el(-0.904) st(3) si(0.4231) ) 
@@ -89,7 +89,7 @@ end
 
 cap program drop ex_mc_db_02
 program ex_mc_db_02
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace
 discard
 db mcwel
 .mcwel_dlg.main.dbsamex.setvalue "mcwel_example_01"
@@ -180,7 +180,7 @@ end
 cap program drop ex_duvm_01
 program ex_duvm_01
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
 duvm corn wheat rice other, 
 hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex1_duvm_db)  indcat(sex educ )  indcon(age)   xfil(myfile) 
@@ -192,7 +192,7 @@ end
 cap program drop ex_duvm_02
 program ex_duvm_02
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
 duvm corn wheat rice other, 
 hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex2_duvm_db)  indcat(sex educ )  indcon(age)   xfil(myfile)
@@ -204,7 +204,7 @@ end
 cap program drop ex_duvm_03
 program ex_duvm_03
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
 duvm corn wheat rice other, 
 hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex3_duvm_db)  indcat(sex educ )  indcon(age)   xfil(myfile) 
@@ -215,7 +215,7 @@ end
 
 cap program drop ex_duvm_db_01
 program ex_duvm_db_01
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
 discard
 db duvm
 .duvm_dlg.main.dbsamex.setvalue "ex1_duvm_db"
@@ -235,7 +235,7 @@ end
 
 cap program drop ex_duvm_db_02
 program ex_duvm_db_02
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
 discard
 db duvm
 .duvm_dlg.main.dbsamex.setvalue "ex2_duvm_db"
@@ -255,7 +255,7 @@ end
 
 cap program drop ex_duvm_db_03
 program ex_duvm_db_03
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
 discard
 db duvm
 .duvm_dlg.main.dbsamex.setvalue "ex3_duvm_db"
@@ -282,7 +282,7 @@ end
 cap program drop ex_wquaids_01
 program ex_wquaids_01
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
 wquaids wcorn wwheat wrice wother wcomp, anot(9.5) 
 prices(pcorn pwheat price pother pcomp) 
 snames(Corn Wheat Rice Other_cereal Rest) 
@@ -295,7 +295,7 @@ end
 cap program drop ex_wquaids_02
 program ex_wquaids_02
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
 set seed 1234;
 bsample 2000;
 wquaids wcorn wwheat wrice wother wcomp, anot(9.5) 
@@ -309,7 +309,7 @@ end
 
 cap program drop ex_wquaids_db_01
 program ex_wquaids_db_01
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
 discard
 db wquaids
 .wquaids_dlg.main.dbsamex.setvalue "ex1_quaids_db"
@@ -327,7 +327,7 @@ end
 
 cap program drop ex_wquaids_db_02
 program ex_wquaids_db_02
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
 discard
 db wquaids
 .wquaids_dlg.main.dbsamex.setvalue "ex2_quaids_db"
@@ -353,7 +353,7 @@ end
 cap program drop ex_easi_01
 program ex_easi_01
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
 set seed 1234;
 bsample 4000;
  sr_easi wcorn wwheat wrice wother wcomp, 
@@ -373,7 +373,7 @@ end
 cap program drop ex_easi_02
 program ex_easi_02
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
 set seed 1234;
 bsample 4000;
  sr_easi wcorn wwheat wrice wother wcomp, 
@@ -391,7 +391,7 @@ end
 
 cap program drop ex_easi_db_01
 program ex_easi_db_01
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
 set seed 1234
 bsample 4000
 discard
@@ -414,7 +414,7 @@ end
 
 cap program drop ex_easi_db_02
 program ex_easi_db_02
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
 set seed 1234
 bsample 4000
 discard
@@ -442,11 +442,11 @@ end
 cap program drop ex_lmc_01
 program ex_lmc_01
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace; 
 lmcwel pc_income, hhid(folioviv foliohog) hsize(hhhsize) pline(pline) 
 inisave(myexp) 
-incomes(http://dasp.ecn.ulaval.ca/welcom/examples/lmc/incomes.dta) 
-sectors(http://dasp.ecn.ulaval.ca/welcom/examples/lmc/sectors.dta) 
+incomes(http://dasp-two.vercel.app/welcom/examples/lmc/incomes.dta) 
+sectors(http://dasp-two.vercel.app/welcom/examples/lmc/sectors.dta) 
 epsilon(.5) xfil(myexcel) folgr(mygraphs)
 ;
 #delimit cr
@@ -457,12 +457,12 @@ end
 
 cap program drop ex_lmc_db_01
 program ex_lmc_db_01
-use http://dasp.ecn.ulaval.ca/welcom/examples/lmc/Mexico_2014.dta , replace
+use http://dasp-two.vercel.app/welcom/examples/lmc/Mexico_2014.dta , replace
 discard
 db lmcwel
 .lmcwel_dlg.main.dbsamex.setvalue "myexp"
-.lmcwel_dlg.labor_info_lmcwel.sectors.setvalue "http://dasp.ecn.ulaval.ca/welcom/examples/lmc/sectors.dta"
-.lmcwel_dlg.labor_info_lmcwel.incomes.setvalue "http://dasp.ecn.ulaval.ca/welcom/examples/lmc/incomes.dta"
+.lmcwel_dlg.labor_info_lmcwel.sectors.setvalue "http://dasp-two.vercel.app/welcom/examples/lmc/sectors.dta"
+.lmcwel_dlg.labor_info_lmcwel.incomes.setvalue "http://dasp-two.vercel.app/welcom/examples/lmc/incomes.dta"
 .lmcwel_dlg.main.vn_pcexp.setvalue "pc_income"
 .lmcwel_dlg.main.vl_hhid.setvalue "folioviv foliohog"
 .lmcwel_dlg.main.vn_hhs.setvalue "hhhsize"
@@ -482,9 +482,9 @@ end
 cap program drop ex_wap_01
 program ex_wap_01
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/wap/Mexico_2014_WAP.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/wap/Mexico_2014_WAP.dta , replace; 
 wapwel pc_income, hsize(hhsize) pline(pline) inisave(myexp) nitems(11) itnames(itnames) 
-itvnames(vnnames) match(match_sec) iomatrix(http://dasp.ecn.ulaval.ca/welcom/examples/wap/SAM_MEX_2003.dta) 
+itvnames(vnnames) match(match_sec) iomatrix(http://dasp-two.vercel.app/welcom/examples/wap/SAM_MEX_2003.dta) 
 secnames(secnames) opgr1( max(0.95) ) xfil(myfile)
 ;
 #delimit cr
@@ -495,7 +495,7 @@ end
 
 cap program drop ex_wap_db_01
 program ex_wap_db_01
-use http://dasp.ecn.ulaval.ca/welcom/examples/wap/Mexico_2014_WAP.dta , replace
+use http://dasp-two.vercel.app/welcom/examples/wap/Mexico_2014_WAP.dta , replace
 discard
 db wapwel
 .wapwel_dlg.main.dbsamex.setvalue "myexp"
@@ -508,7 +508,7 @@ db wapwel
 .wapwel_dlg.items_info_ind.var_secsn.setvalue "secnames"
 .wapwel_dlg.items_info_ind.var_item.setvalue "vnnames"
 .wapwel_dlg.items_info_ind.var_ms.setvalue "match_sec"
-.wapwel_dlg.items_info_ind.dbiom.setvalue "http://dasp.ecn.ulaval.ca/welcom/examples/wap/SAM_MEX_2003.dta"
+.wapwel_dlg.items_info_ind.dbiom.setvalue "http://dasp-two.vercel.app/welcom/examples/wap/SAM_MEX_2003.dta"
 .wapwel_dlg.main.ed_epsilon.setvalue ".5"
 .wapwel_dlg.main.ed_theta.setvalue "0"
 .wapwel_dlg.main.cb_ioap_ad.setvalue "1"
@@ -523,7 +523,7 @@ end
 cap program drop ex_sids_01
 program ex_sids_01
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
 sids hh_q_corn pcorn hh_current_inc, hgroup(quintile)  indcon(age) ;
 #delimit cr
 end
@@ -531,7 +531,7 @@ end
 cap program drop ex_sids_02
 program ex_sids_02
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace;
 sids hh_q_corn pcorn hh_current_inc, hgroup(sex) incpar(decile) indcon(age) incint(1)  xfil(myres)  dgra(1) ;
 #delimit cr
 end

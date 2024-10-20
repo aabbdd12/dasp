@@ -175,7 +175,7 @@ file write rcode ///
 `"FUN = function(x) {"' _newline ///
 `"   if (!require(x, character.only = TRUE)) {"' _newline ///
 `"      chooseCRANmirror(graphics=FALSE,1)"' _newline ///
-`"   install.packages("http://dasp.ecn.ulaval.ca/webwel/elas/easi/easi_0.21.zip", repos = NULL, type = "binary", dependencies=TRUE) "' _newline ///
+`"   install.packages("http://dasp-two.vercel.app/webwel/elas/easi/easi_0.21.zip", repos = NULL, type = "binary", dependencies=TRUE) "' _newline ///
 `"    library(x, character.only = TRUE) "' _newline ///
 `"   }"' _newline ///
 `" }"' _newline ///
@@ -222,7 +222,7 @@ file write rcode ///
 `"FUN = function(x) {"' _newline ///
 `"   if (!require(x, character.only = TRUE)) {"' _newline ///
 `"      chooseCRANmirror(graphics=FALSE,1)"' _newline ///
-`"   install.packages("http://dasp.ecn.ulaval.ca/webwel/elas/easi/easi_0.21.zip", repos = NULL, type = "binary", dependencies=TRUE) "' _newline ///
+`"   install.packages("http://dasp-two.vercel.app/webwel/elas/easi/easi_0.21.zip", repos = NULL, type = "binary", dependencies=TRUE) "' _newline ///
 `"    library(x, character.only = TRUE) "' _newline ///
 `"   }"' _newline ///
 `" }"' _newline ///

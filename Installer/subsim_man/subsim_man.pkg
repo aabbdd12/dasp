@@ -9,7 +9,7 @@ d Stata Version : Required  11.0 and higher
 d
 d Authors : {bf:Abdelkrim Araar}        {bf:Paolo Verme}
 d Emails  : {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}     {browse "mailto:pverme@worldbank.org":pverme@worldbank.org} 
-d Website : {browse "http://dasp.ecn.ulaval.ca/subsim":www.subsim.org}
+d Website : {browse "http://dasp-two.vercel.app/subsim":www.subsim.org}
 d
 d Description   : The dialog box subsim_man can be used to install and manage the SUBSIM package. 
 d                 The user can install, update or check the SUBSIM version.

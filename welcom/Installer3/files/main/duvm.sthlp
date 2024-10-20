@@ -96,7 +96,7 @@ NOTE: All the examples illustrated in the present and in the following sections
 {cmd}
 #delimit ; 
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
 duvm corn wheat rice other,  hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex1_duvm_db))  indcat(sex educ)  indcon(age)   xfil(myfile) ;
 {txt}      ({stata "welcom_examples ex_duvm_01":example 1: click to run in command window})
@@ -106,7 +106,7 @@ inisave(ex1_duvm_db))  indcat(sex educ)  indcon(age)   xfil(myfile) ;
 {title:Example 2: Estimating the cereal elasticities and the standard errors (with the bootstrap approach)}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
 duvm corn wheat rice other,  hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex2_duvm_db))  indcat(sex educ)  indcon(age)   xfil(myfile) boot(50);
 {txt}      ({stata "welcom_examples ex_duvm_02":example 2: click to run in command window})
@@ -116,7 +116,7 @@ inisave(ex2_duvm_db))  indcat(sex educ)  indcon(age)   xfil(myfile) boot(50);
 {title:Example 3: Estimating the own-price elasticities by deciles}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
 duvm corn wheat rice other,  hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex3_duvm_db))  indcat(sex educ)  indcon(age)   xfil(myfile) hgroup(decile);
 {txt}      ({stata "welcom_examples ex_duvm_03":example 3: click to run in command window})

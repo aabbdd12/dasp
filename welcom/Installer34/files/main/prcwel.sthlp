@@ -120,7 +120,7 @@ For instance: tjops(11 21) . See also: {bf:{help jtables_mc}}. {p_end}
 
 {title:Example(s):}
 
-{p 4 8}{inp: use http://dasp.ecn.ulaval.ca/welcom/examples/mc_example.dta , clear}{p_end}
+{p 4 8}{inp: use http://dasp-two.vercel.app/welcom/examples/mc_example.dta , clear}{p_end}
 {p 4 8}{inp: prcwel communication, hsize(hsize) pline(pline) gvimp(1) typemc(3)}{p_end}
 
 
@@ -133,7 +133,7 @@ NOTE: All the examples illustrated in the present and in the following sections
           
 {title:Example 1: Estimating the impact using one item}
 {cmd}
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace; 
 gen prc_Cereals        =  0.08;
 prcwel pc_income, hsize(hhsize) pline(pline) gvimp(1) 
 inisave(mcwel_example_03) nitems(1)  
@@ -147,7 +147,7 @@ xfil(myexample1)
 {title:Example 2: Estimating the impact using three items}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace; 
 gen prc_Combustible    = -0.10;
 gen prc_Communication  = -0.06;
 gen prc_Cereals        =  0.08;
@@ -167,7 +167,7 @@ xfil(myexample1)
 {title:Example 3: Estimating the impact using three items with the Taylor second order approximation of CS and using variables of price elasticities}
 {cmd}
 #delimit ; 
-use http://dasp.ecn.ulaval.ca/welcom/examples/mc/Mexico_2014.dta , replace; 
+use http://dasp-two.vercel.app/welcom/examples/mc/Mexico_2014.dta , replace; 
 gen prc_Combustible    = -0.10;
 gen prc_Communication  = -0.06;
 gen prc_Cereals        =  0.08;
@@ -185,7 +185,7 @@ epsilon(.5)   xfil(myexample3)
 {title:Example 4: Estimating the impact using three items with the Taylor second order approximation of EV and using price and income matrices of elasticities}
 {cmd}
 #delimit ;
-use http://dasp.ecn.ulaval.ca/welcom/examples/ds/Mexico_2014_Cereals_F.dta, replace;
+use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals_F.dta, replace;
 preserve;
 qui keep if wcorn!=.;
 qui duvm corn wheat rice other, hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) inisave(ex3_duvm_db) indcat(sex educ) indcon(age) csb(0) dregres(0) hgroup(decile);

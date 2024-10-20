@@ -1,0 +1,106 @@
+* Februrary2022 - v3.03
+  DASP 3.0         : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   3.03   
+d Date          : Februrary  2022
+d Stata Version : Required  15.0 and higher
+d
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_p3 Distributive Analysis Stata Package: PART III
+
+
+
+f files/dtools/cdensity.ado
+f files/dtools/cdensity.dlg
+f files/dtools/cdensity.sthlp
+f files/dtools/cdf.ado
+f files/dtools/cdf.dlg
+f files/dtools/cdf.sthlp
+f files/dtools/cnpe.ado
+f files/dtools/cnpe.dlg
+f files/dtools/cnpe.sthlp
+f files/dtools/cnpeci.ado
+f files/dtools/cnpel.ado
+f files/dtools/c_quantile.ado
+f files/dtools/c_quantile.dlg
+f files/dtools/c_quantile.sthlp
+f files/dtools/datest.ado
+f files/dtools/datest.dlg
+f files/dtools/datest.sthlp
+f files/dtools/dimean.ado
+f files/dtools/dimean.dlg
+f files/dtools/dimean.sthlp
+f files/dtools/diprop.ado
+f files/dtools/diprop.dlg
+f files/dtools/diprop.sthlp
+f files/dtools/imean.ado
+f files/dtools/imean.dlg
+f files/dtools/imean.sthlp
+f files/dtools/iprop.ado
+f files/dtools/iprop.dlg
+f files/dtools/iprop.sthlp
+f files/dtools/quinsh.ado
+f files/dtools/quinsh.dlg
+f files/dtools/quinsh.sthlp
+f files/dtools/sjdensity.ado
+f files/dtools/sjdensity.dlg
+f files/dtools/sjdensity.sthlp
+f files/dtools/sjdistrub.ado
+f files/dtools/sjdistrub.dlg
+
+
+f files/inequality/clorenz.ado
+f files/inequality/clorenz.dlg
+f files/inequality/clorenz.sthlp
+f files/inequality/clorenzl.ado
+f files/inequality/clorenzm.ado
+f files/inequality/diatkinson.ado
+f files/inequality/diclorenz.ado
+f files/inequality/diclorenz.dlg
+f files/inequality/diclorenz.sthlp
+f files/inequality/dicvar.ado
+f files/inequality/dientropy.ado
+f files/inequality/digini.ado
+f files/inequality/dineq.ado
+f files/inequality/dineq.dlg
+f files/inequality/dineq.sthlp
+f files/inequality/dinineq.ado
+f files/inequality/iatkinson.ado
+f files/inequality/icvar.ado
+f files/inequality/ientropy.ado
+f files/inequality/igini.ado
+f files/inequality/imdi.ado
+f files/inequality/imdi.dlg
+f files/inequality/imdi.sthlp
+f files/inequality/ineq.ado
+f files/inequality/ineq.dlg
+f files/inequality/ineq.sthlp
+f files/inequality/inineq.ado   
+f files/inequality/genjobatk.ado     
+f files/inequality/genjobcvar.ado    
+f files/inequality/genjobent.ado     
+f files/inequality/genjobgini.ado    
+f files/inequality/genjobgini_2d.ado 
+f files/inequality/genjobine.ado     
+f files/inequality/gen_ineq_2d.ado            
+f files/inequality/mbasicatk.ado     
+f files/inequality/mbasicatk2.ado    
+f files/inequality/mbasiccov.ado     
+f files/inequality/mbasiccov2.ado    
+f files/inequality/mbasicent.ado     
+f files/inequality/mbasicent2.ado    
+f files/inequality/mbasicgini.ado    
+f files/inequality/mbasicgini2.ado   
+f files/inequality/mbasicine.ado     
+f files/inequality/mbasicine2.ado  
+
+
+

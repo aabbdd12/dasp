@@ -1,0 +1,168 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+
+VERSION 9.2
+ 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 300
+
+
+DIALOG main, label("DASP| Esteban, Gradin and Ray polarization index (1999) --> ipoegr command") tabtitle("Main")
+
+
+BEGIN
+  GROUPBOX intvar 10     10    360  60,                      ///
+             label("Variable of interest: ")
+             
+    VARNAME  vl_var 20     +25   340   .,                   ///
+             label("Variable")
+             
+             
+           
+  TEXT     tx_var2      20    120    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+  TEXT     tx_var4      20    +25    80      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      110    @     250      .,                 ///
+           option(hgroup)            
+ 
+ TEXT     tx_var5      20    +25    80      .,                 ///
+             label("Group  number:   ") 
+    
+    
+  EDIT    en_hhgn      110    @     250      .,                 ///
+           option(gnumber)
+
+ 
+    GROUPBOX group1  390    10  360 80,                         ///
+           label("Parameter(s) and options: ")     
+  
+    TEXT txt_al     +10    +25    140      .,                 ///  
+                  label("Parameter alpha:   ")                          
+       
+    EDIT  ed_al    +160    @     160     .,                 ///
+              option(alpha)    default(0.5)    
+
+    TEXT txt_be     400    +25    160      .,                 ///  
+                  label("Parameter beta:   ")                          
+       
+    EDIT  ed_be    +160    @     160      .,                 ///
+              option(beta)    default(1.0)   
+    
+    GROUPBOX grouppar  390    120  360 120,                         ///
+           label("Group partition options: ")   
+    
+     TEXT txt_ngr    400    +25    160      .,                 ///  
+                  label("Number of groups:")                          
+       
+    EDIT  ed_ngr    +160    @     160      .,                 ///
+              option(ng)    default(4)  
+     
+    TEXT txt_nit    400    +25    160      .,                 ///  
+                  label("Maximum number of iterations:")                          
+       
+    EDIT  ed_nit    +160    @     160      .,                 ///
+              option(nitr)    default(16)  
+ 
+   TEXT txt_prc    400    +25    160      .,                 ///  
+                  label("Level of precision:   ")                          
+       
+   EDIT  ed_prc    +160    @     160      .,                 ///
+              option(prcs)    default(0.000001)  
+       
+           
+   DEFINE _x 20
+   DEFINE _y 240
+     
+  INCLUDE _bu_svyset
+END
+
+
+
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+
+
+END
+
+
+
+
+
+
+HELP hlp1,   view("help ipoegr")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "ipoegr "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+		       
+
+			
+			
+			optionarg main.vn_hhs
+			optionarg main.vn_hhg
+			optionarg main.en_hhgn	
+			
+		      if !main.ed_al.isdefault() {
+				                  optionarg main.ed_al
+						}
+
+		      if !main.ed_be.isdefault() {
+				                  optionarg main.ed_be
+						}
+                      if !main.ed_ngr.isdefault() {
+				                  optionarg main.ed_ngr
+						}
+		      if !main.ed_nit.isdefault() {
+				                  optionarg main.ed_nit
+						}
+		      if !main.ed_prc.isdefault() {
+				                  optionarg main.ed_prc
+						}
+			
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+			
+		
+			
+			
+			       
+	endoptions
+	
+	
+	
+END

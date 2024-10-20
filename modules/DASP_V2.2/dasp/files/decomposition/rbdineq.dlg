@@ -1,0 +1,412 @@
+
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                       */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+
+VERSION 9.2
+ 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 300
+
+
+DIALOG main, label("Regression-based inequality decomposition by predicted components (using the Shapley value) --> rbdineq command") tabtitle("Main")
+
+
+BEGIN
+
+ GROUPBOX intvar 10     10    360  150,                      ///
+             label("Regression and model specification")
+  TEXT tx_dv      20      25   80   .,                      ///
+        label("Dependent variable:")
+  
+  VARNAME vn_dv   20      45   80       .,                      ///
+        label("") option(dep)
+		
+  TEXT tx_iv      110      25   240   .,                      ///
+        label("Independent variables:")
+  
+  VARLIST vl_iv   110      45   250       .,                      ///
+        label("")		
+
+  TEXT     txt_mod     20    +35    40      .,                 ///  
+             label("Model:   ")     
+  
+  COMBOBOX  cb_mod      110    @     250      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_mod)  values(cb_mod_val) option(model)  ///
+              default(linear)   
+
+  GROUPBOX gb_cons   20     +20    340  50,                       /*
+                */ label("Treatment of constant")
+  CHECKBOX ck_nocons 30     +15    200  .,                   /*
+                */ label("Suppress constant term")                      /*
+                */ option("noconstant")                                 /*
+                */
+
+
+
+
+           
+  TEXT     tx_var2      20    +80    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+  
+       
+	   
+  GROUPBOX percentile 390    10    360 120,                      ///
+           label("Approach, index and option(s)")
+           
+  
+   TEXT     txt_appr     400    +25    40      .,                 ///  
+             label("Approach   ")     
+  
+  COMBOBOX  cb_appr      450    @     150      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_appr)  values(cb_appr_val) option(appr)  ///
+            default(shapley) onselchangelist(cond_change_appr)
+  
+  TEXT     txt_op1     400    +25    40      .,                 ///  
+             label("Index:   ")     
+  
+  COMBOBOX  cb_index      450    @     150      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_index)  values(cb_index_val) option(index)  ///
+            default(gini) onselchangelist(cond_change)
+			
+			
+    TEXT     txt_op1a     400     @    40      .,                 ///  
+             label("Index:   ")     
+  
+  COMBOBOX  cb_indexa      450    @     150      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_indexa)  values(cb_indexa_val) option(index)  ///
+            default(gini) 
+			
+ 	   
+  TEXT     txt_op3     610    @    40      .,                 ///  
+             label("Epsilon") 
+  
+  EDIT     edt_op3 	 660	@    70      .,                 ///  
+            default(0.5)	option(epsilon) 
+			 
+  TEXT    txt_op4     610    @    40      .,                 ///  
+             label("Theta")  
+			 			 
+  EDIT    edt_op4 	 660	@    70      .,                 ///  
+            default(0.5) option(theta)						 						 			 			  	
+          
+  TEXT     txt_met     400    +25    40      .,                 ///  
+             label("Method:   ")     
+  
+  COMBOBOX  cb_met      450    @     280      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_met)  values(cb_met_val) option(method)  ///
+            default(mean)      
+ */
+           
+   DEFINE _x 20
+   DEFINE _y 240
+
+END
+
+LIST cb_met
+BEGIN
+  Replace eliminated income source by its mean
+  Replace eliminated income source by zero 
+END
+
+LIST cb_met_val
+BEGIN
+ mean
+ zero
+END
+
+
+LIST cb_mod
+BEGIN
+  Linear           :     y  = XB + e
+  Semi-log linear : log(y) = XB + e 
+END
+
+LIST cb_mod_val
+BEGIN
+ linear
+ semilog
+END
+
+LIST cb_appr
+BEGIN
+  Shapley  approach
+  Analytical approach
+END
+
+LIST cb_appr_val
+BEGIN
+ shapley
+ analytic
+END
+
+
+LIST cb_index
+BEGIN
+  Gini index
+  Coefficient of variation
+  Atkinson
+  Generalized entropy  
+END
+
+LIST cb_index_val
+BEGIN
+ gini
+ cvar
+ atk
+ ge
+
+END
+
+LIST cb_indexa
+BEGIN
+  Gini index
+  Squared coefficient of variation 
+END
+
+LIST cb_indexa_val
+BEGIN
+ gini
+ scvar
+END
+
+
+SCRIPT PREINIT
+BEGIN
+	create BOOLEAN has_cond1
+	create BOOLEAN has_cond2
+	create BOOLEAN has_cond3
+    create BOOLEAN has_cond4	
+    create BOOLEAN has_conda1
+    create BOOLEAN has_conda2	
+END
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2
+	script cond3
+	script cond4
+	
+END
+
+
+SCRIPT cond1
+BEGIN
+	has_cond1.settrue
+	has_cond2.setfalse
+	has_cond3.setfalse
+	has_cond4.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.setfalse
+	has_cond2.settrue
+	has_cond3.setfalse
+	has_cond4.setfalse
+	program check_conds
+END
+
+SCRIPT cond3
+BEGIN
+	has_cond1.setfalse
+	has_cond2.setfalse
+	has_cond3.settrue
+	has_cond4.setfalse
+	program check_conds
+END
+
+SCRIPT cond4
+BEGIN
+	has_cond1.setfalse
+	has_cond2.setfalse
+	has_cond3.setfalse
+	has_cond4.settrue
+	program check_conds
+END
+
+
+LIST cond_change_appr
+BEGIN
+	script conda1
+	script conda2
+END
+
+SCRIPT conda1
+BEGIN
+	has_conda1.settrue
+	has_conda2.setfalse
+
+	program check_conds_appr
+END
+
+SCRIPT conda2
+BEGIN
+	has_conda1.setfalse
+	has_conda2.settrue
+	program check_conds_appr
+END
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1|has_cond2){
+call main.txt_op3.hide
+call main.edt_op3.hide
+call main.txt_op4.hide
+call main.edt_op4.hide
+}
+
+if has_cond3{
+call main.txt_op3.show
+call main.edt_op3.show
+call main.txt_op4.hide
+call main.edt_op4.hide
+}
+
+if has_cond4{
+call main.txt_op3.hide
+call main.edt_op3.hide
+call main.txt_op4.show
+call main.edt_op4.show
+
+}
+
+END
+
+
+
+PROGRAM check_conds_appr
+BEGIN
+
+if (has_conda1){
+call main.cb_index.show
+call main.cb_indexa.hide
+call main.txt_met.show
+call main.cb_met.show
+ call main.cb_mod.enable
+if has_cond3{
+call main.txt_op3.show
+call main.edt_op3.show
+call main.txt_op4.hide
+call main.edt_op4.hide
+}
+
+if has_cond4{
+call main.txt_op3.hide
+call main.edt_op3.hide
+call main.txt_op4.show
+call main.edt_op4.show
+
+}
+
+}
+
+if has_conda2{
+call main.cb_index.hide
+call main.cb_indexa.show
+call main.txt_met.hide
+call main.cb_met.hide
+call main.txt_op3.hide
+call main.edt_op3.hide
+call main.txt_op4.hide
+call main.edt_op4.hide
+ call main.cb_mod.setvalue  "1"  
+ call main.cb_mod.disable
+
+}
+END
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+
+
+  CHECKBOX ck_dregres 10     +35    200  .,                           /*
+                */ label("Display regression results")               /*
+                */ option("dregres")                                 /*
+                */
+END
+
+
+
+
+
+
+
+HELP hlp1,   view("help rbdineq")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "rbdineq "
+	require  main.vl_iv
+	varlist [main.vl_iv]
+	beginoptions
+		       
+		    
+			
+			optionarg main.vn_dv
+			if !main.cb_index.isdefault() {
+		                                  optionarg main.cb_index
+			                             }	
+			if !main.cb_indexa.isdefault() {
+		                                  optionarg main.cb_indexa
+			                             }
+			optionarg main.edt_op3
+			optionarg main.edt_op4
+										 
+        	if !main.cb_appr.isdefault() {
+		                                  optionarg main.cb_appr
+			                             }	
+			if !main.cb_met.isdefault() {
+		                                  optionarg main.cb_met
+			                             }
+		    if !main.cb_mod.isdefault() {
+		                                  optionarg main.cb_mod
+			                             }								 
+			
+			optionarg main.vn_hhs
+            option main.ck_nocons             
+					
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+            optionarg resop.ck_dregres
+				
+	
+			       
+	endoptions
+	
+	
+	
+END

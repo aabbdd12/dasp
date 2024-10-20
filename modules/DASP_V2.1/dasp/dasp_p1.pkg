@@ -1,0 +1,181 @@
+* November2009 - 
+v 3
+  DASP          : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   2.1    
+d Date          : November  2009
+d Stata Version : Required  9.2 and higher
+d
+d Before using modules of this package, users have to:
+d
+d  update the executable Stata file  to Stata 9.2   or higher:
+d  http://www.stata.com/support/updates/stata9.html 
+d
+d  update the ado files:                                                          
+d  http://www.stata.com/support/updates/stata9/ado/
+d
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_p1 Distributive Analysis Stata Package: PART I
+
+
+
+f files/inequality/igini.ado
+f files/inequality/igini.hlp
+f files/inequality/igini.dlg
+
+f files/inequality/digini.ado
+f files/inequality/digini.hlp
+f files/inequality/digini.dlg
+
+f files/inequality/iatkinson.ado
+f files/inequality/iatkinson.hlp
+f files/inequality/iatkinson.dlg
+
+f files/inequality/diatkinson.ado
+f files/inequality/diatkinson.hlp
+f files/inequality/diatkinson.dlg
+
+
+f files/inequality/ientropy.ado
+f files/inequality/ientropy.hlp
+f files/inequality/ientropy.dlg
+
+f files/inequality/dientropy.ado
+f files/inequality/dientropy.hlp
+f files/inequality/dientropy.dlg
+
+f files/inequality/icvar.ado
+f files/inequality/icvar.hlp
+f files/inequality/icvar.dlg
+
+f files/inequality/dicvar.ado
+f files/inequality/dicvar.hlp
+f files/inequality/dicvar.dlg
+
+f files/inequality/inineq.ado
+f files/inequality/inineq.hlp
+f files/inequality/inineq.dlg
+
+f files/inequality/dinineq.ado
+f files/inequality/dinineq.hlp
+f files/inequality/dinineq.dlg
+
+
+f files/polarization/ipolder.ado
+f files/polarization/ipolder.hlp
+f files/polarization/ipolder.dlg
+
+f files/polarization/dipolder.ado
+f files/polarization/dipolder.hlp
+f files/polarization/dipolder.dlg
+
+f files/polarization/ipolfw.ado
+f files/polarization/ipolfw.hlp
+f files/polarization/ipolfw.dlg
+
+f files/polarization/dipolfw.ado
+f files/polarization/dipolfw.hlp
+f files/polarization/dipolfw.dlg
+
+f files/polarization/ipoegr.ado
+f files/polarization/ipoegr.hlp
+f files/polarization/ipoegr.dlg
+
+f files/polarization/dspol.ado
+f files/polarization/dspol.hlp
+f files/polarization/dspol.dlg
+
+
+
+f files/dtools/c_quantile.ado
+f files/dtools/c_quantile.hlp
+f files/dtools/c_quantile.dlg
+
+f files/dtools/cdensity.ado
+f files/dtools/cdensity.hlp
+f files/dtools/cdensity.dlg
+
+f files/dtools/cnpe.ado
+f files/dtools/cnpe.hlp
+f files/dtools/cnpe.dlg
+
+f files/dtools/quinsh.ado
+f files/dtools/quinsh.hlp
+f files/dtools/quinsh.dlg
+
+
+f files/curves/cfgt.ado
+f files/curves/cfgt.hlp
+f files/curves/cfgt.dlg
+
+f files/curves/cfgts.ado
+f files/curves/cfgts.hlp
+f files/curves/cfgts.dlg
+
+f files/curves/cfgtsm.ado
+f files/curves/cfgtsm.dlg
+
+f files/curves/cfgts2d.ado
+f files/curves/cfgts2d.hlp
+f files/curves/cfgts2d.dlg
+
+
+f files/curves/cpoverty.ado
+f files/curves/cpoverty.hlp
+f files/curves/cpoverty.dlg
+
+f files/curves/clorenz.ado
+f files/curves/clorenz.hlp
+f files/curves/clorenz.dlg
+
+f files/curves/clorenzs.ado
+f files/curves/clorenzs.hlp
+f files/curves/clorenzs.dlg
+
+f files/curves/clorenzsm.ado
+f files/curves/clorenzsm.dlg
+
+f files/curves/clorenzs2d.ado
+f files/curves/clorenzs2d.hlp
+f files/curves/clorenzs2d.dlg
+
+f files/curves/cprog.ado
+f files/curves/cprog.hlp
+f files/curves/cprog.dlg
+
+f files/curves/cprogbt.ado
+f files/curves/cprogbt.hlp
+f files/curves/cprogbt.dlg
+
+f files/curves/cdomc.ado
+f files/curves/cdomc.hlp
+f files/curves/cdomc.dlg
+
+f files/curves/cdomc2d.ado
+f files/curves/cdomc2d.hlp
+f files/curves/cdomc2d.dlg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

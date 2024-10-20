@@ -1,0 +1,570 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 3.0)          */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2021)               */
+/* Universite Laval, Quebec, Canada                                    */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+VERSION 15
+SYNCHRONOUS_ONLY
+
+
+POSITION . . 900 420
+
+  DEFINE col10  10
+  DEFINE col11  20
+  DEFINE col20  450
+  DEFINE vposds 340
+  DEFINE dlg ipola
+  DEFINE  _lineD1  170
+  
+
+DIALOG main, label("DASP 3.0 | Polarization Indices --> ipola command") tabtitle("Main")
+
+
+BEGIN
+
+
+     GROUPBOX chk_per  10    10  880 60,                         ///
+           label(" Polarization indices and options: ")         ///
+  
+ 
+	TEXT txt_ind     +10    +20    140      .,                 ///  
+                  label("Polarization  index:   ")    
+				  
+    COMBOBOX  cb_index      160    @     300      .,                  ///
+             dropdownlist                                          ///
+             contents(cb_index)  values(cb_index_val) option(index)     ///
+             default(der)  onselchangelist(co_index)			  
+       
+   
+   
+   GROUPBOX chk_per2  10    60  880 110,                         ///
+           label(" Parameters and options: ")         ///
+  
+  
+  
+    TEXT      txt_al1     20    +25    100      .,                 ///  
+                  label("Parameter alpha:   ")                          
+       
+    EDIT      ed_al1    160    @     240      .,                 ///
+              option(alpha)    default(0.5)    
+           
+    CHECKBOX   chk_fast1  20    +30    260      ., ///
+    label("Use a fast approach for density estimation")  ///
+    option(fast)  
+	
+	
+   CHECKBOX ck_width1  20    +25   260 . ,                                  ///
+                 label(`"Override "optimal" bandwidth"')                   ///
+                 option("width")                                           ///
+                 onclickoff(script checkband10)  ///
+                 onclickon(script checkband11)   ///
+                 default(0)
+   
+   
+   TEXT     tx_width1  330    @       120     .,                        /*
+                */ label("Bandwidth of kernel:") 
+				
+   EDIT     en_width1  460    @       120   .,                         /*
+                */ label("Bandwidth of kernel")                         /*
+                */ numonly                                              /*
+                */ option("band") default(1.0)                               
+
+	
+	
+	
+	GROUPBOX chk_per13  10    60  430 110,                        ///
+           label("Parameter(s): ")     
+  
+    TEXT txt_al3     +10    +25    140      .,                 ///  
+                  label("Parameter alpha:   ")                          
+       
+    EDIT  ed_al3    +160    @     160     .,                 ///
+              option(alpha)    default(0.5)    
+
+    TEXT txt_be3     20    +25    160      .,                 ///  
+                  label("Parameter beta:   ")                          
+       
+    EDIT  ed_be3    +160    @     160      .,                 ///
+              option(beta)    default(1.0)   
+    
+	
+	 GROUPBOX chk_per23  440    60  430 110,                        ///
+	                         ///
+           label("Group partition options: ")   
+    
+     TEXT txt_ngr3    450    +25    200      .,                 ///  
+                  label("Number of groups:")                          
+       
+    EDIT  ed_ngr3    +220    @     160      .,                 ///
+              option(ng)    default(4)  
+     
+    TEXT txt_nit3    450    +25    200      .,                 ///  
+                  label("Maximum number of iterations:")                          
+       
+    EDIT  ed_nit3    +220    @     160      .,                 ///
+              option(nitr)    default(16)  
+ 
+   TEXT txt_prc3    450    +25    200      .,                 ///  
+                  label("Level of precision:   ")                          
+       
+   EDIT  ed_prc3    +220    @     160      .,                 ///
+              option(prcs)    default(0.000001)  
+
+	
+    TEXT      txt_al4    20    85    100      .,                 ///  
+                  label("Parameter alpha:   ")                          
+       
+    EDIT      ed_al4    160    @     240      .,                 ///
+              option(alpha)    default(0.5)    
+           
+
+	
+	 CHECKBOX   chk_fast4  20    +30    260      ., ///
+    label("Use a fast approach for density estimation")  ///
+    option(fast)  
+	
+	
+   CHECKBOX ck_width4  20    +25   260 . ,                                  ///
+                 label(`"Override "optimal" bandwidth"')                   ///
+                 option("width")                                           ///
+                 onclickoff(script checkband40)  ///
+                 onclickon(script checkband41)   ///
+                 default(0)
+   
+   
+   TEXT     tx_width4  330    @       120     .,                        /*
+                */ label("Bandwidth of kernel:") 
+				
+   EDIT     en_width4  460    @       120   .,                         /*
+                */ label("Bandwidth of kernel")                         /*
+                */ numonly                                              /*
+                */ option("band") default(1.0)                               
+
+	
+	
+ 
+INCLUDE basic1d
+
+       
+INCLUDE dbsalo
+ 
+END
+
+
+
+SCRIPT checkband10
+BEGIN
+	      main.tx_width1.hide
+		  main.en_width1.hide
+
+END 
+
+SCRIPT checkband11
+BEGIN
+
+	      main.tx_width1.show
+		  main.en_width1.show
+
+END  
+
+SCRIPT checkband40
+BEGIN
+	      main.tx_width4.hide
+		  main.en_width4.hide
+
+END 
+
+SCRIPT checkband41
+BEGIN
+
+	      main.tx_width4.show
+		  main.en_width4.show
+
+END  
+
+
+
+DIALOG confop,  tabtitle("Confidence Interval")
+
+BEGIN
+
+
+TEXT     sp_txt  10      25      120      .,                            /*
+                */ label("Confidence level in (%) : ")  
+                
+SPINNER  sp_level    140       25      50         .,                    /*
+                */ label("Confidence level")                            /*
+                */ min(10) default(95) max(99)                          /*
+                */ option(level)
+TEXT     ci_txt  10      +25      120     .,                            /*
+                */ label("Confidence interval      : ") 
+                
+COMBOBOX cb_ci       140    @   200      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)             
+
+                                        
+
+
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+                                        
+SPINNER  sp_dec    10       25      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(6) max(12)                            /*
+                */ option(dec)
+
+TEXT     sp_txt  70      25      200      .,                            /*
+                */ label("Number of decimals")  
+               
+END
+
+
+
+
+
+
+LIST cb_index
+BEGIN
+  Duclos Esteban and Ray index of polarization (2004)
+  Foster and Wolfson (1992)
+  Esteban, Gradin and Ray (1999)
+  INaki Permanyer (2008)
+END
+
+LIST cb_index_val
+BEGIN
+  der
+  fw
+  egr
+  ip
+END
+
+
+
+LIST co_index
+BEGIN
+        script index1
+        script index2
+        script index3
+		script index4
+END
+
+
+SCRIPT index1
+BEGIN
+        has_index1.settrue
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+        program check_index
+END
+
+SCRIPT index2
+BEGIN
+        has_index1.setfalse
+        has_index2.settrue
+        has_index3.setfalse
+		has_index4.setfalse
+        program check_index
+END
+
+SCRIPT index3
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.settrue
+		has_index4.setfalse
+        program check_index
+END
+
+SCRIPT index4
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.settrue
+        program check_index
+END
+
+
+
+
+
+
+PROGRAM check_index
+BEGIN
+if  has_index1  {
+call main.txt_al1.show 
+call main.ed_al1.show  
+call main.chk_fast1.show
+call main.chk_per2.show
+
+call main.chk_per13.hide 
+call main.txt_al3.hide                           
+call main.ed_al3.hide     
+call main.txt_be3.hide  
+                         
+call main.ed_be3.hide    
+call main.chk_per23.hide 
+
+call main.txt_ngr3.hide                            
+call main.ed_ngr3.hide
+call main.txt_nit3.hide
+
+call main.ed_nit3.hide
+call main.txt_prc3.hide
+call main.ed_prc3.hide 
+
+call main.txt_al4.hide 
+call main.ed_al4.hide  
+call main.chk_fast4.hide
+
+call main.ck_width1.show
+if main.ck_width1 {
+call main.tx_width1.show
+call main.en_width1.show
+}
+
+call main.ck_width4.hide
+if main.ck_width4 {
+call main.tx_width4.hide
+call main.en_width4.hide
+}
+
+}
+
+if has_index2  {
+
+call main.txt_al1.hide 
+call main.ed_al1.hide  
+call main.chk_fast1.hide
+
+call main.chk_per2.hide
+
+call main.chk_per13.hide 
+call main.txt_al3.hide                           
+call main.ed_al3.hide     
+call main.txt_be3.hide  
+                         
+call main.ed_be3.hide    
+call main.chk_per23.hide 
+
+call main.txt_ngr3.hide                            
+call main.ed_ngr3.hide
+call main.txt_nit3.hide
+
+call main.ed_nit3.hide
+call main.txt_prc3.hide
+call main.ed_prc3.hide 
+
+call main.txt_al4.hide 
+call main.ed_al4.hide  
+call main.chk_fast4.hide
+
+call main.ck_width1.hide
+call main.tx_width1.hide
+call main.en_width1.hide
+
+
+call main.ck_width4.hide
+call main.tx_width4.hide
+call main.en_width4.hide
+
+
+
+
+
+}
+
+if ( has_index3 ){
+
+call main.txt_al1.hide 
+call main.ed_al1.hide  
+call main.chk_fast1.hide  
+call main.chk_per2.hide 
+call main.chk_per13.show 
+call main.txt_al3.show                           
+call main.ed_al3.show     
+call main.txt_be3.show                           
+call main.ed_be3.show    
+call main.chk_per23.show 
+call main.txt_ngr3.show                            
+call main.ed_ngr3.show
+call main.txt_nit3.show
+call main.ed_nit3.show
+call main.txt_prc3.show
+call main.ed_prc3.show  
+
+call main.txt_al4.hide 
+call main.ed_al4.hide  
+call main.chk_fast4.hide  
+
+call main.ck_width1.hide
+call main.tx_width1.hide
+call main.en_width1.hide
+
+
+call main.ck_width4.hide
+call main.tx_width4.hide
+call main.en_width4.hide
+
+}
+
+if ( has_index4 ){
+
+call main.txt_al1.hide 
+call main.ed_al1.hide  
+call main.chk_fast1.hide 
+call main.chk_per2.show 
+call main.chk_per13.hide 
+call main.txt_al3.hide                           
+call main.ed_al3.hide     
+call main.txt_be3.hide                           
+call main.ed_be3.hide    
+call main.chk_per23.hide 
+call main.txt_ngr3.hide                            
+call main.ed_ngr3.hide
+call main.txt_nit3.hide
+call main.ed_nit3.hide
+call main.txt_prc3.hide
+call main.ed_prc3.hide   
+
+call main.txt_al4.show 
+call main.ed_al4.show  
+call main.chk_fast4.show  
+
+call main.ck_width1.hide
+if main.ck_width1 {
+call main.tx_width1.hide
+call main.en_width1.hide
+}
+
+
+call main.ck_width4.show
+if main.ck_width4 {
+call main.tx_width4.show
+call main.en_width4.show
+}
+
+}
+
+END
+
+
+
+
+INCLUDE progra
+
+SCRIPT PREINIT
+BEGIN
+	    create BOOLEAN has_index1
+        create BOOLEAN has_index2
+        create BOOLEAN has_index3
+		create BOOLEAN has_index4
+	    program initialize
+END
+
+
+
+
+PROGRAM initialize
+BEGIN
+	put "Init_DB , ndb(ipola)"
+	stata hidden
+END
+
+
+PROGRAM POSTINIT_PROGRAM
+BEGIN
+        put "adasp2"
+        stata hidden
+END
+
+
+
+HELP hlp1,   view("help ipola")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+
+        put "ipola "
+		require  main.vn_y
+        varlist [main.vn_y]
+        beginoptions
+                       
+
+                        optionarg main.vn_hs
+                        optionarg main.vn_gr   
+                        optionarg main.cb_index
+
+						
+						if  has_index1  {
+						optionarg main.ed_al1  
+						optionarg main.chk_fast1
+						optionarg main.en_width1
+						}
+
+						if ( has_index3 ){
+						optionarg main.ed_al3                  
+						optionarg main.ed_be3                           
+						optionarg main.ed_ngr3
+						optionarg main.ed_nit3
+						optionarg main.ed_prc3  
+						}
+
+						if ( has_index4 ){ 
+						optionarg main.ed_al4  
+						optionarg main.chk_fast4 
+						optionarg main.en_width1
+						}
+						
+                        if !resop.sp_dec.isdefault() {
+                        optionarg resop.sp_dec
+                        }
+                        
+						
+                        if !confop.sp_level.isdefault() {
+                                                         optionarg confop.sp_level
+                                                         }
+                                                 
+                        if !confop.cb_ci.isdefault()    {
+                                                         optionarg confop.cb_ci
+                                                        } 
+                        
+                       
+					 
+	
+						optionarg main.dbsamex	
+
+END

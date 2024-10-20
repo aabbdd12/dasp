@@ -1,0 +1,396 @@
+/*
+ * DADSendMail.java
+ *
+ * Created on September 22, 2002, 9:04 PM
+ */
+
+package Mimap;
+
+
+import java.sql.*;
+import java.io.*;
+import java.text.*;
+import java.util.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.naming.*;
+import javax.rmi.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import Mimap.DADUser;
+
+
+public class DADSendMail extends HttpServlet {
+    
+    private Context ctx;
+    //    private MailListHome home;
+    //private PrintWriter out;
+    private Session session;
+    
+    
+    public DADSendMail() throws NamingException {
+        Properties props = System.getProperties();
+       props.put("mail.smtp.host","smtp.ecn.ulaval.ca");
+      // props.put("mail.smtp.host","smtp2.sympatico.ca");
+        this.session = Session.getInstance(props,null);
+    }
+    
+    
+    
+    public void doGet(HttpServletRequest request,
+    HttpServletResponse response)
+    throws IOException, ServletException {
+        response.setContentType("text/html");
+        doPost(request,response);
+    }
+    
+    
+    public void doPost(HttpServletRequest request,
+    HttpServletResponse response)
+    throws IOException, ServletException {
+        response.setContentType("text/html");
+        String subject;
+        String message;
+        String user;
+        String projid;
+        String from = "dad@ecn.ulaval.ca";
+        
+        ServletOutputStream out = response.getOutputStream();
+        
+        // ENVOIE DE MAIL LORS DE LA CREATION D'UN UTILISATEUR
+        // ***************************************************
+        String action = request.getParameter("action");
+        
+         if (action.compareTo("NEWUSER")==0) {
+            ResultSet rs;
+            DADUser userservlet = new DADUser();
+            HttpSession session = request.getSession();
+            System.out.println("SENDING MAIL TO NEW USER");
+            String userid = (String)session.getAttribute("useridnewuser");
+
+            rs = userservlet.queryUser("USERID",userid);
+            try{
+
+
+                while(rs.next()) {
+                    String username = rs.getString("USERNAME");
+                    String password =  rs.getString("PASSWORD");
+                    String usermail=  rs.getString("EMAIL");
+
+
+                    subject = "DAD Registration : Your account information";
+
+                    message = ("Hello, \n\n");
+                    message += ("A DAD account has been sucessfully created for you. You can now connect to our network using the following information:\n");
+                    message += ("Username= ");
+                    message += username.toLowerCase();
+                    message += ("\nPassword= ");
+                    message += password.toLowerCase();
+                    message += ("\n\n");
+                    message += ("With our best wishes");
+
+
+                    try {
+
+                        sendMessage(message, subject, usermail, from );
+                        out.println("Thank ! Your DAD Informations has been send to your E-Mail Account\n");
+
+                    }
+                    catch(Exception e) {
+                        out.println(e.toString());
+                        //    System.out.println(e.toString());
+                    }// end catch
+                } // end while
+
+
+            } // end try
+            catch(Exception e) {
+                //    System.out.println(e.toString());
+            }// end catch
+
+        } // end if
+        
+          if (action.compareTo("NEWUSERPEP")==0) {
+            ResultSet rs;
+            DADUser userservlet = new DADUser();
+            HttpSession session = request.getSession();
+            String userid = (String)session.getAttribute("useridnewuser");
+
+            rs = userservlet.queryUser2("USERID",userid);
+            try{
+
+
+                while(rs.next()) {
+                    String username = rs.getString("USERNAME");
+                    String password =  rs.getString("PASSWORD");
+                    String usermail=  rs.getString("EMAIL");
+
+
+                    subject = "PEP-Network Information : Your account information";
+
+                    message = ("Hello, \n\n");
+                    message += ("A PEP account has been sucessfully created for you. You can now connect to our network using the following information:\n");
+                    message += ("Username= ");
+                    message += username.toLowerCase();
+                    message += ("\nPassword= ");
+                    message += password.toLowerCase();
+                    message += ("\n\n");
+                    message += ("The PEP web site can be reached at: http://www.pep-net.org\n\n");
+                    message += ("\n\n");
+                    message += ("With our best wishes");
+
+
+                    try {
+
+                        sendMessage(message, subject, usermail, from );
+                        out.println("Thank ! Your PEP Informations has been send to your E-Mail Account\n");
+
+                    }
+                    catch(Exception e) {
+                        out.println(e.toString());
+                        //    System.out.println(e.toString());
+                    }// end catch
+                } // end while
+
+
+            } // end try
+            catch(Exception e) {
+                //    System.out.println(e.toString());
+            }// end catch
+
+        } // end if
+        
+
+         if (action.compareTo("NEWUSERFROMADMIN")==0) {
+            ResultSet rs;
+            DADUser userservlet = new DADUser();
+            HttpSession session = request.getSession();
+            
+            String userid = (String)session.getAttribute("newuserid");
+            
+            rs = userservlet.queryUser2("USERID",userid);
+            try{
+               
+                
+                while(rs.next()) {
+                    String username = rs.getString("USERNAME");
+                    String password =  rs.getString("PASSWORD");
+                    String usermail=  rs.getString("EMAIL");
+                    
+                    
+                    subject = "CIRPEE Info : Votre compte CIRPEE";
+                    
+                    message = ("Bonjour, \n\n");
+                    message += ("Un compte CIRPÉE a été créé pour vous. Vous pouvez maintenant vous connecter avec les informations suivantes :\n\n");
+                    message += ("Utilisateur= ");
+                    message += username.toLowerCase();
+                    message += ("\nMot de passe= ");
+                    message += password.toLowerCase();
+                    message += ("\n\n");
+                    message += ("Le site CIRPÉE se trouve à l'adresse suivante : http://www.cirpee.org\n\n");
+                    
+                    
+                    try {
+                        
+                        sendMessage(message, subject, usermail, from );
+                        
+                        out.println("Les informations CIRPÉE ont été envoyées à l'adresse suivante :"+ usermail +" \n");
+                        
+                    }
+                    catch(Exception e) {
+                        out.println(e.toString());
+                        //    System.out.println(e.toString());
+                    }// end catch
+                } // end while
+                
+                
+            } // end try
+            catch(Exception e) {
+                //    System.out.println(e.toString());
+            }// end catch
+            
+        } // end if
+        
+        if (action.compareTo("RECALLUSER")==0) {
+            ResultSet rs;
+            DADUser userservlet = new DADUser();
+            HttpSession session = request.getSession();
+            Enumeration enum = request.getParameterNames();
+            enum.nextElement();
+            out.println("<td width=\"597\" valign=\"top\" height=\"1\" bgcolor=\"#E4E9FF\"><font color=\"#000080\"><font size=\"2\" face=\"Tahoma\"> <b>Envoie message à ... </b> <br><br>");
+
+            while (enum.hasMoreElements()) 
+            {
+        
+            String userid = (String)enum.nextElement();
+            //session.setAttribute("useridrecalluser",String.valueOf(userid));
+           // String userid = (String)session.getAttribute("useridrecalluser");
+
+            rs = userservlet.queryUser2("USERID",userid);
+            try{
+
+
+                while(rs.next()) {
+                    String username = rs.getString("USERNAME");
+                    String password =  rs.getString("PASSWORD");
+                    String usermail=  rs.getString("EMAIL");
+                    
+
+                    subject = "DAD Rappel : Votre compte DAD";
+                    
+                    message = ("Bonjour, \n\n");
+                    message += ("Ce message est pour vous rappeler qu'un compte DAD a été créé pour vous. Vous pouvez maintenant vous connecter avec les informations suivantes :\n\n");
+                    message += ("Utilisateur= ");
+                    message += username.toLowerCase();
+                    message += ("\nMot de passe= ");
+                    message += password.toLowerCase();
+                    message += ("\n\n");
+                    message += ("Le site CIRPÉE se trouve à l'adresse suivante : http://www.cirpee.org\n\n");
+                    
+
+                    try {
+
+                        sendMessage(message, subject, usermail, from );
+                        out.println(usermail  +"<br>");
+                                
+                    }
+                    catch(Exception e) {
+                        out.println(e.toString());
+                        //    System.out.println(e.toString());
+                    }// end catch
+                } // end while
+
+
+            } // end try
+            catch(Exception e) {
+                //    System.out.println(e.toString());
+            }// end catch
+         } // end while
+        } // end if
+
+         else if (action.compareTo("FORGOTPASSWORD")==0) {
+            ResultSet rs;
+            DADUser userservlet = new DADUser();
+            
+            String firstname = request.getParameter("firstname");
+            String lastname = request.getParameter("lastname");
+            String email = request.getParameter("email");
+            int flag=0;
+            rs = userservlet.queryUser(firstname,lastname,email);
+            try{
+                
+               
+                while(rs.next()) {
+                    flag=1;
+                    String username = rs.getString("USERNAME");
+                    String password =  rs.getString("PASSWORD");
+                    String usermail=  rs.getString("EMAIL");
+                    
+                    
+                   subject = "DAD Information : Your personal information";
+                     
+                   message = ("Hello, \n\n");
+                     message += ("A DAD account is available for you. You can now connect to our network using the following information:\n");
+                    message += ("User= ");
+                    message += username.toLowerCase();
+                    message += ("\nPassword= ");
+                    message += password.toLowerCase();
+                    message += ("\n\n");
+                    
+                    
+                    try {
+                        
+                        sendMessage(message, subject, usermail, from );
+                        //out.println("Vos informations CIRPÉE ont été envoyées à votre adresse E-Mail \n");
+                        out.println(" <script language=\"javascript\"> function info() { alert(\"Please check your mail to get your personal information\",\"INFO\"); window.location.href(\"../JSP/ECNLogin.jsp\") } </script> <script language=\"javascript\"> info() </script>");
+                    }
+                    catch(Exception e) {
+                        out.println(e.toString());
+                        //    System.out.println(e.toString());
+                    }// end catch
+                } // end while
+                  
+            } // end try
+          catch(Exception e) {
+                        out.println(e.toString());
+                        //    System.out.println(e.toString());
+                    }// end catch  
+            
+        } // end if
+
+         
+       
+    }
+    
+    boolean sendMessage(String mess, String subject, String email, String from) {
+        try {
+            Message message = new MimeMessage(this.session);
+            message.setFrom(new InternetAddress(from));
+            message.setRecipients(Message.RecipientType.TO, new InternetAddress[] { new InternetAddress(email) });
+            message.setSubject(subject);
+            message.setContent(mess, "text/plain");
+            
+            Transport.send(message);
+            return true;
+        }
+        catch (Exception e) {
+            
+            return false;
+        }
+        
+    }
+    
+       void sendMessageDirectlyNewMemberInPEP(String userid) {
+            System.out.println("SEND MAIL TO PEP");
+            ResultSet rs;
+            DADUser userservlet = new DADUser();
+            String from = "pep@ecn.ulaval.ca";
+       
+            rs = userservlet.queryUserInPEP2("USERID",userid);
+            try{
+
+
+                while(rs.next()) {
+                    String username = rs.getString("USERNAME");
+                    String password =  rs.getString("PASSWORD");
+                    String usermail=  rs.getString("EMAIL");
+
+
+                    String subject = "PEP-Network Information : Your account information";
+
+                    String message = ("Hello, \n\n");
+                    message += ("A PEP account has been sucessfully created for you. You can now connect to our network using the following information:\n");
+                    message += ("Username= ");
+                    message += username.toLowerCase();
+                    message += ("\nPassword= ");
+                    message += password.toLowerCase();
+                    message += ("\n\n");
+                    message += ("The PEP web site can be reached at: http://www.pep-net.org\n\n");
+                    message += ("\n\n");
+                    message += ("With our best wishes");
+
+
+                    try {
+
+                        sendMessage(message, subject, usermail, from );
+                        //out.println("Thank ! Your PEP Informations has been send to your E-Mail Account\n");
+
+                    }
+                    catch(Exception e) {
+                        //out.println(e.toString());
+                        //    System.out.println(e.toString());
+                    }// end catch
+                } // end while
+
+
+            } // end try
+            catch(Exception e) {
+                //    System.out.println(e.toString());
+            }// end catch
+
+  }
+
+       
+}
+
+

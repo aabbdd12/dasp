@@ -1,0 +1,17 @@
+* APR2018 - 
+v 3
+d {bf:TTRWEL     : Tobacc tax Reform and WELl-being}
+d Version       : Version       1.00  
+d Date          : December          2018
+d Stata Version : Required  14.0 and higher
+d
+d TTRWEL is a product of the World Bank.
+d
+d Authors : {bf:Abdelkrim Araar(a)} {bf:Fuchs Tarlovsky,Alan(b)} 
+d
+d Emails  : (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  (b) {browse "mailto:afuchs@worldbank.org":afuchs@worldbank.org}   
+d
+d
+
+p ttrwel      Stata Toolkit for the study of the Tabacco tax Reform(s) and WELl-being
+

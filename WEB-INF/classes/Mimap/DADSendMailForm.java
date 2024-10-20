@@ -1,0 +1,145 @@
+
+package Mimap;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+import java.util.*;
+
+public class DADSendMailForm extends HttpServlet {
+
+private String smtpHost;
+
+// Initialize the servlet with the hostname of the SMTP server
+// we'll be using the send the messages
+
+public void init(ServletConfig config)
+throws ServletException {
+super.init(config);
+
+smtpHost = config.getInitParameter("smtpHost");
+smtpHost = "";
+}
+
+public void doPost(
+HttpServletRequest request,
+HttpServletResponse response
+)
+throws ServletException, java.io.IOException {
+String from = request.getParameter("from");
+String to = request.getParameter("to");
+String cc = "";//request.getParameter("cc");
+String bcc = "";//request.getParameter("bcc");
+//String smtp = request.getParameter("smtphost");
+String subject =  request.getParameter("subject");
+String filename = request.getParameter("file");
+String text = request.getParameter("body");
+HttpSession ses = request.getSession();
+PrintWriter writer = response.getWriter();
+
+if (subject == null)
+subject = "Null";
+if (text == null)
+text = "No message";
+
+
+String status;
+
+try {
+// Create the JavaMail session
+
+ Properties properties = System.getProperties();
+ properties.put("mail.smtp.host","smtp.ulaval.ca");
+// properties.put("mail.smtp.host","smtp1.sympatico.ca");
+ Session session = Session.getInstance(properties,null);
+        
+        
+         
+// Construct the message
+MimeMessage message = new MimeMessage(session);
+
+// Set the from address
+Address fromAddress = new InternetAddress(from);
+message.setFrom(fromAddress);
+
+// Parse and set the recipient addresses
+Address[] toAddresses = (Address[]) ses.getAttribute("to");//InternetAddress.parse(to);
+message.setRecipients
+(Message.RecipientType.TO,toAddresses);
+
+
+Address[] ccAddresses = InternetAddress.parse(cc);
+message.setRecipients
+(Message.RecipientType.CC,ccAddresses);
+
+Address[] bccAddresses = InternetAddress.parse(bcc);
+message.setRecipients
+(Message.RecipientType.BCC,bccAddresses);
+
+// Set the subject and text
+message.setSubject(subject);
+
+
+message.setText(text);
+File file = new File(filename);
+//if (!file.exists())
+// Transport.send(message);
+
+// Attach file with message
+//writer.println("<h2> file passed = "+filename);
+
+if (file.exists())
+{
+// create and fill the first message part
+MimeBodyPart mbp1 = new MimeBodyPart();
+mbp1.setText(text);
+
+// create the second message part
+MimeBodyPart mbp2 = new MimeBodyPart();
+
+// attach the file to the message
+FileDataSource fds = new FileDataSource(filename);
+mbp2.setDataHandler(new DataHandler(fds));
+mbp2.setFileName(fds.getName());
+
+// create the Multipart and its parts to it
+Multipart mp = new MimeMultipart();
+mp.addBodyPart(mbp1);
+mp.addBodyPart(mbp2);
+
+// add the Multipart to the message
+message.setContent(mp);
+}
+else
+{
+message.setText(text);
+}
+
+
+// send the message
+Transport.send(message);
+
+status = "<h1>message envoyé.</h1>";
+
+} catch (AddressException e) {
+status = "Erreur lors du parcours des mails à envoyer. " + e;
+} catch (SendFailedException e) {
+status = "<h1>Sorry,</h1><h2>Erreur dans l'envoie des messages .</h2>" + e;
+} catch (MessagingException e) {
+status = "There was an unexpected error. " + e;
+}
+
+// Output a status message
+response.setContentType("text/html");
+
+writer.println("<html><head><title>DAD</title></head>");
+writer.println("<body><p><h2>" + status + "</h2></p></body></html>");
+
+writer.close();
+}
+}
+
+

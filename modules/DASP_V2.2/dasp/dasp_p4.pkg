@@ -1,0 +1,80 @@
+
+* June2012 - 
+v 3
+  DASP          : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   2.2   
+d Date          : November  2012
+d Stata Version : Required  10.0 and higher
+d
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_p4 Distributive Analysis Stata Package: PART IV
+
+f files/curves/cdf.ado
+f files/curves/cdf.hlp
+f files/curves/cdf.dlg
+
+f files/curves/cdomc.ado
+f files/curves/cdomc.hlp
+f files/curves/cdomc.dlg
+
+f files/curves/cdomc2d.ado
+f files/curves/cdomc2d.hlp
+f files/curves/cdomc2d.dlg
+
+f files/curves/cdomc2r.ado
+f files/curves/cdomc2r.hlp
+f files/curves/cdomc2r.dlg
+
+f files/povelas/efgtgro.ado
+f files/povelas/efgtgro.hlp
+f files/povelas/efgtgro.dlg
+
+f files/povelas/efgtine.ado
+f files/povelas/efgtine.hlp
+f files/povelas/efgtine.dlg
+
+f files/poverty/imdp_afi.ado
+f files/poverty/imdp_afi.dlg
+f files/poverty/imdp_afi.hlp
+
+f files/poverty/imdp_bci.ado
+f files/poverty/imdp_bci.dlg
+f files/poverty/imdp_bci.hlp
+
+f files/poverty/imdp_cmr.ado
+f files/poverty/imdp_cmr.dlg
+f files/poverty/imdp_cmr.hlp
+
+f files/poverty/imdp_ewi.ado
+f files/poverty/imdp_ewi.dlg
+f files/poverty/imdp_ewi.hlp
+
+f files/poverty/imdp_ihi.ado
+f files/poverty/imdp_ihi.dlg
+f files/poverty/imdp_ihi.hlp
+
+f files/poverty/imdp_mfi.ado
+f files/poverty/imdp_mfi.dlg
+f files/poverty/imdp_mfi.hlp
+
+f files/poverty/imdp_tsu.ado
+f files/poverty/imdp_tsu.dlg
+f files/poverty/imdp_tsu.hlp
+
+f files/poverty/imdp_uhi.ado
+f files/poverty/imdp_uhi.dlg
+f files/poverty/imdp_uhi.hlp
+
+f files/poverty/imoda.ado
+f files/poverty/imoda.dlg
+f files/poverty/imoda.hlp
+

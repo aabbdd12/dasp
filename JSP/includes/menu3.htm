@@ -1,0 +1,62 @@
+<html>
+
+<head>
+<title>Menu</title>
+</head>
+
+<body>
+
+<script language="JavaScript1.2" src="../popouttext.js">
+</script><script language="JavaScript1.2">
+mymenu = new POTMenu
+// Defines the size of the main menu items, width and height
+mymenu.mainmenuitemsize(128,22)
+// Images that make up the border of the main menu. Optional.
+mymenu.mainborderimages("images/clearpixel.gif","images/clearpixel.gif","images/topmenu.gif","images/bottommenu.gif")
+// Corners of the images that make up the main menu border.
+mymenu.mainbordercorners("images/clearpixel.gif","images/clearpixel.gif","images/clearpixel.gif","images/clearpixel.gif")
+// Left width, right width and height of the top and bottom of the border
+mymenu.mainborderdimensions(1,1,15)
+// These lines are for the sub menu borders
+mymenu.subborderimages("images/blackpixel.gif","images/blackpixel.gif","images/subtop.gif","images/subbottom.gif")
+mymenu.subbordercorners("images/subtop.gif","images/subtop.gif","images/subbottom.gif","images/subbottom.gif")
+mymenu.subborderdimensions(1,1,15)
+// Main menu cell color
+mymenu.mainmenucolor("#90A1B9")
+// Sub menu cell color
+mymenu.submenucolor("#90A1B9")
+// Arrow gif
+mymenu.mainpreimage("images/marrow.gif","",10,19);
+// pop out graphic
+mymenu.subpreimage("images/marrow.gif","",10,19);
+// Graphical "join" between a menu and its sub menu. Optional
+//mymenu.definejoin("images/join.gif",25)
+// Centers text for Netscape 4.7
+mymenu.netscapeadjust(3,3)
+// The image that is show between the main menu items
+mymenu.definemainspacer("images/creampixel.gif",1)
+// The image that is show between the sub menu items
+mymenu.definesubspacer("images/blackpixel.gif",1)
+// This line is required here
+mymenu.startMenu()
+// Define the main menu.
+mymenu.addMenu("login","<b>Login</b>", 'CIRLogin.jsp" target="principal')
+mymenu.addMenu("logout","<b>Logout</b>", 'http://www.cirpee.org" target="_parent' )
+mymenu.addMenu("mapage","<b>Ma page</b>", 'CIRMyPage.jsp" target="principal')
+mymenu.addMenu("adresse","<b>Carnet d'adresses</b>", 'CIRSearchUserPanelExtranet.jsp" target="principal')
+mymenu.addMenu("forum","<b>Forums</b>", '../JSP/forum/ECNUserListForum.jsp" target="principal')
+mymenu.addMenu("memo","<b>Envoyer un memo</b>", 'ECNUserCreateMemo.jsp" target="principal')
+mymenu.addMenu("email","<b>Envoyer un email</b>", 'ECNUserCreateMail.jsp" target="principal')
+mymenu.addMenu("per-info","<b>Modifier mes info.</b>", 'CIRPersonalSeting.jsp" target="principal')
+
+
+// This line is required after the main menu is defined.
+mymenu.showMainMenu()
+
+// This line is required after all menu definitions are finished
+mymenu.showMenu()
+</script>
+
+</body>
+
+</html>

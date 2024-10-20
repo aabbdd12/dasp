@@ -1,0 +1,175 @@
+
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.0)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2010)          */
+/* Universit Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/* cpoverty.dlg                                                          */
+/*************************************************************************/
+
+
+VERSION 9.2
+
+
+
+INCLUDE graph_header
+INCLUDE header
+
+
+
+
+DIALOG main, label("DASP|Poverty gap and cumulative poverty gap curves --> cpoverty command")  tabtitle("Main")
+
+
+BEGIN
+  
+  GROUPBOX intvar 10     10    360  60,                      ///
+           label("Variable(s) of interest: ")
+           
+  VARLIST  vl_var 20     +25   340   .,                   ///
+           label("Variables")         
+           
+  TEXT     tx_var2      20    140    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+ 
+  TEXT     tx_var4      20    +25    80      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      110    @     250      .,                 ///
+           option(hgroup)            
+
+  GROUPBOX percentile 390    10    360 80,                      ///
+           label("Type of curve(s)")
+           
+  CHECKBOX chk_var1     400    +25    80      .,                 ///  
+             label("Type:   ")                                   ///      
+  onclickon(main.cb_type.enable)                                 ///
+  onclickoff(main.cb_type.disable)           
+  
+  COMBOBOX  cb_type      500    @     240      .,                 ///
+            dropdownlist                                          ///
+            contents(cb_type)  values(cb_type_val) option(type)  
+            
+  CHECKBOX chk_var2     400    +25    80      .,                 ///  
+             label("Difference:   ")                             ///      
+  onclickon(main.cb_dif.enable)                                  ///
+  onclickoff(main.cb_dif.disable)           
+  COMBOBOX  cb_dif      500    @     240      .,                  ///
+            dropdownlist                                          ///
+            contents(cb_dif)  values(cb_dif_val) option(dif)     
+    
+   GROUPBOX parameters 390    +60    360 100,                      ///
+           label("Parameters:") 
+
+          TEXT     ed_pl1     400    140  100 80,                 ///  
+                      label("Poverty line:   ")                         
+                   
+          EDIT     ed_pline         +110    @     220     .,      ///
+                    option(pline)  default(10000)      
+         
+          TEXT    tx_min   510    +25    80      .,                 ///
+                    label("Minimum:   ") 		                
+             		
+         TEXT    tx_max   650    @       80      .,                     ///
+                 label("Maximum:   ") 
+         
+         TEXT txt_pl     400     +15    140 80,                 ///  
+                        label("Range of percentiles:   ")        
+         
+         EDIT    ed_min   510    @     80      .,                 ///
+                 default(0) option(min)	  	             
+             		
+         EDIT    ed_max   650    @      80      .,                 ///
+              default(1) option(max) 	   
+
+
+END
+
+
+
+
+LIST cb_type
+BEGIN
+  Poverty gap
+  Cumulative poverty gap
+END
+
+LIST cb_type_val
+BEGIN
+   pg
+  cpg
+END
+
+LIST cb_dif
+BEGIN
+  No
+  With the first curve
+END
+
+LIST cb_dif_val
+BEGIN
+ no
+ c1
+END
+
+SCRIPT ran_inon
+BEGIN
+  main.ed_min.enable 
+  main.ed_max.enable
+END
+
+SCRIPT ran_inoff
+BEGIN
+  main.ed_min.disable 
+  main.ed_max.disable
+END
+
+
+INCLUDE dasp_gr_res_opts
+
+INCLUDE gr_twoway
+
+HELP hlp1,   view("help cpoverty")
+RESET res1
+PROGRAM command
+BEGIN
+	put "cpoverty "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+			optionarg main.vn_hhs
+			optionarg main.vn_hhg
+			optionarg main.cb_type
+			optionarg main.cb_dif
+			optionarg main.ed_pline
+			optionarg main.ed_min
+			optionarg main.ed_max
+			optionarg res.fnamec
+			
+			optionarg res.fnamegs
+			optionarg res.fnamege
+			if res.chk_op1 {
+						
+						put "lres("
+						put res.chk_op1
+						put ")"
+		                       }
+		                       
+		        if !res.chk_op3 {
+						
+						put "dgra("
+						put res.chk_op3
+						put ")"
+		                       }               
+			put " " /program gr_twoway_output
+		        
+			
+	endoptions
+	
+	
+	
+END

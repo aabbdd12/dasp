@@ -1,0 +1,50 @@
+{smcl}
+{* November 2008}{...}
+{hline}
+{hi:Distributive Analysis Stata Package}{right:{bf:WIDER}}
+help for {hi:dsginis }{right:Dialog box:  {bf:{dialog dsginis}}}
+{hline}
+
+{title: Decomposition of the Gini index by income components} 
+
+{p 8 10}{cmd:dsginis}  {it:varlist}  {cmd:,} [ 
+{cmd:HSize(}{it:varname}{cmd:)} 
+{cmd:HWeight(}{it:varname}{cmd:)} 
+{cmd:DEC(}{it:string}{cmd:)}
+ ]
+ 
+
+{p}where {p_end}
+{p 8 8} {cmd:varlist} is a list of variables (income components or income sources). {p_end}
+
+
+{title:Version} 9.2 and higher.
+
+{title:Description}
+{p} The command {cmd:dsginis} decomposes the Gini index by income components. The decomposition is performed using the Shapley value. {p_end}
+
+{title:Options}
+
+{p 0 4} {cmdab:hsize}          Household size. For example, to compute inequality at the individual level, one will want to weight household-level observations by household size (in addition to sampling weights, best set in survey design). {p_end}
+
+{p 0 4} {cmdab:hweight}        The sampling weight of the household. {p_end}
+
+{p 0 4} {cmdab:appr}        By default, when a component is missing from a set, we replace it by its mean value. To replace it by zero, select the option appr(zero). {p_end}
+
+{p 0 4} {cmdab:dec}            To set the number of decimals used in the display of results. {p_end}
+
+{title:Examples}
+
+{p 4 8}{inp:. dsginis source1 source2, hsize(size)}{p_end}
+
+{title:Reference(s)}
+{p 4 4 2} Abdelkrim Araar and Jean-Yves Duclos (2008), {browse "http://132.203.59.36/DAD/pdf_files/shap_dec_aj.pdf":An algorithm for computing the Shapley Value}, Mimeo, PEP and CIRPEE, Universite Laval. {p_end} 
+An algorithm for computing the Shapley Value
+
+{title:Authors}
+Abdelkrim Araar
+Jean-Yves Duclos
+
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}

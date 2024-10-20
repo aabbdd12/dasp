@@ -1,0 +1,22 @@
+* JUNE2017 - 
+v 3
+d {bf:MSAT      : Post estimation command to estimate the ATE and ATU after the movestay Stata command}
+d Version       : Version       1.00   
+d Date          : June          2017
+d Stata Version : Required  13.0 and higher
+d
+d MSAT is a product of PEP.
+d
+d Authors : {bf:Abdelkrim Araar(a)} }
+d
+d Emails  : (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  
+d
+     
+f files/main/msat.ado
+f files/main/psmatch2.ado  
+f files/main/movestay.ado 
+f files/main/movestay_d2.ado 
+f files/main/movestay_p.ado 
+f files/main/mspredict_ar.ado  
+f files/main/msat_example.do   
+

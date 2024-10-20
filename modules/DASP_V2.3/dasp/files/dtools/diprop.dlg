@@ -1,0 +1,237 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim                       */
+/* Universite Laval, Quebec, Canada                                       */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+VERSION 9.2
+
+
+INCLUDE graph_header
+
+POSITION . . 760 300
+
+
+DIALOG main, label("DASP| Difference between mean indices --> diprop command") tabtitle("Main")
+
+
+BEGIN
+  GROUPBOX intvar       10     10    360  120,                      ///
+           label("Distribution 1: ")
+           
+  COMBOBOX  fi_d1        20   +25     100      .,                   ///
+            contents(dt_src)  dropdownlist                          ///
+            onselchange(program data_change1)  default("Data in memory")         
+                     
+           
+  FILE  file_d1      120    @     240      .,                 ///
+    label ("Browse...")    option(file1)                      ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*)
+    
+  
+           
+           
+  TEXT     tx_var2      20    +25    90      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs_d1      120    @     240      .,                 ///
+           option(hsize1) 
+  
+  EDIT     en_hhs_d1      120    @     240      .,                 ///
+           option(hsize1)    
+           
+ 
+  
+      
+ 
+ 
+ GROUPBOX intvar2 390     10    360  120,                      ///
+            label("Distribution 2: ")
+            
+   
+
+               
+               
+  COMBOBOX  fi_d2        400   +25     100      .,              ///
+            contents(dt_src)  dropdownlist                ///
+            onselchange(program data_change2)  default("Data in memory")              
+                        
+              
+    FILE  file_d2      500    @     240      .,                 ///
+    label ("Browse...")    option(file2)                        ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*)
+         
+            
+   TEXT     tx_var4      400    +25    90      .,                 ///
+            label("Size  variable:   ")  
+   VARNAME  vn_hhs_d2      500    @     240      .,                 ///
+            option(hsize2) 
+            
+   EDIT     en_hhs_d2      500    @     240      .,                 ///
+            option(hsize2)    
+                     
+            
+   
+  
+   	                   
+    
+   GROUPBOX chk_per  190    180  360 80,                         ///
+           label("Parameters and options: ")         ///
+		   
+    TEXT     tx_varg      +10    +25    80      .,                 ///
+           label("Group  variable:   ") 
+     VARNAME  vn_hhg      +90    @     250      .,                 ///
+           option(hgroup)    
+		   
+     
+ 
+END
+
+
+
+
+
+LIST dt_src
+BEGIN
+  Data in memory
+  Data in file
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROGRAM data_change1
+BEGIN
+	
+if   main.fi_d1.isdefault()  {
+                               call main.file_d1.hide
+                               
+                              
+                               call main.vn_hhs_d1.show
+                               
+                               
+                               call main.en_hhs_d1.hide
+                               
+                               
+                              }
+if  !main.fi_d1.isdefault()  {
+                               call main.file_d1.show
+                              
+                               
+			                   call main.vn_hhs_d1.hide  
+			       
+                               
+                               call main.en_hhs_d1.show
+                              }
+            
+END
+
+PROGRAM data_change2
+BEGIN
+	
+
+if   main.fi_d2.isdefault()  {
+                               call main.file_d2.hide
+                              
+                               call main.vn_hhs_d2.show
+                               
+                               
+                               call main.en_hhs_d2.hide
+                               
+                               
+                              }
+if  !main.fi_d2.isdefault()  {
+                              call main.file_d2.show
+                             
+                            
+                              call main.vn_hhs_d2.hide
+                             
+                              call main.en_hhs_d2.show
+                              }         
+END
+
+
+
+
+
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+                                        
+SPINNER  sp_dec    10       25      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(6) max(12)                            /*
+                */ option(dec)
+
+TEXT     sp_txt  70      25      100      .,                            /*
+                */ label("Number of decimals")  
+                
+CHECKBOX   chk_opd     200    @    150    .,                   ///
+             label("Display standard errors") option(dste) default(1)
+
+     
+
+END
+
+
+
+
+HELP hlp1,   view("help diprop")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "diprop "
+
+	require  main.vn_hhg
+	varlist [main.vn_hhg]
+	
+beginoptions
+
+		        optionarg main.file_d1
+                        optionarg main.vn_hhs_d1
+                        optionarg main.en_hhs_d1
+			
+ 		
+             
+			
+			optionarg main.file_d2
+			optionarg main.vn_hhs_d2
+			optionarg main.en_hhs_d2
+				
+			
+			
+			   	            if !resop.chk_opd.isdefault(){
+                        optionarg resop.chk_opd
+                        }
+                                        
+            
+                        if !resop.sp_dec.isdefault() {
+                        optionarg resop.sp_dec
+                        }
+		              
+				
+						
+
+endoptions	
+	
+END

@@ -1,0 +1,280 @@
+/************************************************************************************/
+/* ttrwel: Tobacco Tax Reform and Welfare  (Version 1.00)                           */
+/************************************************************************************/
+/* Conceived  by Dr. Araar Abdelkrim and Alan Fuchs				                    */
+/* World Bank and Universite Laval, Quebec, Canada                       	        */
+/* email : aabd@ecn.ulaval.ca                                            			*/
+/* Phone : 1 418 656 7507                                                			*/
+/************************************************************************************/
+/*   ttrwel.dlg                                                           			*/
+/************************************************************************************/
+
+
+
+
+VERSION 9.2
+SYNCHRONOUS_ONLY
+
+INCLUDE graph_header
+POSITION . . 860 440
+
+
+DIALOG main, label("TTRWEL|  Tobacco Tax Reform and Welfare --> ttrwel command") tabtitle("Main")
+BEGIN
+  DEFINE col0  20
+  DEFINE col1 15
+  DEFINE col2 50
+  DEFINE col3 170
+  DEFINE col4 280
+  DEFINE col5 400
+  
+  DEFINE colwd0 55
+  DEFINE colwd1 105
+  DEFINE colwd2 105
+  DEFINE colwd3 80
+  
+
+  DEFINE _x _xsetbu
+  DEFINE _y _top
+  
+   
+    GROUPBOX chk_per11  10    10  410 80,                         ///
+            label("Dialog box inputs: ")           ///
+                   
+    TEXT txt_vname11     20    +20    140      .,                 ///  
+                  label("Load the inputs:   ")                           
+       
+    BUTTON  bu_load    140    @     270      .,                 ///
+    label("Load") onpush("view dialog ttrwell_ini_trw") 
+         
+         
+        TEXT  tx_dbsfile     20    +25    140      .,                 ///  
+         label("Save the inputs:")                                
+   
+   FILE  dbsamex      140    @     270      .,                    ///
+    label ("Browse...")    save option("inisave")                   ///
+    filter("MetaFile (*.trw)*.trw*.* (*.*)*.*")   
+                          
+
+   GROUPBOX chk_per1  10    110  410 160,                         ///
+           label("General information on sampled households: ")                       ///
+
+
+  
+  TEXT     tx_var      20    +30    240      .,                 ///
+   label("Househod welfare*:          ") 
+         
+  VARNAME  vn_pcexp      260    @     150      .,                 ///
+  
+  TEXT     tx_tex      20   +30    200      .,                 ///
+           label("HH expenditures on Tobacco*:   ")  
+  VARNAME  vn_tex      260    @     150      .,                 ///
+           option(tbcexp)  
+                  
+                   
+ TEXT     tx_var3      20   +30    200      .,                 ///
+           label("Household size*:   ")  
+ VARNAME  vn_hhs     260    @     150      .,                 ///
+           option(hsize)
+		   
+		   
+TEXT     tx_var4      20   +30    200      .,                 ///
+           label("Decile variable*:   ")  
+ VARNAME  vn_dec     260    @     150      .,                 ///
+           option(decile)   
+ 
+  /*
+  
+  GROUPBOX chk_per7  10    +60  410 80,                         ///
+           label("Group variable (by default is the quintiles) ")         
+                   
+ TEXT     tx_hhg      20   +30    180       .,                 ///
+           label("Household group:   ")  
+ VARNAME  vn_hhg      260 @     150      .,                 ///
+           option(hgroup)  
+                   
+*/
+
+ TEXT     txt_note1     10    +60    400      .,                 ///  
+             label("Note: The (*) indicates a required information.")     
+  
+ GROUPBOX price_elas 440    10    410 140,                      ///
+           label("Prices elasticities and standard deviations")
+		   
+		   
+ TEXT  tx_nxfile    450    +25    40      .,                 ///  
+label("File :")    	  
+            
+        
+FILE  fnamex_ela      510    @     330      .,                 ///
+label ("Browse...")    save option("felas")                   ///
+filter("MetaFile (*.dta)*.dta*.* (*.*)*.*")  		   
+
+TEXT     txt_elasm    450    +25    170      .,                 ///  
+             label("The varname elasicity medium:")     
+
+  
+EDIT  ed_velasm      620    @     220      .,                 ///
+               option(elasm)  
+
+TEXT     txt_elasl    450    +25    170      .,                 ///  
+             label("The varname elasicity lower:")     
+
+  
+EDIT  ed_velasl       620    @     220      .,                 ///
+               option(elasl) 
+			   
+			   
+TEXT     txt_elasu    450    +25    170      .,                 ///  
+             label("The varname elasicity upper:")     
+
+  
+EDIT  ed_velasu      620    @     220      .,                 ///
+               option(elasu) 
+  
+  
+  GROUPBOX princ_param 440    +60    410 60,                      ///
+           label("Simulated proportional price change ")
+		   
+		   		  
+TEXT     txt_princ   450    +25    180      .,                 ///  
+             label("The proportional change:")     
+
+  
+EDIT  ed_princ      630    @     210      .,                 ///
+               option(princ)  
+ 
+
+ GROUPBOX other_param 440    +60    410 100,                      ///
+           label("Medical expenditures and working time")
+		   
+		   		   
+
+TEXT     txt_ehealth   450    +25    180      .,                 ///  
+             label("The total medical expenditures:")     
+
+  
+EDIT  ed_ehealth      630    @     210      .,                 ///
+               option(medexp)  
+
+TEXT     txt_wtime    450    +25    180      .,                 ///  
+             label("The total years of life lost:")     
+
+  
+EDIT  ed_wtime      630    @     210      .,                 ///
+               option(tyll)  
+  
+    
+    /*    
+  CHECKBOX   chk_gvimp     440    +60    300    .,                   ///
+             label("Generate the variable of the impact on wellbeing.") default(0) option(gvimp)
+  */
+                             
+
+   DEFINE _x 40
+   DEFINE _y 410
+     
+  INCLUDE _bu_svyset
+
+END
+
+
+
+
+
+
+
+
+
+
+
+
+SCRIPT PREINIT
+BEGIN
+      
+        create BOOLEAN has_str1
+        create BOOLEAN has_str2
+        create BOOLEAN has_str3
+                
+                create BOOLEAN has_sel1
+        create BOOLEAN has_sel2
+        create BOOLEAN has_sel3
+                
+            create BOOLEAN has_mod1
+        create BOOLEAN has_mod2
+                
+                
+                
+
+                create BOOLEAN has_ini
+
+                                
+END
+
+
+INCLUDE tb_options_ttr
+INCLUDE gr_options_ttr
+INCLUDE ifin
+
+PROGRAM POSTINIT_PROGRAM
+BEGIN
+        put "attrwel2"
+        stata hidden
+END
+
+
+
+
+HELP hlp1,   view("help ttrwel")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+
+PROGRAM command
+BEGIN
+        put "ttrwel "
+		
+        require  main.vn_pcexp
+        varlist [main.vn_pcexp]
+		require  main.vn_tex
+		varlist [main.vn_tex]
+                
+                INCLUDE _ifin_pr
+
+        put " "
+     
+        beginoptions
+                
+        optionarg main.vn_hhs
+		optionarg main.vn_dec
+        /*optionarg main.chk_gvimp    */     
+        optionarg main.dbsamex
+		
+		
+		optionarg main.fnamex_ela 
+		optionarg main.ed_velasm
+		optionarg main.ed_velasl
+		optionarg main.ed_velasu
+		
+		optionarg main.ed_ehealth
+		optionarg main.ed_wtime
+        optionarg main.ed_princ
+	     
+
+		 optionarg tb_options_ttr.fnamex
+         optionarg tb_options_ttr.ed_tab 
+		
+		optionarg tb_options_ttr.sp_dec
+		optionarg tb_options_ttr.chk_ste
+		
+        optionarg gr_options_ttr.ed_gra 
+        optionarg gr_options_ttr.ed_folgr
+		put " " /program  gra_output_ttr
+            
+        endoptions 
+        
+       
+END

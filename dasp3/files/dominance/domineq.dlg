@@ -1,0 +1,436 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 3.01)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2026)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/ 
+/* dicfgt.dlg                                                          */
+/*************************************************************************/ 
+
+
+
+
+
+VERSION 15.0
+SYNCHRONOUS_ONLY
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 360
+DEFINE  _dlgwd 890
+INCLUDE header
+
+  DEFINE col10  10
+  DEFINE line10  10
+   
+  DEFINE col11  20
+  DEFINE col20  450
+  DEFINE vposds 340
+
+DIALOG main, label("DASP 3.0 | Intersections between Lorenz/Concentration curves --> domineq command") tabtitle("Main")
+
+
+BEGIN
+    GROUPBOX intvar       col10     10    430  160,                      ///
+           label("Distribution 1: ")
+           
+  COMBOBOX  fi_d1        col11   +25     120      .,                  ///
+            contents(dt_src)  values(dt_src_val)  dropdownlist                         ///
+            onselchange(program data_change1)  default(1)         
+                     
+           
+  FILE  file_d1      150    @     280      .,                 ///
+    label ("Browse...")    save option(file1)                      ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*) onchange(program getLevels)
+    
+
+  
+  TEXT     tx_var1      20    +25    150      .,                 ///
+             label("Welfare variable:   ")  
+  
+  
+   /* EDIT     en_y_d1      120    @     240      .,                 ///  */
+  COMBOBOX  en_y_d1     150    @     280        .,      ///
+        dropdown contents(levels) 
+           
+  
+  VARNAME  vn_y_d1      150    @     280      .,                 ///
+  option(wel1)
+
+  
+  
+    CHECKBOX chk_var01     20    +25    150      .,                 ///  
+             label("Ranking variable:   ")                       ///      
+  onclickon(script  ckry1)                                 ///
+  onclickoff(script ckrn1)  
+  
+  
+   /* EDIT     en_y_d1      120    @     240      .,                 ///  */
+  COMBOBOX  en_rank_d1  150    @     280        .,      ///
+        dropdown contents(levels)    option(rank1) 
+                   
+  
+  VARNAME   vn_rank_d1      150    @     280      .,                 ///
+  option(rank1) 
+
+  
+
+           
+  TEXT     tx_var2      20    +25    150      .,                 ///
+           label("Size  variable:   ")  
+  
+  COMBOBOX  en_hhs_d1   150    @     280        .,      ///
+        dropdown contents(levels)  option(hsize1)  
+           
+ 
+  VARNAME  vn_hhs_d1      150    @     280      .,                 ////
+           option(hsize1) 
+
+
+           
+  CHECKBOX    chk_cd1     20    +25    120      .,                 ///  
+             label("Condition(s)    ")                            ///
+             onclickon(program cd1_on)                             ///
+             onclickoff(program cd1_off)  default(0)     
+             
+  
+ EDIT     ed_d1c1        150    @    280      .,               ///  
+  option(cond1)
+ 
+ 
+ 
+ 
+ 
+ GROUPBOX intvar2 460     10    430  160,                      ///
+            label("Distribution 2: ")
+            
+   
+
+               
+               
+  COMBOBOX  fi_d2        470   +25     120      .,              ///
+            contents(dt_src)  values(dt_src_val) dropdownlist                ///
+            onselchange(program data_change2)  default(1)              
+                        
+              
+    FILE  file_d2      600    @     280      .,      onchange(program getLevels2)           ///
+    label ("Browse...")    option(file2)                        ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*)
+    
+   TEXT     tx_var3      470    +25    150      .,                 ///
+              label("Welfare variable:   ")  
+   
+   
+   COMBOBOX      en_y_d2      600    @     280      .,       ///                      
+   dropdown contents(levels2)          
+        
+                
+   VARNAME  vn_y_d2      600    @     280      .,                 
+ 
+
+    CHECKBOX chk_var02     470    +25    150      .,                 ///  
+             label("Ranking variable:   ")                       ///      
+  onclickon(script  ckry2)                                 ///
+  onclickoff(script ckrn2)  
+  
+  
+   /* EDIT     en_y_d1      120    @     240      .,                 ///  */
+  COMBOBOX  en_rank_d2  600    @     280        .,      ///
+        dropdown contents(levels)    option(rank2) 
+           
+  
+  VARNAME  vn_rank_d2      600    @     280      .,                 ///
+  option(rank2) 
+
+            
+   TEXT     tx_var4      470    +25    150      .,                 ///
+            label("Size  variable:   ")  
+                        
+   COMBOBOX     en_hhs_d2      600    @     280      .,                 ///
+            option(hsize2)      dropdown contents(levels2) 
+        
+                
+   VARNAME  vn_hhs_d2      600    @     280      .,                 ///
+            option(hsize2) 
+            
+             
+
+       CHECKBOX    chk_cd2     470    +25    120      .,                 ///  
+              label("Condition(s)    ")                            ///
+              onclickon(program cd2_on)                             ///
+              onclickoff(program cd2_off)  default(0)     
+              
+
+   
+  EDIT     ed_d2c1        600    @    280      .,               ///     
+   option(cond2)
+            
+     
+           
+
+
+            GROUPBOX chk_per  230    220  400 80,                         ///
+           label("Parameters and options: ")         ///
+
+		   
+		      TEXT       txt_op2     240    +25    130      .,                 ///  
+                   label("Type:   ")                             ///      
+                
+          COMBOBOX  cb_nor      +130    @     240      .,                  ///
+                  dropdownlist                                          ///
+                  contents(cb_nor)  values(cb_nor_val) option(type)     ///
+               default(nor)      
+                   
+   
+END
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+                                        
+SPINNER  sp_dec    10       25      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(3) max(12)                            /*
+                */ option(dec)
+
+TEXT     sp_txt  70      25      200      .,                            /*
+                */ label("Number of decimals")  
+                
+
+
+END
+
+  
+SCRIPT ckry1 
+BEGIN 
+main.vn_rank_d1.enable
+main.en_rank_d1.enable
+END
+
+SCRIPT ckrn1 
+BEGIN 
+main.vn_rank_d1.disable
+main.en_rank_d1.disable
+END
+
+SCRIPT ckry2 
+BEGIN 
+main.vn_rank_d2.enable
+main.en_rank_d2.enable
+END
+
+SCRIPT ckrn2 
+BEGIN 
+main.vn_rank_d2.disable
+main.en_rank_d2.disable
+END
+
+
+SCRIPT PREINIT
+BEGIN
+    create BOOLEAN has_cd1
+        create BOOLEAN has_cd2
+        create BOOLEAN has_cd3
+        create BOOLEAN has_cond1
+        create BOOLEAN has_cond2
+        create BOOLEAN has_cond3
+        create BOOLEAN has_cond4
+        create BOOLEAN has_cond1d
+    create BOOLEAN has_cond2d  
+        create BOOLEAN has_cond1
+        create BOOLEAN has_cond2
+        create BOOLEAN has_cond3
+        create BOOLEAN has_cond4        
+                    create BOOLEAN isLoading1
+             isLoading1.settrue
+            create BOOLEAN isLoading2
+             isLoading2.settrue
+            program initialize
+END
+
+
+
+
+LIST cb_nor
+BEGIN
+  Lorenz curve(s)
+  Generalised Lorenz curve(s)
+END
+
+LIST cb_nor_val
+BEGIN
+  nor
+  gen
+END
+
+LIST dt_src
+BEGIN
+  Data in memory
+  Data in file
+END
+
+LIST dt_src_val
+BEGIN
+  1
+  2
+END
+
+
+PROGRAM data_change1
+BEGIN
+        
+if   main.fi_d1.isdefault()  {
+                               call main.file_d1.hide
+                                                           
+                               call main.vn_y_d1.show
+                               call main.vn_hhs_d1.show
+                                                           
+                                                           call main.vn_rank_d1.show
+                               
+                                                           
+                               call main.en_y_d1.hide
+                               call main.en_hhs_d1.hide
+                                                           call main.en_rank_d1.hide
+                                                          
+                               
+                               
+                              }
+                                                          
+if  !main.fi_d1.isdefault()  {
+                              call main.file_d1.show
+                                                          
+                               call main.vn_y_d1.hide
+                               call main.vn_hhs_d1.hide
+                                                           call main.vn_rank_d1.hide
+                                                         
+                                                                                                                   
+                               call main.en_y_d1.show
+                               call main.en_hhs_d1.show
+                                                           call main.en_rank_d1.show
+                                                         
+
+                              }
+                                                          
+END
+
+PROGRAM data_change2
+BEGIN
+        
+
+if   main.fi_d2.isdefault()  {
+                               call main.file_d2.hide
+                                                           
+                               call main.vn_y_d2.show
+                               call main.vn_hhs_d2.show
+                                                           call main.vn_rank_d2.show
+                                                          
+                                                           
+                               call main.en_y_d2.hide
+                               call main.en_hhs_d2.hide
+                                                           call main.en_rank_d2.hide
+                                                           
+                               
+                               
+                              }
+if  !main.fi_d2.isdefault()  {
+                              call main.file_d2.show
+                                                          
+                              call main.vn_hhs_d2.hide
+                              call main.vn_y_d2.hide
+                                                          call main.vn_rank_d2.hide
+                                                          
+                              
+                              call main.en_y_d2.show
+                              call main.en_hhs_d2.show
+                                                          call main.en_rank_d2.show
+                                                         
+                              }         
+END
+
+
+
+PROGRAM cd1_on
+BEGIN
+        
+
+                call main.ed_d1c1.enable
+
+
+END
+
+PROGRAM cd1_off
+BEGIN
+        
+                call main.ed_d1c1.disable
+
+                
+END
+
+
+PROGRAM cd2_on
+BEGIN
+        
+
+                call main.ed_d2c1.enable         
+
+END
+
+PROGRAM cd2_off
+BEGIN    
+ call main.ed_d2c1.disable
+END
+
+PROGRAM getLevels
+BEGIN
+        if main.file_d1 & isLoading1 {
+                put "GetLevels_DB " main.file_d1 " , mia(en_y_d1  en_hhs_d1 en_rank_d1) ndb(domineq)" 
+                stata hidden
+        }
+END
+
+PROGRAM getLevels2
+BEGIN
+        if main.file_d2 & isLoading2 {
+                put "GetLevels_DB " main.file_d2 " , mia(en_y_d2  en_hhs_d2 en_rank_d2) ndb(domineq)"
+                stata hidden
+        }
+END
+
+
+
+
+
+
+HELP hlp1,   view("help domineq")
+RESET res1
+
+
+
+
+
+PROGRAM command
+BEGIN
+        put "domineq  "
+        
+INCLUDE comon1
+                    
+optionarg main.vn_rank_d1
+optionarg main.en_rank_d1
+
+optionarg main.vn_rank_d2
+optionarg main.en_rank_d2
+
+
+                    optionarg main.cb_nor   
+
+                                       if !resop.sp_dec.isdefault() {
+                                       optionarg resop.sp_dec
+                                      }
+                        
+
+endoptions      
+        
+        
+END

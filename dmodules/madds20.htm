@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+
+<head>
+<title>DASP Stata Package</title>
+<meta name="description" content="add your site description here" />
+<meta name="keywords" content="add your search engine keywords here separated by commas" />
+<meta name="designer" content="My Arts Desire/Round the Bend Wizards" />
+<meta http-equiv="Content-Language" content="en-us" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="imagetoolbar" content="false" />
+<link rel="stylesheet" type="text/css" href="../style.css" />
+<style>
+<!--
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+-->
+</style>
+</head>
+
+<body topmargin="0" leftmargin="0">
+
+<div class="wrapper" style="width: 750px; height: 783px">
+	<table id="table1" width="765">
+		<tr>
+			<td class="sitename" colSpan="2">
+			<p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><i>DASP</i></p>
+			<p style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px">Distributive Analysis 
+			Stata Package </p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<img height="15" alt="shadow" src="../images/shadowleft.jpg" width="220"></td>
+			<td>
+			<img height="14" alt="shadow" src="../images/shadowright.jpg" width="542"></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+			<p align="left"><b><font face="Georgia" color="#3333FF" size="4">&nbsp;&nbsp;&nbsp;&nbsp; 
+			DASP Modules</font></b></td>
+		</tr>
+		<tr>
+			<td class="sidebar" style="width: 200px" height="421">
+			<!--webbot bot="Include" u-include="../include_modulenavigation.htm" tag="BODY" startspan -->
+<div class="sidebarnav">
+<ul>
+<li><span lang="en-ca"><a href="minequality.htm">Inequality</a></span></li>
+<li><span lang="en-ca"><a href="m_md_inequality.htm">Multidimensional inequality</a></span></li>
+<li><span lang="en-ca"><a href="mpolar.htm">Polarization</a></span></li>
+<li><span lang="en-ca"><a href="mpoverty.htm">Poverty</a></span></li>
+<li><span lang="en-ca"><a href="m_md_poverty.htm">Multidimensional poverty</a> </span> </li>
+<li><span lang="en-ca"><a href="mpropoor.htm">Pro-poor</a> </span></li>
+<li><span lang="en-ca"><a href="mpovelas.htm">Poverty elasticities</a></span></li>
+<li><span lang="en-ca"><a href="mpovtarg.htm">Poverty targeting</a></span></li>
+<li><span lang="en-ca"><a href="mdecomposition.htm">Decomposition</a></span></li>
+<li><span lang="en-ca"><a href="mdominance.htm">Dominance</a></span></li>
+<li><span lang="en-ca"><a href="mcurves.htm">Curves</a></span></li>
+<li><span lang="en-ca"><a href="mdtools.htm">Distributive tools</a></span></li>
+<li><span lang="en-ca"><a href="manalysis.htm">Benefit analysis</a></span></li>
+<li><span lang="en-ca"><a href="mdisaggregate.htm">Disaggregating data</a></span></li>
+</ul>
+	<p>&nbsp;</p>
+</div>
+<!--webbot bot="Include" i-checksum="37008" endspan --></td>
+			<td class="maintext" style="width: 515px" height="421">
+					<table width="513" id="table3" cellspacing="0" cellpadding="0">
+						<tr>
+							<td height="46">
+							<h2 style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" align="center">
+							<b>DASP: New Modules and Options in version 2.0</b></h2>
+							</td>
+						</tr>
+						</table>
+					<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+					<table width="513" id="table4" cellspacing="0" cellpadding="0">
+						<tr>
+							<td colSpan="2" height="46">
+							<h2 style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" align="center">
+							<b>Inequality</b></h2>
+							</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF"><font color="#3333FF"><b>IATKINSON</b></font></td>
+<td width="597" bgcolor="#FFFFFF">Estimates the Atkinson indices and their 
+standard errors taking full account of survey design.</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF">&nbsp;</td>
+<td width="597" bgcolor="#FFFFFF">&nbsp;</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF"><font color="#3333FF"><b>DIATKINSON</b></font></td>
+<td width="597" bgcolor="#FFFFFF">Estimates the difference between Atkinson 
+indices and its standard error taking full account of survey design.</td>
+						</tr>
+						</table>
+					<table width="513" id="table6" cellspacing="0" cellpadding="0">
+						<tr>
+							<td colSpan="2" height="46">
+							<h2 style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" align="center">
+							<b>Polarisation</b></h2>
+							</td>
+						</tr>
+						<tr>
+							<td width="132" bgColor="#ffffff">
+							<font color="#3333FF"><b>IPOLFW</b></font></td>
+							<td width="381" bgColor="#ffffff">
+							Estimates the Foster and Wolfson - FW- 
+							(1992) index and its 
+							standard errors taking full account of survey 
+							design.</td>
+						</tr>
+						<tr>
+							<td width="132" bgColor="#ffffff">&nbsp;</td>
+							<td width="381" bgColor="#ffffff">&nbsp;</td>
+						</tr>
+						<tr>
+							<td width="132" bgColor="#ffffff">
+							<font color="#3333FF"><b>DIPOLFW</b></font></td>
+							<td width="381" bgColor="#ffffff">
+							Estimates the difference between FW indices and its 
+							standard error taking full account of survey design.</td>
+						</tr>
+						<tr>
+							<td width="132" bgColor="#ffffff">&nbsp;</td>
+							<td width="381" bgColor="#ffffff">&nbsp;</td>
+						</tr>
+						<tr>
+							<td width="132" bgColor="#ffffff">
+							<font color="#3333FF"><b>IPOEGR</b></font></td>
+							<td width="381" bgColor="#ffffff">
+							Estimates the Esteban, Gardin and Ray - EGR- 
+							(1999) index and its 
+							standard errors taking full account of survey 
+							design.</td>
+						</tr>
+						</table>
+					<table width="513" id="table7" cellspacing="0" cellpadding="0">
+						<tr>
+							<td colSpan="2" height="46">
+							<h2 style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" align="center">
+							<b>Poverty elasticities</b></h2>
+							</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0"><font color="#3333FF"><b>EFGTGR</b></font></p>
+							</td>
+<td width="597" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0">FGT-Elasticity with respect to growth 
+in average income (Kakwani (1993)).</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF">
+&nbsp;</td>
+<td width="597" bgcolor="#FFFFFF">
+&nbsp;</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0"><font color="#3333FF"><b>EFGTINEQ</b></font></p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p></td>
+<td width="597" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0">FGT-Elasticity with respect to Gini 
+inequality (Kakwani (1993)).</p>
+	</td>
+						</tr>
+						</table>
+					<table width="513" id="table8" cellspacing="0" cellpadding="0">
+						<tr>
+							<td colSpan="2" height="46">
+							<h2 style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" align="center">
+							<b>Poverty targeting</b></h2>
+							</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0"><font color="#3333FF"><b>ITARGETG</b></font></p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+							</td>
+<td width="597" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0">The module <b>itargetg</b> produces 
+the following estimates and curves for a given list of population groups:<ul>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Impact of targeting population 
+	groups on FGT indice</li>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Impact of targeting population 
+	groups on FGT curves (along an axis of poverty lines)</li>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">The confridence interval of the 
+	impact of targeting population groups on FGT curves (along an axis of 
+	poverty lines).</li>
+</ul>
+</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF">
+&nbsp;</td>
+<td width="597" bgcolor="#FFFFFF">
+&nbsp;</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0"><font color="#3333FF"><b>ITARGETC</b></font></p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p></td>
+<td width="597" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0">The module <b>itargetc</b> produces 
+the following estimates and curves for a given list of population groups:</p>
+<ul>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Impact of targeting welfare 
+	components on FGT indice;</p></li>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Impact of targeting welfare 
+	components on on FGT curves (along an axis of poverty lines);</p></li>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">The confidence interval of 
+	targeting welfare components on FGT curves (along an axis of poverty lines).</p>
+	</li>
+</ul>
+	</td>
+						</tr>
+						</table>
+					<table width="513" id="table9" cellspacing="0" cellpadding="0">
+						<tr>
+							<td colSpan="2" height="46">
+							<h2 style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" align="center">
+							<b>Decomposition</b></h2>
+							</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF">
+<font color="#3333FF"><b>DFGTS</b></font><p>&nbsp;</p>
+<p>&nbsp;</td>
+<td width="597" bgcolor="#FFFFFF">
+<p align="justify">The command <b>dfgts</b> decomposes the allevation of FGT 
+poverty by income components and provides standard errors on elements of the 
+decompositions. Without any source, the FGT index equals 1. The decomposition is 
+performed using the Shapley value.<br>
+&nbsp;</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF"><font color="#3333FF"><b>DSGINIS</b></font><p>&nbsp;</td>
+<td width="597" bgcolor="#FFFFFF">Decomposes the Gini index by income sources 
+with the Shapley approach.<p>&nbsp;</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF"><font color="#3333FF"><b>DPOLAG</b></font></td>
+<td width="597" bgcolor="#FFFFFF">Decomposes the Duclos, Esteban amd Ray 
+polarization index&nbsp; by population subgroups (Araar (2008) aproach). </td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF">
+&nbsp;</td>
+<td width="597" bgcolor="#FFFFFF">
+&nbsp;</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF"><font color="#3333FF"><b>DPOLAS</b></font><p>&nbsp;</td>
+<td width="597" bgcolor="#FFFFFF">Decomposes the Duclos, Esteban amd Ray 
+polarization index&nbsp; by income components (Araar (2008) aproach).
+<p>&nbsp;</td>
+						</tr>
+						</table>
+					<table width="513" id="table10" cellspacing="0" cellpadding="0">
+						<tr>
+							<td colSpan="2" height="46">
+							<h2 style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" align="center">
+							<b>Curves</b></h2>
+							</td>
+						</tr>
+						<tr>
+<td width="105" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0"><font color="#3333FF"><b>CLORENZSM</b></font></p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</td>
+<td width="408" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0">Produces the following curves with 
+confidence interval</p>
+<ul>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Lorenz curves;</li>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Generalized Lorenz curves;</li>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Concentration curves;</li>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Generalized concentration curves.</li>
+</ul>
+</td>
+						</tr>
+						<tr>
+<td width="105" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0"><font color="#3333FF"><b>CFGTSM</b></font></p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p>&nbsp;</p></td>
+<td width="408" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0">Produces the following curves with 
+confidence interval</p>
+<ul>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Normalised FGT curves;</li>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">FGT curves.</li>
+</ul>
+</td>
+						</tr>
+						<tr>
+<td width="105" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0"><font color="#3333FF"><b>CDOMC</b></font></p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p>&nbsp;</p></td>
+<td width="408" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0">Produces the following curve with 
+confidence interval</p>
+<ul>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Normalised consumption dominance curves;</li>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Consumption dominance curves.</li>
+</ul>
+</td>
+						</tr>
+						<tr>
+<td width="105" bgcolor="#FFFFFF" height="95">
+<p style="margin-top: 0; margin-bottom: 0"><font color="#3333FF"><b>CDOMC2D</b></font></p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p>&nbsp;</p></td>
+<td width="408" bgcolor="#FFFFFF" height="95">
+<p style="margin-top: 0; margin-bottom: 0">Produces the difference between the following curve 
+with confidence interval</p>
+<ul>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Normalised consumption dominance curves;</li>
+	<li>
+	<p style="margin-top: 0; margin-bottom: 0">Consumption dominance.</li>
+</ul>
+</td>
+						</tr>
+						</table>
+					<table width="513" id="table5" cellspacing="0" cellpadding="0">
+						<tr>
+							<td height="46">
+					<table width="513" id="table11" cellspacing="0" cellpadding="0">
+						<tr>
+							<td colSpan="2" height="46">
+							<h2 style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" align="center">
+							<b>Distributive tools</b></h2>
+							</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0"><font color="#3333FF"><b>QUINSH</b></font></p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p>&nbsp;</td>
+<td width="597" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0">Estimate the income shares and 
+cumulative income shares by group quantiles (quartiles/quintiles/deciles/etc.). 
+Graph bar of income shares can be plotted. </p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+</td>
+						</tr>
+						</table>
+					<table width="513" id="table12" cellspacing="0" cellpadding="0">
+						<tr>
+							<td colSpan="2" height="46">
+							<h2 style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" align="center">
+							<b>Disaggregated data</b></h2>
+							</td>
+						</tr>
+						<tr>
+<td width="153" bgcolor="#FFFFFF">
+<font color="#0000FF"><b>UNGROUP</b></font><p>&nbsp;<p>&nbsp;</td>
+<td width="597" bgcolor="#FFFFFF">
+<p style="margin-top: 0; margin-bottom: 0">The command ungroup generates 
+disaggregated data using information on the aggregated data and on the form of 
+the distribution to be assumed. </p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+</td>
+							</tr>
+						</table>
+							<font face="Trebuchet MS" style="font-size: 15pt" color="#666699">
+							<b>Options</b></font></td>
+						</tr>
+						<tr>
+							<td height="46">
+							<ul>
+								<li>
+								<p style="text-indent: -15.3pt; margin-top: 0; margin-bottom: 0" align="justify">
+								<span style="font-variant:normal; color:black; font-family:Times New Roman" lang="EN-CA">The user can 
+								perform the statistical tests&nbsp; for the <b>
+								difference</b> between indices, and this, by 
+								adding the option: test(value). For instance, 
+								the user may be interested to test whether the 
+								variation in Gini between two periods is higher, 
+								equals or lower than 0.01;</span></p></li>
+								<li>
+								<p style="text-indent: -15.3pt; margin-top: 0; margin-bottom: 0" align="justify">
+								<span style="font-family: Times New Roman" lang="en-ca">
+								For the plotted curves by groups, the 
+								correspondent curve at population level is 
+								added.</span></p></li>
+							</ul>
+							<p class="MsoNormal" style="text-indent: -28.05pt; margin-top: 0; margin-bottom: 0">
+							<i>
+							<span lang="EN-CA" style="font-size:10.0pt;font-family:Arial">
+							&nbsp;</span></i></p>
+							</td>
+						</tr>
+						</table>
+					</td>
+		</tr>
+		<tr>
+			<td class="footerleft">
+			<!--webbot bot="Include" u-include="../include_copyright.htm" tag="BODY" startspan -->
+
+DASP © 2006-2026
+
+<!--webbot bot="Include" i-checksum="45381" endspan --></td>
+			<td class="footerright">
+			<!--webbot bot="Include" u-include="../include_footer.htm" tag="BODY" startspan -->
+
+<a href="../index.html">Home</a> &bull; 
+<a href="../aboutdasp.htm">About <i>DASP</i></a> &bull; 
+<a href="../manuals.htm">Manuals</a> &bull; 
+<a href="../modules.htm">Modules</a> &bull; 
+<a href="../examples/examples.htm">Examples</a> &bull;&nbsp; 
+<a href="../faqs.htm">FAQs</a> &bull; 
+<a href="../contact.htm">Contact</a>
+<!--webbot bot="Include" i-checksum="36994" endspan --></td>
+		</tr>
+	</table>
+</div>
+
+</body>
+
+</html>

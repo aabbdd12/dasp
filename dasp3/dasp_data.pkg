@@ -1,0 +1,41 @@
+* Februrary2022 - v3.03
+  DASP 3.0         : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   3.03   
+d Date          : Februrary  2022
+d Stata Version : Required  15.0 and higher
+d
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_data Distributive Analysis Stata Package: data examples
+
+f files/data/bkf94.dta
+f files/data/bkf94I.dta
+f files/data/bkf98I.dta
+f files/data/can6.dta
+f files/data/china_rur.dta
+f files/data/coir31fl.dta
+f files/data/columbia95I.dta
+f files/data/dominican_republic95I.dta
+f files/data/drir21fl.dta
+f files/data/imbi_data.dta
+f files/data/imdi_data.dta
+f files/data/master_mex.dta
+f files/data/mex_04_2mI.dta
+f files/data/mex_92_2mI.dta
+f files/data/mex_98_2mI.dta
+f files/data/Namibia_2004.dta
+f files/data/Nigeria_2004I.dta
+f files/data/perede94I.dta
+f files/data/peru94_A_I.dta
+f files/data/targeting.dta
+f files/auxiliaries/wgnuplot.exe
+f files/auxiliaries/xml_taba_options.txt
+f files/auxiliaries/xml_tab_options.txt

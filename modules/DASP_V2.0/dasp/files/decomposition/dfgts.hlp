@@ -1,0 +1,60 @@
+{smcl}
+{* November 2008}{...}
+{hline}
+{hi:DASP : Distributive Analysis Stata Package}{right:{bf:PEP, CIRPEE and WIDER}}
+help for {hi:dfgts }{right:Dialog box:  {bf:{dialog dfgts}}}
+{hline}
+
+{title: Decomposition of the FGT index by income components} 
+
+{p 8 10}{cmd:dfgts}  {it:varlist}  {cmd:,} [ 
+{cmd:HSize(}{it:varname}{cmd:)} 
+{cmd:PLine(}{it:real}{cmd:)}  
+{cmd:ALpha(}{it:real}{cmd:)}
+{cmd:DEC(}{it:string}{cmd:)}
+{cmd:STE(}{it:real}{cmd:)}  
+{cmd:ALpha(}{it:real}{cmd:)}
+ ]
+ 
+
+{p}where {p_end}
+{p 8 8} {cmd:varlist} is a list of variables (income components or income sources). {p_end}
+
+
+{title:Version} 9.2 and higher.
+
+{title:Description}
+{p} The command {cmd:dfgts} decomposes the allevation of FGT poverty by income components and provides standard errors on elements of the decompositions. 
+Without any source, the FGT index equals 1. The decomposition is performed using the Shapley value. {p_end}
+
+{title:Remark}
+{p}Users should set their surveys' sampling design before using this module  (and to save their data files). If the sampling design is not set, simple-random sampling (SRS) will be automatically assigned  by default. {p_end}
+
+
+{title:Options}
+
+{p 0 4} {cmdab:hsize}        Household size. For example, to compute poverty at the invididual level, one will want to weight household-level observations by household size (in addition to sampling weights, best set in survey design). {p_end}
+
+{p 0 4} {cmdab:alpha}         To set the FGT parameter (alpha). By default, alpha=0.   {p_end}
+
+{p 0 4} {cmdab:pline}        To set the poverty line. {p_end}
+
+{p 0 4} {cmdab:dec}          To set the number of decimals used in the display of results. {p_end}
+
+{p 0 4} {cmdab:ste}          If "yes" is selected, standard errors are displayed. {p_end} 
+
+
+{title:Examples}
+
+{p 4 8}{inp:. dfgts source1 source2, hsize(size)}{p_end}
+
+{title:Reference(s)}
+
+
+{title:Authors}
+Abdelkrim Araar
+Jean-Yves Duclos
+
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}

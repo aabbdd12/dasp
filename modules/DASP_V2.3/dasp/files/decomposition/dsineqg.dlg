@@ -1,0 +1,247 @@
+
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2010)          */
+/* Universite Laval, Quebec, Canada                                       */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+
+VERSION 9.2
+ 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 300
+
+
+DIALOG main, label("Decomposition of inequality by population groups (using the Shapley value) --> dsineqg command") tabtitle("Main")
+
+
+BEGIN
+   TEXT     tx_var1      20     20    100      .,                 ///
+             label("Variable of interest:")  
+    VARNAME  vn_int      130    @     250      .                
+                         
+             
+    TEXT     tx_var2      20    +25    100      .,                 ///
+             label("Size  variable:   ")  
+    VARNAME  vn_hhs      130    @     250      .,                 ///
+             option(hsize)      
+    TEXT     tx_var4      20    +25    100      .,                 ///
+             label("Group  variable:   ") 
+    VARNAME  vn_hhg      130    @     250      .,                 ///
+             option(hgroup)  error("group variable")          
+  
+
+       
+	   
+  GROUPBOX percentile 390    10    360 100,                      ///
+           label("Index and approach option(s)")
+           
+  
+  TEXT     txt_op1     400    +25    40      .,                 ///  
+             label("Index:   ")     
+  
+  COMBOBOX  cb_index      450    @     100      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_index)  values(cb_index_val) option(index)  ///
+            default(gini) onselchangelist(cond_change)
+ 	   
+  TEXT     txt_op3     610    @    40      .,                 ///  
+             label("Epsilon") 
+  
+  EDIT     edt_op3 	 660	@    70      .,                 ///  
+            default(0.5)	option(epsilon) 
+			 
+  TEXT    txt_op4     610    @    40      .,                 ///  
+             label("Theta")  
+			 			 
+  EDIT    edt_op4 	 660	@    70      .,                 ///  
+            default(0.5) option(theta)						 						 			 			  	
+          
+   
+  
+ 
+ 
+           
+   DEFINE _x 20
+   DEFINE _y 240
+
+END
+
+
+
+
+LIST cb_index
+BEGIN
+  Gini index
+  Coefficient of variation
+  Atkinson
+  Generalized entropy  
+END
+
+LIST cb_index_val
+BEGIN
+ gini
+ cvar
+ atk
+ ge
+
+END
+
+
+SCRIPT PREINIT
+BEGIN
+	create BOOLEAN has_cond1
+	create BOOLEAN has_cond2
+	create BOOLEAN has_cond3
+    create BOOLEAN has_cond4	
+END
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2
+	script cond3
+	script cond4
+	
+END
+
+
+SCRIPT cond1
+BEGIN
+	has_cond1.settrue
+	has_cond2.setfalse
+	has_cond3.setfalse
+	has_cond4.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.setfalse
+	has_cond2.settrue
+	has_cond3.setfalse
+	has_cond4.setfalse
+	program check_conds
+END
+
+SCRIPT cond3
+BEGIN
+	has_cond1.setfalse
+	has_cond2.setfalse
+	has_cond3.settrue
+	has_cond4.setfalse
+	program check_conds
+END
+
+SCRIPT cond4
+BEGIN
+	has_cond1.setfalse
+	has_cond2.setfalse
+	has_cond3.setfalse
+	has_cond4.settrue
+	program check_conds
+END
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1|has_cond2){
+call main.txt_op3.hide
+call main.edt_op3.hide
+call main.txt_op4.hide
+call main.edt_op4.hide
+}
+
+if has_cond3{
+call main.txt_op3.show
+call main.edt_op3.show
+call main.txt_op4.hide
+call main.edt_op4.hide
+}
+
+if has_cond4{
+call main.txt_op3.hide
+call main.edt_op3.hide
+call main.txt_op4.show
+call main.edt_op4.show
+}
+
+END
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+
+
+END
+
+
+
+
+
+
+
+HELP hlp1,   view("help dsineqs")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "dsineqg "
+			require  main.vn_int
+			varlist [main.vn_int]
+	
+
+	beginoptions
+		        require   main.vn_hhg
+		        optionarg main.vn_hhg
+	                
+	                
+		    
+			
+			
+			if !main.cb_index.isdefault() {
+		                                  optionarg main.cb_index
+			                             }	
+			optionarg main.edt_op3
+			optionarg main.edt_op4
+										 
+        	
+			
+			optionarg main.vn_hhs
+                        
+					
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+
+				
+
+
+
+
+
+
+			
+			
+			       
+	endoptions
+	
+	
+	
+END

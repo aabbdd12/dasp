@@ -1,0 +1,69 @@
+{smcl}
+{* January 2009}{...}
+{hline}
+{hi:DASP : Distributive Analysis Stata Package}{right:{bf:PEP, CIRPEE, World Bank and UNDP}}
+help for {hi:ipoegr }{right:Dialog box:  {bf:{dialog ipoegr}}}
+{hline}
+
+{title: EGR Polarization index} 
+
+{p 8 10}{cmd:ipoegr}  {it:varlist}  {cmd:,} 
+[   
+{cmd:HSize(}{it:varname}{cmd:)} 
+{cmd:HGroup(}{it:varname}{cmd:)} 
+{cmd:GNumber(}{it:varname}{cmd:)} 
+{cmd:ALpha(}{it:real}{cmd:)}
+{cmd:BETA(}{it:real}{cmd:)}
+{cmd:NG(}{it:int}{cmd:)}
+{cmd:NITR(}{it:int}{cmd:)}
+{cmd:PRCS(}{it:real}{cmd:)}
+]
+ 
+
+{p}where {p_end}
+{p 8 8} {cmd:varlist} is a list of variables. {p_end}
+
+
+{title:Version} 9.2 and higher.
+
+{title:Description}
+ {p}{cmd:polarisation: Esteban et al. index of polarization (2004) (EGR)}:  Users should set their surveys' sampling design before using this module 
+ (and save their data files). If the sampling design is not set, simple-random sampling (SRS) will be automatically assigned 
+by default. 
+
+
+{title:Options}
+
+{p 0 4} {cmdab:hsize}   Household size. For example, to compute poverty at the individual level, one will want to weight household-level observations by household size (in addition to sampling weights, best set in survey design). {p_end}
+
+{p 0 4} {cmdab:hgroup}   Variable that captures a socio-demographic group. For example, this variable could equal 1 for rural households and 2 for urban ones. {p_end}
+
+{p 0 4} {cmdab:gnumber}   Indicate the group number if the hgroup option is used. {p_end}
+
+{p 0 4} {cmdab:alpha}   The parameter alpha (default value 1). {p_end}
+
+{p 0 4} {cmdab:beta}   The parameter beta (default value 1). {p_end}
+
+{p 0 4} {cmdab:ng}   Number of groups for the partition. by default it equals 4. {p_end}
+
+{p 0 4} {cmdab:nitr}   Maximum number of iterations for convergence to the optimal partitioning of groups. by default it equals to 16. {p_end}
+ 
+{p 0 4} {cmdab:prcs}   Level of precision for convergence to the optimal partition of groups. By default it equals to 0.000001. {p_end}
+ 
+
+
+
+{title:Examples}
+
+{p 4 8}{inp:. ipoegr inc, hsize(size)  ng(4) }{p_end}
+
+{p 4 8}{inp:. ipoegr inc, hsize(size) alpha(1.5) ng(4) hgroup(zone) gnumber(1) }{p_end}
+
+{title:Authors}
+Abdelkrim Araar
+Jean-Yves Duclos
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}
+
+

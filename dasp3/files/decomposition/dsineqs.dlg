@@ -1,0 +1,257 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 3.01)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2026)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/ 
+/*************************************************************************/
+/* diginis.dlg                                                            */
+/*************************************************************************/
+
+
+VERSION 15.0
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 380
+DEFINE  _dlgwd 890
+INCLUDE header
+
+
+DIALOG main, label("DASP 3.0 | Decomposition of inequality by income components (using the Shapley value) --> dsineqs command") tabtitle("Main")
+
+
+BEGIN
+  
+   
+ GROUPBOX intvar       10     10    430  150,                      ///
+           label("Variables of interest: ")
+           
+
+
+  
+  TEXT     tx_var1      20    +25    150      .,                 ///
+             label("Welfare components:   ")  
+  
+  VARLIST  vl_list      150    @     280      .,                
+
+
+           
+  TEXT     tx_var2      20    +25    150      .,                 ///
+           label("Size  variable:   ")  
+                   
+  VARNAME  vn_hs      150    @     280      .,                 ///
+           option(hsize) 
+ 
+
+  GROUPBOX chk_per  450    10  430 150,                         ///
+           label("Decomposition approach": )        
+                   
+    TEXT txt_al     +10    +35    60      .,                 ///  
+                  label("Index:   ")                           
+      
+
+
+  COMBOBOX  cb_index      +60    @     200      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_index)  values(cb_index_val) option(index)  ///
+            default(gini) onselchangelist(cond_change)       
+         
+ 	   
+  TEXT     txt_op3     +220    @    40      .,                 ///  
+             label("Epsilon") 
+  
+  EDIT     edt_op3 	 +50	@    70      .,                 ///  
+            default(0.5)	option(epsilon) 
+			 
+  TEXT    txt_op4    750     @    40      .,                 ///  
+             label("Theta")  
+			 			 
+  EDIT    edt_op4 	 +40	@    70      .,                 ///  
+            default(0.5) option(theta)						 						 			 			  	
+          
+  TEXT     txt_op2     460    +35    40      .,                 ///  
+             label("Rule:   ")     
+  
+  COMBOBOX  cb_method     +60    @     340      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_method)  values(cb_method_val) option(method)  ///
+            default(mean)  		
+ 
+           
+   
+     DEFINE _x 700
+     DEFINE _y 350
+     
+  INCLUDE _bu_svyset
+END
+
+
+
+
+LIST cb_method
+BEGIN
+  Replace eliminated income source by its mean
+  Replace eliminated income source by zero 
+END
+
+LIST cb_method_val
+BEGIN
+ mean
+ zero
+END
+
+
+LIST cb_index
+BEGIN
+  Gini index
+  Coefficient of variation
+  Atkinson
+  Generalized entropy  
+END
+
+LIST cb_index_val
+BEGIN
+ gini
+ cvar
+ atk
+ ge
+END
+
+
+SCRIPT PREINIT
+BEGIN
+	create BOOLEAN has_cond1
+	create BOOLEAN has_cond2
+	create BOOLEAN has_cond3
+    create BOOLEAN has_cond4	
+END
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2
+	script cond3
+	script cond4
+	
+END
+
+
+SCRIPT cond1
+BEGIN
+	has_cond1.settrue
+	has_cond2.setfalse
+	has_cond3.setfalse
+	has_cond4.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.setfalse
+	has_cond2.settrue
+	has_cond3.setfalse
+	has_cond4.setfalse
+	program check_conds
+END
+
+SCRIPT cond3
+BEGIN
+	has_cond1.setfalse
+	has_cond2.setfalse
+	has_cond3.settrue
+	has_cond4.setfalse
+	program check_conds
+END
+
+SCRIPT cond4
+BEGIN
+	has_cond1.setfalse
+	has_cond2.setfalse
+	has_cond3.setfalse
+	has_cond4.settrue
+	program check_conds
+END
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1|has_cond2){
+call main.txt_op3.hide
+call main.edt_op3.hide
+call main.txt_op4.hide
+call main.edt_op4.hide
+}
+
+if has_cond3{
+call main.txt_op3.show
+call main.edt_op3.show
+call main.txt_op4.hide
+call main.edt_op4.hide
+}
+
+if has_cond4{
+call main.txt_op3.hide
+call main.edt_op3.hide
+call main.txt_op4.show
+call main.edt_op4.show
+}
+
+END
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      160	  .,		                /*
+   		*/ label("Number of decimals")	
+
+
+END
+
+
+
+HELP hlp1,   view("help dsineqs")
+RESET res1
+
+
+PROGRAM command
+BEGIN
+
+        
+put "dsineqs "
+	require  main.vl_list
+	varlist [main.vl_list]
+	beginoptions
+		       
+		    
+			
+			
+			if !main.cb_index.isdefault() {
+		                                  optionarg main.cb_index
+			                             }	
+			optionarg main.edt_op3
+			optionarg main.edt_op4
+										 
+        	if !main.cb_method.isdefault() {
+		                                  optionarg main.cb_method
+			                             }	
+			
+			optionarg main.vn_hs
+                        
+					
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+	
+			
+        
+        
+END

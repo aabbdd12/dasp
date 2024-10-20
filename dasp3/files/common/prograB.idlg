@@ -1,0 +1,128 @@
+
+LIST dt_src
+BEGIN
+  Data in memory
+  Data in file
+END
+
+LIST dt_src_val
+BEGIN
+  1
+  2
+END
+
+
+PROGRAM data_change1
+BEGIN
+        
+if   main.fi_d1.isdefault()  {
+                               call main.file_d1.hide
+                               call main.vn_y_d1.show
+                               call main.vn_hhs_d1.show
+
+							   
+                               call main.en_y_d1.hide
+                               call main.en_hhs_d1.hide
+
+                               
+                               
+                              }
+							  
+if  !main.fi_d1.isdefault()  {
+                              call main.file_d1.show
+							  
+                               call main.vn_y_d1.hide
+                               call main.vn_hhs_d1.hide  
+
+														   
+                               call main.en_y_d1.show
+                               call main.en_hhs_d1.show
+
+
+                              }
+							  
+END
+
+PROGRAM data_change2
+BEGIN
+        
+
+if   main.fi_d2.isdefault()  {
+                               call main.file_d2.hide
+							   
+                               call main.vn_y_d2.show
+                               call main.vn_hhs_d2.show
+							
+							   
+                               call main.en_y_d2.hide
+                               call main.en_hhs_d2.hide
+							
+                               
+                               
+                              }
+if  !main.fi_d2.isdefault()  {
+                              call main.file_d2.show
+							  
+                              call main.vn_hhs_d2.hide
+                              call main.vn_y_d2.hide
+						
+                              
+                              call main.en_y_d2.show
+                              call main.en_hhs_d2.show
+						
+                              }         
+END
+
+
+
+PROGRAM cd1_on
+BEGIN
+        
+
+                call main.ed_d1c1.enable
+
+
+END
+
+PROGRAM cd1_off
+BEGIN
+        
+                call main.ed_d1c1.disable
+
+                
+END
+
+
+PROGRAM cd2_on
+BEGIN
+        
+
+                call main.ed_d2c1.enable         
+
+END
+
+PROGRAM cd2_off
+BEGIN
+        
+ call main.ed_d2c1.disable
+END
+
+
+
+LIST variables
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END
+
+LIST levels
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END
+
+LIST levels2
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END

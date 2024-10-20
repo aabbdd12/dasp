@@ -1,0 +1,169 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 1.4  )          */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2008)          */
+/* Université Laval, Quebec, Canada                                    */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+
+VERSION 9.2
+ 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 300
+
+
+DIALOG main, label("DASP| FGT: Poverty elasticities with respect to income sources inequalities --> efgtc command") tabtitle("Main")
+
+
+BEGIN
+  GROUPBOX intvar 10     10    360  100,                      ///
+             label("Variable(s) of interest: ")
+             
+
+    TEXT     tx_inccom      20    +20    110      .,                 ///
+           label("Income components:   ") 
+    VARLIST  vl_var 120     @   240   .,                   ///
+             label("Income")
+                 
+    TEXT     tx_totinc      20    +25    110      .,                 ///
+           label("Total income:   ") 
+    VARLIST  vl_totinc 120     @   240   .,                   ///
+             label("IncomeTot")  option(tot) 
+         
+           
+  TEXT     tx_var2      20    140    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      120    @     240      .,                 ///
+           option(hsize)     
+
+  
+   GROUPBOX intvar2 390     10    360   60,                      ///
+             label("Decomposition approach")
+
+   TEXT    tx_index      400    +25    80      .,                 ///
+           label("Approach") 
+
+
+   COMBOBOX cb_appr        500    @   200   .,               ///
+            dropdownlist contents(cb_appr) values(cb_appr_val)              ///
+             default(ntr)     option(appr)       
+
+
+  GROUPBOX chk_per  390    100  360 100,                         ///
+           label("Parameters: ")         ///
+  
+    TEXT txt_al     +10    +25    120      .,                 ///  
+                  label("Parameter alpha:   ")                           
+       
+     EDIT  ed_al    +130    @     200      .,                 ///
+              option(alpha)    default(0)    
+           
+  
+           
+   
+   TEXT txt_pl     400     +25    120      .,                 ///  
+                  label("Poverty line (z):   ")        
+   
+   EDIT    ed_pl   530    @     200      .,                 ///
+           default(10000) option(pline)	  	             ///
+      
+
+     
+   TEXT txt_prc     400     +25    120      .,                 ///  
+                  label("Percentage of change:   ")        
+   
+   EDIT    ed_prc   530    @     200      .,                 ///
+           default(1) option(prc)    
+           
+  
+           
+   DEFINE _x 20
+   DEFINE _y 240
+     
+  INCLUDE _bu_svyset
+END
+
+
+
+
+
+LIST cb_appr
+BEGIN
+  Non-truncated income components
+  Truncated income components
+END
+
+
+LIST cb_appr_val
+BEGIN
+  ntr
+  trn
+END
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+
+
+END
+
+
+
+
+
+
+
+HELP hlp1,   view("help efgtc")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "efgtc "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+		       
+		
+			
+			
+			optionarg main.vl_totinc
+                        optionarg main.vn_hhs
+			optionarg main.ed_al
+			optionarg main.ed_pl
+			optionarg main.ed_prc
+
+                        if !main.cb_appr.isdefault(){
+			optionarg main.cb_appr
+			}
+		
+					
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+			
+			
+			       
+	endoptions
+	
+	
+	
+END

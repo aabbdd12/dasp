@@ -1,0 +1,352 @@
+/************************************************************************************/
+/* mcwel: Market Concentration and Welfare  (Version 1.00)                          */
+/************************************************************************************/
+/* Conceived  by Dr. Araar Abdelkrim, Sergio Olivieri and Carlos Rodriguez Castelan */
+/* World Bank and Universite Laval, Quebec, Canada                       			*/
+/* email : aabd@ecn.ulaval.ca                                            			*/
+/* Phone : 1 418 656 7507                                                			*/
+/************************************************************************************/
+/*   mcwel.dlg                                                           			*/
+/************************************************************************************/
+
+
+
+
+VERSION 9.2
+SYNCHRONOUS_ONLY
+
+INCLUDE graph_header
+POSITION . . 860 540
+
+
+DIALOG main, label("MCWEL| Market Concentration and Welfare --> mcwel command") tabtitle("Main")
+BEGIN
+  DEFINE col0  20
+  DEFINE col1 15
+  DEFINE col2 50
+  DEFINE col3 170
+  DEFINE col4 280
+  DEFINE col5 400
+  
+  DEFINE colwd0 55
+  DEFINE colwd1 105
+  DEFINE colwd2 105
+  DEFINE colwd3 80
+  
+
+  DEFINE _x _xsetbu
+  DEFINE _y _top
+  
+   
+    GROUPBOX chk_per11  10    10  410 80,                         ///
+            label("Dialog box inputs: ")           ///
+		   
+    TEXT txt_vname11     20    +20    140      .,                 ///  
+                  label("Load the inputs:   ")                           
+       
+    BUTTON  bu_load    140    @     270      .,                 ///
+    label("Load") onpush("view dialog mcwell_ini_mcw") 
+	 
+	 
+	TEXT  tx_dbsfile     20    +25    140      .,                 ///  
+         label("Save the inputs:")                           	  
+   
+   FILE  dbsamex      140    @     270      .,                    ///
+    label ("Browse...")    save option("inisave")                   ///
+    filter("MetaFile (*.mcw)*.mcw*.* (*.*)*.*")   
+                          
+
+   GROUPBOX chk_per1  10    110  410 120,                         ///
+           label("General information on sampled households: ")                       ///
+
+
+  
+  TEXT     tx_var      20    +30    180      .,                 ///
+   label("Per capita welfare*:          ") 
+         
+  VARNAME  vn_pcexp      260    @     150      .,                 ///
+                  
+  
+                   
+ TEXT     tx_var3      20   +30    180      .,                 ///
+           label("Household size*:   ")  
+ VARNAME  vn_hhs     260    @     150      .,                 ///
+           option(hsize)    
+ 
+ TEXT     tx_pl1      20   +30    180      .,                 ///
+           label("Poverty line*:   ")  
+ VARNAME  vn_pl1      260    @     150      .,                 ///
+           option(pline)    
+  
+  GROUPBOX chk_per7  10    +60  410 80,                         ///
+           label("Group variable (by default is the quintiles) ")         
+                   
+ TEXT     tx_hhg      20   +30    180       .,                 ///
+           label("Household group:   ")  
+ VARNAME  vn_hhg      260 @     150      .,                 ///
+           option(hgroup)  
+                   
+
+
+ TEXT     txt_note1     10    +60    400      .,                 ///  
+             label("Note: The (*) indicates a required information.")     
+  
+
+ 
+ GROUPBOX percentile 440    10    410 100,                      ///
+           label("Prices and well-being model")
+
+   TEXT     txt_meas     450    +25    160      .,                 ///  
+             label("The money-metric measurement:")     
+  
+   COMBOBOX  cb_meas      610    @     230      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_meas)  values(cb_meas_val) option(meas)  ///
+              default(1) onselchangelist(sel_change)
+			  
+  TEXT    txt_subs      780    +25     70      .,   ///
+  label("subst. param.")  
+  
+  TEXT     txt_model     450    +15    180      .,                  ///  
+             label("The consumer model:")     
+  
+   COMBOBOX  cb_model      610    @     160      .,                  ///
+              dropdownlist                                           ///
+              contents(cb_model)  values(cb_model_val) option(model)  ///
+              default(1)  onselchangelist(mod_change) 
+ 
+ EDIT    ed_subs      780    @     60      .,   ///
+  option(subs) default(0.6) 
+ 
+ 
+ GROUPBOX direction 440    +60    410 120,                      ///
+           label("Estimated impact")
+
+   TEXT     txt_move     450    +35    170      .,                 ///  
+             label("Select the direction:")     
+  
+   COMBOBOX  cb_move      620    @     230      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_move)  values(cb_move_val) option(move)  ///
+              default(1)
+			  
+   TEXT     txt_adjstep     450    +35    170      .,                 ///  
+             label("Number of adjustment steps:")  
+			 
+   EDIT    ed_mpart    620    @     230     .,   ///
+   option(mpart) default(0)
+   
+	
+   GROUPBOX parineq 440    +80    410 80,                      ///
+           label("Paremeters of inequality indices")
+
+   TEXT     txt_param1     450    +25    100      .,                 ///  
+             label("Atkinson index (epsilon):")  
+			 
+   EDIT    ed_epsilon     610    @     230     .,   ///
+   option(epsilon) default(0.5)
+   
+   TEXT     txt_param2     450    +25    100      .,                 ///  
+   label("Generalised Entropy index  (theta):")  
+			 
+   EDIT    ed_theta     610    @     230     .,   ///
+   option(theta) default(0) 
+  
+  
+ 	
+	
+  CHECKBOX   chk_gvimp     440    +60    300    .,                   ///
+             label("Generate the variable of the impact on wellbeing.") default(0) option(gvimp)
+  
+                             
+
+   DEFINE _x 40
+   DEFINE _y 410
+     
+  INCLUDE _bu_svyset
+
+END
+
+
+
+LIST cb_meas
+BEGIN
+ Laspeyres Measurement
+ Equivalent Variation Measurement 
+ Compensated Variation Measurement 
+END
+
+LIST cb_meas_val
+BEGIN
+ 1
+ 2
+ 3
+END
+
+
+
+LIST cb_model
+BEGIN
+ Cobb-Douglas preferences
+ CES preferences
+END
+
+LIST cb_model_val
+BEGIN
+ 1
+ 2
+END
+
+
+LIST cb_move
+BEGIN
+ Competitive to Concentrated Market
+ Concentrated to Competitive Market
+END
+
+LIST cb_move_val
+BEGIN
+ 1
+-1
+END
+
+
+
+
+
+
+
+
+
+SCRIPT PREINIT
+BEGIN
+      
+        create BOOLEAN has_str1
+        create BOOLEAN has_str2
+        create BOOLEAN has_str3
+		
+		create BOOLEAN has_sel1
+        create BOOLEAN has_sel2
+        create BOOLEAN has_sel3
+		
+	    create BOOLEAN has_mod1
+        create BOOLEAN has_mod2
+		
+		
+		
+	    create BOOLEAN has_item1
+        create BOOLEAN has_item2
+        create BOOLEAN has_item3
+        create BOOLEAN has_item4
+        create BOOLEAN has_item5
+        create BOOLEAN has_item6
+		create BOOLEAN has_item7
+        create BOOLEAN has_item8
+        create BOOLEAN has_item9
+        create BOOLEAN has_item10
+		create BOOLEAN has_ini
+
+                                
+END
+
+
+PROGRAM POSTINIT_PROGRAM
+BEGIN
+	put "amcwel2"
+	stata hidden
+END
+
+
+
+
+INCLUDE items_info_mcwel
+INCLUDE tb_options_mc
+INCLUDE gr_options_mc
+INCLUDE ifin
+
+HELP hlp1,   view("help mcwel")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+
+PROGRAM command
+BEGIN
+        put "mcwel "
+
+	
+		
+        require main.vn_pcexp
+        varlist [main.vn_pcexp]
+		
+		INCLUDE _ifin_pr
+
+        put " "
+     
+        beginoptions
+                
+        optionarg main.vn_hhs
+        optionarg main.vn_pl1
+        optionarg main.chk_gvimp         
+        optionarg main.dbsamex
+        optionarg items_info_mcwel.cb_items
+        put " "  /program item1_output 
+        put " "  /program item2_output 
+        put " "  /program item3_output 
+        put " "  /program item4_output 
+        put " "  /program item5_output 
+        put " "  /program item6_output 
+		put " "  /program item7_output 
+		put " "  /program item8_output 
+		put " "  /program item9_output 
+		put " "  /program item10_output
+		
+							   
+                if !main.cb_meas.isdefault() {
+                           optionarg main.cb_meas
+                               } 
+			
+                    optionarg main.cb_model
+                 
+				 
+				 if !main.ed_subs.isdefault() {
+                           optionarg main.ed_subs
+                 }
+				 
+				 if !main.ed_mpart.isdefault() {
+                           optionarg main.ed_mpart
+                 }
+							   
+				if !main.cb_move.isdefault() {
+                           optionarg main.cb_move
+                               } 
+                                                
+                       optionarg main.vn_hhg
+					   
+     
+
+							 
+                 if !main.ed_theta.isdefault() {
+                           optionarg main.ed_theta
+                 }   
+				 
+				       if !main.ed_epsilon.isdefault() {
+                           optionarg main.ed_epsilon
+                 } 
+                 
+              put " " /program  gra_output_mc
+
+ 
+       
+        optionarg tb_options_mc.fnamex
+		optionarg tb_options_mc.ed_tab
+		
+        optionarg gr_options_mc.ed_gra 
+        optionarg gr_options_mc.ed_folgr
+		   
+           endoptions 
+        
+       
+END

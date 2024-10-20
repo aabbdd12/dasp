@@ -1,0 +1,145 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.1)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2010)          */
+/* Universite Laval, Quebec, Canada                                       */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/* efgtgr.dlg                                                            */
+/*************************************************************************/
+
+VERSION 9.2
+
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 280
+
+
+DIALOG main, label("DASP| FGT: Poverty elasticities with respect to growth --> efgtgr command") tabtitle("Main")
+
+
+BEGIN
+  
+           
+  TEXT     tx_var1      20     20    100      .,                 ///
+           label("Variable of interest:")  
+  VARNAME  vn_int      130    @     250      .                
+                       
+           
+  TEXT     tx_var2      20    +25    100      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      130    @     250      .,                 ///
+           option(hsize)      
+  TEXT     tx_var4      20    +25    100      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      130    @     250      .,                 ///
+           option(hgroup)  error("group variable")          
+
+
+
+            
+           
+  GROUPBOX chk_per  390    10  360 100,                         ///
+           label("Parameters: ")         ///
+  
+    TEXT txt_al     +10    +25    120      .,                 ///  
+                  label("Parameter alpha:   ")                           
+       
+     EDIT  ed_al    +130    @     200      .,                 ///
+              option(alpha)    default(0)    
+           
+  
+           
+   
+   TEXT txt_pl     400     +25    120      .,                 ///  
+                  label("Poverty line (z):   ")        
+   
+   EDIT    ed_pl   530    @     200      .,                 ///
+           default(10000) option(pline)	  	             ///
+      
+
+     	 		
+   
+   
+   DEFINE _x _xsetbu
+     DEFINE _y 240
+     
+  INCLUDE _bu_svyset
+END
+
+
+
+
+LIST cb_nor
+BEGIN
+  Normalized
+  Not Normalized
+END
+
+LIST cb_nor_val
+BEGIN
+  nor
+  not
+END
+
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+
+END
+
+
+
+
+
+HELP hlp1,   view("help efgtgr")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "efgtgr "
+	require  main.vn_int
+	varlist [main.vn_int]
+	
+	beginoptions  
+	                
+	                optionarg main.vn_hhg
+	                optionarg main.vn_hhs
+	                
+		       
+			optionarg main.ed_al
+			optionarg main.ed_pl
+					
+		
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+					
+			
+		    
+		        
+		       
+	endoptions
+	
+	
+	
+END

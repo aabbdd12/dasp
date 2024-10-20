@@ -1,0 +1,33 @@
+VERSION 15.0
+
+//POSITION . . 760 300
+POSITION . . 560 100
+
+
+DIALOG main, label("DASP 3.0 | Initialise the dialog box of the  command: shexp") tabtitle("Main")
+
+  
+BEGIN
+  TEXT     tx_using      20     20     200        .,       ///
+        label("Filename of shexp dialog box inputs:")
+
+        FILE  fnamex      220    @     280      .,    ///
+        label ("Browse...")    save                    ///
+        filter("MetaFile (*.shexp)|*.shexp|*.* (*.*)|*.*")  
+  
+END
+
+
+HELP hlp1,   view("help shexp_db_ini")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+COPY copy1
+
+PROGRAM command
+BEGIN
+        require main.fnamex
+		put "shexp_db_ini"
+		put `"""' main.fnamex `"""'
+        
+END

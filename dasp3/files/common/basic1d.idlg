@@ -1,0 +1,31 @@
+ GROUPBOX intvar       col10     _lineD1    430  120,                      ///
+           label("Variables of interest: ")
+           
+
+
+  
+  TEXT     tx_var1      20    +25    150      .,                 ///
+             label("Welfare variable:   ")  
+  VARLIST  vn_y      150    @     280      .,                
+
+
+           
+  TEXT     tx_var2      20    +25    150      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hs      150    @     280      .,                 ///
+           option(hsize) 
+  
+
+ 
+           
+  TEXT     tx_var3      20    +25    150      .,                 ///
+           label("Group  variable:   ")  
+  VARNAME  vn_gr      150    @     280      .,                 ///
+           option(hgroup) 
+  
+ 
+ 
+ 
+ 
+                                  
+          

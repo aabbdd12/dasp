@@ -1,0 +1,189 @@
+
+
+
+
+VERSION 9.2
+ 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 300
+
+
+DIALOG main, label(" DASP|  Decompistion of Gender Gap --> decgeng command") tabtitle("Main")
+
+BEGIN
+
+ GROUPBOX intvar 10     20    360  180,                      ///
+             label("Variables of the model")
+  TEXT   tx_dep      20      35   180   .,                      ///
+        label("Dependant variable (outcome):")
+  
+  VARNAME vn_dep   200      35   150       .,                      ///
+        label("") 
+		
+  TEXT   tx_gen      20      65   180   .,                      ///
+        label("Gender variable:")
+  
+  VARNAME vn_gen   200      65   150       .,                      ///
+        label("") 		
+                
+
+  TEXT   tx_indcat      20     +30   260   .,                      ///
+        label("Categorical independant variables:")
+  
+  VARLIST vl_indcat   20      +20   330       .,   ///
+  option(indcat)
+  
+   TEXT   tx_indcon      20     +30   260   .,                      ///
+  label("Continues independant variables:")
+  
+  VARLIST vl_indcon   20      +20   330       .,    ///
+    option(indcon)
+  
+  
+  				
+ CHECKBOX ck_extend     380 20     360    180,             ///
+        groupbox label("Extend the decomposition with a variable of interest")                 ///
+        onclickon(program ptb_options_extend)                      ///
+        onclickoff(script  tb_options_extend)
+
+		
+  TEXT   etx_dep      390      45   180   .,                      ///
+        label("Independant variable of interest:")
+  
+  VARNAME evn_dep   570      45   150       .,                      ///
+        label("")  option(extend)
+		  
+
+  TEXT   etx_indcat      390     +30   260   .,                      ///
+        label("Categorical independant variables:")
+  
+  VARLIST evl_indcat   390      +20   330       .,   ///
+  option(eindcat)
+  
+   TEXT   etx_indcon      390     +30   260   .,                      ///
+  label("Continues independant variables:")
+  
+  VARLIST evl_indcon   390      +20   330       .,    ///
+    option(eindcon)
+  		
+		
+  
+  DEFINE _x 20
+   DEFINE _y 240
+     
+  INCLUDE _bu_svyset
+
+
+END
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+                                        
+SPINNER  sp_dec    10       25      120    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(6) max(12)                            /*
+                */ option(dec)
+
+TEXT     sp_txt  140      25      150      .,                            /*
+                */ label("Number of decimals")  
+
+				
+
+
+				
+TEXT     boot_txt  10      +35      150      .,                            /*
+                */ label("Number of boostrap interations")  
+
+EDIT  ed_niter   160      @   100       .,                      ///
+        label("")  option(niter) default(0)
+		
+			
+  				
+END
+
+
+
+
+
+PROGRAM ptb_options_extend
+BEGIN
+        if main.ck_extend {
+  		    call main.etx_dep.enable
+ 			call main.evn_dep.enable
+ 			call main.etx_indcat.enable
+ 			call main.evl_indcat.enable 
+ 			call main.etx_indcon.enable      
+			call main.evl_indcon.enable
+
+        }
+                
+         if !main.ck_extend  {
+			call main.etx_dep.disable
+ 			call main.evn_dep.disable
+ 			call main.etx_indcat.disable
+ 			call main.evl_indcat.disable 
+ 			call main.etx_indcon.disable      
+			call main.evl_indcon.disable 
+
+        }
+END
+
+
+SCRIPT tb_options_extend
+BEGIN
+
+			 main.etx_dep.disable
+ 			 main.evn_dep.disable
+ 			 main.etx_indcat.disable
+ 			 main.evl_indcat.disable 
+ 			 main.etx_indcon.disable      
+			 main.evl_indcon.disable 
+
+END
+
+
+
+
+HELP hlp1,   view("help decgeng")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+        put "decgeng "
+        require  main.vn_dep
+        varlist [main.vn_dep]
+        require  main.vn_gen
+        varlist [main.vn_gen]
+
+        beginoptions   
+        put " "
+		optionarg main.vl_indcat
+		optionarg main.vl_indcon
+                        if !resop.sp_dec.isdefault() {
+                        optionarg resop.sp_dec
+                        }
+                       if !resop.ed_niter.isdefault() {
+                        optionarg resop.ed_niter
+                        }
+   
+ 
+		                 if  main.ck_extend {
+						    optionarg main.evn_dep
+							optionarg main.evl_indcat
+		                    optionarg main.evl_indcon
+                        }
+                                            
+        endoptions
+        
+         
+END

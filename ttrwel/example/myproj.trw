@@ -1,0 +1,17 @@
+.ttrwel_dlg.main.dbsamex.setvalue "myproj"
+.ttrwel_dlg.main.vn_pcexp.setvalue "rhexpend"
+.ttrwel_dlg.main.vn_tex.setvalue "rs_exp_cigarettes"
+.ttrwel_dlg.main.vn_hhs.setvalue "member"
+.ttrwel_dlg.main.vn_dec.setvalue "decile"
+.ttrwel_dlg.main.fnamex_ela.setvalue "data\elas_banglad.dta"
+.ttrwel_dlg.main.ed_velasm.setvalue "elas_m"
+.ttrwel_dlg.main.ed_velasl.setvalue "elas_l"
+.ttrwel_dlg.main.ed_velasu.setvalue "elas_u"
+.ttrwel_dlg.main.ed_ehealth.setvalue "5729166666.666667"
+.ttrwel_dlg.main.ed_wtime.setvalue "3288506"
+.ttrwel_dlg.main.ed_princ.setvalue ".25"
+.ttrwel_dlg.gr_options_ttr.ck_folgr.seton
+.ttrwel_dlg.gr_options_ttr.ed_folgr.setvalue "results"
+.ttrwel_dlg.tb_options_ttr.ck_excel.seton
+.ttrwel_dlg.tb_options_ttr.fnamex.setvalue "results/myres.xml"
+.ttrwel_dlg.tb_options_ttr.chk_ste.seton 

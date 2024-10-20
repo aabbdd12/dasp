@@ -1,0 +1,110 @@
+{smcl}
+{* August 2021}{...}
+{hline}
+{hi:DASP 3.0 : Distributive Analysis Stata Package}{right:{bf:PEP}}
+help for {hi:bian }{right:Dialog box:  {bf:{dialog bian}}}
+{hline}
+
+{title:Benefit Incidence Analysis:} 
+
+{p 8 10}{cmd:bian}  {it:varlist}  {cmd:,} 
+[   
+{cmd:HGroup(}{it:varname}{cmd:)} 
+{cmd:SGroup(}{it:string}{cmd:)}
+{cmd:APProach(}{it:int}{cmd:)}
+{cmd:DEC(}{it:int}{cmd:)}
+{cmd:DTAB1(}{it:int}{cmd:)}
+{cmd:DTAB2(}{it:int}{cmd:)}
+{cmd:DTAB3(}{it:int}{cmd:)}
+{cmd:BGEN(}{it:int}{cmd:)}
+{cmd:MAINLAB(}{it:string}{cmd:)}
+{cmd:FRQ1(}{it:varname}{cmd:)}-{cmd:FRQ6(}{it:varname}{cmd:)} 
+{cmd:SZ1(}{it:varname}{cmd:)}-{cmd:SZ6(}{it:varname}{cmd:)} 
+{cmd:IN1(}{it:varname}{cmd:)} -{cmd:IN6(}{it:varname}{cmd:)}
+{cmd:DIN1(}{it:varname}{cmd:)}-{cmd:DIN6(}{it:varname}{cmd:)}
+{cmd:LBS1(}{it:string}{cmd:)} -{cmd:LBS6(}{it:string}{cmd:)}
+]
+ 
+
+{p}where {p_end}
+{p 8 8} {cmd:varlist} is a list of variables. {p_end}
+
+
+{title:Version} 15.0 and higher.
+
+{title:Description}
+
+{cmd:bian} is designed to estimate the following statistics according to membership in some groups (such as quartiles, quintiles or deciles). 
+These statistics can serve to support a benefit incidence analysis. {p_end}
+
+{p 4 8}{inp:. Rate of participation in public benefits;}{p_end}
+{p 4 8}{inp:. Average benefits;}{p_end}
+{p 4 8}{inp:. Share of benefits.}{p_end}
+
+{title:Note}
+
+{p 0 4} Users should set their surveys' sampling design before using this module  (and then save their data files). If the sampling design is not set, simple-random sampling (SRS) will be automatically assigned 
+by default. {p_end} 
+
+
+{title:Options}
+
+
+{p 0 4} {cmdab:hgroup}   Variable that captures a socio-demographic group. For example, this variable could equal 1 for rural households and 2 for urban ones. When this option is used, the associated varlist should contain only one variable. {p_end}
+
+{p 0 4} {cmdab:sgroup}   By default, the statistics are computed by quintiles. Select the option "qrt" for quartiles or "dcl" for deciles. {p_end}
+
+{p 0 4} {cmdab:approach}  By default, the frequency approach is selected (With the frequency approach, we can estimate the participation rates). When information about total public expenditures by public benefit is avalaibe, select the option "2" before proceeding to the estimation of the other statistics.  {p_end}
+
+{p 0 4} {cmdab:dec}      To set the number of decimals used in the display of results. {p_end}
+
+{p 0 4} {cmdab:dtab1}    If this option is selected "dtab1(1)", the participation rates statistics will be displayed. {p_end}
+
+{p 0 4} {cmdab:dtab2}    If this option is selected "dtab2(1)", the average benefits statistics will be displayed. {p_end}
+
+{p 0 4} {cmdab:dtab3}    If this option is selected "dtab3(1)", the share of benefits statistics will be displayed. {p_end}
+
+{p 0 4} {cmdab:bgen}    If this option is selected "bgen(1)" , benefit variables statistics are generated (benefit by sector and total benefits). {p_end}
+
+{p 0 4} {cmdab:mainlab}   To initialize the label of the public benefit considered (ex. "Education"). {p_end}
+
+{p 0 4} {cmdab:frq1}      To indicate the variable of household frequency for the first sector. This is the number of household members that use the public service provided by sector 1 (ex. 2 children use the primary sector). {p_end}
+
+{p 0 4} {cmdab:frq"i"}     To indicate the variable of household frequency for the i_th sector (i is between 2 and 6). {p_end}
+
+{p 0 4} {cmdab:sz1}      To indicate the variable for the number of eligible household members for the first sector. This is the number of household members that could benefit from the public service provided by sector 1 (ex. there are 2 children of primary education age ). {p_end}
+
+{p 0 4} {cmdab:sz"i"}     To indicate the variable for the number of eligible household members for the i_th sector (i is between 2 and 6). {p_end}
+
+{p 0 4} {cmdab:lbs1}      To label the first sector (ex. lbs1("Primary") ). {p_end}
+
+{p 0 4} {cmdab:lbs"i"}     To label the i_th sector (ex. lbs2("secondary") ). {p_end}
+
+{p 0 4} {cmdab:in1}       To indicate the regional variable for total public expenditures in the first sector. By default, the values of this variable are set to 1; this supposes that information on total expenditure is available only at the national level. {p_end}
+
+{p 0 4} {cmdab:in"i"}     To indicate the regional variable for the public total expenditures for the i_th sector. {p_end}
+
+{p 0 4} {cmdab:din1}       To indicate total public expenditures (by regions) for the first sector. {p_end}
+
+{p 0 4} {cmdab:din"i"}     To indicate total public expenditures (by regions) for the i_th sector.  {p_end}
+
+
+{title:Examples}
+sysuse perede94I.dta, replace
+bian exppc, mainlab(Public Education) approach(1) frq1(frq_prim) sz1(el_prim) lbs1(Primary) sz2(el_sec) frq2(frq_sec) lbs2(Secondary)
+bian exppc, mainlab(Education) approach(2) frq1(frq_prim) sz1(el_prim) din1(pri_pub_exp) lbs1(Primary) sz2(el_sec) frq2(frq_sec) din2(sec_pub_exp) lbs2(Secondary)
+
+{title:References}
+
+{p 4 4 2}  Sawitree S. A. & all, 2003, {browse "http://ideas.repec.org/p/imf/imfwpa/03-227.html": How Useful are Benefit Incidence Analyses of Public Education and Health Spending?}, IMF Working Papers 03/227, International Monetary Fund.{p_end}
+{p 4 4 2}  Demery, Lionel, 1997, Benefit Incidence Analysis, mimeo, World Bank, Washington DC.{p_end}
+
+
+
+{title:Authors}
+Abdelkrim Araar
+Jean-Yves Duclos
+
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}

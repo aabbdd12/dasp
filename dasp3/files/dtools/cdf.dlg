@@ -1,0 +1,139 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/ 
+/* cfgt.dlg                                                              */
+/*************************************************************************/ 
+
+VERSION 15.0
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 430
+DEFINE  _dlgwd 890
+INCLUDE header
+
+
+DIALOG main, label("DASP 3.0 | CDF Curves --> cdf command") tabtitle("Main")
+
+
+BEGIN
+  
+ GROUPBOX intvar       10     10    430  140,                      ///
+           label("Variables of interest: ")
+           
+  
+  TEXT     tx_var111     20    +35    150      .,                 ///
+           label("Welafre variable(s):   ")  
+  
+  VARLIST  vl_var 150     @   280   .,                   ///
+           label("Variables")
+           
+  TEXT     tx_var2      20    +35    150      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      150    @     280      .,                 ///
+           option(hsize)      
+ 
+  TEXT     tx_var4      20    +35    150      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      150    @     280      .,                 ///
+           option(hgroup)            
+
+
+		  
+		   
+  GROUPBOX chk_per  450    10  430 140,                         ///
+           label("Parameters: ")         ///       ///
+
+           
+   TEXT    tx_min   600    +25    80      .,                    ///
+           label("Minimum:   ")                                 ///
+                
+   TEXT    tx_max   750    @   80      .,                 ///
+           label("Maximum:   ") 
+           
+   
+   TEXT txt_pl     460     +20    100      .,                 ///  
+                  label("Range of X-axis:   ")        
+   
+   EDIT    ed_min   600    @     90      .,                 ///
+           default(0) option(min)                            ///
+                
+   EDIT    ed_max   760    @      90      .,                 ///
+           default(10000) option(max)   
+   
+END
+
+
+
+
+
+
+INCLUDE dasp_gr_res_opts
+
+
+
+
+
+INCLUDE gr_yaxis
+INCLUDE gr_xaxis
+INCLUDE gr_titles
+INCLUDE gr_legend
+INCLUDE gr_overall
+
+HELP hlp1,   view("help cdf")
+RESET res1
+
+PROGRAM command
+BEGIN
+	put "cdf "
+	require  main.vl_var
+	varlist [main.vl_var]
+	
+	beginoptions
+		       
+
+			optionarg main.vn_hhs
+			optionarg main.vn_hhg
+
+		
+			optionarg main.ed_min
+			optionarg main.ed_max
+			
+		    optionarg res.fnamec
+			optionarg res.fnamegs
+			optionarg res.fnamege
+        
+
+                                                      
+			if res.chk_op1 {
+						
+						put "lres("
+						put res.chk_op1
+						put ")"
+		                       }
+		                       
+		        if !res.chk_op3 {
+						
+						put "dgra("
+						put res.chk_op3
+						put ")"
+		                       } 
+							   
+							   
+
+            put " " /program gr_yaxis_output
+put " " /program gr_xaxis_output
+put " " /program gr_titles_output
+put " " /program gr_legend_output
+put " " /program gr_overall_output
+		        
+			
+	endoptions
+	
+	
+	
+END

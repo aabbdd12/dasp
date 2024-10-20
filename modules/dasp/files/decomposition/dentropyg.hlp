@@ -1,0 +1,57 @@
+{smcl}
+{* January 2007}{...}
+{hline}
+{hi:DASP : Distributive Analysis Stata Package}{right:{bf:PEP, CIRPEE, World Bank and UNDP}}
+help for {hi:dentropyg }{right:Dialog box:  {bf:{dialog dentropyg}}}
+{hline}
+
+{title: Decomposition of generalised entropy index of inequality by groups} 
+
+{p 8 10}{cmd:dfgtg}  {it:varlist}  {cmd:,} [ 
+{cmd:HSize(}{it:varname}{cmd:)} {cmd:HGroup(}{it:varname}{cmd:)} {cmd:PLine(}{it:real}{cmd:)}  
+{cmd:THETA(}{it:real}{cmd:)} 
+{cmd:TYPE(}{it:string}{cmd:)} {cmd:INDex(}{it:string}{cmd:)} ]
+ 
+
+{p}where {p_end}
+{p 8 8} {cmd:varlist} is a list of variables. {p_end}
+
+
+{title:Version} 9.2 and higher.
+
+{title:Description}
+  {cmd:dentropyg} decomposes the generalised entropy index of inequality by groups and provides standard errors on elements of the decompositions.
+
+{title:Remark}
+{p}Users should set their surveys' sampling design before using this module  (and then save their data files). If the sampling design is not set, simple-random sampling (SRS) will be automatically assigned  by default. {p_end}
+
+
+{title:Options}
+
+{p 0 4} {cmdab:hsize}        Household size. For example, to compute poverty at the individual level, one will want to weight household-level observations by household size (in addition to sampling weights, best set in survey design). {p_end}
+
+{p 0 4} {cmdab:hgroup}       The variable that captures the socio-demographic group to be used in the decomposition. For example, for an urban-rural decomposition of poverty, this variable could equal 1 for rural households and 2 for urban ones. The associated varlist should contain only one variable. {p_end}
+
+{p 0 4} {cmdab:theta}         To set the inequality parameter (theta). By default, theta=1.   {p_end}
+
+{p 0 4} {cmdab:dec}          To set the number of decimals used in the display of results. {p_end}
+
+{p 0 4} {cmdab:dste}         If "0" is selected, standard errors are not displayed. {p_end}
+
+
+{title:Examples}
+
+{p 4 8}{inp:. dentropyg income, theta(0.5) hgroup(education)}{p_end}
+
+
+
+{title:Authors}
+Abdelkrim Araar
+Jean-Yves Duclos
+
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}
+
+
+

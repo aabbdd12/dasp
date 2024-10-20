@@ -1,0 +1,49 @@
+* DEC2018 - 
+v 3
+d {bf:TOBACTAX     : TOBACco and TAXes}
+d Version       : Version           1.07  
+d Date          : DEC               2018
+d Stata Version : Required  14.0 and higher
+d
+d TTRWEL is a product of the World Bank.
+d
+d Authors : {bf:Abdelkrim Araar(a)} {bf:Fuchs Tarlovsky,Alan(b)}
+d
+d Emails  : (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  
+d           (b) {browse "mailto:afuchs@worldbank.org":afuchs@worldbank.org}   
+d
+
+f files/main/graph_header.idlg
+f files/main/asdbsave_ttrw.ado 
+f files/main/additmenu.ado
+f files/main/atobatref2.ado      
+f files/main/cmnpe.ado         
+f files/main/dismat.ado        
+f files/main/dismat_mod2.ado 
+f files/main/dismat_mod21.ado 
+f files/main/graph_header.idlg 
+f files/main/gr_options_ttr.idlg
+f files/main/jgraphs_ttr.sthlp 
+f files/main/jtables_ttr.sthlp 
+f files/main/extend_opt_graph.ado
+f files/main/mk_xtab_tr.ado    
+f files/main/tb_options_ttr.idlg
+f files/main/ttrjob10.ado      
+f files/main/ttrjob20.ado      
+f files/main/tobatref.ado        
+f files/main/tobatref.dlg        
+f files/main/tobatref.sthlp      
+f files/main/tobatrefl_ini_trw.ado
+f files/main/tobatrefl_ini_trw.dlg
+f files/main/xml_tabastr.ado 
+f files/main/xml_tab.ado 
+f files/main/tobactax.dlg
+f files/main/_nargs.ado
+f files/main/nargs.ado
+f files/main/_tobactax_inst.ado
+f files/main/_tobactax_vers.ado
+f files/main/_tobactax_menu.ado
+f files/main/tobelas.ado
+f files/main/tobelas.dlg
+f files/main/tobelas.sthlp
+

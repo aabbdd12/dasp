@@ -1,0 +1,725 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 3.0)          */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2021)               */
+/* Universite Laval, Quebec, Canada                                    */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+VERSION 15
+SYNCHRONOUS_ONLY
+
+
+POSITION . . 900 420
+
+  DEFINE col10  10
+  DEFINE col11  20
+  DEFINE col20  450
+  DEFINE vposds 340
+  DEFINE dlg ineq
+  DEFINE  _lineD1  80
+  
+
+DIALOG main, label("DASP 3.0 | Inequality and Concentration Indices --> ineq command") tabtitle("Main")
+
+
+BEGIN
+
+
+     GROUPBOX chk_per  10    10  880 50,                         ///
+           label("Inequality and concentration indices and options: ")         ///
+  
+    
+	
+	TEXT txt_ind     +10    +20    140      .,                 ///  
+                  label("Inequality/Concentration index:   ")    
+				  
+    COMBOBOX  cb_index      160    @     200      .,                  ///
+             dropdownlist                                          ///
+             contents(cb_index)  values(cb_index_val) option(index)     ///
+             default(gini)  onselchangelist(co_index)			  
+       
+   
+   TEXT    txt_index34     380    @    100      .,                 ///  
+                  label("Ranking variable:   ")  
+   
+   VARNAME  var_index34    490   @     200      .,                 ///
+              option(rank)
+			  
+   TEXT     txt_index5     380    @    100      .,                 ///  
+                  label("Parameter epsilon:   ")  
+   
+   EDIT     edt_index5    490   @     200      .,                 ///
+              option(epsilon)  default(0.5)     
+           			  
+					  
+			  
+   TEXT     txt_index6     380    @    100      .,                 ///  
+                  label("Parameter theta:   ")  
+   
+   EDIT     edt_index6    490   @     200      .,                 ///
+              option(theta)   	default(1)  				  
+           
+   			 
+   TEXT     txt_index81     380    @    100      .,                 ///  
+                  label("Lower rank | (p1): ")  
+   
+   EDIT     edt_index81    480   @     40      .,                 ///
+              option(p1)  default(0.1)  
+   
+   TEXT     txt_index82     590    @    100      .,                 ///  
+                  label("Upper rank | (p2): ")  
+   
+   EDIT     edt_index82    690   @     40      .,                 ///
+              option(p2)  	default(0.9)  		  
+                      
+   TEXT     txt_index91     380    @    120      .,                 ///  
+                  label("Lower rank | (p1 & p2): ")  
+   
+   EDIT     edt_index91    500   @     40      .,                 ///
+              option(p1) default(0.1)  
+			  
+   EDIT     edt_index92    550   @     40      .,                 ///
+              option(p2)  default(0.2)  			  
+   
+   TEXT     txt_index92     630    @    120      .,                 ///  
+                  label("Upper rank | (p3 & p4): ")  			  
+   
+   EDIT     edt_index93    750   @     40      .,                 ///
+              option(p3)  default(0.8)  
+   
+   EDIT     edt_index94    800   @     40      .,                 ///
+              option(p4)  default(0.9)  		
+ 
+ GROUPBOX intvar       col10     _lineD1    430  120,                      ///
+           label("Variables of ineterst: ")
+           
+
+
+  
+  TEXT     tx_var1      20    +25    150      .,                 ///
+             label("Welfare variable:   ")  
+  VARLIST  vn_y      150    @     280      .,                
+
+
+           
+  TEXT     tx_var2      20    +25    150      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hs      150    @     280      .,                 ///
+           option(hsize) 
+  
+
+ 
+           
+  TEXT     tx_var3      20    +25    150      .,                 ///
+           label("Group  variable(s):   ")  
+  VARLIST  vn_gr      150    @     280      .,                 ///
+           option(hgroup) 
+  
+
+       
+INCLUDE dbsalo
+ 
+END
+
+
+
+DIALOG confop,  tabtitle("Confidence Interval")
+
+BEGIN
+
+
+TEXT     sp_txt  10      25      120      .,                            /*
+                */ label("Confidence level in (%) : ")  
+                
+SPINNER  sp_level    140       25      50         .,                    /*
+                */ label("Confidence level")                            /*
+                */ min(10) default(95) max(99)                          /*
+                */ option(level)
+TEXT     ci_txt  10      +25      120     .,                            /*
+                */ label("Confidence interval      : ") 
+                
+COMBOBOX cb_ci       140    @   200      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)             
+
+                                        
+
+
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+
+TEXT     sp_txt1  10          25      260      .,                            /*
+                */ label("  - Number of decimals of estimated indices:")                          
+SPINNER  sp_dec1    270      @      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(4) max(12)                            /*
+                */ option(dec1)
+				
+TEXT     sp_txt2  10          +25      260      .,                            /*
+                */ label("  - Number of decimals of estimated STE:")                          
+SPINNER  sp_dec2    270      @      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(4) max(12)                            /*
+                */ option(dec2)				
+
+
+                
+
+   CHECKBOX ck_xls  10    +60  580 160,          ///
+                 label(`"Save results in Excel format"')               ///
+                 groupbox                                               ///
+                 option("txls")                                 ///
+                 onclickoff(program resop_xls)                      ///
+                 onclickon(program resop_xls)                    ///
+                 default(0)
+  
+
+
+       TEXT  tx_nxfile     20    +25    80      .,                 ///  
+                   label("File :")                                  ///      
+            
+        
+        FILE  fnamex      90    @     360      .,                 ///
+        label ("Browse...")    save option("xfil")                   ///
+        filter("MetaFile (*.xlsx)|*.xlsx|*.* (*.*)|*.*")  
+
+        
+
+
+       COMBOBOX cb_modrep        460    @   100   .,                              ///
+            dropdownlist contents(cb_modrep) values(cb_modrep_val)               ///
+             default(replace)     option(modrep)        
+
+         
+         
+         
+            TEXT     tx_she  20   +35      80     .,                    /*
+                */ label("Sheet:")                      /*
+                */
+       
+           
+           EDIT     ed_she  90    @       470   .,                      /*
+                */ label("sheet")                               /*
+                */ option("xshe") default("Table 01")                   /*
+                */   
+
+      
+
+       TEXT     tx_tit  20   +35      80     .,                 /*
+                */ label("Title:")                      /*
+                */
+       EDIT     ed_tit  90    @       470   .,                  /*
+                */ label("Bandwidth of kernel")                         /*
+                */ option("xtit") default("Table 01: Inequality indices")                                    /*
+                */   
+
+END
+
+
+LIST cb_modrep
+BEGIN
+  Replace
+  Modify
+END
+
+
+LIST cb_modrep_val
+BEGIN
+  replace
+  modify
+END
+
+
+
+
+PROGRAM resop_xls
+BEGIN
+if resop.ck_xls  {
+call resop.tx_nxfile.enable
+call resop.fnamex.enable
+call resop.tx_she.enable
+call resop.ed_she.enable
+
+call resop.cb_modrep.enable
+call resop.tx_tit.enable
+call resop.ed_tit.enable
+}
+
+if !resop.ck_xls {
+call resop.tx_nxfile.disable
+call resop.fnamex.disable
+call resop.tx_she.disable
+call resop.ed_she.disable
+
+call resop.cb_modrep.disable
+call resop.tx_tit.disable
+call resop.ed_tit.disable
+}
+END
+
+
+
+
+LIST cb_index
+BEGIN
+  Gini index
+  Absolute Gini index
+  Concentration index
+  Absolute concentration index
+  Atkinson index
+  Generalised entropy index
+  Coefficient of variation index
+  Quantile ratio index 
+  Share ratio index 
+END
+
+LIST cb_index_val
+BEGIN
+  gini
+  agini
+  conc
+  aconc
+  atk
+  entropy
+  covar
+  qr
+  sr
+END
+
+
+
+LIST co_index
+BEGIN
+        script index1
+        script index2
+        script index3
+		script index4
+		script index5
+        script index6
+        script index7
+		script index8 
+		script index9
+END
+
+
+SCRIPT index1
+BEGIN
+        has_index1.settrue
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+SCRIPT index2
+BEGIN
+        has_index1.setfalse
+        has_index2.settrue
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+SCRIPT index3
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.settrue
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+SCRIPT index4
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.settrue
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+
+SCRIPT index5
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.settrue
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+SCRIPT index6
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.settrue
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+
+SCRIPT index7
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.settrue
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+
+SCRIPT index8
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.settrue
+		has_index9.setfalse
+        program check_index
+END
+
+SCRIPT index9
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.settrue
+        program check_index
+END
+
+
+PROGRAM check_index
+BEGIN
+if (has_index1 | has_index2 ){
+call main.txt_index34.hide
+call main.var_index34.hide
+call main.txt_index5.hide
+call main.txt_index6.hide
+call main.edt_index5.hide
+call main.edt_index6.hide
+call main.txt_index81.hide  
+call main.txt_index82.hide     
+call main.edt_index81.hide     			  
+call main.edt_index82.hide     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+if (has_index3 | has_index4)  {
+call main.txt_index34.show
+call main.var_index34.show
+call main.txt_index5.hide
+call main.txt_index6.hide
+call main.edt_index5.hide
+call main.edt_index6.hide
+call main.txt_index81.hide      
+call main.edt_index81.hide  
+call main.txt_index82.hide    			  
+call main.edt_index82.hide     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+if (has_index5 ){
+call main.txt_index34.hide
+call main.var_index34.hide
+call main.txt_index5.show
+call main.txt_index6.hide
+call main.edt_index5.show
+call main.edt_index6.hide
+call main.txt_index81.hide      
+call main.edt_index81.hide  
+call main.txt_index82.hide    			  
+call main.edt_index82.hide     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+if (has_index6 ){
+call main.txt_index34.hide
+call main.var_index34.hide
+call main.txt_index5.hide
+call main.txt_index6.show
+call main.edt_index5.hide
+call main.edt_index6.show
+call main.txt_index81.hide      
+call main.edt_index81.hide 
+call main.txt_index82.hide    			  
+call main.edt_index82.hide     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+if (has_index7 ){
+call main.txt_index34.hide
+call main.var_index34.hide
+call main.txt_index5.hide
+call main.txt_index6.hide
+call main.edt_index5.hide
+call main.edt_index6.hide
+call main.txt_index81.hide      
+call main.edt_index81.hide
+call main.txt_index82.hide      			  
+call main.edt_index82.hide     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+if (has_index8 ){
+call main.txt_index34.hide
+call main.var_index34.hide
+call main.txt_index5.hide
+call main.txt_index6.hide
+call main.edt_index5.hide
+call main.edt_index6.hide
+call main.txt_index81.show      
+call main.edt_index81.show 
+call main.txt_index82.show    			  
+call main.edt_index82.show     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+
+if (has_index9 ){
+call main.txt_index34.hide
+call main.var_index34.hide
+call main.txt_index5.hide
+call main.txt_index6.hide
+call main.edt_index5.hide
+call main.edt_index6.hide
+call main.txt_index81.hide      
+call main.edt_index81.hide 
+call main.txt_index82.hide     			  
+call main.edt_index82.hide     			  
+call main.txt_index91.show    
+call main.edt_index91.show   		  
+call main.edt_index92.show  
+call main.txt_index92.show      			  
+call main.edt_index93.show   
+call main.edt_index94.show    
+}
+
+
+END
+
+
+
+
+INCLUDE progra
+
+SCRIPT PREINIT
+BEGIN
+	    create BOOLEAN has_index1
+        create BOOLEAN has_index2
+        create BOOLEAN has_index3
+		create BOOLEAN has_index4
+	    create BOOLEAN has_index5
+        create BOOLEAN has_index6
+        create BOOLEAN has_index7
+		create BOOLEAN has_index8
+		create BOOLEAN has_index9
+	    program initialize
+END
+
+
+
+
+PROGRAM initialize
+BEGIN
+	put "Init_DB , ndb(ineq)"
+	stata hidden
+END
+
+
+PROGRAM POSTINIT_PROGRAM
+BEGIN
+        put "adasp2"
+        stata hidden
+END
+
+
+
+HELP hlp1,   view("help ineq")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+
+        put "ineq "
+		require  main.vn_y
+        varlist [main.vn_y]
+        beginoptions
+                       
+
+                        optionarg main.vn_hs
+                        optionarg main.vn_gr   
+                        optionarg main.cb_index
+						optionarg main.var_index34
+						
+						if !main.edt_index5.isdefault() {
+						      optionarg main.edt_index5
+						}
+						if !main.edt_index6.isdefault() {
+						      optionarg main.edt_index6
+						}
+						
+                         if has_index8 {
+						      optionarg main.edt_index81
+						}
+						
+                        if has_index8 {
+						      optionarg main.edt_index82
+						}
+						
+						if !main.edt_index91.isdefault() {
+						      optionarg main.edt_index91
+						}
+						
+                         if !main.edt_index92.isdefault() {
+						      optionarg main.edt_index92
+						}
+						
+						if !main.edt_index93.isdefault() {
+						      optionarg main.edt_index93
+						}
+						
+						if !main.edt_index94.isdefault() {
+						      optionarg main.edt_index94
+						}
+							
+						
+                 
+                        
+						
+                        if !confop.sp_level.isdefault() {
+                                                         optionarg confop.sp_level
+                                                         }
+                                                 
+                        if !confop.cb_ci.isdefault()    {
+                                                         optionarg confop.cb_ci
+                                                        } 
+                        
+						 optionarg resop.fnamex
+                        optionarg resop.ed_she
+
+                        if !resop.cb_modrep.isdefault(){
+                        optionarg resop.cb_modrep
+                        }
+
+                        if !resop.ed_tit.isdefault(){
+                        optionarg resop.ed_tit
+                        }
+                        
+            
+
+                        if !resop.sp_dec1.isdefault() {
+                        optionarg resop.sp_dec1
+                        }
+						
+						  if !resop.sp_dec2.isdefault() {
+                        optionarg resop.sp_dec2
+                        }
+
+                       
+					 
+	
+						optionarg main.dbsamex	
+
+END

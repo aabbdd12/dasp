@@ -1,0 +1,161 @@
+{smcl}
+{* January 2007}{...}
+{hline}
+{hi:DASP : Distributive Analysis Stata Package}{right:{bf:World Bank, IADB, PEP and CIRPEE}}
+help for {hi:imdpov }{right:Dialog box:  {bf:{dialog imdpov}}}
+{hline}
+
+{title:Multidimensional Poverty Indices} 
+
+{p 8 10}{cmd:imdpov}  {it:varlist}  {cmd:,} [ 
+{cmd:HSize(}{it:varname}{cmd:)} 
+{cmd:HGroup(}{it:varname}{cmd:)} 
+{cmd:a1(}{it:real}{cmd:)}-{cmd:a6(}{it:real}{cmd:)}
+{cmd:al1(}{it:real}{cmd:)}-{cmd:al6(}{it:real}{cmd:)}
+{cmd:b1(}{it:real}{cmd:)}-{cmd:b6(}{it:real}{cmd:)}
+{cmd:pl1(}{it:real}{cmd:)}-{cmd:pl6(}{it:real}{cmd:)}
+{cmd:alpha(}{it:real}{cmd:)}
+{cmd:beta(}{it:real}{cmd:)}
+{cmd:gamma(}{it:real}{cmd:)}
+{cmd:INDex(}{it:string}{cmd:)} 
+{cmd:LEVEL(}{it:real}{cmd:)}
+{cmd:CONF(}{it:string}{cmd:)} 
+]
+ 
+
+{p}where {p_end}
+{p 8 8} {cmd:varlist} is a list of variables. {p_end}
+
+
+{title:Version} 9.2 and higher.
+
+{title:Description}
+ {p}{cmd:Multidimensional Poverty Indices}  Users should set their surveys' sampling design before using this module 
+ (and save their data files). If the sampling design is not set, simple-random sampling (SRS) will be automatically assigned 
+by default. 
+
+With {cmd:imdpov}, the following multidimensional poverty indices and their standard errors {p_end} will be estimated:
+{p 4 8}{inp:[1] Chakravarty et al (1998) index;}{p_end}
+{p 4 8}{inp:[2] Extended Watts index;}{p_end}
+{p 4 8}{inp:[3] Multiplicative extended FGT index;}{p_end}
+{p 4 8}{inp:[4] Tsui (2002) index;}{p_end}
+{p 4 8}{inp:[5] Intersection headcount index.}{p_end}
+{p 4 8}{inp:[6] Union headcount index.}{p_end}
+{p 4 8}{inp:[7] Bourguignon and Chakravarty (2003) bidimensional index.}{p_end}
+
+
+{title:Options} 
+
+{p 0 4} {cmdab:hsize}    Household size. For example, to compute poverty at the invididual level, one will want to weight household-level observations by household size (in addition to sampling weights, best set in survey design). {p_end}
+
+{p 0 4} {cmdab:hgroup}   Variable which captures a socio-demographic group. For example, this variable could equal 1 for rural households and 2 for urban ones. When this option is used, the associated varlist should contain only one variable. {p_end}
+
+{p 0 4} {cmdab:index}    By default the Chakravarty et al (1998) index is estimated. Intiate the option to: {p_end}
+{p 12 8}                  2 : Extended Watts index; {p_end}
+{p 12 8}                  3 : Multiplicative extended FGT index; {p_end}
+{p 12 8}                  4 : Tsui (2002) index; {p_end}
+{p 12 8}                  5 : Intersection headcount index; {p_end}
+{p 12 8}                  6 : Union headcount index; {p_end}
+{p 12 8}                  7 : Bourguignon and Chakravarty (2003) bidimensional index. {p_end}
+
+{p 0 4} {cmdab:a"j"}    parameters used to estimate indices [1] or [2] (see the detailed description below). By default, these parameters are set to 1.  (j is between 2 and 6). {p_end}
+
+{p 0 4} {cmdab:alpha}    parameter used to estimate indices [1], [5] or [7] (see the detailed description below).  By default, this parameter is set to 0.   {p_end}
+
+{p 0 4} {cmdab:beta}    parameter used to estimate index [7] (see the detailed description below).  By default, this parameter is set to 1.   {p_end}
+
+{p 0 4} {cmdab:gamma}    parameter used to estimate index [7] (see the detailed description below).  By default, this parameter is set to 1.   {p_end}
+
+{p 0 4} {cmdab:al"j"}     parameters used to estimate indices [3] (see the detailed description below). By default, these parameters are set to 0.  (j is between 2 and 6). {p_end}
+
+{p 0 4} {cmdab:b"j"}     parameters used to estimate indices [4] (see the detailed description below). By default, these parameters are set to 1.  (j is between 2 and 6). {p_end}
+{p 0 4} {cmdab:pl"j"}     poverty line for the attribute j (j is between 1 and 6). {p_end}
+
+{p 0 4} {cmdab:level}    To set the confidence level of the confidence interval to be produced. {p_end}
+
+{p 0 4} {cmdab:conf}     To set the type of confidence interval desired: "ts" for two sided, "lb" for lower-bounded and "up" for upper-bounded.{p_end}
+
+{p 0 4} {cmdab:dec}      To set the number of decimals used in the display of results. {p_end}
+
+{title:Detailed description:}
+
+Consider a population of individuals , i = 1,...,n, 
+with income y_i, and sampling weight w_i. Let f_i = w_i/N, where 
+    i=n
+N = SUM(w_i). When the data are unweighted, w_i = 1 and N = n. 
+    i=1
+
+Suppose that j = 1,...,K, denotes the j_ith dimension of poverty 
+and z_j denotes the poverty line for dimension j. A general form 
+for additive multidimensional poverty indices can be written as: 
+                	                            
+        	                          
+	             1    i=n            
+	P(X,z)  =   ---   SUM (f_i)  p(x_i, z) 
+	             n    i=1           
+        	                     
+p(x_i, z] is the individual poverty function that determines the contribution
+of individual i to total poverty P.  
+
+{title:[1] Chakravarty et al (1998) index}   	                            
+        	                                                     
+	                 K                                         
+	p_i(X, z)  =    SUM a_j ( (z_j - x_i,j) / z_j )^alpha
+	                j=1                                        
+        	                                              
+
+{title:[2] Extended Watts index} 
+                                                   
+	                K                                         
+	p_i(X, z)  =   SUM a_j ln ( z_j/ min(z_j ; x_i,j))     
+	               j=1                                        
+        	                                              
+{title:[3] Multiplicative extended FGT index} 
+
+	                 K                                         
+	p_i(X, z)  =    PRO  ( (z_j - x_i,j) / z_j )^al_j
+	                j=1
+
+
+{title:[4] Tsui (2002) index} 
+
+	                 K                                         
+	p_i(X, z)  =    PRO  ( z_j/ min(z_j ; x_i,j))^b_j - 1
+	                j=1
+
+{title:[5] Intersection headcount index} 
+
+	                K                                         
+	p_i(X, z)  =    PRO  I( z_j>x_i,j))
+	                j=1
+
+{title:[6] Union headcount index} 
+
+                                        
+	p_i(X, z)  =    MAX{ I( z_1<x_i,1); I( z_2<x_i,2);...; I( z_K<x_i,K) }
+	                
+
+{title:[7] Bourguignon and Chakravarty bidimensional (2003) index} 
+
+
+                 _                                  _ 
+  p_i(X, z)  =  |  C_1,i + beta^(gamma/alpha) C_2,i  | ^[alpha/gamma]
+                 -                                  - 
+where:
+       C_1,i = ( (z_1 - x_i,1)/z_1 )^gamma                                 
+       C_2,i = ( (z_2 - x_i,2)/z_2 )^gamma
+	                
+
+{title:Examples}
+
+{p 4 8}{inp:. imdpov x1 x2 x3, pl1(10000) pl2(500) pl3(5000) }{p_end}
+
+{p 4 8}{inp:. imdpov x1 x2 x3, pl1(10000) pl2(500) pl3(5000) index(3) al1(1) al2(1) al3(1)}{p_end}
+
+{title:Authors}
+Abdelkrim Araar
+Jean-Yves Duclos
+        
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}	                          

@@ -1,0 +1,25 @@
+* JUNE2017 - 
+v 3
+d {bf:DECGENG      : Decomposition of Gender Gap}
+d Version       : Version       1.00   
+d Date          : June          20
+d Stata Version : Required  15.0 and higher
+d
+d MSAT is a product of PEP.
+d
+d Authors : {bf:Abdelkrim Araar(a)} }
+d
+d Emails  : (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  
+d
+     
+f files/main/decgeng.ado
+f files/main/decgengl.ado
+f files/main/gepwe.ado
+f files/main/decgeng.dlg
+f files/main/gencatvar.ado  
+f files/main/distable2.ado 
+f files/main/distable.ado 
+f files/main/graph_header.idlg
+f files/main/getRowName.ado
+f files/main/_nargs.ado
+

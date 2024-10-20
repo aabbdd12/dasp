@@ -1,0 +1,57 @@
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: PPL 1.0
+ *
+ * The contents of this file are subject to the POCKET Public License Version
+ * 1.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.open-components.com/PPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is 
+ * ocf/pocket/community/support/SequenceDB.java from POCKET version 1.0.
+ *
+ * The Initial Developer of the Original Code is OCF Community.
+ * Portions created by the Initial Developer are Copyright (C) 2001
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s): OCF Team <ocfinfo@cintec.cuhk.edu.hk>
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+package ocf.pocket.community.support;
+
+import java.sql.*;
+
+public class SequenceDB extends BasicDB {
+  String seqTableName = "sequence";
+
+  public String getSequenceTableName() {
+    return seqTableName;
+  }
+
+  public void setSequenceTableName(String tableName) {
+    seqTableName = tableName;
+  }
+
+  public int nextSequenceValue(Connection con) throws SQLException {
+    Statement s = con.createStatement();
+
+    try {
+      if (s.executeUpdate("update " + seqTableName
+		+ " set seq=seq+1 where name='" + tableName + "'") == 0)
+	s.executeUpdate("insert into " + seqTableName
+		+ " (name) values ('" + tableName + "')");
+
+      ResultSet rs = s.executeQuery(
+	"select seq from " + seqTableName + " where name='" + tableName + "'");
+      rs.next();
+      return rs.getInt(1);
+    } finally {
+      s.close();
+    }
+  }
+}

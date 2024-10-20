@@ -1,0 +1,475 @@
+/* 
+  cnpe.dlg
+*/  
+
+
+VERSION 15.0
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 460
+DEFINE  _dlgwd 890
+INCLUDE header
+
+DIALOG main, label("DASP 3.0 | Non-parametric regression --> cnpe command") tabtitle("Main")
+
+
+BEGIN
+
+   
+ GROUPBOX intvar       10     10    430  260,                      ///
+           label("Variable(s) of ineterst: ")
+           
+  TEXT     tx_var111     20    +35    150      .,                 ///
+           label("Y:   ")  
+  
+  VARLIST  vl_var 150     @   280   .,                   ///
+           label("Variables")
+		   
+  TEXT     tx_x  20      +30   150    .,                   ///
+           label("X:")
+           
+  VARNAME  var_x 150      @   280   .,                   ///
+           label("Variable")   option(xvar) 		   
+           
+  TEXT     tx_var2      20    +35    150      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      150    @     280      .,                 ///
+           option(hsize)      
+ 
+  TEXT     tx_var4      20    +35    150      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      150    @     280      .,                 ///
+           option(hgroup)            
+
+		   
+GROUPBOX percentileg   450    10  430 120,                         ///
+           label("Type of curve(s)")
+  
+ 
+    
+    TEXT  txt0g     460    +25    160     .,                 ///  
+               label("Draw")  
+
+    COMBOBOX  cb_gt      +160    @     240      .,                  ///
+             dropdownlist                                          ///
+             contents(cb_gt)  values(cb_gt_val)      ///
+             default(no)   onselchangelist(cond_change)  option(dci) 
+
+    TEXT     sp_txtg  460      +25      120      .,                            /*
+                */ label("Confidence level in (%) : ")  
+                
+    SPINNER  sp_level    +160       @      240         .,                    /*
+                */ label("Confidence level")                            /*
+                */ min(10) default(95) max(99)                          /*
+                */ option(level)      
+
+TEXT     ci_txtg  460      +25      120    .,                            /*
+                */ label("Confidence interval   : ")    
+                
+COMBOBOX cb_ci       +160    @   240      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)  onselchangelist(cd_change)         
+
+                        
+
+						
+ 
+ 
+  GROUPBOX percentile   450    +45  430 80,                         ///
+             label("Options:")
+             
+    CHECKBOX chk_var1     460    +25    160      .,                 ///  
+               label("Regression:   ")                                   ///      
+    onclickon(main.cb_reg.enable)                                 ///
+    onclickoff(main.cb_reg.disable)       
+    
+	COMBOBOX  cb_reg      +160    @     240      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_reg)  values(cb_reg_val) option(type)  
+           
+     CHECKBOX chk_var2     460    +25    150      .,                 ///  
+               label("Approach:   ")                             ///      
+    onclickon(main.cb_apr.enable)                                  ///
+    onclickoff(main.cb_apr.disable)           
+    
+	COMBOBOX  cb_apr      +160    @     240      .,                  ///
+              dropdownlist                                          ///
+              contents(cb_apr)  values(cb_apr_val) option(approach)  
+   
+   
+  GROUPBOX chk_per  450    +45  430 120,                         ///
+           label("Parameters: ")         ///
+  
+    TEXT     tx_rtype  460   +25      150     .,                 /*
+                */ label("Type of range:")                      /*
+                */
+     COMBOBOX cb_rtype +160      @         240       .,        ///
+        contents(rt_contents)                                ///
+        values(rt_values)                                    ///
+        onselchangelist(rt_change)                             ///
+        dropdownlist  option(rtype) default(lvl)
+  
+ 
+ RADIO    rad_bu3      460    +25     160      .,/*
+ */ first label("X value")  onclickon(script rb_3)
+ 
+
+    EDIT  ed_val      +160    @     240      .,                  ///
+                  option(xval)   default(10000)
+
+
+   TEXT    tx_min   620    +25    80      .,                    ///
+           label("Minimum:   ")                                 ///
+                
+   TEXT    tx_max   760    @       80      .,                 ///
+           label("Maximum:   ") 
+           
+
+      RADIO    rad_bu4      460    +20     160      .,/*
+ */ last label("Range:")    onclickon(script rb_4)                 
+   
+   EDIT    ed_min   +160    @     100      .,                 ///
+           default(0) option(min)                            ///
+                
+   EDIT    ed_max   +140    @      100      .,                 ///
+           default(10000) option(max)   
+		   
+		   
+           
+   CHECKBOX ck_width  450    +35  430 80,		///
+		 label(`"Override "optimal" bandwidth"')               ///
+		 groupbox						///
+		 option("width")					///
+        onclickoff(main.en_width.disable)                      ///
+                 onclickon(main.en_width.enable)                    ///
+                 default(0)
+  TEXT     tx_width  460   +25      160     .,			/*
+		*/ label("Bandwidth of kernel:")			/*
+		*/
+  EDIT     en_width  +160    @       240   .,			/*
+		*/ label("Bandwidth of kernel")				/*
+		*/ numonly						/*
+		*/ option("band") default(1.0)					/*
+		*/           
+   
+END
+
+LIST rt_values
+BEGIN
+        lvl
+        prc
+END
+
+LIST rt_contents
+BEGIN
+Level
+Percentile 
+END
+
+LIST cb_reg
+BEGIN
+  Non-parametric regression
+  Derivatives of nonparametric regression
+END
+
+LIST cb_reg_val
+BEGIN
+  npr
+  dnp
+END
+
+LIST cb_apr
+BEGIN
+  Local linear approach
+  Nadaraya-Watson approach
+
+END
+
+LIST cb_apr_val
+BEGIN
+ lle
+ nw
+END
+
+
+
+
+SCRIPT PREINIT
+BEGIN
+        create BOOLEAN has_ty1
+        create BOOLEAN has_ty2
+
+        create BOOLEAN has_cond1
+        create BOOLEAN has_cond2  
+        create BOOLEAN has_cond3
+        create BOOLEAN has_cond4        
+END
+
+
+
+
+
+ 
+
+LIST cond_change
+BEGIN
+        script cond1
+        script cond2
+END
+
+
+SCRIPT cond1
+BEGIN
+        has_cond1.settrue
+        has_cond2.setfalse
+        program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+        has_cond1.setfalse
+        has_cond2.settrue
+        program check_conds
+END
+
+
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1){
+call main.sp_txtg.hide
+call main.sp_level.hide
+call main.ci_txtg.hide
+call main.cb_ci.hide
+call main.cb_reg.enable
+call main.chk_var1.enable
+}
+
+if (has_cond2){
+call main.sp_txtg.show
+call main.sp_level.show
+call main.ci_txtg.show
+call main.cb_ci.show
+call main.cb_reg.setvalue no
+call main.cb_reg.disable
+call main.chk_var1.disable
+ 
+}
+END
+
+
+
+
+
+
+LIST cb_gt
+BEGIN
+  Lines of curves
+  Confidence intervals of curves
+END
+
+LIST cb_gt_val
+BEGIN
+  no
+  yes
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+
+
+
+LIST rt_change
+BEGIN
+        script ty1
+        script ty2
+END
+
+SCRIPT ty1
+BEGIN
+        has_ty1.settrue
+        has_ty2.setfalse
+        program check_tys
+END
+
+SCRIPT ty2
+BEGIN
+        has_ty1.setfalse
+        has_ty2.settrue
+                program check_tys
+
+END
+
+
+
+PROGRAM check_tys
+BEGIN
+        if has_ty1  {
+                      call main.ed_min.setvalue "0" 
+                                          call main.ed_max.setvalue "10000" 
+                                          call main.ed_val.setvalue "10000"  
+                     }
+       if !has_ty1 {
+                      call main.ed_min.setvalue "0" 
+                                          call main.ed_max.setvalue "1"  
+                                          call main.ed_val.setvalue "0.5" 
+                     }  
+
+END
+
+SCRIPT rb_3
+BEGIN
+main.ed_val.enable
+main.ed_min.disable
+main.ed_max.disable
+END
+
+SCRIPT rb_4
+BEGIN
+main.ed_val.disable
+main.ed_min.enable
+main.ed_max.enable
+END
+
+
+
+
+
+
+DIALOG res,  tabtitle("Graphical Results")
+  BEGIN
+    GROUPBOX gb1 10     10    430  80,                      ///
+             label("Coordinates: ")
+             
+    CHECKBOX   chk_op1        20    +25    60    .,                   ///
+             label("List:")      
+             
+    TEXT  txt2     20    +25    40      .,                 ///  
+               label("Save:")                                 
+    
+    FILE  fnamec      80    @     340      .,                 ///
+    label ("Browse...")    save option(sres)    
+    
+    
+	  GROUPBOX gb3 10     100    430  80,                      ///
+             label("Generate a new variable(s) containing the smoothed values ")
+             
+    CHECKBOX   chk_op4        20    +25    160    .,                   ///
+             label("Generate new variables")   default(0)  
+			 
+    
+    GROUPBOX gb2     10     200    430  120,                      ///
+             label("Graph: ")
+             
+    CHECKBOX   chk_op3     20    +25    60    .,                   ///
+             label("Display:") default(1)
+             
+             
+    TEXT  txt4     20    +25    40      .,                 ///  
+               label("Save:")                                  ///      
+         
+    
+    FILE  fnamegs      80    @     340      .,                 ///
+    label ("Browse...")    save option(sgra)                   ///
+    filter("Stata Gragh (*.gph)|*.gph|All Files (*.*)|*.*")
+    
+    TEXT  chk_op5     20    +25    40      .,                 ///  
+                   label("Export:")                                  ///      
+            
+        
+        FILE  fnamege      80    @     340      .,                 ///
+        label ("Browse...")    save option(egra)                   ///
+        filter("MetaFile (*.wmf)|*.wmf|EPS (*.eps)|*.eps")
+    
+    
+END
+
+LIST yes_no
+BEGIN
+  yes
+  no
+END
+
+
+
+
+INCLUDE gr_yaxis
+INCLUDE gr_xaxis
+INCLUDE gr_titles
+INCLUDE gr_legend
+INCLUDE gr_overall
+
+HELP hlp1,   view("help cnpe")
+RESET res1
+PROGRAM command
+BEGIN
+	put "cnpe "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+		       
+                        optionarg main.var_x
+						
+                        optionarg main.vn_hhs
+                        optionarg main.vn_hhg
+                        optionarg main.cb_reg
+                        optionarg main.cb_apr
+						optionarg main.cb_gt
+						optionarg main.cb_ci
+                        optionarg main.ed_min
+                        optionarg main.ed_max
+                        optionarg main.ed_val
+                        optionarg main.en_width
+                        optionarg res.fnamec
+                        optionarg res.fnamegs
+                        optionarg res.fnamege
+						
+                           if !main.cb_rtype.isdefault() {
+                        optionarg main.cb_rtype
+                        }
+						
+                        if res.chk_op1 {
+                                                
+                                                put "lres("
+                                                put res.chk_op1
+                                                put ")"
+                                       }
+                                       
+                        if !res.chk_op3 {
+                                                
+                                                put "dgra("
+                                                put res.chk_op3
+                                                put ")"
+                                       } 
+
+                         if res.chk_op4 {
+                                                
+                                                put " vgen(yes)"
+                                        }               
+			            put " " /program gr_yaxis_output
+put " " /program gr_xaxis_output
+put " " /program gr_titles_output
+put " " /program gr_legend_output
+put " " /program gr_overall_output
+		       
+			
+	endoptions
+	
+END

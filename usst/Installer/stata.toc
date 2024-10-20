@@ -1,0 +1,19 @@
+* JUNE 2020 - 
+v 3
+d {bf:USST       : Usefull Stata Tools}
+d Version       : Version           0.10   
+d Date          : JUNE         2020
+d Stata Version : Required  15.0 and higher
+d
+d USST is a product of WB.
+d
+d Authors : {bf:Abdelkrim Araar(a)} }
+d
+d Emails  :  
+d           (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  
+
+d
+p usst      Stata Toolkit: Usefull Stata Tools
+
+
+

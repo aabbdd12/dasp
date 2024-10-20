@@ -1,0 +1,239 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.2)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/* module  : clorenz.dlg                                                 */
+/*************************************************************************/
+
+VERSION 9.2
+
+
+
+INCLUDE graph_header
+INCLUDE header
+
+
+
+
+DIALOG main, label("DASP|Lorenz & Concentration Curves --> clorenz command")  tabtitle("Main")
+
+
+BEGIN
+  
+  GROUPBOX intvar 10     10    360  80,                      ///
+           label("Variable(s) of interest: ")
+           
+  VARLIST  vl_var 20     +25   340   .,                   ///
+           label("Variables")
+           
+           
+  CHECKBOX chk_var0     20    +25    100      .,                 ///  
+             label("Ranking variable:   ")                       ///      
+  onclickon(main.vn_rank.enable)                                 ///
+  onclickoff(main.vn_rank.disable)           
+  
+  VARNAME  vn_rank      140    @     220      .,                 ///
+           option(rank)            
+           
+  
+           
+            
+  
+           
+  TEXT     tx_var2      20    140    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+  TEXT     tx_var4      20    +25    80      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      110    @     250      .,                 ///
+           option(hgroup)            
+
+
+  GROUPBOX percentile 390    10    360 80,                      ///
+           label("Type of curve(s)")
+           
+  CHECKBOX chk_var1     400    +25    80      .,                 ///  
+             label("Type:   ")                                   ///      
+  onclickon(main.cb_type.enable)                                 ///
+  onclickoff(main.cb_type.disable)           
+  
+  COMBOBOX  cb_type      500    @     240      .,                 ///
+            dropdownlist                                          ///
+            contents(cb_type)  values(cb_type_val) option(type)  
+            
+  CHECKBOX chk_var2     400    +25    80      .,                 ///  
+             label("Difference:   ")                             ///      
+  onclickon(main.cb_dif.enable)                                  ///
+  onclickoff(main.cb_dif.disable)           
+  COMBOBOX  cb_dif      500    @     240      .,                  ///
+            dropdownlist                                          ///
+            contents(cb_dif)  values(cb_dif_val) option(dif)     
+            
+           
+  CHECKBOX chk_per  390    140  360 80,                         ///
+           groupbox label("Range of percentiles (p): ")         ///
+  onclickon(script ran_inon)                                           ///
+  onclickoff(script ran_inoff) 
+   
+   TEXT    tx_min   410    160    80      .,                    ///
+           label("Minimum:   ") 		                ///
+    		
+   TEXT    tx_max   560    @   80      .,                 ///
+           label("Maximum:   ") 
+           
+   EDIT    ed_min   410    180    80      .,                 ///
+           default(0.0) option(min)	  	             ///
+       		
+   EDIT    ed_max   560    @      80      .,                 ///
+           default(1.0) option(max) 	
+   
+END
+
+
+
+
+LIST cb_type
+BEGIN
+  Normalised (by default)
+  Generalised
+  Absolute
+END
+
+LIST cb_type_val
+BEGIN
+  nor
+  gen
+  abs
+END
+
+LIST cb_dif
+BEGIN
+  No
+  With percentiles (p): p - curve(p)
+  With the first curve
+END
+
+LIST cb_dif_val
+BEGIN
+ no
+ ds
+ c1
+END
+
+SCRIPT ran_inon
+BEGIN
+  main.ed_min.enable 
+  main.ed_max.enable
+END
+
+SCRIPT ran_inoff
+BEGIN
+  main.ed_min.disable 
+  main.ed_max.disable
+END
+
+
+
+
+DIALOG res,  tabtitle("Results")
+  BEGIN
+    GROUPBOX gb1 10     10    360  80,                      ///
+             label("Coordinates: ")
+             
+    CHECKBOX   chk_op1        20    +25    60    .,                   ///
+             label("List:")      
+             
+    TEXT  txt2     20    +25    40      .,                 ///  
+               label("Save:")                                 
+    
+    FILE  fnamec      80    @     280      .,                 ///
+    label ("Browse...")    save option(sres)    
+    
+    
+    
+    GROUPBOX gb2     10     140    360  120,                      ///
+             label("Graph: ")
+             
+    CHECKBOX   chk_op3     20    +25    60    .,                   ///
+             label("Display:") default(1)
+             
+             
+    TEXT  txt4     20    +25    40      .,                 ///  
+               label("Save:")                                  ///      
+         
+    
+    FILE  fnamegs      80    @     280      .,                 ///
+    label ("Browse...")    save option(sgra)                   ///
+    filter("Stata Gragh (*.gph)|*.gph|All Files (*.*)|*.*")
+    
+    TEXT  chk_op5     20    +25    40      .,                 ///  
+                   label("Export:")                                  ///      
+            
+        
+        FILE  fnamege      80    @     280      .,                 ///
+        label ("Browse...")    save option(egra)                   ///
+        filter("MetaFile (*.wmf)|*.wmf|EPS (*.eps)|*.eps")
+    
+    
+END
+
+LIST yes_no
+BEGIN
+  yes
+  no
+END
+
+
+
+INCLUDE gr_twoway
+
+HELP hlp1,   view("help clorenz")
+RESET res1
+PROGRAM command
+BEGIN
+	put "clorenz "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+			optionarg main.vn_rank
+			optionarg main.vn_hhs
+			optionarg main.vn_hhg
+			optionarg main.cb_type
+			optionarg main.cb_dif
+		
+			if !main.ed_min.isdefault() {
+			optionarg main.ed_min
+			}
+			if !main.ed_max.isdefault() {
+			optionarg main.ed_max
+			}
+			optionarg res.fnamec
+			
+			optionarg res.fnamegs
+			optionarg res.fnamege
+			if res.chk_op1 {
+						
+						put "lres("
+						put res.chk_op1
+						put ")"
+		                       }
+		                       
+		        if !res.chk_op3 {
+						
+						put "dgra("
+						put res.chk_op3
+						put ")"
+		                       }               
+			put " " /program gr_twoway_output
+		        
+			
+	endoptions
+	
+	
+	
+END

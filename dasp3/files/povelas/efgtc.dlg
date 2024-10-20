@@ -1,0 +1,182 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 3.01)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2026)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/ 
+/*************************************************************************/
+*************************************************************************/
+/* efgtc.dlg                                                             */
+/*************************************************************************/
+VERSION 15.0
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 380
+DEFINE  _dlgwd 890
+INCLUDE header
+
+DIALOG main, label("DASP 3.0 | FGT: Poverty elasticities with respect to income sources inequalities --> efgtc command") tabtitle("Main")
+
+
+
+BEGIN
+  
+   
+ GROUPBOX intvar       10     10    430  150,                      ///
+           label("Variables of interest: ")
+           
+
+
+  
+  TEXT     tx_var1      20    +25    150      .,                 ///
+             label("Income components:   ")  
+  
+  VARLIST  vl_var      150    @     280      .,                
+
+
+  
+  TEXT     tx_var3      20    +25    150      .,                 ///
+           label("Total income:    ")  
+		   
+  VARNAME  vl_totinc      150    @     280      .,                 ///
+           option(tot) 
+		   
+  
+           
+  TEXT     tx_var2      20    +25    150      .,                 ///
+           label("Size  variable:   ")  
+		   
+  VARNAME  vn_hs      150    @     280      .,                 ///
+           option(hsize) 
+  
+
+ 
+           
+
+  
+   GROUPBOX intvar2 450     10    430   60,                      ///
+             label("Decomposition approach")
+
+   TEXT    tx_index      +10    +25    130      .,                 ///
+           label("Approach") 
+
+
+   COMBOBOX cb_appr        +130    @   260   .,               ///
+            dropdownlist contents(cb_appr) values(cb_appr_val)              ///
+             default(ntr)     option(appr)       
+
+
+  
+
+  GROUPBOX chk_per  450    100  430 150,                         ///
+           label("Parameters: ")        
+		   
+    TEXT txt_al     +10    +25    130      .,                 ///  
+                  label("Parameter alpha:   ")                           
+       
+    EDIT  ed_al    +130    @     260      .,                 ///
+              option(alpha)    default(0)    
+           
+  
+   TEXT txt_pl     460     +25    130      .,                 ///  
+                  label("Poverty line (z):   ")        
+   
+   EDIT    ed_pl   +130    @     260      .,                 ///
+           default(10000) option(pline)	  		             ///
+      
+             ///
+      
+
+     
+   TEXT txt_prc     460     +25    130      .,                 ///  
+                  label("Percentage of change:   ")        
+   
+   EDIT    ed_prc   +130    @     260      .,                 ///
+           default(1) option(prc)	 		
+   
+   
+     DEFINE _x 700
+     DEFINE _y 350
+     
+  INCLUDE _bu_svyset
+END
+
+
+
+
+
+LIST cb_appr
+BEGIN
+  Non-truncated income components
+  Truncated income components
+END
+
+
+LIST cb_appr_val
+BEGIN
+  ntr
+  trn
+END
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      160	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+
+
+END
+
+
+
+
+
+
+
+HELP hlp1,   view("help efgtc")
+RESET res1
+
+
+PROGRAM command
+BEGIN
+	put "efgtc "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+		       
+		
+			
+			
+			optionarg main.vl_totinc
+            optionarg main.vn_hs
+			optionarg main.ed_al
+			optionarg main.ed_pl
+			optionarg main.ed_prc
+
+                        if !main.cb_appr.isdefault(){
+			optionarg main.cb_appr
+			}
+		
+					
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+			
+			
+			       
+	endoptions
+	
+	
+	
+END

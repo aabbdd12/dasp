@@ -1,0 +1,66 @@
+{smcl}
+{* August 2021}{...}
+{hline}
+{hi:DASP 3.0 : Distributive Analysis Stata Package}{right:{bf:PEP}}
+help for {hi:dsineqg }{right:Dialog box:  {bf:{dialog dsineqg}}}
+{hline}
+
+{title: Decomposition of inequality indices by population groups} 
+
+{p 8 10}{cmd:dsineqg}  {it:varlist}  {cmd:,} [ 
+{cmd:HSize(}{it:varname}{cmd:)} 
+{cmd:Index(}{it:string}{cmd:)}
+{cmd:EPSilon(}{it:real}{cmd:)}
+{cmd:THETA(}{it:real}{cmd:)}
+{cmd:DEC(}{it:string}{cmd:)}
+ ]
+ 
+
+{p}where {p_end}
+{p 8 8} {cmd:varlist} is a the variable of interest (income or consumption). {p_end}
+
+
+{title:Version} 15.0 and higher.
+
+{title:Description}
+{p} The command {cmd:dsineqg} decomposes inequality indices by population groups. 
+The decomposition is performed using the Shapley value. The user can select among the following inequality indices {p_end}
+{p 4 8}{inp:. Gini}{p_end}
+{p 4 8}{inp:. Atkinson}{p_end}
+{p 4 8}{inp:. Coefficient of variation}{p_end}
+{p 4 8}{inp:. Generalised entropy}{p_end}
+{title:Options}
+
+{p 0 4} {cmdab:hsize}          Household size. For example, to compute poverty at the individual level, one will want to weight household-level observations by household size (in addition to sampling weights, best set in survey design). {p_end}
+
+{p 0 4} {cmdab:hgroup}   Variable that captures a socio-demographic group. For example, this variable could equal 1 for rural households and 2 for urban ones. When this option is used, the associated varlist should contain only one variable. If the values of the variable {it:hgroup} are labelled, the graphs that will be produced will automatically show these labels.  {p_end}
+  
+{p 0 4} {cmdab:index}    To select the inequality index. By default, the Gini index is used.   {p_end}
+
+{p 4 8}{inp:. gini:  Gini}{p_end}
+{p 4 8}{inp:. atk :  Atkinson}{p_end}
+{p 4 8}{inp:. cvar:  Coefficient of variation}{p_end}
+{p 4 8}{inp:. ge  :  Generalised entropy}{p_end}
+
+{p 0 4} {cmdab:epsilon}    To set the Atkinson parameter (epsilon), if this index is selected. By default, theta=0.5.   {p_end}
+
+{p 0 4} {cmdab:theta}    To set the generalised entropy parameter (theta), if this index is selected. By default, alhpha=0.5.   {p_end}
+
+{p 0 4} {cmdab:dec}            To set the number of decimals used in the display of results. {p_end}
+
+{title:Examples}
+sysuse bkf98I, replace
+dsineqg exppcz, hgroup(gse) index(atk) epsilon(0.5) hsize(zone)
+
+{title:Reference(s)}
+{p 4 4 2} Abdelkrim Araar and Jean-Yves Duclos (2008), {browse "http://dad.ecn.ulaval.ca/pdf_files/shap_dec_aj.pdf":An algorithm for computing the Shapley Value}, Mimeo, PEP and CIRPE, Univert Laval. {p_end} 
+An algorithm for computing the Shapley Value
+{p 4 4 2} Abdelkrim Araar, (2006). {browse  "http://ideas.repec.org/p/lvl/lacicr/0602.html": On the Decomposition of the Gini Coefficient: an Exact Approach, with an Illustration Using Cameroonian Data}, Cahiers de recherche 0602, CIRPEE.  {p_end} 
+
+{title:Authors}
+Abdelkrim Araar
+Jean-Yves Duclos
+
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}

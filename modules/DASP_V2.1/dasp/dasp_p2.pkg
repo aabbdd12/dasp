@@ -1,0 +1,157 @@
+* November2009 - 
+v 3
+  DASP          : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   2.1    
+d Date          : November  2009
+d Stata Version : Required  9.2 and higher
+d
+d Before using modules of this package, users have to:
+d
+d  update the executable Stata file  to Stata 9.2   or higher:
+d  http://www.stata.com/support/updates/stata9.html 
+d
+d  update the ado files:                                                          
+d  http://www.stata.com/support/updates/stata9/ado/
+d
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_p2 Distributive Analysis Stata Package: PART II
+
+
+
+f files/dominance/dompov.ado
+f files/dominance/dompov.hlp
+f files/dominance/dompov.dlg
+
+f files/dominance/domineq.ado
+f files/dominance/domineq.hlp
+f files/dominance/domineq.dlg
+
+f files/dtools/sjdensity.ado
+f files/dtools/sjdensity.hlp
+f files/dtools/sjdensity.dlg
+
+
+f files/dtools/sjdistrub.ado
+f files/dtools/sjdistrub.hlp
+f files/dtools/sjdistrub.dlg
+
+f files/poverty/ifgt.ado
+f files/poverty/ifgt.hlp
+f files/poverty/ifgt.dlg
+
+
+f files/poverty/difgt.ado
+f files/poverty/difgt.hlp
+f files/poverty/difgt.dlg
+
+
+f files/poverty/iwatts.ado
+f files/poverty/iwatts.hlp
+f files/poverty/iwatts.dlg
+
+
+f files/poverty/diwatts.ado
+f files/poverty/diwatts.hlp
+f files/poverty/diwatts.dlg
+
+f files/poverty/isst.ado
+f files/poverty/isst.hlp
+f files/poverty/isst.dlg
+
+
+f files/poverty/disst.ado
+f files/poverty/disst.hlp
+f files/poverty/disst.dlg
+
+f files/poverty/imdpov.ado
+f files/poverty/imdpov.hlp
+f files/poverty/imdpov.dlg
+
+f files/povelas/efgtgr.ado
+f files/povelas/efgtgr.hlp
+f files/povelas/efgtgr.dlg
+
+
+f files/povelas/efgtineq.ado
+f files/povelas/efgtineq.hlp
+f files/povelas/efgtineq.dlg
+
+f files/povelas/efgtg.ado
+f files/povelas/efgtg.hlp
+f files/povelas/efgtg.dlg
+
+f files/povelas/efgtc.ado
+f files/povelas/efgtc.hlp
+f files/povelas/efgtc.dlg
+
+
+
+f files/target/itargetg.ado
+f files/target/itargetg.hlp
+f files/target/itargetg.dlg
+
+f files/target/itargetc.ado
+f files/target/itargetc.hlp
+f files/target/itargetc.dlg
+
+
+f files/propoor/ipropoor.ado
+f files/propoor/ipropoor.hlp
+f files/propoor/ipropoor.dlg
+
+f files/propoor/cpropoorp.ado
+f files/propoor/capropoor.ado
+f files/propoor/crpropoor.ado
+f files/propoor/cpropoorp.hlp
+f files/propoor/cpropoorp.dlg
+
+f files/propoor/cpropoord.ado
+f files/propoor/cpropoordi.ado
+f files/propoor/cpropoord.hlp
+f files/propoor/cpropoord.dlg
+
+f files/bian/bian.ado
+f files/bian/bian.dlg
+f files/bian/bian.hlp
+
+f files/ungroup/ungroup.ado
+f files/ungroup/_sima.ado
+f files/ungroup/_inidis.ado
+f files/ungroup/_expadj.ado
+f files/ungroup/_expex.ado
+f files/ungroup/_cumdis.ado
+f files/ungroup/ungroup.dlg
+f files/ungroup/ungroup.hlp
+
+
+f files/dominance/dombdpov.ado
+f files/dominance/dombdpov.hlp
+f files/dominance/dombdpov.dlg
+
+
+F files/auxiliaries/wgnuplot.exe
+f files/auxiliaries/_daspmenu.ado
+f files/auxiliaries/_nargs.ado
+f files/auxiliaries/resop.idlg
+f files/auxiliaries/dasp_line_opts1.idlg
+f files/auxiliaries/dasp_gr_res_opts.idlg
+f files/auxiliaries/dasp_dif_line_opts.idlg
+f files/auxiliaries/dasp_conf_opts.idlg
+f files/auxiliaries/_stat_inf.idlg
+
+
+f files/auxiliaries/xml_tab.hlp
+f files/auxiliaries/xml_tab.ado
+F files/auxiliaries/xml_tab_options.txt
+
+f files/auxiliaries/_dasp_dif_table_ifgt.ado
+f files/auxiliaries/_dasp_dif_table.ado

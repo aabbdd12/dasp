@@ -1,0 +1,40 @@
+if main.fi_d1.isdefault() {     
+        require  main.vn_y_d1
+        varlist  main.vn_y_d1
+        }
+if !main.fi_d1.isdefault() {
+        require  main.en_y_d1
+        varlist  main.en_y_d1
+        }
+        
+if main.fi_d2.isdefault() {     
+        require  main.vn_y_d2
+        varlist  main.vn_y_d2
+        }
+if !main.fi_d2.isdefault() {
+        require  main.en_y_d2
+        varlist  main.en_y_d2
+        }                               
+beginoptions
+                        
+                       
+                      
+                        
+                        optionarg main.file_d1
+                        optionarg main.vn_hhs_d1
+                        optionarg main.en_hhs_d1
+						
+                    
+						
+                        if !main.chk_cd1.isdefault() {
+                        optionarg main.ed_d1c1
+                        }
+                        
+                        optionarg main.file_d2
+                        optionarg main.vn_hhs_d2
+                        optionarg main.en_hhs_d2
+						
+                        if !main.chk_cd2.isdefault() {
+                         optionarg main.ed_d2c1
+                        }                               
+                             

@@ -1,0 +1,18 @@
+* DEC2017 - 
+v 3
+d {bf:MEXTOBA}
+f files/main/mk_xtab_mex.ado    
+f files/main/xml_taba_mex.ado
+f files/main/xml_tab.ado
+f files/main/cdomc.ado    
+f files/main/difgt.ado
+f files/main/cdomcn.ado    
+f files/main/digini.ado
+f files/main/cmnpe.ado
+f files/main/tobelas.ado
+f files/main/tobelas.dlg
+f files/main/tobelas.sthlp
+f files/main/sids.ado
+f files/main/sids.dlg
+f files/main/sids.sthlp
+f files/main/gepwe.ado

@@ -1,0 +1,392 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/* efgtgro.dlg                                                             */
+/*************************************************************************/
+
+
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                       */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/* efgtgro.dlg                                                            */
+/*************************************************************************/
+
+VERSION 9.2
+
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 280
+
+
+DIALOG main, label("DASP| FGT: Poverty elasticities with respect to growth --> efgtgro command") tabtitle("Main")
+
+
+BEGIN
+  
+           
+  TEXT     tx_var1      20     20    100      .,                 ///
+           label("Variable of interest:")  
+  VARNAME  vn_int      130    @     250      .                
+                       
+           
+  TEXT     tx_var2      20    +25    100      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      130    @     250      .,                 ///
+           option(hsize)      
+  TEXT     tx_var4      20    +25    100      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      130    @     250      .,                 ///
+           option(hgroup)  error("group variable")          
+
+
+
+            
+           
+  GROUPBOX chk_per  390    10  360 220,                         ///
+           label("Parameters: ")         ///
+  
+    TEXT txt_al     +10    +25    120      .,                 ///  
+                  label("Parameter alpha:   ")                           
+       
+     EDIT  ed_al    +130    @     200      .,                 ///
+              option(alpha)    default(0)    
+           
+  
+           
+   
+   TEXT txt_pl     400     +25    120      .,                 ///  
+                  label("Poverty line (z):   ")        
+   
+   EDIT    ed_pl   530    @     200      .,                 ///
+           default(10000) option(pline)                      ///
+      
+
+    TEXT     txt_appr     400    +25    120      .,                 ///  
+             label("Approach:   ")     
+  
+  COMBOBOX  cb_appr      530    @     200     .,                 ///
+              dropdownlist                                          ///
+              contents(cb_appr)  values(cb_appr_val) option(appr)  ///
+              default(analytic)
+                      
+
+   
+   
+    TEXT     txt_est     400    +25    120      .,                 ///  
+             label("Estimate   ")  
+			 
+     COMBOBOX  cb_est      530    @     200      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_est)  values(cb_est_val) option(est)  ///
+            default(elasticity) onselchangelist(cond_change)
+
+			
+   
+   RADIO    rad_bu3      400    +45     140      .,/*
+ */ first label("Change in %:")  onclickon(script rb_3)
+ 
+
+           
+    EDIT  ed_perc      530    @     200      .,                  ///
+                    default(1) option(perc) 
+   
+
+   
+    
+			
+         
+
+   TEXT    tx_min   530    +25    80      .,                    ///
+           label("Minimum:   ")                                 ///
+                
+   TEXT    tx_max   660    @       80      .,                 ///
+           label("Maximum:   ") 
+           
+
+      RADIO    rad_bu4      400    +15     140      .,/*
+ */ last label("Range of change in %:")    onclickon(script rb_4)                 
+   
+   EDIT    ed_min   530    @     80      .,                 ///
+           default(0) option(min)                            ///
+                
+   EDIT    ed_max   660    @      80      .,                 ///
+           default(100) option(max)   
+   
+ 
+   
+   
+   DEFINE _x _xsetbu
+     DEFINE _y 240
+     
+  INCLUDE _bu_svyset
+END
+
+
+
+
+LIST cb_nor
+BEGIN
+  Normalized
+  Not Normalized
+END
+
+LIST cb_nor_val
+BEGIN
+  nor
+  not
+END
+
+
+
+
+LIST cb_appr
+BEGIN
+  Analytical
+  Simulated
+  Parametrized (Log normal)
+  Numerical (Kernel density) 
+  Show results for all approaches
+END
+
+LIST cb_appr_val
+BEGIN
+ analytic
+ simulated
+ lnmodel
+ numeric
+ all
+END
+
+
+SCRIPT rb_3
+BEGIN
+main.ed_perc.enable
+main.ed_min.disable
+main.ed_max.disable
+END
+
+SCRIPT rb_4
+BEGIN
+main.ed_perc.disable
+main.ed_min.enable
+main.ed_max.enable
+END
+
+
+
+
+
+LIST cb_est
+BEGIN
+  Elasticity
+  Semi-elasticity
+END
+
+LIST cb_est_val
+BEGIN
+   elas
+ smelas
+
+END
+
+
+SCRIPT PREINIT
+BEGIN
+        create BOOLEAN has_cond1
+        create BOOLEAN has_cond2
+  
+END
+
+LIST cond_change
+BEGIN
+        script cond1
+        script cond2
+
+        
+END
+
+
+SCRIPT cond1
+BEGIN
+        has_cond1.settrue
+        has_cond2.setfalse
+
+        program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+        has_cond1.setfalse
+        has_cond2.settrue
+        program check_conds
+END
+
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1){
+call main.rad_bu3.hide 
+call main.ed_perc.hide 
+call main.tx_min.hide 
+call main.tx_max.hide 
+call main.rad_bu4.hide  
+call main.ed_min.hide  
+call main.ed_max.hide 
+}
+
+if has_cond2{
+call main.rad_bu3.show 
+call main.ed_perc.show 
+call main.tx_min.show 
+call main.tx_max.show 
+call main.rad_bu4.show  
+call main.ed_min.show  
+call main.ed_max.show 
+}
+
+
+
+END
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+                                        
+SPINNER  sp_dec    10       25      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(6) max(12)                            /*
+                */ option(dec)
+
+TEXT     sp_txt  70      25      100      .,                            /*
+                */ label("Number of decimals")  
+                
+
+END
+
+
+
+
+DIALOG res,  tabtitle(" Graphical results")
+  BEGIN
+    GROUPBOX gb1 10     10    360  80,                      ///
+             label("Coordinates: ")
+             
+    CHECKBOX   chk_op1        20    +25    60    .,                   ///
+             label("List:")      
+             
+    TEXT  txt2     20    +25    40      .,                 ///  
+               label("Save:")                                 
+    
+    FILE  fnamec      80    @     280      .,                 ///
+    label ("Browse...")    save option(sres)    
+    
+    
+    
+    GROUPBOX gb2     10     140    360  120,                      ///
+             label("Graph: ")
+             
+    CHECKBOX   chk_op3     20    +25    60    .,                   ///
+             label("Display:") default(1)
+             
+             
+    TEXT  txt4     20    +25    40      .,                 ///  
+               label("Save:")                                  ///      
+         
+    
+    FILE  fnamegs      80    @     280      .,                 ///
+    label ("Browse...")    save option(sgra)                   ///
+    filter("Stata Gragh (*.gph)|*.gph|All Files (*.*)|*.*")
+    
+    TEXT  chk_op5     20    +25    40      .,                 ///  
+                   label("Export:")                                  ///      
+            
+        
+        FILE  fnamege      80    @     280      .,                 ///
+        label ("Browse...")    save option(egra)                   ///
+        filter("MetaFile (*.wmf)|*.wmf|EPS (*.eps)|*.eps")
+    
+    
+END
+
+
+
+
+INCLUDE gr_twoway
+
+
+
+HELP hlp1,   view("help efgtgro")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+        put "efgtgro "
+        require  main.vn_int
+        varlist [main.vn_int]
+        
+        beginoptions  
+                        
+                        optionarg main.vn_hhg
+                        optionarg main.vn_hhs
+						optionarg main.cb_appr
+
+                        
+                       
+                        optionarg main.ed_al
+                        optionarg main.ed_pl
+                        optionarg main.ed_perc 
+						optionarg main.ed_min
+                        optionarg main.ed_max
+						optionarg main.cb_est
+
+                
+                        if !resop.sp_dec.isdefault() {
+                        optionarg resop.sp_dec
+                        }
+                                        
+                        
+         optionarg res.fnamec
+                        
+                        optionarg res.fnamegs
+                        optionarg res.fnamege
+                        if res.chk_op1 {
+                                                
+                                                put "lres("
+                                                put res.chk_op1
+                                                put ")"
+                                       }
+                                       
+                        if !res.chk_op3 {
+                                                
+                                                put "dgra("
+                                                put res.chk_op3
+                                                put ")"
+                                       }   
+            
+        put " " /program gr_twoway_output                
+                       
+        endoptions
+        
+        
+        
+END
+

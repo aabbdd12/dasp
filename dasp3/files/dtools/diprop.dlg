@@ -1,0 +1,494 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package                           */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-26)            */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+
+VERSION 15
+SYNCHRONOUS_ONLY
+
+
+POSITION . . 890 420
+
+  DEFINE col10  10
+  DEFINE line10  10
+   
+  DEFINE col11  20
+  DEFINE col20  450
+  DEFINE vposds 340
+  
+
+
+DIALOG main, label("DASP 3.0 | Difference between mean indices --> diprop command") tabtitle("Main")
+
+
+BEGIN
+
+ GROUPBOX intvar       col10     line10    430  160,                      ///
+           label("Distribution 1: ")
+           
+  COMBOBOX  fi_d1        col11   +25     120      .,                  ///
+            contents(dt_src)  values(dt_src_val)  dropdownlist                         ///
+            onselchange(program data_change1)  default(1)         
+                     
+           
+  FILE  file_d1      150    @     280      .,                 ///
+    label ("Browse...")    save option(file1)                      ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*) onchange(program getLevels)
+    
+
+
+  
+    
+
+
+           
+  TEXT     tx_var2      20    +25    150      .,                 ///
+           label("Size  variable:   ")  
+  
+  COMBOBOX  en_hhs_d1   150    @     280        .,      ///
+        dropdown contents(levels)  option(hsize1)  
+           
+ 
+  VARNAME  vn_hhs_d1      150    @     280      .,                 ////
+           option(hsize1) 
+
+
+           
+  CHECKBOX    chk_cd1     20    +25    120      .,                 ///  
+             label("Condition(s)    ")                            ///
+             onclickon(program cd1_on)                             ///
+             onclickoff(program cd1_off)  default(0)     
+             
+  
+ EDIT     ed_d1c1        150    @    280      .,               ///  
+  option(cond1)
+ 
+ 
+ 
+ 
+ 
+ GROUPBOX intvar2 460     line10    430  160,                      ///
+            label("Distribution 2: ")
+            
+   
+
+               
+               
+  COMBOBOX  fi_d2        470   +25     120      .,              ///
+            contents(dt_src)  values(dt_src_val) dropdownlist                ///
+            onselchange(program data_change2)  default(1)              
+                        
+              
+    FILE  file_d2      600    @     280      .,      onchange(program getLevels2)           ///
+    label ("Browse...")    option(file2)                        ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*)
+    
+
+
+   
+            
+   TEXT     tx_var4      470    +25    150      .,                 ///
+            label("Size  variable:   ")  
+                        
+   COMBOBOX     en_hhs_d2      600    @     280      .,                 ///
+            option(hsize2)      dropdown contents(levels2) 
+        
+                
+   VARNAME  vn_hhs_d2      600    @     280      .,                 ///
+            option(hsize2) 
+            
+             
+
+       CHECKBOX    chk_cd2     470    +25    120      .,                 ///  
+              label("Condition(s)    ")                            ///
+              onclickon(program cd2_on)                             ///
+              onclickoff(program cd2_off)  default(0)     
+              
+
+   
+  EDIT     ed_d2c1        600    @    280      .,               ///     
+   option(cond2)
+            
+     
+            
+           
+
+            
+            
+   GROUPBOX chk_per  230    240  360 130,                         ///
+           label("Parameters and options: ")         ///
+  
+  
+     TEXT     tx_varg      +10    +25    110      .,                 ///
+           label("Group  variable:   ") 
+ 
+         COMBOBOX  en_gr_d1     330    @     250        .,      ///
+        dropdown contents(levels)  option(hgroup)
+           
+  
+      VARNAME  vn_gr_d1     330     @     250      .,                 ///
+      option(hgroup)
+           
+                   
+
+
+                               
+          
+
+               
+            
+                     
+     
+ 
+END
+
+
+
+/*
+
+LIST dt_src
+BEGIN
+  Data in memory
+  Data in file
+END
+
+*/
+
+
+
+LIST dom_order
+BEGIN
+  First order
+  Second order
+  Third order
+END
+
+LIST dom_order_val
+BEGIN
+  1
+  2
+  3
+END
+
+LIST li_num
+BEGIN
+  1
+  2
+END
+
+
+
+
+
+
+LIST dt_src
+BEGIN
+  Data in memory
+  Data in file
+END
+
+LIST dt_src_val
+BEGIN
+  1
+  2
+END
+
+
+PROGRAM data_change1
+BEGIN
+        
+if   main.fi_d1.isdefault()  {
+                               call main.file_d1.hide
+                               call main.vn_gr_d1.show
+                               call main.vn_hhs_d1.show
+
+                                                           
+                               call main.en_gr_d1.hide
+                               call main.en_hhs_d1.hide
+
+                               
+                               
+                              }
+                                                          
+if  !main.fi_d1.isdefault()  {
+                              call main.file_d1.show
+                                                          
+                               call main.vn_gr_d1.hide
+                               call main.vn_hhs_d1.hide  
+
+                                                                                                                   
+                               call main.en_gr_d1.show
+                               call main.en_hhs_d1.show
+
+
+                              }
+                                                          
+END
+
+PROGRAM data_change2
+BEGIN
+        
+
+if   main.fi_d2.isdefault()  {
+                               call main.file_d2.hide
+                                                           
+                   
+                               call main.vn_hhs_d2.show
+                                                        
+                                                           
+                          
+                               call main.en_hhs_d2.hide
+                                                        
+                               
+                               
+                              }
+if  !main.fi_d2.isdefault()  {
+                              call main.file_d2.show
+                                                          
+                              call main.vn_hhs_d2.hide
+                       
+                                                
+                              
+                           
+                              call main.en_hhs_d2.show
+                                                
+                              }         
+END
+
+
+
+PROGRAM cd1_on
+BEGIN
+        
+
+                call main.ed_d1c1.enable
+
+
+END
+
+PROGRAM cd1_off
+BEGIN
+        
+                call main.ed_d1c1.disable
+
+                
+END
+
+
+PROGRAM cd2_on
+BEGIN
+        
+
+                call main.ed_d2c1.enable         
+
+END
+
+PROGRAM cd2_off
+BEGIN
+        
+ call main.ed_d2c1.disable
+END
+
+
+
+LIST variables
+BEGIN
+        // intentionally empty
+        // this list will be populated by d1_work.ado
+END
+
+LIST levels
+BEGIN
+        // intentionally empty
+        // this list will be populated by d1_work.ado
+END
+
+LIST levels2
+BEGIN
+        // intentionally empty
+        // this list will be populated by d1_work.ado
+END
+
+
+
+PROGRAM getLevels
+BEGIN
+        if main.file_d1 & isLoading1 {
+                put "GetLevels_DB " main.file_d1 " , mia( en_hhs_d1 en_gr_d1) ndb(diprop)"
+                stata hidden
+        }
+END
+
+PROGRAM getLevels2
+BEGIN
+        if main.file_d2 & isLoading2 {
+                put "GetLevels_DB " main.file_d2 " , mia( en_hhs_d2) ndb(diprop)"
+                stata hidden
+        }
+END
+
+
+
+
+
+
+SCRIPT PREINIT
+BEGIN
+        create BOOLEAN has_cond11
+        create BOOLEAN has_cond12
+        create BOOLEAN has_cond13
+       create BOOLEAN has_cond21
+        create BOOLEAN has_cond22
+        create BOOLEAN has_cond23
+        create BOOLEAN has_cond1
+        create BOOLEAN has_cond2
+        create BOOLEAN has_cond3
+        create BOOLEAN has_cond4        
+                    create BOOLEAN isLoading1
+             isLoading1.settrue
+            create BOOLEAN isLoading2
+             isLoading2.settrue
+            program initialize
+END
+
+
+
+SCRIPT POSTINIT
+BEGIN
+        .isLoading1.settrue
+        .isLoading2.settrue
+        program getLevels
+        program getLevels2
+END
+
+
+/*
+PROGRAM main_rb
+BEGIN
+if main.rb_a1  {
+call main.ed_pl1.enable
+call main.prop1.disable
+call main.ofthe1.disable
+call main.cb_pl1.disable
+call main.ofpr1.disable
+call main.perc1.disable
+}
+
+if !main.rb_a1  {
+call main.ed_pl1.disable
+call main.prop1.enable
+call main.ofthe1.enable
+call main.cb_pl1.enable
+call main.ofpr1.enable
+call main.perc1.enable
+}
+
+if main.rb_a2  {
+call main.ed_pl2.enable
+
+call main.prop2.disable
+call main.ofthe2.disable
+call main.cb_pl2.disable
+call main.ofpr2.disable
+call main.perc2.disable
+}
+
+if !main.rb_a2  {
+call main.ed_pl2.disable
+call main.prop2.enable
+call main.ofthe2.enable
+call main.cb_pl2.enable
+call main.ofpr2.enable
+call main.perc2.enable
+}
+
+END
+*/
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+                                        
+SPINNER  sp_dec    10       25      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(3) max(12)                            /*
+                */ option(dec)
+
+TEXT     sp_txt  70      25      200      .,                            /*
+                */ label("Number of decimals")  
+                
+
+
+END
+
+
+
+HELP hlp1,   view("help diprop")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+        put "diprop "
+
+if main.fi_d1.isdefault() {     
+        require  main.vn_gr_d1
+        varlist  main.vn_gr_d1
+        }
+if !main.fi_d1.isdefault() {
+        require  main.en_gr_d1
+        varlist  main.en_gr_d1
+        }
+        
+                           
+beginoptions
+                        
+                       
+                      
+                        
+                        optionarg main.file_d1
+                        optionarg main.vn_hhs_d1
+                        optionarg main.en_hhs_d1
+                                                
+                    
+                                                
+                        if !main.chk_cd1.isdefault() {
+                        optionarg main.ed_d1c1
+                        }
+                        
+                        optionarg main.file_d2
+                        optionarg main.vn_hhs_d2
+                        optionarg main.en_hhs_d2
+                                                
+                        if !main.chk_cd2.isdefault() {
+                         optionarg main.ed_d2c1
+                        }         
+
+                        
+
+                    
+
+                                      
+                                       if !resop.sp_dec.isdefault() {
+                                       optionarg resop.sp_dec
+                                      }
+									  
+			
+
+                                                                                
+
+endoptions      
+        
+END
+

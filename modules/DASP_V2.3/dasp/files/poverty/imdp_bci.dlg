@@ -1,0 +1,1396 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2012)         */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/*   imdp_bci.dlg                                                          */
+/*************************************************************************/
+
+VERSION 9.2
+
+
+
+INCLUDE graph_header
+POSITION . . 760 460
+
+
+DIALOG main, label("DASP| Bourguignon and Chakravarty (2003) bidimensional poverty index --> imdp_bci command") tabtitle("Main")
+BEGIN
+  DEFINE col0  20
+  DEFINE col1 120
+  DEFINE col2 210
+  DEFINE col3 330
+  DEFINE col4 450
+  DEFINE col5 570
+  
+  DEFINE colwd0 55
+  DEFINE colwd1 100
+
+  DEFINE _x _xsetbu
+  DEFINE _y _top
+
+
+  
+      
+  
+     
+   
+  
+        
+  COMBOBOX cb_index 130      10         300       .,        ///
+        contents(mdp_contents)                                ///
+        values(mdp_values)                                    ///
+        onselchangelist(mdp_change)                             ///
+        dropdownlist  option(index) default(7)
+
+
+ TEXT     tx_dims 20      10      140       .,           ///
+          label("Number of dimensions:") 
+          
+  COMBOBOX cb_dims 170      10         80       .,        ///
+          contents(dim_contents)                                ///
+          values(dim_values)                                    ///
+          onselchangelist(dim_change) default(2)                          ///
+          dropdownlist option(nbsec)  
+
+  
+  TEXT     tx_var2      20    50    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+ 
+  TEXT     tx_var4      20    +25    80      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      110    @     250      .,                 ///
+           option(hgroup)   
+
+  GROUPBOX chk_per  390    40  360 60,                         ///
+             label("Common parameters: ")         ///
+    
+     
+  TEXT tx_alpha     400     60      50      .,                 ///  
+                    label("Alpha")       
+        
+  EDIT  ed_alpha   440      @        30       .,                ///
+      option(alpha) default(0)
+
+  
+
+  TEXT tx_gamma     530     @        50      .,                 ///  
+                    label("Gamma")       
+        
+  EDIT  ed_gamma    580      @        30       .,                ///
+      option(gamma) default(1)  
+ 
+
+        
+
+   
+  TEXT     tx_fr col2         +70      100    .,           ///
+          label("Well-being")
+  
+  
+  TEXT     tx_sz col3          @  colwd1    .,           ///
+        label("Poverty line(s)")   
+ 
+   TEXT     tx_in1     col4      @         @         .,           ///
+        label("Parameter(s): a_j")
+  
+   TEXT     tx_in2     col4      @         @         .,           ///
+        label("Parameter(s): al_j") 
+
+   TEXT     tx_in3     col4      @         @         .,           ///
+        label("Parameter(s): b_j")
+  
+
+   TEXT     tx_in4     col4      @         @         .,           ///
+        label("Atribut weight(s)")
+		
+   TEXT     tx_in5     col4      @         @         .,           ///
+        label("Beta : Exp. share")
+  
+      
+  TEXT     tx_dim1 col1      +20       70    .,           ///
+        label("Dimension_1") right
+  
+  
+   VARNAME  vn_dim1    col2     @         colwd1    .,           ///
+        label("")      
+        
+		
+		
+        
+  EDIT   en_pl1    col3     @         colwd1    .,           ///
+        label("")      option(pl1) default(10000)
+  
+
+  EDIT  en_pr_a1   col4      @         @         .,           ///
+        option(a1)   default(1)                                         ///
+        label("") 
+
+  EDIT  en_pr_al1   col4      @         @         .,           ///
+        option(al1)         default(0)                                    ///
+        label("")  
+
+  EDIT  en_pr_b1   col4      @         @         .,           ///
+        option(b1)      default(1)                                        ///
+        label("")  
+
+  EDIT  en_pr_w1   col4      @         @         .,           ///
+        option(w1)      default(1)                                        ///
+        label("")                 
+        
+   
+        
+   
+   
+   
+  TEXT  tx_dim2    col1      +30       60    .,           ///
+        label("Dimension_2") right
+  
+  VARNAME  vn_dim2    col2      @         colwd1    .,           ///
+        label("")   
+        
+  EDIT  en_pl2    col3     @         colwd1    .,           ///
+        label("")      option(pl2) default(10000)
+
+
+  EDIT  en_pr_a2   col4      @         @         .,           ///
+        option(a2)       default(1)                                       ///
+        label("") 
+
+  EDIT  en_pr_al2   col4      @         @         .,           ///
+        option(al2)            default(0)                                 ///
+        label("")  
+
+  EDIT  en_pr_b2   col4      @         @         .,           ///
+        option(b2)        default(1)                                      ///
+        label("")  
+
+  EDIT  en_pr_w2   col4      @         @         .,           ///
+        option(w2)      default(1)                                        ///
+        label("")                    
+           
+          
+  TEXT     tx_dim3 col1      +30       60    .,           ///
+           label("Dimension_3") right
+
+  
+  VARNAME  vn_dim3    col2      @         colwd1    .,           ///
+        label("")              
+
+  EDIT  en_pl3    col3     @         colwd1    .,           ///
+        label("")      option(pl3) default(10000)
+
+EDIT  en_pr_a3   col4      @         @         .,           ///
+        option(a3)       default(1)                                       ///
+        label("") 
+
+  EDIT  en_pr_al3   col4      @         @         .,           ///
+        option(al3)           default(0)                                  ///
+        label("")  
+
+  EDIT  en_pr_b3   col4      @         @         .,           ///
+        option(b3)         default(1)                                     ///
+        label("")            
+                          
+    EDIT  en_pr_w3   col4      @         @         .,           ///
+        option(w3)      default(1)                                        ///
+        label("")  
+   
+           
+  TEXT     tx_dim4 col1      +30       60    .,           ///
+        label("Dimension_4") right
+  
+  VARNAME  vn_dim4    col2      @         colwd1    .,           ///
+        label("")  
+  
+  EDIT  en_pl4    col3     @         colwd1    .,           ///
+        label("")      option(pl4) default(10000)
+        
+  EDIT  en_pr_a4   col4      @         @         .,           ///
+        option(a4)        default(1)                                      ///
+        label("") 
+
+  EDIT  en_pr_al4   col4      @         @         .,           ///
+        option(al4)          default(0)                                   ///
+        label("")  
+
+  EDIT  en_pr_b4   col4      @         @         .,           ///
+        option(b4)         default(1)                                     ///
+        label("") 
+
+  EDIT  en_pr_w4   col4      @         @         .,           ///
+        option(w4)      default(1)                                        ///
+        label("")                 
+           
+  TEXT     tx_dim5 col1      +30       60    .,           ///
+        label("Dimension_5") right
+  
+
+  VARNAME  vn_dim5    col2      @         colwd1    .,           ///
+        label("")        
+  
+  EDIT  en_pl5    col3     @         colwd1    .,           ///
+        label("")      option(pl5) default(10000)
+        
+  
+  EDIT  en_pr_a5   col4      @         @         .,           ///
+        option(a5)     default(1)                                         ///
+        label("") 
+
+  EDIT  en_pr_al5   col4      @         @         .,           ///
+        option(al5)        default(0)                                     ///
+        label("")  
+
+  EDIT  en_pr_b5   col4      @         @         .,           ///
+        option(b5)        default(1)                                      ///
+        label("")                   
+        
+          
+    EDIT  en_pr_w5   col4      @         @         .,           ///
+        option(w5)      default(1)                                        ///
+        label("")        
+        
+        
+  TEXT     tx_dim6 col1      +30       60    .,           ///
+        label("Dimension_6") right
+        
+  VARNAME  vn_dim6    col2      @         colwd1    .,           ///
+        label("")  
+  
+  EDIT  en_pl6    col3     @         colwd1    .,           ///
+        label("")      option(pl6) default(10000)
+  
+
+  EDIT  en_pr_a6   col4      @         @         .,           ///
+        option(a6)       default(1)                                       ///
+        label("") 
+
+  EDIT  en_pr_al6   col4      @         @         .,           ///
+        option(al6)     default(0)                                         ///
+        label("")  
+
+  EDIT  en_pr_b6   col4      @         @         .,           ///
+        option(b6)      default(1)                                        ///
+        label("")                 
+
+    EDIT  en_pr_w6   col4      @         @         .,           ///
+        option(w6)      default(1)                                        ///
+        label("") 
+
+		     
+        
+  TEXT     tx_dim7 col1      +30       60    .,           ///
+        label("Dimension_7") right
+        
+  VARNAME  vn_dim7    col2      @         colwd1    .,           ///
+        label("")  
+  
+  EDIT  en_pl7    col3     @         colwd1    .,           ///
+        label("")      option(pl7) default(10000)
+  
+
+  EDIT  en_pr_a7   col4      @         @         .,           ///
+        option(a7)       default(1)                                       ///
+        label("") 
+
+  EDIT  en_pr_al7   col4      @         @         .,           ///
+        option(al7)     default(0)                                         ///
+        label("")  
+
+  EDIT  en_pr_b7   col4      @         @         .,           ///
+        option(b7)      default(1)                                        ///
+        label("")                 
+
+    EDIT  en_pr_w7   col4      @         @         .,           ///
+        option(w7)      default(1)                                        ///
+        label("") 
+		
+		
+		     
+        
+  TEXT     tx_dim8 col1      +30       60    .,           ///
+        label("Dimension_8") right
+        
+  VARNAME  vn_dim8    col2      @         colwd1    .,           ///
+        label("")  
+  
+  EDIT  en_pl8    col3     @         colwd1    .,           ///
+        label("")      option(pl8) default(10000)
+  
+
+  EDIT  en_pr_a8   col4      @         @         .,           ///
+        option(a8)       default(1)                                       ///
+        label("") 
+
+  EDIT  en_pr_al8   col4      @         @         .,           ///
+        option(al8)     default(0)                                         ///
+        label("")  
+
+  EDIT  en_pr_b8   col4      @         @         .,           ///
+        option(b8)      default(1)                                        ///
+        label("")                 
+
+    EDIT  en_pr_w8   col4      @         @         .,           ///
+        option(w8)      default(1)                                        ///
+        label("") 
+		
+		
+		     
+        
+  TEXT     tx_dim9 col1      +30       60    .,           ///
+        label("Dimension_9") right
+        
+  VARNAME  vn_dim9    col2      @         colwd1    .,           ///
+        label("")  
+  
+  EDIT  en_pl9    col3     @         colwd1    .,           ///
+        label("")      option(pl9) default(10000)
+  
+
+  EDIT  en_pr_a9   col4      @         @         .,           ///
+        option(a9)       default(1)                                       ///
+        label("") 
+
+  EDIT  en_pr_al9   col4      @         @         .,           ///
+        option(al9)     default(0)                                         ///
+        label("")  
+
+  EDIT  en_pr_b9   col4      @         @         .,           ///
+        option(b9)      default(1)                                        ///
+        label("")                 
+
+    EDIT  en_pr_w9   col4      @         @         .,           ///
+        option(w9)      default(1)                                        ///
+        label("") 
+		
+		
+		     
+        
+  TEXT     tx_dim10 col1      +30       60    .,           ///
+        label("Dimension_10") right
+        
+  VARNAME  vn_dim10    col2      @         colwd1    .,           ///
+        label("")  
+  
+  EDIT  en_pl10    col3     @         colwd1    .,           ///
+        label("")      option(pl10) default(10000)
+  
+
+  EDIT  en_pr_a10   col4      @         @         .,           ///
+        option(a10)       default(1)                                       ///
+        label("") 
+
+  EDIT  en_pr_al10   col4      @         @         .,           ///
+        option(al10)     default(0)                                         ///
+        label("")  
+
+  EDIT  en_pr_b10   col4      @         @         .,           ///
+        option(b10)      default(1)                                        ///
+        label("")                 
+
+    EDIT  en_pr_w10   col4      @         @         .,           ///
+        option(w10)      default(1)                                        ///
+        label("") 
+		
+   DEFINE _x 600
+   DEFINE _y 280
+     
+  INCLUDE _bu_svyset
+
+END
+
+SCRIPT clear_all
+BEGIN
+        main.cb_dims.setvalue "1"
+        main.en_pr_a1.setvalue ""
+        main.vn_dim1.setvalue ""
+        main.vn_dim2.setvalue ""
+        main.vn_dim3.setvalue ""
+        main.vn_dim4.setvalue ""
+        main.vn_dim5.setvalue ""
+        main.vn_dim6.setvalue ""  
+	    main.vn_dim7.setvalue ""
+        main.vn_dim8.setvalue ""
+        main.vn_dim9.setvalue ""
+        main.vn_dim10.setvalue "" 
+END
+
+
+SCRIPT PREINIT
+BEGIN
+       
+        create BOOLEAN has_frequen
+        
+        create BOOLEAN has_dim1
+        create BOOLEAN has_dim2
+        create BOOLEAN has_dim3
+        create BOOLEAN has_dim4
+        create BOOLEAN has_dim5
+        create BOOLEAN has_dim6
+		create BOOLEAN has_dim7
+        create BOOLEAN has_dim8
+        create BOOLEAN has_dim9
+        create BOOLEAN has_dim10
+
+        create BOOLEAN has_ind1
+        create BOOLEAN has_ind2
+        create BOOLEAN has_ind3
+        create BOOLEAN has_ind4
+        create BOOLEAN has_ind5
+        create BOOLEAN has_ind6
+        create BOOLEAN has_ind7
+        create BOOLEAN has_ind8
+		
+
+END
+
+
+
+
+
+LIST mdp_values
+BEGIN
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+END
+
+
+
+
+LIST mdp_contents
+BEGIN
+Chakravarty et al (1998) index
+Extended Watts index
+Multiplicative FGT index
+Tsui (2002) index
+Intersection headcount index
+Union headcount index
+Bourguignon and Chakravarty (2003) bidimensional index 
+Alkire and Foster (2011) index 
+END
+
+LIST mdp_change
+BEGIN
+        script ind1
+        script ind2
+        script ind3
+        script ind4
+        script ind5
+        script ind6
+        script ind7
+        script ind8
+END
+
+SCRIPT ind1
+BEGIN
+        has_ind1.settrue
+        has_ind2.setfalse
+        has_ind3.setfalse
+        has_ind4.setfalse
+        has_ind5.setfalse
+        has_ind6.setfalse
+        has_ind7.setfalse
+        has_ind8.setfalse
+        program setdim
+        program check_dims
+END
+
+SCRIPT ind2
+BEGIN
+        has_ind1.setfalse
+        has_ind2.settrue
+        has_ind3.setfalse
+        has_ind4.setfalse
+        has_ind5.setfalse
+        has_ind6.setfalse
+        has_ind7.setfalse
+        has_ind8.setfalse  
+        program setdim      
+        program check_dims
+END
+
+SCRIPT ind3
+BEGIN
+        has_ind1.setfalse
+        has_ind2.setfalse
+        has_ind3.settrue
+        has_ind4.setfalse
+        has_ind5.setfalse
+        has_ind6.setfalse
+        has_ind7.setfalse
+        has_ind8.setfalse
+        program setdim
+        program check_dims
+END
+
+SCRIPT ind4
+BEGIN
+        has_ind1.setfalse
+        has_ind2.setfalse
+        has_ind3.setfalse
+        has_ind4.settrue
+        has_ind5.setfalse
+        has_ind6.setfalse
+        has_ind7.setfalse
+        has_ind8.setfalse
+        program setdim
+        program check_dims
+END
+
+SCRIPT ind5
+BEGIN
+        has_ind1.setfalse
+        has_ind2.setfalse
+        has_ind3.setfalse
+        has_ind4.setfalse
+        has_ind5.settrue
+        has_ind6.setfalse
+        has_ind7.setfalse
+        has_ind8.setfalse
+        program setdim
+        program check_dims
+END
+
+SCRIPT ind6
+BEGIN
+        has_ind1.setfalse
+        has_ind2.setfalse
+        has_ind3.setfalse
+        has_ind4.setfalse
+        has_ind5.setfalse
+        has_ind6.settrue
+        has_ind7.setfalse
+        has_ind8.setfalse
+        program setdim
+        program check_dims
+END
+
+SCRIPT ind7
+BEGIN
+        has_ind1.setfalse
+        has_ind2.setfalse
+        has_ind3.setfalse
+        has_ind4.setfalse
+        has_ind5.setfalse
+        has_ind6.setfalse
+        has_ind7.settrue
+        has_ind8.setfalse
+        program setdim
+        program check_dims
+END
+
+SCRIPT ind8
+BEGIN
+        has_ind1.setfalse
+        has_ind2.setfalse
+        has_ind3.setfalse
+        has_ind4.setfalse
+        has_ind5.setfalse
+        has_ind6.setfalse
+        has_ind7.setfalse
+        has_ind8.settrue
+        program setdim
+        program check_dims
+END
+
+
+
+
+
+LIST dim_contents
+BEGIN
+        1
+        2
+        3
+        4
+        5
+        6
+		7
+		8
+		9
+		10
+END
+
+
+
+
+LIST dim_change
+BEGIN
+        script dim1
+        script dim2
+        script dim3
+        script dim4
+        script dim5
+        script dim6
+	    script dim7
+        script dim8
+        script dim9
+        script dim10
+END
+
+SCRIPT dim1
+BEGIN
+        has_dim1.settrue
+        has_dim2.setfalse
+        has_dim3.setfalse
+        has_dim4.setfalse
+        has_dim5.setfalse
+        has_dim6.setfalse
+		has_dim7.setfalse
+        has_dim8.setfalse
+        has_dim9.setfalse
+        has_dim10.setfalse
+        program check_dims
+END
+
+SCRIPT dim2
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.setfalse
+        has_dim4.setfalse
+        has_dim5.setfalse
+        has_dim6.setfalse
+		has_dim7.setfalse
+        has_dim8.setfalse
+        has_dim9.setfalse
+        has_dim10.setfalse
+        program check_dims
+END
+
+SCRIPT dim3
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.setfalse
+        has_dim5.setfalse
+        has_dim6.setfalse
+		has_dim7.setfalse
+        has_dim8.setfalse
+        has_dim9.setfalse
+        has_dim10.setfalse
+        program check_dims
+END
+
+SCRIPT dim4
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.settrue
+        has_dim5.setfalse
+        has_dim6.setfalse
+		has_dim7.setfalse
+        has_dim8.setfalse
+        has_dim9.setfalse
+        has_dim10.setfalse
+        program check_dims
+END
+
+SCRIPT dim5
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.settrue
+        has_dim5.settrue
+        has_dim6.setfalse
+        program check_dims
+END
+
+SCRIPT dim6
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.settrue
+        has_dim5.settrue
+        has_dim6.settrue
+		has_dim7.setfalse
+        has_dim8.setfalse
+        has_dim9.setfalse
+        has_dim10.setfalse
+        program check_dims
+END
+
+SCRIPT dim7
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.settrue
+        has_dim5.settrue
+        has_dim6.settrue
+		has_dim7.settrue
+        has_dim8.setfalse
+        has_dim9.setfalse
+        has_dim10.setfalse
+        program check_dims
+END
+
+SCRIPT dim8
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.settrue
+        has_dim5.settrue
+        has_dim6.settrue
+		has_dim7.settrue
+        has_dim8.settrue
+        has_dim9.setfalse
+        has_dim10.setfalse
+        program check_dims
+END
+
+SCRIPT dim9
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.settrue
+        has_dim5.settrue
+        has_dim6.settrue
+		has_dim7.settrue
+        has_dim8.settrue
+        has_dim9.settrue
+        has_dim10.setfalse
+        program check_dims
+END
+
+SCRIPT dim10
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.settrue
+        has_dim5.settrue
+        has_dim6.settrue
+		has_dim7.settrue
+        has_dim8.settrue
+        has_dim9.settrue
+        has_dim10.settrue
+        program check_dims
+END
+
+
+PROGRAM setdim
+BEGIN
+call main.cb_index.hide
+        if has_ind7 {
+                      call main.ed_alpha.setvalue "1"
+
+                      call main.tx_gamma.show
+                      call main.ed_gamma.show           
+                     }
+       if !has_ind7 {
+                      call main.cb_dims.enable
+
+                      call main.tx_gamma.hide
+                      call main.ed_gamma.hide           
+                     }  
+              if has_ind1 |  has_ind2 |  has_ind7 {
+                      call main.tx_alpha.show
+                      call main.ed_alpha.show
+                                
+                     }
+            if !(has_ind1 |  has_ind2 |  has_ind7) {
+                      call main.tx_alpha.hide
+                      call main.ed_alpha.hide
+                                
+                     } 
+
+                if has_ind1 |  has_ind2 |  has_ind7 | has_ind8 {
+
+                      call main.chk_per.show            
+                     }
+            if !(has_ind1 |  has_ind2 |  has_ind7 | has_ind8) {
+
+                      call main.chk_per.hide            
+                     } 
+
+END
+
+
+PROGRAM check_dims
+BEGIN
+        if has_dim1 {
+               
+                call main.en_pl1.show
+                call main.vn_dim1.show
+                call main.en_pr_a1.show
+                call main.en_pr_al1.show
+                call main.en_pr_b1.show
+                call main.en_pr_w1.show         
+               
+        }
+
+        if !has_dim1 {
+                call main.tx_dim1.show
+                call main.en_pl1.hide
+                call main.vn_dim1.hide
+                call main.en_pr_a1.hide
+                call main.en_pr_al1.hide
+                call main.en_pr_b1.hide 
+                call main.en_pr_w1.hide 
+        }
+        if has_dim2 {
+                call main.tx_dim2.show
+                call main.en_pl2.show
+                call main.vn_dim2.show
+                call main.en_pr_a2.show
+                call main.en_pr_al2.show
+                call main.en_pr_b2.show
+                call main.en_pr_w2.show 
+        }
+        if !has_dim2 {
+                call main.tx_dim2.hide
+                call main.en_pl2.hide
+                call main.vn_dim2.hide
+                call main.en_pr_a2.hide
+                call main.en_pr_al2.hide
+                call main.en_pr_b2.hide 
+                call main.en_pr_w2.hide
+        }
+        if has_dim3 {
+                call main.tx_dim3.show
+                call main.en_pl3.show
+                call main.vn_dim3.show
+  
+                call main.en_pr_a3.show
+                call main.en_pr_al3.show
+                call main.en_pr_b3.show
+                call main.en_pr_w3.show 
+
+        }
+        if !has_dim3 {
+                call main.tx_dim3.hide
+                call main.en_pl3.hide
+                call main.vn_dim3.hide
+                call main.en_pr_a3.hide
+                call main.en_pr_al3.hide
+                call main.en_pr_b3.hide
+                call main.en_pr_w3.hide 
+        }
+        if has_dim4 {
+                call main.tx_dim4.show
+                call main.en_pl4.show
+                call main.vn_dim4.show
+                call main.en_pr_a4.show
+                call main.en_pr_al4.show
+                call main.en_pr_b4.show
+                call main.en_pr_w4.show 
+
+        }
+        if !has_dim4 {
+                call main.tx_dim4.hide
+                call main.en_pl4.hide
+                call main.vn_dim4.hide
+                call main.en_pr_a4.hide
+                call main.en_pr_al4.hide
+                call main.en_pr_b4.hide 
+                call main.en_pr_w4.hide 
+  
+        }
+        if has_dim5 {
+                call main.tx_dim5.show
+                call main.en_pl5.show
+                call main.vn_dim5.show
+                call main.en_pr_a5.show
+                call main.en_pr_al5.show
+                call main.en_pr_b5.show
+                call main.en_pr_w5.show 
+     
+        }
+        if !has_dim5 {
+                call main.tx_dim5.hide
+                call main.en_pl5.hide
+                call main.vn_dim5.hide
+                call main.en_pr_a5.hide
+                call main.en_pr_al5.hide
+                call main.en_pr_b5.hide
+                call main.en_pr_w5.hide         
+ 
+        }
+        if has_dim6 {
+                call main.tx_dim6.show
+                call main.en_pl6.show
+                call main.vn_dim6.show
+                call main.en_pr_a6.show
+                call main.en_pr_al6.show
+                call main.en_pr_b6.show
+                call main.en_pr_w6.show 
+
+        }
+        if !has_dim6 {
+                call main.tx_dim6.hide
+                call main.en_pl6.hide
+                call main.vn_dim6.hide
+                call main.en_pr_a6.hide
+                call main.en_pr_al6.hide
+                call main.en_pr_b6.hide 
+                call main.en_pr_w6.hide 
+ 
+        }
+		
+		        
+        if has_dim7 {
+                call main.tx_dim7.show
+                call main.en_pl7.show
+                call main.vn_dim7.show
+                call main.en_pr_a7.show
+                call main.en_pr_al7.show
+                call main.en_pr_b7.show
+                call main.en_pr_w7.show 
+
+        }
+        if !has_dim7 {
+                call main.tx_dim7.hide
+                call main.en_pl7.hide
+                call main.vn_dim7.hide
+                call main.en_pr_a7.hide
+                call main.en_pr_al7.hide
+                call main.en_pr_b7.hide 
+                call main.en_pr_w7.hide 
+ 
+        }
+		
+		        
+        if has_dim8 {
+                call main.tx_dim8.show
+                call main.en_pl8.show
+                call main.vn_dim8.show
+                call main.en_pr_a8.show
+                call main.en_pr_al8.show
+                call main.en_pr_b8.show
+                call main.en_pr_w8.show 
+
+        }
+        if !has_dim8 {
+                call main.tx_dim8.hide
+                call main.en_pl8.hide
+                call main.vn_dim8.hide
+                call main.en_pr_a8.hide
+                call main.en_pr_al8.hide
+                call main.en_pr_b8.hide 
+                call main.en_pr_w8.hide 
+ 
+        }
+		
+		        
+        if has_dim9 {
+                call main.tx_dim9.show
+                call main.en_pl9.show
+                call main.vn_dim9.show
+                call main.en_pr_a9.show
+                call main.en_pr_al9.show
+                call main.en_pr_b9.show
+                call main.en_pr_w9.show 
+
+        }
+        if !has_dim9 {
+                call main.tx_dim9.hide
+                call main.en_pl9.hide
+                call main.vn_dim9.hide
+                call main.en_pr_a9.hide
+                call main.en_pr_al9.hide
+                call main.en_pr_b9.hide 
+                call main.en_pr_w9.hide 
+ 
+        }
+		
+		        if has_dim10 {
+                call main.tx_dim10.show
+                call main.en_pl10.show
+                call main.vn_dim10.show
+                call main.en_pr_a10.show
+                call main.en_pr_al10.show
+                call main.en_pr_b10.show
+                call main.en_pr_w10.show 
+
+        }
+        if !has_dim10 {
+                call main.tx_dim10.hide
+                call main.en_pl10.hide
+                call main.vn_dim10.hide
+                call main.en_pr_a10.hide
+                call main.en_pr_al10.hide
+                call main.en_pr_b10.hide 
+                call main.en_pr_w10.hide 
+ 
+        }
+		
+         call main.tx_in1.hide
+         call main.tx_in2.hide
+         call main.tx_in3.hide
+         call main.tx_in4.hide
+        
+        if has_ind1|has_ind2 {
+                                call main.tx_in1.show
+                               }
+                 if has_ind3 {
+                                call main.tx_in2.show
+                               }
+                if has_ind4 {
+                              call main.tx_in3.show
+                             }
+                if has_ind8 {
+                              call main.tx_in4.show
+                             }
+        
+         if has_ind3 | has_ind4 | has_ind5 | has_ind6 | has_ind7 | has_ind8  {
+            
+                 call main.en_pr_a1.hide
+             call main.en_pr_a2.hide
+             call main.en_pr_a3.hide
+             call main.en_pr_a4.hide
+             call main.en_pr_a5.hide
+             call main.en_pr_a6.hide
+			 call main.en_pr_a7.hide
+			 call main.en_pr_a8.hide
+			 call main.en_pr_a9.hide
+			 call main.en_pr_a10.hide
+
+                         
+                
+
+         }
+
+ if !has_ind3  {
+            
+             call main.en_pr_al1.hide
+             call main.en_pr_al2.hide
+             call main.en_pr_al3.hide
+             call main.en_pr_al4.hide
+             call main.en_pr_al5.hide
+             call main.en_pr_al6.hide
+             call main.en_pr_al7.hide
+			 call main.en_pr_al8.hide
+			 call main.en_pr_al9.hide
+			 call main.en_pr_al10.hide
+         }
+/*
+ if !has_ind4  {
+            
+             call main.en_pr_b1.hide
+             call main.en_pr_b2.hide
+             call main.en_pr_b3.hide
+             call main.en_pr_b4.hide
+             call main.en_pr_b5.hide
+             call main.en_pr_b6.hide
+			 call main.en_pr_b7.hide
+			 call main.en_pr_b8.hide
+			 call main.en_pr_b9.hide
+			 call main.en_pr_b10.hide
+         }
+*/
+
+        
+       
+        if !has_ind8  {
+                
+                     call main.en_pr_w1.hide
+             call main.en_pr_w2.hide
+             call main.en_pr_w3.hide
+             call main.en_pr_w4.hide
+             call main.en_pr_w5.hide
+             call main.en_pr_w6.hide
+			 call main.en_pr_w7.hide
+			 call main.en_pr_w8.hide
+			 call main.en_pr_w9.hide
+			 call main.en_pr_w10.hide
+                
+                }
+        
+         
+        
+        
+        
+                
+        
+       
+END
+
+
+
+PROGRAM dim1_output
+BEGIN
+ if has_dim1 {
+                                
+                     optionarg main.ed_alpha
+                     optionarg main.ed_gamma 
+                     optionarg main.en_pr_b1
+                     optionarg main.en_pr_w1    
+                     optionarg main.en_pl1
+}
+END
+
+
+
+PROGRAM dim2_output
+BEGIN
+        if has_dim2 {
+                          
+                     optionarg main.en_pr_b2
+                     optionarg main.en_pr_w2    
+                     optionarg main.en_pl2
+        }
+END
+
+PROGRAM dim3_output
+BEGIN
+        if has_dim3 {
+                               
+                     optionarg main.en_pr_b3
+                     optionarg main.en_pr_w3
+                     optionarg main.en_pl3
+        }
+END
+
+PROGRAM dim4_output
+BEGIN
+        if has_dim4 {
+                              
+
+                     optionarg main.en_pr_b4
+                     optionarg main.en_pr_w4    
+                     optionarg main.en_pl4
+        }
+END
+
+PROGRAM dim5_output
+BEGIN
+       if has_dim5 {
+                                  
+           
+                     optionarg main.en_pr_b5
+                     optionarg main.en_pr_w5
+                     optionarg main.en_pl5
+        }
+END
+
+PROGRAM dim6_output
+BEGIN
+       if has_dim6 {
+                             
+
+                     optionarg main.en_pr_b6
+                     optionarg main.en_pr_w6
+                     optionarg main.en_pl6
+        }
+END
+
+PROGRAM dim7_output
+BEGIN
+       if has_dim7 {
+                             
+
+                     optionarg main.en_pr_b7
+                     optionarg main.en_pr_w7
+                     optionarg main.en_pl7
+        }
+END
+
+PROGRAM dim8_output
+BEGIN
+       if has_dim8 {
+                             
+
+                     optionarg main.en_pr_b8
+                     optionarg main.en_pr_w8
+                     optionarg main.en_pl8
+        }
+END
+
+PROGRAM dim9_output
+BEGIN
+       if has_dim9 {
+                             
+
+                     optionarg main.en_pr_b9
+                     optionarg main.en_pr_w9
+                     optionarg main.en_pl9
+        }
+END
+
+        
+PROGRAM dim10_output
+BEGIN
+       if has_dim10 {
+                             
+
+                     optionarg main.en_pr_b10
+                     optionarg main.en_pr_w10
+                     optionarg main.en_pl10
+        }
+END
+
+
+
+
+
+DIALOG confop,  tabtitle("Confidence Interval")
+
+BEGIN
+
+
+TEXT     sp_txt  10      25      120      .,                            /*
+                */ label("Confidence level in (%) : ")  
+                
+SPINNER  sp_level    140       25      50         .,                    /*
+                */ label("Confidence level")                            /*
+                */ min(10) default(95) max(99)                          /*
+                */ option(level)
+TEXT     ci_txt  10      +25      120     .,                            /*
+                */ label("Confidence interval      : ") 
+                
+COMBOBOX cb_ci       140    @   200      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)             
+
+                                        
+
+
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+                                        
+SPINNER  sp_dec    10       25      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(6) max(12)                            /*
+                */ option(dec)
+
+TEXT     sp_txt  70      25      100      .,                            /*
+                */ label("Number of decimals")  
+                
+
+
+END
+
+HELP hlp1,   view("help imdp_bci")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+        put "imdp_bci "
+        
+        if has_dim1 {
+        require main.vn_dim1
+        varlist [main.vn_dim1]
+        }
+     
+        if has_dim2 {
+        require main.vn_dim2
+        varlist [main.vn_dim2]
+        }
+		
+        if has_dim3 {
+        require main.vn_dim3
+        varlist [main.vn_dim3]
+        }
+        if has_dim4 {
+        require main.vn_dim4
+        varlist [main.vn_dim4]
+        }
+        if has_dim5 {
+        require main.vn_dim5
+        varlist [main.vn_dim5]
+        }
+        if has_dim6 {
+        require main.vn_dim6
+        varlist [main.vn_dim6]
+        }
+		
+		if has_dim7 {
+        require main.vn_dim7
+        varlist [main.vn_dim7]
+        }
+        
+	    if has_dim8 {
+        require main.vn_dim8
+        varlist [main.vn_dim8]
+        }
+		
+		if has_dim9 {
+        require main.vn_dim9
+        varlist [main.vn_dim9]
+        }
+		
+		
+		if has_dim10 {
+        require main.vn_dim10
+        varlist [main.vn_dim10]
+        }
+		
+        beginoptions
+       
+	   
+        optionarg main.vn_hhs
+        optionarg main.vn_hhg
+        
+        
+                                                  
+        put " " /program dim1_output
+		
+        put " " /program dim2_output
+        put " " /program dim3_output
+        put " " /program dim4_output
+        put " " /program dim5_output
+        put " " /program dim6_output
+		put " " /program dim7_output
+		put " " /program dim8_output
+		put " " /program dim9_output
+		put " " /program dim10_output
+
+                        if !resop.sp_dec.isdefault() {
+                        optionarg resop.sp_dec
+                        }
+                        
+                        if !confop.sp_level.isdefault() {
+                                                         optionarg confop.sp_level
+                                                         }
+                                                 
+                        if !confop.cb_ci.isdefault()    {
+                                                         optionarg confop.cb_ci
+                                                        } 
+        
+		endoptions 
+        
+        
+END

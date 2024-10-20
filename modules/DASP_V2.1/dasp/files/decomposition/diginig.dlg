@@ -1,0 +1,153 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.1)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2010)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/* diginig.dlg                                                         */
+/*************************************************************************/
+
+VERSION 9.2
+
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 280
+
+
+DIALOG main, label("DASP|Decomposition of the Gini index of inequality by groups --> diginig command") tabtitle("Main")
+
+
+BEGIN
+  
+           
+  TEXT     tx_var1      20     20    100      .,                 ///
+           label("Variable of interest:")  
+  VARNAME  vn_int      130    @     250      .                
+                       
+           
+  TEXT     tx_var2      20    +25    100      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      130    @     250      .,                 ///
+           option(hsize)      
+  TEXT     tx_var4      20    +25    100      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      130    @     250      .,                 ///
+           option(hgroup)  error("group variable")          
+
+
+ 
+            
+           
+  GROUPBOX chk_per  390    10  360 80,                         ///
+           label("Index: ")         
+
+   TEXT    tx_gin       400    +25    80      .,                            ///
+           label("Index") 
+
+   COMBOBOX cb_gin        500    @   200   .,                              ///
+            dropdownlist contents(cb_gin) values(cb_gin_val)               ///
+             default(nor)     option(type)   
+  
+
+           
+  
+           
+   
+       		
+   
+   
+   DEFINE _x _xsetbu
+     DEFINE _y 240
+     
+  INCLUDE _bu_svyset
+END
+
+
+
+
+LIST cb_nor
+BEGIN
+  Normalised
+  Not Normalised
+END
+
+LIST cb_nor_val
+BEGIN
+  nor
+  not
+END
+
+
+LIST cb_gin
+BEGIN
+  Gini Index
+  Absolute Gini Index
+END
+
+
+LIST cb_gin_val
+BEGIN
+  nor
+  abs
+END
+
+INCLUDE resop
+
+
+
+
+
+HELP hlp1,   view("help diginig")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "diginig "
+	require  main.vn_int
+	varlist [main.vn_int]
+	
+	beginoptions  
+	                require  main.vn_hhg
+	                optionarg main.vn_hhg
+	                optionarg main.vn_hhs
+	                
+	
+		
+			
+			optionarg resop.fnamex
+                        optionarg resop.ed_she
+
+			if !resop.cb_lan.isdefault(){
+			optionarg resop.cb_lan
+			}
+
+			if !resop.ed_tit.isdefault(){
+			optionarg resop.ed_tit
+			}
+
+			if !resop.chk_opd.isdefault(){
+			optionarg resop.chk_opd
+			}
+					
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+					
+			if !main.cb_gin.isdefault() {
+			optionarg main.cb_gin
+			}
+		    
+		        
+		       
+	endoptions
+	
+	
+	
+END

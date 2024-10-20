@@ -1,0 +1,318 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.1  )          */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+
+VERSION 9.2
+ 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 300
+
+
+DIALOG main, label("DASP| Marginal Benefit Incidence --> imbi command") tabtitle("Main")
+
+
+BEGIN
+  GROUPBOX intvar 10     10    360  140                     
+         
+  TEXT     tx_var1      20    20    100      .,                 ///
+           label("Welfare indicator  ")  
+             
+  VARNAME  v_var1     130     @   230   .,                   ///
+             option(welfare) 
+                 
+            
+  TEXT     tx_var2      20    +35    80      .,                 ///
+           label("Eligible group ")  
+  VARNAME  v_var2      130    @     230      .                
+             
+		   
+  TEXT     tx_var3      20    +25    100      .,                 ///
+           label("Frequency / Benefit ")  
+  VARNAME  v_var3      130    @     230      .,                 ///
+            		   
+
+					   
+  TEXT     tx_var4      20    +25    100      .,                 ///
+           label("Areas / Regions ")  
+  VARNAME  v_var4      130    @     230      .,                 ///
+  option(hregion)
+  
+   GROUPBOX intvar2 390     10    360   180,                      ///
+             label("Decomposition approach")
+
+   TEXT    tx_index      400    +25    80      .,                 ///
+           label("Approach") 
+
+
+   COMBOBOX cb_appr        460    @   260   .,               ///
+            dropdownlist contents(cb_appr) values(cb_appr_val)              ///
+             default(rao)     option(appr)  onselchangelist(appr_change)   
+
+          
+  TEXT    tx_min   510    +25    80      .,                    ///
+           label("Minimum:   ")                                 ///
+                
+   TEXT    tx_max   640    @   80      .,                 ///
+           label("Maximum:   ") 
+           
+   
+   TEXT txt_pl     400     +15    100      .,                 ///  
+                  label("Range:   ")        
+   
+   EDIT    ed_min   510    @     80      .,                 ///
+           default(0) option(min)                            ///
+                
+   EDIT    ed_max   640    @      80      .,                 ///
+           default(1) option(max)   
+           
+           
+   CHECKBOX ck_width  410    120  320 60,               ///
+                 label(`"Override "optimal" bandwidth"')               ///
+                 groupbox                                               ///
+                 option("width")                                        ///
+                 onclickoff(main.en_width.enable)                      ///
+                 onclickon(main.en_width.disable)                    ///
+                 default(1)
+  TEXT     tx_width  420   +25      100     .,                   /*
+                */ label("Bandwidth of kernel:")                        /*
+                */
+  EDIT     en_width  560    @       60   .,                    /*
+                */ label("Bandwidth of kernel")                         /*
+                */ numonly                                              /*
+                */ option("band") default(0.1)                                  /*
+                */           
+         
+  
+           
+   DEFINE _x 20
+   DEFINE _y 240
+     
+  INCLUDE _bu_svyset
+END
+
+
+
+
+
+LIST cb_appr
+BEGIN
+  Parametric     : Ajwad & Quentin (2002)
+  Non parametric : Derivative of L.L.E
+END
+
+
+LIST cb_appr_val
+BEGIN
+  aq
+  dlle
+END
+
+
+
+
+///============
+
+
+SCRIPT PREINIT
+BEGIN
+    create BOOLEAN has_cond1
+	create BOOLEAN has_cond2
+END
+
+
+LIST appr_change
+BEGIN
+	script cd1
+	script cd2	
+END
+
+
+SCRIPT cd1
+BEGIN
+	has_cond1.settrue
+	has_cond2.setfalse
+    program check_cds
+END
+
+SCRIPT cd2
+BEGIN
+	has_cond1.setfalse
+	has_cond2.settrue
+	program check_cds
+END
+
+
+
+PROGRAM check_cds
+BEGIN
+	if has_cond1 {
+         call main.tx_min.hide
+		 call main.ed_min.hide
+		 call main.tx_max.hide
+		 call main.ed_max.hide
+		 call main.ck_width.hide
+		 call main.tx_width.hide
+		 call main.en_width.hide
+		 call main.txt_pl.hide 
+	}
+	if !has_cond1 {
+	     call main.tx_min.show
+		 call main.ed_min.show
+		 call main.tx_max.show
+		 call main.ed_max.show
+		 call main.ck_width.show
+		 call main.tx_width.show
+		 call main.en_width.show
+		 call main.txt_pl.show 
+	}
+	
+END
+
+
+
+
+
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+CHECKBOX   chk_opd     200    @    150    .,                   ///
+             label("Display regression results") option(drr) default(1)
+
+  
+
+
+END
+
+
+LIST cb_lan
+BEGIN
+  English
+  Franais
+END
+
+
+LIST cb_lan_val
+BEGIN
+  en
+  fr
+END
+
+
+
+
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2	
+END
+
+
+SCRIPT cond1
+BEGIN
+	has_cond1.settrue
+	has_cond2.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.setfalse
+	has_cond2.settrue
+	program check_conds
+END
+
+
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1){
+call resop.ed_tit.setvalue "Table ##: Decomposition of inequality by..."
+}
+
+if has_cond2{
+call resop.ed_tit.setvalue "Tableau ##: Decomposition de l'ingalit par..."
+}
+
+
+
+END
+
+
+
+
+
+
+
+
+
+HELP hlp1,   view("help imbi")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "imbi "
+	require  main.v_var3
+	varlist [main.v_var3]
+    require  main.v_var2
+	varlist [main.v_var2]
+	beginoptions
+		       
+		
+			
+			require   main.v_var1
+			optionarg main.v_var1
+			require   main.v_var4
+			optionarg main.v_var4
+			
+		    optionarg main.ed_min
+            optionarg main.ed_max
+            optionarg main.en_width
+
+            if !main.cb_appr.isdefault(){
+			optionarg main.cb_appr
+			}
+			if !resop.chk_opd.isdefault(){
+			optionarg resop.chk_opd
+			}
+					
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+
+			
+			
+			
+			       
+	endoptions
+	
+	
+	
+END

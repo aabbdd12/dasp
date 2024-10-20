@@ -1,0 +1,229 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                       */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/* ungroup.dlg                                                             */
+/*************************************************************************/
+
+VERSION 9.2
+
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 280
+
+
+DIALOG main, label("Disaggregation of aggregated data --> ungroup command") tabtitle("Main")
+
+
+BEGIN
+  
+   GROUPBOX main_info 10    10    340 80,                      ///
+           label("Basic information on the aggregated data:")
+           
+  TEXT     tx_var1      20     30    200      .,                 ///
+           label("Percentiles (p): ")  
+  VARNAME  vn_p      200    @     140      .                
+
+  TEXT     tx_var2      20    +25    200      .,                 ///
+           label("Cumulative income shares or Lorenz ordinates (L(p)):  ")  
+  VARNAME  vn_lp      200    @     140      .,                 ///
+      
+
+
+  GROUPBOX percentile 10    100    340 60,                      ///
+           label("Distribution form:")
+           
+  
+            
+  TEXT       txt_op2     20    +25    80      .,                 ///  
+             label("Distribution:")                          ///      
+          
+  COMBOBOX  cb_dist      120    @     220      .,                  ///
+            dropdownlist                                          ///
+            contents(cb_dis)  values(cb_dis_val) option(dist)     ///
+            default(lnorm)
+ 
+
+
+  GROUPBOX adjustment 10    170    340 60,                      ///
+           label("Adjustment:") 
+
+        CHECKBOX    chk_adj      20    +20     320      .,/*
+ */      label("Adjust the generated sample to match the aggregated ")                                ///
+                 default(1)  option(adjust)
+    TEXT txt_add     40    +15    300      .,                 ///  
+                  label("data information.   ")   
+            
+           
+  GROUPBOX chk_per  390    10  360 130,                         ///
+           label("Size of the generated distribution ")         ///
+  
+    TEXT txt_nobs     +10    +25    100      .,                 ///  
+                  label("Total size:   ")                           
+       
+     EDIT  ed_nobs    +100    @     240      .,                 ///
+              option(nobs)    default(1000)    
+           
+     TEXT    tx_gperc   500    +35    80      .,                    ///
+           label("Percentage  ") 		                ///
+    		
+   TEXT    tx_gnobs   630    @       105      .,                 ///
+           label("Number of obs.")             
+   
+
+        CHECKBOX    chk_bot      400    +18     140      .,/*
+ */      label("Bottom group")                                ///
+                 onclickoff(program prg_gr)                   ///
+                 onclickon(program prg_gr)                    ///
+                 default(0)
+
+   EDIT    ed_bperc   500    @     105      .,                 ///
+           default(10) option(pbot)	  	             ///
+       		
+   EDIT    ed_bnobs   630    @      105      .,                 ///
+           default(100) option(bnobs) 
+         
+   
+
+        CHECKBOX    chk_top      400    +20     140      .,/*
+ */      label("Top group")                                   ///
+                 onclickoff(program prg_gr)                   ///
+                 onclickon(program prg_gr)                    ///
+                 default(0)
+
+   EDIT    ed_tperc   500    @     105      .,                 ///
+           default(10) option(ptop)	  	             ///
+       		
+   EDIT    ed_tnobs   630    @      105      .,                 ///
+           default(100) option(tnobs) 
+         
+ 	
+
+   GROUPBOX results  390    150  360 50,                         ///
+           label("Saving the generated distribution")         ///
+
+
+        TEXT  tx_file     400    +20    40      .,                 ///  
+                   label("File :")                                  ///      
+            
+        
+        FILE  fname      460    @     280      .,                 ///
+        label ("Browse...")    save option("fname")                   ///
+        filter("MetaFile (*.dta)|*.dta|*.* (*.*)|*.*") 
+
+   GROUPBOX graphs  390    210  360 50,                         ///
+           label("Plotting the Lorenz curves")         ///
+
+
+        CHECKBOX    chk_lor      400    +20     340      .,/*
+ */      label("Plot the Lorenz curves of the aggregated and generated data.")                                ///
+                 default(0) option(lorenz) 
+END
+
+
+LIST cb_dis
+BEGIN
+  Log normal
+  Normal
+  Uniform
+  Beta Lorenz Curve
+  Generalized Quadratic Lorenz Curve
+  Singh-Maddala Distribution
+END
+
+LIST cb_dis_val
+BEGIN
+  lnorm
+  norm
+  unif
+  belc
+  gqlc
+  sima
+END
+
+
+PROGRAM prg_gr
+BEGIN
+if main.chk_bot | main.chk_top   {
+call main.tx_gnobs.enable
+call main.tx_gperc.enable
+}
+
+else {
+call main.tx_gperc.disable
+call main.tx_gnobs.disable
+}
+
+if main.chk_bot  {
+call main.ed_bperc.enable
+call main.ed_bnobs.enable
+}
+
+if !main.chk_bot {
+call main.ed_bperc.disable
+call main.ed_bnobs.disable
+}
+
+if  main.chk_top {
+call main.ed_tperc.enable
+call main.ed_tnobs.enable
+}
+
+if !main.chk_top {
+call main.ed_tperc.disable
+call main.ed_tnobs.disable
+}
+END
+
+
+
+HELP hlp1,   view("help ungroup")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+
+PROGRAM command
+BEGIN
+	put "ungroup "
+       	require  main.vn_p
+	varlist  main.vn_p
+        require  main.vn_lp
+	varlist  main.vn_lp
+       	beginoptions  
+
+                        optionarg main.fname
+			if !main.chk_bot.isdefault(){
+			optionarg main.ed_bperc
+			optionarg main.ed_bnobs
+			}
+
+			if !main.chk_top.isdefault(){
+			optionarg main.ed_tperc
+			optionarg main.ed_tnobs
+			}
+                        if !main.ed_nobs.isdefault(){
+			optionarg main.ed_nobs
+			}
+                         
+                        if !main.cb_dist.isdefault(){
+			optionarg main.cb_dist
+			} 
+                         
+                        if !main.chk_adj.isdefault(){
+			optionarg main.chk_adj
+			}
+			if !main.chk_lor.isdefault(){
+			optionarg main.chk_lor
+			}
+                         
+		
+        endoptions	
+END

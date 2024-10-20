@@ -1,0 +1,49 @@
+
+
+DIALOG res,  tabtitle("Graphical Results")
+  BEGIN
+    GROUPBOX gb1 10     10    430  80,                      ///
+             label("Coordinates: ")
+             
+    CHECKBOX   chk_op1        20    +25    60    .,                   ///
+             label("List:")      
+             
+    TEXT  txt2     20    +25    40      .,                 ///  
+               label("Save:")                                 
+    
+    FILE  fnamec      80    @     340      .,                 ///
+    label ("Browse...")    save option(sres)    
+    
+    
+    
+    GROUPBOX gb2     10     140    430  120,                      ///
+             label("Graph: ")
+             
+    CHECKBOX   chk_op3     20    +25    60    .,                   ///
+             label("Display:") default(1)
+             
+             
+    TEXT  txt4     20    +25    40      .,                 ///  
+               label("Save:")                                  ///      
+         
+    
+    FILE  fnamegs      80    @     340      .,                 ///
+    label ("Browse...")    save option(sgra)                   ///
+    filter("Stata Gragh (*.gph)|*.gph|All Files (*.*)|*.*")
+    
+    TEXT  chk_op5     20    +25    40      .,                 ///  
+                   label("Export:")                                  ///      
+            
+        
+        FILE  fnamege      80    @     340      .,                 ///
+        label ("Browse...")    save option(egra)                   ///
+        filter("MetaFile (*.wmf)|*.wmf|EPS (*.eps)|*.eps")
+    
+    
+END
+
+LIST yes_no
+BEGIN
+  yes
+  no
+END

@@ -1,0 +1,1126 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 3.01)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2026)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/ 
+/* dicfgt.dlg                                                          */
+/*************************************************************************/ 
+
+
+
+
+
+VERSION 15.0
+SYNCHRONOUS_ONLY
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 400
+DEFINE  _dlgwd 890
+INCLUDE header
+
+  DEFINE col10  10
+  DEFINE line10  10
+   
+  DEFINE col11  20
+  DEFINE col20  450
+  DEFINE vposds 340
+
+DIALOG main, label("DASP 3.0 | Difference between Lorenz/Concentration curves --> diclorenz command") tabtitle("Main")
+
+
+BEGIN
+    GROUPBOX intvar       col10     10    430  160,                      ///
+           label("Distribution 1: ")
+           
+  COMBOBOX  fi_d1        col11   +25     120      .,                  ///
+            contents(dt_src)  values(dt_src_val)  dropdownlist                         ///
+            onselchange(program data_change1)  default(1)         
+                     
+           
+  FILE  file_d1      150    @     280      .,                 ///
+    label ("Browse...")    save option(file1)                      ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*) onchange(program getLevels)
+    
+
+  
+  TEXT     tx_var1      20    +25    150      .,                 ///
+             label("Welfare variable:   ")  
+  
+  
+   /* EDIT     en_y_d1      120    @     240      .,                 ///  */
+  COMBOBOX  en_y_d1 	150    @     280 	.,	///
+	dropdown contents(levels) 
+           
+  
+  VARNAME  vn_y_d1      150    @     280      .,                 ///
+  option(wel1)
+
+  
+  
+    CHECKBOX chk_var01     20    +25    150      .,                 ///  
+             label("Ranking variable:   ")                       ///      
+  onclickon(script  ckry1)                                 ///
+  onclickoff(script ckrn1)  
+  
+  
+   /* EDIT     en_y_d1      120    @     240      .,                 ///  */
+  COMBOBOX  en_rank_d1 	150    @     280 	.,	///
+	dropdown contents(levels)    option(rank1) 
+           	   
+  
+  VARNAME   vn_rank_d1      150    @     280      .,                 ///
+  option(rank1) 
+
+  
+
+           
+  TEXT     tx_var2      20    +25    150      .,                 ///
+           label("Size  variable:   ")  
+  
+  COMBOBOX  en_hhs_d1 	150    @     280 	.,	///
+	dropdown contents(levels)  option(hsize1)  
+           
+ 
+  VARNAME  vn_hhs_d1      150    @     280      .,                 ////
+           option(hsize1) 
+
+
+           
+  CHECKBOX    chk_cd1     20    +25    120      .,                 ///  
+             label("Condition(s)    ")                            ///
+             onclickon(program cd1_on)                             ///
+             onclickoff(program cd1_off)  default(0)     
+             
+  
+ EDIT     ed_d1c1        150    @    280      .,               ///  
+  option(cond1)
+ 
+ 
+ 
+ 
+ 
+ GROUPBOX intvar2 460     10    430  160,                      ///
+            label("Distribution 2: ")
+            
+   
+
+               
+               
+  COMBOBOX  fi_d2        470   +25     120      .,              ///
+            contents(dt_src)  values(dt_src_val) dropdownlist                ///
+            onselchange(program data_change2)  default(1)              
+                        
+              
+    FILE  file_d2      600    @     280      .,      onchange(program getLevels2)           ///
+    label ("Browse...")    option(file2)                        ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*)
+    
+   TEXT     tx_var3      470    +25    150      .,                 ///
+              label("Welfare variable:   ")  
+   
+   
+   COMBOBOX      en_y_d2      600    @     280      .,       ///                      
+   dropdown contents(levels2)          
+        
+		
+   VARNAME  vn_y_d2      600    @     280      .,                 
+ 
+
+    CHECKBOX chk_var02     470    +25    150      .,                 ///  
+             label("Ranking variable:   ")                       ///      
+  onclickon(script  ckry2)                                 ///
+  onclickoff(script ckrn2)  
+  
+  
+   /* EDIT     en_y_d1      120    @     240      .,                 ///  */
+  COMBOBOX  en_rank_d2 	600    @     280 	.,	///
+	dropdown contents(levels)    option(rank2) 
+           
+  
+  VARNAME  vn_rank_d2      600    @     280      .,                 ///
+  option(rank2) 
+
+            
+   TEXT     tx_var4      470    +25    150      .,                 ///
+            label("Size  variable:   ")  
+			
+   COMBOBOX     en_hhs_d2      600    @     280      .,                 ///
+            option(hsize2)      dropdown contents(levels2) 
+        
+		
+   VARNAME  vn_hhs_d2      600    @     280      .,                 ///
+            option(hsize2) 
+            
+             
+
+       CHECKBOX    chk_cd2     470    +25    120      .,                 ///  
+              label("Condition(s)    ")                            ///
+              onclickon(program cd2_on)                             ///
+              onclickoff(program cd2_off)  default(0)     
+              
+
+   
+  EDIT     ed_d2c1        600    @    280      .,               ///     
+   option(cond2)
+            
+     
+           
+
+
+	    GROUPBOX chk_per  230    220  400 150,                         ///
+           label("Parameters and options: ")         ///
+
+  
+   
+    TEXT       txt_op2     240    +25    130      .,                 ///  
+                label("Curve(s):   ")                             ///      
+             
+       COMBOBOX  cb_nor      +130    @     240      .,                  ///
+               dropdownlist                                          ///
+               contents(cb_nor)  values(cb_nor_val) option(type)     ///
+            default(nor)   
+   
+    TEXT    tx_min   370    +25    100      .,                    ///
+              label("Minimum:   ") 		                ///
+       		
+      TEXT    tx_max   510    @   100     .,                 ///
+           label("Maximum:   ") 
+   
+   TEXT txt_pl     240     +20    100      .,                 ///  
+                  label("Range of percentiles (p): ")        
+   
+   EDIT    ed_min   370    @     100      .,                 ///
+           default(0.0) option(min)	  	             ///
+       		
+   EDIT    ed_max   510    @      100      .,                 ///
+           default(1.0) option(max) 	   
+		   
+   
+END
+
+
+
+  
+SCRIPT ckry1 
+BEGIN 
+main.vn_rank_d1.enable
+main.en_rank_d1.enable
+END
+
+SCRIPT ckrn1 
+BEGIN 
+main.vn_rank_d1.disable
+main.en_rank_d1.disable
+END
+
+SCRIPT ckry2 
+BEGIN 
+main.vn_rank_d2.enable
+main.en_rank_d2.enable
+END
+
+SCRIPT ckrn2 
+BEGIN 
+main.vn_rank_d2.disable
+main.en_rank_d2.disable
+END
+
+
+SCRIPT PREINIT
+BEGIN
+    create BOOLEAN has_cd1
+	create BOOLEAN has_cd2
+	create BOOLEAN has_cd3
+	create BOOLEAN has_cond1
+	create BOOLEAN has_cond2
+	create BOOLEAN has_cond3
+	create BOOLEAN has_cond4
+	create BOOLEAN has_cond1d
+    create BOOLEAN has_cond2d  
+	create BOOLEAN has_cond1
+	create BOOLEAN has_cond2
+	create BOOLEAN has_cond3
+	create BOOLEAN has_cond4	
+		    create BOOLEAN isLoading1
+	     isLoading1.settrue
+	    create BOOLEAN isLoading2
+	     isLoading2.settrue
+	    program initialize
+END
+
+
+
+
+LIST cb_nor
+BEGIN
+  Lorenz curve(s)
+  Generalised Lorenz curve(s)
+END
+
+LIST cb_nor_val
+BEGIN
+  nor
+  gen
+END
+
+LIST dt_src
+BEGIN
+  Data in memory
+  Data in file
+END
+
+LIST dt_src_val
+BEGIN
+  1
+  2
+END
+
+
+PROGRAM data_change1
+BEGIN
+        
+if   main.fi_d1.isdefault()  {
+                               call main.file_d1.hide
+							   
+                               call main.vn_y_d1.show
+                               call main.vn_hhs_d1.show
+							   
+							   call main.vn_rank_d1.show
+                               
+							   
+                               call main.en_y_d1.hide
+                               call main.en_hhs_d1.hide
+							   call main.en_rank_d1.hide
+							  
+                               
+                               
+                              }
+							  
+if  !main.fi_d1.isdefault()  {
+                              call main.file_d1.show
+							  
+                               call main.vn_y_d1.hide
+                               call main.vn_hhs_d1.hide
+							   call main.vn_rank_d1.hide
+							 
+														   
+                               call main.en_y_d1.show
+                               call main.en_hhs_d1.show
+							   call main.en_rank_d1.show
+							 
+
+                              }
+							  
+END
+
+PROGRAM data_change2
+BEGIN
+        
+
+if   main.fi_d2.isdefault()  {
+                               call main.file_d2.hide
+							   
+                               call main.vn_y_d2.show
+                               call main.vn_hhs_d2.show
+							   call main.vn_rank_d2.show
+							  
+							   
+                               call main.en_y_d2.hide
+                               call main.en_hhs_d2.hide
+							   call main.en_rank_d2.hide
+							   
+                               
+                               
+                              }
+if  !main.fi_d2.isdefault()  {
+                              call main.file_d2.show
+							  
+                              call main.vn_hhs_d2.hide
+                              call main.vn_y_d2.hide
+							  call main.vn_rank_d2.hide
+							  
+                              
+                              call main.en_y_d2.show
+                              call main.en_hhs_d2.show
+							  call main.en_rank_d2.show
+							 
+                              }         
+END
+
+
+
+PROGRAM cd1_on
+BEGIN
+        
+
+                call main.ed_d1c1.enable
+
+
+END
+
+PROGRAM cd1_off
+BEGIN
+        
+                call main.ed_d1c1.disable
+
+                
+END
+
+
+PROGRAM cd2_on
+BEGIN
+        
+
+                call main.ed_d2c1.enable         
+
+END
+
+PROGRAM cd2_off
+BEGIN    
+ call main.ed_d2c1.disable
+END
+
+PROGRAM getLevels
+BEGIN
+	if main.file_d1 & isLoading1 {
+		put "GetLevels_DB " main.file_d1 " , mia(en_y_d1  en_hhs_d1 en_rank_d1) ndb(diclorenz)" 
+		stata hidden
+	}
+END
+
+PROGRAM getLevels2
+BEGIN
+	if main.file_d2 & isLoading2 {
+		put "GetLevels_DB " main.file_d2 " , mia(en_y_d2  en_hhs_d2 en_rank_d2) ndb(diclorenz)"
+		stata hidden
+	}
+END
+
+
+
+/*
+LIST variables
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END
+
+LIST levels
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END
+
+LIST levels2
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END
+
+*/
+
+
+LIST cb_papp
+BEGIN
+Absolute
+Relative
+END
+
+LIST cb_papp_val
+BEGIN
+abs
+rel
+END
+
+
+
+LIST papp_change
+BEGIN
+        program papp1
+        program papp2
+END
+
+PROGRAM papp1
+BEGIN
+call main.txt_rel.hide
+call main.txt_abs.show
+call main.ed_abs.show
+END
+
+PROGRAM papp2
+BEGIN
+call main.txt_rel.show
+call main.txt_abs.hide
+call main.ed_abs.hide
+END
+
+/*
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2
+	
+END
+
+LIST cond_change2
+BEGIN
+	script cond3
+	script cond4
+	
+END
+
+
+
+
+SCRIPT cond1
+BEGIN
+	has_cond1.setfalse
+	has_cond2.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.settrue
+	has_cond2.settrue
+	program check_conds
+END
+
+
+SCRIPT cond3
+BEGIN
+	has_cond3.setfalse
+	has_cond4.setfalse
+	program check_conds2
+END
+
+SCRIPT cond4
+BEGIN
+	has_cond3.settrue
+	has_cond4.settrue
+	program check_conds2
+END
+
+PROGRAM cd1_on
+BEGIN
+	
+		call main.tx_d1c1.show
+		call main.vn_d1c1.show
+		call main.cb_d1c1.show
+		call main.ed_d1c1.show
+		call main.li_numd1.enable
+		
+if !main.li_numd1.isdefault() {
+		call main.tx_d1c2.show
+		call main.vn_d1c2.show
+		call main.cb_d1c2.show
+		call main.ed_d1c2.show
+		call main.cb_d1aoc2.show		
+}
+END
+
+PROGRAM cd1_off
+BEGIN
+	
+		call main.tx_d1c1.hide
+		call main.vn_d1c1.hide
+		call main.cb_d1c1.hide
+		call main.ed_d1c1.hide
+		call main.li_numd1.disable
+		
+		call main.tx_d1c2.hide
+		call main.vn_d1c2.hide
+		call main.cb_d1c2.hide
+		call main.ed_d1c2.hide
+		call main.cb_d1aoc2.hide
+		
+END
+
+
+PROGRAM data_change1
+BEGIN
+	
+if   main.fi_d1.isdefault()  {
+                               call main.file_d1.hide
+                               
+                               call main.vn_y_d1.show
+                               call main.vn_hhs_d1.show
+                               
+                               call main.en_y_d1.hide
+                               call main.en_hhs_d1.hide
+                               
+                               
+                              }
+if  !main.fi_d1.isdefault()  {
+                              call main.file_d1.show
+                              
+                               call main.vn_y_d1.hide
+			       call main.vn_hhs_d1.hide                                  
+                               call main.en_y_d1.show
+                               call main.en_hhs_d1.show
+                              }
+            
+END
+
+PROGRAM data_change2
+BEGIN
+	
+
+if   main.fi_d2.isdefault()  {
+                               call main.file_d2.hide
+                    
+                               call main.vn_y_d2.show
+                               call main.vn_hhs_d2.show
+                               
+                               call main.en_y_d2.hide
+                               call main.en_hhs_d2.hide
+                               
+                               
+                              }
+if  !main.fi_d2.isdefault()  {
+                              call main.file_d2.show
+                              call main.vn_hhs_d2.hide
+                              call main.vn_y_d2.hide
+                              
+                              call main.en_y_d2.show
+                              call main.en_hhs_d2.show
+                              }         
+END
+
+
+
+
+PROGRAM cd2_on
+BEGIN
+	
+		call main.tx_d2c1.show
+		call main.vn_d2c1.show
+		call main.cb_d2c1.show
+		call main.ed_d2c1.show
+		call main.li_numd2.enable
+		
+if !main.li_numd2.isdefault() {
+		call main.tx_d2c2.show
+		call main.vn_d2c2.show
+		call main.cb_d2c2.show
+		call main.ed_d2c2.show
+		call main.cb_d2aoc2.show		
+}
+END
+
+PROGRAM cd2_off
+BEGIN
+	
+		call main.tx_d2c1.hide
+		call main.vn_d2c1.hide
+		call main.cb_d2c1.hide
+		call main.ed_d2c1.hide
+		call main.li_numd2.disable
+		
+		call main.tx_d2c2.hide
+		call main.vn_d2c2.hide
+		call main.cb_d2c2.hide
+		call main.ed_d2c2.hide
+		call main.cb_d2aoc2.hide
+		
+END
+
+
+
+
+PROGRAM check_conds
+BEGIN
+	if has_cond1 {
+		call main.tx_d1c1.show
+		call main.vn_d1c1.show
+		call main.cb_d1c1.show
+		call main.ed_d1c1.show
+	}
+	if !has_cond2 {
+		call main.tx_d1c2.hide
+		call main.vn_d1c2.hide
+		call main.cb_d1c2.hide
+		call main.ed_d1c2.hide
+		call main.cb_d1aoc2.hide
+	}
+	if has_cond2 {
+		call main.tx_d1c2.show
+		call main.vn_d1c2.show
+		call main.cb_d1c2.show
+		call main.ed_d1c2.show
+		call main.cb_d1aoc2.show
+	}
+	
+	
+END
+
+PROGRAM check_conds2
+BEGIN
+	if has_cond3 {
+		call main.tx_d2c1.show
+		call main.vn_d2c1.show
+		call main.cb_d2c1.show
+		call main.ed_d2c1.show
+	}
+	if !has_cond4 {
+		call main.tx_d2c2.hide
+		call main.vn_d2c2.hide
+		call main.cb_d2c2.hide
+		call main.ed_d2c2.hide
+		call main.cb_d2aoc2.hide
+	}
+	if has_cond4 {
+		call main.tx_d2c2.show
+		call main.vn_d2c2.show
+		call main.cb_d2c2.show
+		call main.ed_d2c2.show
+		call main.cb_d2aoc2.show
+	}
+	
+	
+END
+
+
+
+*/
+
+
+
+
+
+DIALOG confop,  tabtitle("Confidence interval")
+
+BEGIN
+
+
+TEXT     sp_txt  10      25      120	  .,		                /*
+   		*/ label("Confidence level in (%) : ")	
+   		
+SPINNER  sp_level    140       25      50	  .,		        /*
+   		*/ label("Confidence level")				/*
+   		*/ min(10) default(95) max(99)				/*
+  		*/ option(level)
+TEXT     ci_txt  10      +25      120	  .,		                /*
+   		*/ label("Confidence interval      : ")	
+   		
+COMBOBOX cb_ci       140    @   200      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)  onselchangelist(cd_change)		
+
+					
+
+
+
+/**** BEGIN -- Area options ****/
+
+  GROUPBOX gb_common		10	115	380	80,	///
+	label("Confidence interval area options: ")
+
+  TEXT     tx_blcolor		20	135	65	.,	///
+	label("Line color:") 					///
+	right
+
+	
+  COMBOBOX cb_ccol           90	135	100	.,	///           ///
+                dropdownlist option(clcolor)                             ///
+                contents(colors) onselchangelist(_line_opts_color_ccol)
+	
+	
+	
+TEXT     tx_blpattern		20	165	65	.,	///
+		label("Ln. pattern:") right
+	  
+ COMBOBOX cb_blpattern		90	165	100	.,	///
+		dropdownlist 						///
+		contents(linepatterns)					///
+	option(blpattern)
+	
+ COMBOBOX cb_clpat              90	165	100	.,           ///
+                dropdownlist contents(linepatterns) option(clpattern)
+
+  
+
+
+ TEXT     tx_blwidth		192	135	65	.,	///
+	label("Line width:") right
+        
+        COMBOBOX cb_blwidth		+70	135	100	.,	///
+	dropdownlist						///
+	contents(linewidths)					///
+	option(blwidth)
+	
+        COMBOBOX cb_clwid          262	135	100	.,	///
+                dropdownlist contents(linewidths) option(clwidth)
+	
+	
+TEXT     tx_bfcolor		192	165	65	.,	///
+	label("Fill color:") 					///
+	right
+	
+  COMBOBOX cb_bfcolor		262 	165	100	.,	///
+	option(bfcolor)						///
+	dropdownlist						///
+	contents(colors) 					///
+	onselchangelist(confop_color_bfcolor)	
+
+TEXT     tx_conn           192	165	65	.,          ///
+                label("Line type:") right
+  
+ COMBOBOX cb_conn           +70 	165	100	.,           ///
+                option(connect) dropdownlist contents(connecttypes)
+ 
+
+ BUTTON bu_rarea         30    135     230     .,              ///
+        label("Confidence interval area properties")                           ///
+        onpush(script rarea_options_show)
+
+		
+		
+/**** END   -- Area options ****/
+
+
+END
+
+
+
+
+/*
+SCRIPT show_rarea_dialog
+BEGIN
+	create CHILD gr_rarea_options AS rarea, allowsubmit
+	rarea.setExitString rareaResults
+	rarea.settitle resource LBL_GB_AREA_PROPERTIES
+	rarea.setExitAction "program checkRAreaResults"
+	rarea.setSubmitAction "script rareaSubmit"
+END
+PROGRAM checkRAreaResults
+BEGIN
+	if rareaResults {
+		call confop.bu_rarea.modified_on
+	}
+	else {
+		call confop.bu_rarea.modified_off
+	}
+END
+SCRIPT rareaSubmit
+BEGIN
+	program checkRAreaResults
+	Submit
+END
+
+*/
+
+
+/* VERSION 15 */
+SCRIPT rarea_options_show
+BEGIN
+	create CHILD gr_rarea_options AS rareaOptions, allowsubmit
+	rareaOptions.setExitString rareaResults
+	rareaOptions.settitle resource GR_FPFITCI_OPTIONS_AREA_PROP_FP_CI
+	rareaOptions.setExitAction "program checkRangeAreaResults"
+	rareaOptions.setSubmitAction "script rareaSubmit"
+	rareaOptions.callthru "script gr_rarea_setOptionsTo_al"
+	rareaOptions.callthru "script gr_rarea_setOrientationOff"
+END
+PROGRAM checkRangeAreaResults
+BEGIN
+	if rareaResults.iseq("") {
+		call confop.bu_rarea.formatlabel "resource LBL_AREA_PROPERTIES_FMT" "  "
+	}
+	if rareaResults.isneq("") {
+		call confop.bu_rarea.formatlabel "resource LBL_AREA_PROPERTIES_FMT" " *"
+	}
+END
+SCRIPT rareaSubmit
+BEGIN
+	program checkRangeAreaResults
+	Submit
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+/* Common opts for area, bar, spike, and dropline */
+
+PROGRAM confop_opts
+BEGIN
+		if !H(confop.bu_rarea) & rareaResults {
+		    put " conf_area_opts("
+			put " " rareaResults
+			put ")"
+		}
+	
+	
+END
+
+PROGRAM confop_opts2
+BEGIN
+if ( confop.cb_ccol | confop.cb_clwid | confop.cb_clpat | confop.cb_conn )  { 
+	put " conf_line_opts("
+	
+	       
+	             
+	               optionarg /hidedefault confop.cb_ccol
+	               optionarg /hidedefault confop.cb_clwid
+	               optionarg /hidedefault confop.cb_clpat
+	               optionarg /hidedefault confop.cb_conn
+
+       put ")"
+
+
+}
+
+
+END
+
+
+
+
+
+
+
+
+LIST cd_change
+BEGIN
+	script cd1
+	script cd2
+     script cd3	
+END
+
+
+SCRIPT cd1
+BEGIN
+	has_cd1.settrue
+	has_cd2.setfalse
+	has_cd3.setfalse
+        program check_cds
+
+END
+
+SCRIPT cd2
+BEGIN
+	has_cd1.setfalse
+	has_cd2.settrue
+	has_cd3.setfalse
+	program check_cds
+END
+
+
+SCRIPT cd3
+BEGIN	
+	has_cd1.setfalse
+	has_cd2.setfalse
+	has_cd3.settrue
+	program check_cds
+END
+
+
+
+PROGRAM check_cds
+BEGIN
+	if has_cd1 {
+	        call confop.gb_common.setlabel "Confidence interval area options:"
+			 call confop.bu_rarea.show
+			 
+			 
+			 
+		    call confop.tx_bfcolor.hide
+	        call confop.cb_bfcolor.hide
+			
+	        call confop.tx_blwidth.hide   
+		    call confop.cb_blwidth.hide
+		
+		    call confop.tx_blpattern.hide
+		    call confop.cb_blpattern.hide
+		
+		    call confop.tx_conn.hide
+		    call confop.cb_conn.hide
+			
+	
+	        call confop.cb_ccol.hide
+	        call confop.cb_clpat.hide
+			call confop.tx_blwidth.hide
+	        call confop.cb_clwid.hide
+	       
+	        
+              
+		
+	}
+	if has_cd2 {
+		 call confop.gb_common.setlabel "Lower bound line options:"
+		  call confop.bu_rarea.hide
+		 call confop.tx_bfcolor.hide
+		 call confop.cb_bfcolor.hide
+    	
+	
+		 /*
+		 call confop.cb_blwidth.hide
+		 call confop.cb_blpattern.hide
+		 
+		 call confop.tx_conn.show
+		 
+	         call confop.cb_conn.show
+	         call confop.cb_ccol.show
+		 call confop.cb_clpat.show
+	         call confop.cb_clwid.show
+			 
+			 
+			 
+			 
+			 
+			call confop.tx_bfcolor.hide
+	        call confop.cb_bfcolor.hide
+			*/
+	        call confop.tx_blwidth.show   
+		    call confop.cb_blwidth.show
+		
+		    call confop.tx_blpattern.show
+		   
+		    call confop.tx_conn.show
+			
+			call confop.cb_blpattern.show
+		    call confop.cb_conn.show
+	        call confop.cb_ccol.show
+	        call confop.cb_clpat.show
+	        call confop.cb_clwid.show
+	       
+			 
+	         
+	        
+	}
+	if has_cd3 {
+	        call confop.gb_common.setlabel "Upper bound line options:"
+			 call confop.bu_rarea..hide
+	        call confop.tx_bfcolor.hide
+		call confop.cb_bfcolor.hide
+		call confop.tx_conn.show
+		   call confop.tx_blwidth.show   
+		    call confop.cb_blwidth.show
+	        call confop.cb_conn.show
+	        call confop.cb_ccol.show
+	        call confop.cb_clpat.show
+	        call confop.cb_clwid.show
+			 call confop.tx_conn.show
+	        
+	   
+		 call confop.cb_bfcolor.hide
+		 call confop.cb_blwidth.hide
+		 call confop.cb_blpattern.hide
+		
+	}
+		
+END
+
+
+INCLUDE dasp_gr_res_opts
+INCLUDE gr_line_options
+INCLUDE gr_yaxis
+INCLUDE gr_xaxis
+INCLUDE gr_titles
+INCLUDE gr_legend
+INCLUDE gr_overall
+
+
+HELP hlp1,   view("help diclorenz")
+RESET res1
+
+
+SCRIPT confop_PREINIT
+BEGIN
+        create STRING rareaResults
+		create STRING rareaResults
+      /*  create STRING markerLabelOptionResults */
+END
+
+SCRIPT confop_POSTINIT
+BEGIN
+        program checkRAreaResults
+      /*  program checkMarkerLabelOptionResults */
+	  
+END
+
+
+
+PROGRAM command
+BEGIN
+	put "diclorenz  "
+	
+INCLUDE comon1
+		    
+optionarg main.vn_rank_d1
+optionarg main.en_rank_d1
+
+optionarg main.vn_rank_d2
+optionarg main.en_rank_d2
+
+
+            optionarg main.ed_min
+			optionarg main.ed_max
+		    optionarg main.cb_nor   
+		
+						   
+		
+			if !confop.sp_level.isdefault() {
+		                                         optionarg confop.sp_level
+				                        }
+	                 
+	                if !confop.cb_ci.isdefault()     {
+		                                         optionarg confop.cb_ci
+				                        } 
+	                
+	                    optionarg res.fnamec
+						optionarg res.fnamegs
+						optionarg res.fnamege
+						if res.chk_op1 {
+									
+									put "lres("
+									put res.chk_op1
+									put ")"
+					                       }
+					                       
+					        if !res.chk_op3 {
+									
+									put "dgra("
+									put res.chk_op3
+									put ")"
+					                       }               
+			
+	
+
+						
+			put " " /program confop_opts
+			put " " /program confop_opts2
+			/*
+			put " " /program line_opts_dilopts_output
+			put " " /program line_opts_holopts_output
+			*/
+		    put " " /program gr_line_options_output
+            put " " /program gr_yaxis_output
+put " " /program gr_xaxis_output
+put " " /program gr_titles_output
+put " " /program gr_legend_output
+put " " /program gr_overall_output
+    
+	
+				
+
+endoptions	
+	
+	
+END

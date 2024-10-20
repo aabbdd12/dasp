@@ -1,0 +1,129 @@
+
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                       */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+
+VERSION 9.2
+ 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 300
+
+
+DIALOG main, label("Decomposition of the Gini index by income components (using the Shapley value) --> dsginis command") tabtitle("Main")
+
+
+BEGIN
+  GROUPBOX intvar 10     10    360  60,                      ///
+             label("Variable(s) of interest: ")
+             
+    VARLIST  vl_var 20     +25   340   .,                   ///
+             label("Variables")
+                 
+           
+           
+  TEXT     tx_var2      20    100    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+  
+       
+ 
+  GROUPBOX percentile 390    10    360 80,                      ///
+           label("Approach")
+           
+  
+  TEXT     txt_op1     400    +25    80      .,                 ///  
+             label("Rule:   ")     
+  
+  COMBOBOX  cb_appr      500    @     240      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_appr)  values(cb_appr_val) option(appr)  ///
+            default(fgt)      
+ 
+           
+   DEFINE _x 20
+   DEFINE _y 240
+
+END
+
+LIST cb_appr
+BEGIN
+  Replace eliminated income source by its mean value
+  Replace eliminated income source by zero 
+END
+
+LIST cb_appr_val
+BEGIN
+ mean
+ zero
+END
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+
+
+END
+
+
+
+
+
+
+
+HELP hlp1,   view("help dsginis")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "dsginis "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+		       
+		
+        	if !main.cb_appr.isdefault() {
+		                               optionarg main.cb_appr
+			                       }	
+			
+			optionarg main.vn_hhs
+                        
+					
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+
+				
+
+
+
+
+
+
+			
+			
+			       
+	endoptions
+	
+	
+	
+END

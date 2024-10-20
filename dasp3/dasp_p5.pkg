@@ -1,0 +1,61 @@
+* Februrary2022 - v3.03
+  DASP 3.0         : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   3.03   
+d Date          : Februrary  2022
+d Stata Version : Required  15.0 and higher
+d
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_p5 Distributive Analysis Stata Package: PART IV
+
+f files/poverty/cfgt.ado
+f files/poverty/cfgt.dlg
+f files/poverty/cfgt.sthlp
+f files/poverty/cfgtl.ado
+f files/poverty/cfgtm.ado
+f files/poverty/cfgts2r.ado
+f files/poverty/cpoverty.ado
+f files/poverty/cpoverty.dlg
+f files/poverty/cpoverty.sthlp
+f files/poverty/dfgtgr_boot.ado
+f files/poverty/dicfgt.ado
+f files/poverty/dicfgt.dlg
+f files/poverty/dicfgt.sthlp
+f files/poverty/difgt.ado
+f files/poverty/difgt.dlg
+f files/poverty/dipov.ado
+f files/poverty/dipov.dlg
+f files/poverty/dipov.sthlp
+f files/poverty/disst.ado
+f files/poverty/disst.dlg
+f files/poverty/diwatts.ado
+f files/poverty/diwatts.dlg
+f files/poverty/ifgt.ado
+f files/poverty/imdpov.ado
+f files/poverty/imdpov.dlg
+f files/poverty/imdpov.sthlp
+f files/poverty/imdp_afi.ado
+f files/poverty/imdp_bci.ado
+f files/poverty/imdp_cmr.ado
+f files/poverty/imdp_ewi.ado
+f files/poverty/imdp_ihi.ado
+f files/poverty/imdp_mfi.ado
+f files/poverty/imdp_tsu.ado
+f files/poverty/imdp_uhi.ado
+f files/poverty/imoda.ado
+f files/poverty/imoda.dlg
+f files/poverty/imoda.sthlp
+f files/poverty/ipov.ado
+f files/poverty/ipov.dlg
+f files/poverty/ipov.sthlp
+f files/poverty/isst.ado
+f files/poverty/iwatts.ado
+

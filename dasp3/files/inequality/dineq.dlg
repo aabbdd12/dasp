@@ -1,0 +1,954 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 3.0)          */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2021)               */
+/* Universite Laval, Quebec, Canada                                    */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+VERSION 15
+SYNCHRONOUS_ONLY
+
+
+POSITION . . 900 420
+
+  DEFINE col10  10
+  DEFINE col11  20
+  DEFINE col20  450
+  DEFINE vposds 340
+  
+
+DIALOG main, label("DASP 3.0 | Difference Between inequality Indices --> dineq command") tabtitle("Main")
+
+
+BEGIN
+
+
+    GROUPBOX chk_per  10    10  880 50,                         ///
+           label("Inequality and concentration indices and options: ")         ///
+  
+    
+	
+	TEXT txt_ind     +10    +20    140      .,                 ///  
+                  label("Inequality/Concentration index:   ")    
+				  
+    COMBOBOX  cb_index      160    @     200      .,                  ///
+             dropdownlist                                          ///
+             contents(cb_index)  values(cb_index_val) option(index)     ///
+             default(gini)  onselchangelist(co_index)			  
+       
+   
+
+			  
+   TEXT     txt_index5     380    @    100      .,                 ///  
+                  label("Parameter epsilon:   ")  
+   
+   EDIT     edt_index5    490   @     200      .,                 ///
+              option(epsilon)  default(0.5)     
+           			  
+					  
+			  
+   TEXT     txt_index6     380    @    100      .,                 ///  
+                  label("Parameter theta:   ")  
+   
+   EDIT     edt_index6    490   @     200      .,                 ///
+              option(theta)   	default(1)  				  
+           
+   			 
+   TEXT     txt_index81     380    @    100      .,                 ///  
+                  label("Lower rank | (p1): ")  
+   
+   EDIT     edt_index81    480   @     40      .,                 ///
+              option(p1)  default(0.1)  
+   
+   TEXT     txt_index82     590    @    100      .,                 ///  
+                  label("Upper rank | (p2): ")  
+   
+   EDIT     edt_index82    690   @     40      .,                 ///
+              option(p2)  	default(0.9)  		  
+                      
+   TEXT     txt_index91     380    @    120      .,                 ///  
+                  label("Lower rank | (p1 & p2): ")  
+   
+   EDIT     edt_index91    500   @     40      .,                 ///
+              option(p1) default(0.1)  
+			  
+   EDIT     edt_index92    550   @     40      .,                 ///
+              option(p2)  default(0.2)  			  
+   
+   TEXT     txt_index92     630    @    120      .,                 ///  
+                  label("Upper rank | (p3 & p4): ")  			  
+   
+   EDIT     edt_index93    750   @     40      .,                 ///
+              option(p3)  default(0.8)  
+   
+   EDIT     edt_index94    800   @     40      .,                 ///
+              option(p4)  default(0.9)  		
+ 
+       
+ 
+INCLUDE basic_gini
+
+
+   
+INCLUDE dbsalo
+
+
+  GROUPBOX chk_perg  230    250  360 60,                         ///
+           label("Common population group(s): ")         ///
+  
+  
+     TEXT     tx_varg      +10    +25    110      .,                 ///
+           label("Group  variable(s):   ") 
+ 
+
+     VARLIST   vn_gr     340     @     240      .,                 ///
+      option(hgroup)
+	  
+	 EDIT      ed_gr     340     @     240      .,                 ///
+      option(hgroup) default("")
+           
+		   /*
+                   
+    TEXT txt_al     240    +25    250      .,                 ///  
+                  label("Parameter alpha:   ")                           
+       
+     EDIT  ed_al    +90    @     250      .,                 ///
+              option(alpha)    default(0) 
+
+   TEXT txt_pl     240   +25    100      .,                 ///  
+                  label("Poverty line:")                           
+       
+     EDIT  ed_pl    +90    @     250      .,                 ///
+              option(pline)    default(10000)   
+ 
+     TEXT       txt_op2     240    +25    80      .,                 ///  
+             label("Reference period:   ")                             ///      
+          
+    COMBOBOX  cb_ref      +90    @     250      .,                  ///
+            dropdownlist                                          ///
+            contents(cb_ref)  values(cb_ref_val) option(ref)     ///
+            default(1)   
+			*/
+                  
+
+ 
+END
+
+
+
+
+
+
+
+LIST cb_index
+BEGIN
+  Gini index
+  Absolute Gini index
+  Concentration index
+  Absolute concentration index
+  Atkinson index
+  Generalised entropy index
+  Coefficient of variation index
+  Quantile ratio index 
+  Share ratio index 
+END
+
+LIST cb_index_val
+BEGIN
+  gini
+  agini
+  conc
+  aconc
+  atk
+  entropy
+  covar
+  qr
+  sr
+END
+
+
+
+LIST co_index
+BEGIN
+        script index1
+        script index2
+        script index3
+		script index4
+		script index5
+        script index6
+        script index7
+		script index8 
+		script index9
+END
+
+
+SCRIPT index1
+BEGIN
+        has_index1.settrue
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+SCRIPT index2
+BEGIN
+        has_index1.setfalse
+        has_index2.settrue
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+SCRIPT index3
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.settrue
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+SCRIPT index4
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.settrue
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+
+SCRIPT index5
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.settrue
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+SCRIPT index6
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.settrue
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+
+SCRIPT index7
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.settrue
+		has_index8.setfalse
+		has_index9.setfalse
+        program check_index
+END
+
+
+SCRIPT index8
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.settrue
+		has_index9.setfalse
+        program check_index
+END
+
+SCRIPT index9
+BEGIN
+        has_index1.setfalse
+        has_index2.setfalse
+        has_index3.setfalse
+		has_index4.setfalse
+		has_index5.setfalse
+        has_index6.setfalse
+        has_index7.setfalse
+		has_index8.setfalse
+		has_index9.settrue
+        program check_index
+END
+
+
+PROGRAM check_index
+BEGIN
+if (has_index1 | has_index2 ){
+call main.tx_rank_var1.hide
+call main.tx_rank_var2.hide
+call main.vn_rank_d1.hide
+call main.en_rank_d1.hide
+call main.vn_rank_d2.hide
+call main.en_rank_d2.hide
+
+
+call main.txt_index5.hide
+call main.txt_index6.hide
+call main.edt_index5.hide
+call main.edt_index6.hide
+call main.txt_index81.hide  
+call main.txt_index82.hide     
+call main.edt_index81.hide     			  
+call main.edt_index82.hide     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+if (has_index3 | has_index4)  {
+call main.tx_rank_var1.show
+call main.tx_rank_var2.show
+
+if   main.fi_d1.isdefault()  {
+call main.vn_rank_d1.show
+call main.en_rank_d1.hide
+}
+
+if   !main.fi_d1.isdefault()  {
+call main.vn_rank_d1.hide
+call main.en_rank_d1.show
+}
+
+if   main.fi_d2.isdefault()  {
+call main.vn_rank_d2.show
+call main.en_rank_d2.hide
+}
+
+if   !main.fi_d2.isdefault()  {
+call main.vn_rank_d2.hide
+call main.en_rank_d2.show
+}
+
+
+call main.txt_index5.hide
+call main.txt_index6.hide
+call main.edt_index5.hide
+call main.edt_index6.hide
+call main.txt_index81.hide      
+call main.edt_index81.hide  
+call main.txt_index82.hide    			  
+call main.edt_index82.hide     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+if (has_index5 ){
+call main.tx_rank_var1.hide
+call main.tx_rank_var2.hide
+call main.vn_rank_d1.hide
+call main.en_rank_d1.hide
+call main.vn_rank_d2.hide
+call main.en_rank_d2.hide
+call main.txt_index5.show
+call main.txt_index6.hide
+call main.edt_index5.show
+call main.edt_index6.hide
+call main.txt_index81.hide      
+call main.edt_index81.hide  
+call main.txt_index82.hide    			  
+call main.edt_index82.hide     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+if (has_index6 ){
+call main.tx_rank_var1.hide
+call main.tx_rank_var2.hide
+call main.vn_rank_d1.hide
+call main.en_rank_d1.hide
+call main.vn_rank_d2.hide
+call main.en_rank_d2.hide
+call main.txt_index5.hide
+call main.txt_index6.show
+call main.edt_index5.hide
+call main.edt_index6.show
+call main.txt_index81.hide      
+call main.edt_index81.hide 
+call main.txt_index82.hide    			  
+call main.edt_index82.hide     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+if (has_index7 ){
+call main.tx_rank_var1.hide
+call main.tx_rank_var2.hide
+call main.vn_rank_d1.hide
+call main.en_rank_d1.hide
+call main.vn_rank_d2.hide
+call main.en_rank_d2.hide
+call main.txt_index5.hide
+call main.txt_index6.hide
+call main.edt_index5.hide
+call main.edt_index6.hide
+call main.txt_index81.hide      
+call main.edt_index81.hide
+call main.txt_index82.hide      			  
+call main.edt_index82.hide     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+if (has_index8 ){
+call main.tx_rank_var1.hide
+call main.tx_rank_var2.hide
+call main.vn_rank_d1.hide
+call main.en_rank_d1.hide
+call main.vn_rank_d2.hide
+call main.en_rank_d2.hide
+call main.txt_index5.hide
+call main.txt_index6.hide
+call main.edt_index5.hide
+call main.edt_index6.hide
+call main.txt_index81.show      
+call main.edt_index81.show 
+call main.txt_index82.show    			  
+call main.edt_index82.show     			  
+call main.txt_index91.hide    
+call main.edt_index91.hide   		  
+call main.edt_index92.hide  
+call main.txt_index92.hide      			  
+call main.edt_index93.hide   
+call main.edt_index94.hide    
+}
+
+
+if (has_index9 ){
+call main.tx_rank_var1.hide
+call main.tx_rank_var2.hide
+call main.vn_rank_d1.hide
+call main.en_rank_d1.hide
+call main.vn_rank_d2.hide
+call main.en_rank_d2.hide
+call main.txt_index5.hide
+call main.txt_index6.hide
+call main.edt_index5.hide
+call main.edt_index6.hide
+call main.txt_index81.hide      
+call main.edt_index81.hide 
+call main.txt_index82.hide     			  
+call main.edt_index82.hide     			  
+call main.txt_index91.show    
+call main.edt_index91.show   		  
+call main.edt_index92.show  
+call main.txt_index92.show      			  
+call main.edt_index93.show   
+call main.edt_index94.show    
+}
+
+
+END
+
+
+
+
+
+
+
+
+
+
+LIST dt_src
+BEGIN
+  Data in memory
+  Data in file
+END
+
+LIST dt_src_val
+BEGIN
+  1
+  2
+END
+
+
+PROGRAM data_change1
+BEGIN
+
+	
+        
+if   main.fi_d1.isdefault()  {
+                               call main.file_d1.hide
+							   
+                               call main.vn_y_d1.show
+                               call main.vn_hhs_d1.show
+							   if (has_index3 | has_index4) {
+							   call main.vn_rank_d1.show
+                               }
+							   
+                               call main.en_y_d1.hide
+                               call main.en_hhs_d1.hide
+							   call main.en_rank_d1.hide
+                               	call main.vn_gr.show
+								call main.ed_gr.hide
+                              }
+							  
+if  !main.fi_d1.isdefault()  {
+                              call main.file_d1.show
+							  
+                               call main.vn_y_d1.hide
+                               call main.vn_hhs_d1.hide
+							   call main.vn_rank_d1.hide
+
+														   
+                               call main.en_y_d1.show
+                               call main.en_hhs_d1.show
+							    if (has_index3 | has_index4) {
+							   call main.en_rank_d1.show
+								}
+
+                               	call main.vn_gr.hide
+								call main.ed_gr.show
+                              }
+							  
+END
+
+PROGRAM data_change2
+BEGIN
+        
+
+if   main.fi_d2.isdefault()  {
+                               call main.file_d2.hide
+							   
+                               call main.vn_y_d2.show
+                               call main.vn_hhs_d2.show
+							    if (has_index3 | has_index4) {
+							   call main.vn_rank_d2.show
+								}
+							   
+                               call main.en_y_d2.hide
+                               call main.en_hhs_d2.hide
+							   call main.en_rank_d2.hide
+
+                               
+                               
+                              }
+if  !main.fi_d2.isdefault()  {
+                              call main.file_d2.show
+							  
+                              call main.vn_hhs_d2.hide
+                              call main.vn_y_d2.hide
+							  call main.vn_rank_d2.hide
+
+                              
+                              call main.en_y_d2.show
+                              call main.en_hhs_d2.show
+							   if (has_index3 | has_index4) {
+							  call main.en_rank_d2.show
+							   }
+
+                              }         
+END
+
+
+
+PROGRAM cd1_on
+BEGIN
+        
+
+                call main.ed_d1c1.enable
+
+
+END
+
+PROGRAM cd1_off
+BEGIN
+        
+                call main.ed_d1c1.disable
+
+                
+END
+
+
+PROGRAM cd2_on
+BEGIN
+        
+
+                call main.ed_d2c1.enable         
+
+END
+
+PROGRAM cd2_off
+BEGIN
+        
+ call main.ed_d2c1.disable
+END
+
+
+
+LIST variables
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END
+
+LIST levels
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END
+
+LIST levels2
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END
+
+
+PROGRAM getLevels
+BEGIN
+
+
+	
+	if main.file_d1 & isLoading1 {
+		put "GetLevels_DB " main.file_d1 " , mia(en_y_d1  en_hhs_d1 en_rank_d1) ndb(dineq)"
+		stata hidden
+	}
+END
+
+PROGRAM getLevels2
+BEGIN
+	if main.file_d2 & isLoading2 {
+		put "GetLevels_DB " main.file_d2 " , mia(en_y_d2  en_hhs_d2 en_rank_d1) ndb(dineq)"
+		stata hidden
+	}
+END
+
+SCRIPT PREINIT
+BEGIN
+        create BOOLEAN has_cond11
+        create BOOLEAN has_cond12
+        create BOOLEAN has_cond13
+
+        create BOOLEAN has_cond21
+        create BOOLEAN has_cond22
+        create BOOLEAN has_cond23
+        create BOOLEAN has_cond1
+        create BOOLEAN has_cond2
+        create BOOLEAN has_cond3
+        create BOOLEAN has_cond4 
+		
+	    create BOOLEAN has_index1
+        create BOOLEAN has_index2
+        create BOOLEAN has_index3
+		create BOOLEAN has_index4
+	    create BOOLEAN has_index5
+        create BOOLEAN has_index6
+        create BOOLEAN has_index7
+		create BOOLEAN has_index8
+		create BOOLEAN has_index9
+		
+	    create BOOLEAN isLoading1
+	     isLoading1.settrue
+	    create BOOLEAN isLoading2
+	     isLoading2.settrue
+	    program initialize
+END
+
+
+
+SCRIPT POSTINIT
+BEGIN
+	.isLoading1.settrue
+	.isLoading2.settrue
+	program getLevels
+	program getLevels2
+END
+
+PROGRAM initialize
+BEGIN
+	put "Init_DB , ndb(dineq)"
+	stata hidden
+END
+
+
+PROGRAM POSTINIT_PROGRAM
+BEGIN
+        put "adasp2"
+        stata hidden
+END
+
+INCLUDE confop
+
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+
+TEXT     sp_txt1  10          25      260      .,                            /*
+                */ label("  - Number of decimals of estimated indices:")                          
+SPINNER  sp_dec1    270      @      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(4) max(12)                            /*
+                */ option(dec1)
+				
+TEXT     sp_txt2  10          +25      260      .,                            /*
+                */ label("  - Number of decimals of estimated STE:")                          
+SPINNER  sp_dec2    270      @      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(4) max(12)                            /*
+                */ option(dec2)				
+
+
+                
+
+   CHECKBOX ck_xls  10    +60  580 160,          ///
+                 label(`"Save results in Excel format"')               ///
+                 groupbox                                               ///
+                 option("txls")                                 ///
+                 onclickoff(program resop_xls)                      ///
+                 onclickon(program resop_xls)                    ///
+                 default(0)
+  
+
+
+       TEXT  tx_nxfile     20    +25    80      .,                 ///  
+                   label("File :")                                  ///      
+            
+        
+        FILE  fnamex      90    @     360      .,                 ///
+        label ("Browse...")    save option("xfil")                   ///
+        filter("MetaFile (*.xlsx)|*.xlsx|*.* (*.*)|*.*")  
+
+        
+
+
+       COMBOBOX cb_modrep        460    @   100   .,                              ///
+            dropdownlist contents(cb_modrep) values(cb_modrep_val)               ///
+             default(replace)     option(modrep)        
+
+         
+         
+         
+            TEXT     tx_she  20   +35      80     .,                    /*
+                */ label("Sheet:")                      /*
+                */
+       
+           
+           EDIT     ed_she  90    @       470   .,                      /*
+                */ label("sheet")                               /*
+                */ option("xshe") default("Table 01")                   /*
+                */   
+
+      
+
+       TEXT     tx_tit  20   +35      80     .,                 /*
+                */ label("Title:")                      /*
+                */
+       EDIT     ed_tit  90    @       470   .,                  /*
+                */ label("Bandwidth of kernel")                         /*
+                */ option("xtit") default("Table 01: Inequality indices")                                    /*
+                */   
+
+END
+
+
+LIST cb_modrep
+BEGIN
+  Replace
+  Modify
+END
+
+
+LIST cb_modrep_val
+BEGIN
+  replace
+  modify
+END
+
+
+
+
+PROGRAM resop_xls
+BEGIN
+if resop.ck_xls  {
+call resop.tx_nxfile.enable
+call resop.fnamex.enable
+call resop.tx_she.enable
+call resop.ed_she.enable
+
+call resop.cb_modrep.enable
+call resop.tx_tit.enable
+call resop.ed_tit.enable
+}
+
+if !resop.ck_xls {
+call resop.tx_nxfile.disable
+call resop.fnamex.disable
+call resop.tx_she.disable
+call resop.ed_she.disable
+
+call resop.cb_modrep.disable
+call resop.tx_tit.disable
+call resop.ed_tit.disable
+}
+END
+
+
+
+
+
+HELP hlp1,   view("help dineq")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+       put "dineq "
+
+INCLUDE comon1 
+
+optionarg main.vn_rank_d1
+optionarg main.en_rank_d1
+
+optionarg main.vn_rank_d2
+optionarg main.en_rank_d2
+
+
+
+
+
+if !main.edt_index5.isdefault() {
+						      optionarg main.edt_index5
+						}
+						if !main.edt_index6.isdefault() {
+						      optionarg main.edt_index6
+						}
+						
+                         if !main.edt_index81.isdefault() {
+						      optionarg main.edt_index81
+						}
+						
+
+					    optionarg main.edt_index82
+						
+						if !main.edt_index91.isdefault() {
+						      optionarg main.edt_index91
+						}
+						
+                         if !main.edt_index92.isdefault() {
+						      optionarg main.edt_index92
+						}
+						
+						if !main.edt_index93.isdefault() {
+						      optionarg main.edt_index93
+						}
+						
+						if !main.edt_index94.isdefault() {
+						      optionarg main.edt_index94
+						}
+							                     
+                         if !main.vn_gr.isdefault() {
+						 	optionarg main.vn_gr
+						 }
+						 
+						if !main.ed_gr.isdefault() {
+						 	optionarg main.ed_gr
+						 }
+													 
+						if !confop.sp_level.isdefault() {
+                                                         optionarg confop.sp_level
+                                                         }
+                                                 
+                        if !confop.cb_ci.isdefault()    {
+                                                         optionarg confop.cb_ci
+                                                        }  
+									    optionarg confop.en_test	
+						optionarg main.dbsamex
+						optionarg main.cb_index
+						
+						 
+						 optionarg resop.fnamex
+                        optionarg resop.ed_she
+
+                        if !resop.cb_modrep.isdefault(){
+                        optionarg resop.cb_modrep
+                        }
+
+                        if !resop.ed_tit.isdefault(){
+                        optionarg resop.ed_tit
+                        }
+                        
+            
+
+                        if !resop.sp_dec1.isdefault() {
+                        optionarg resop.sp_dec1
+                        }
+						
+						  if !resop.sp_dec2.isdefault() {
+                        optionarg resop.sp_dec2
+                        }
+
+                       
+                                                              
+
+endoptions      
+        
+END

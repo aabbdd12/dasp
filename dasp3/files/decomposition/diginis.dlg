@@ -1,0 +1,426 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 3.01)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2026)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/ 
+/*************************************************************************/
+/* diginis.dlg                                                            */
+/*************************************************************************/
+
+
+VERSION 15.0
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 380
+DEFINE  _dlgwd 890
+INCLUDE header
+
+
+DIALOG main, label("DASP 3.0 | Decomposition of the Gini index by income sources --> diginis command") tabtitle("Main")
+
+BEGIN
+  
+   
+ GROUPBOX intvar       10     10    430  150,                      ///
+           label("Variables of interest: ")
+           
+
+
+  
+  TEXT     tx_var1      20    +25    150      .,                 ///
+             label("Welfare components:   ")  
+  
+  VARLIST  vl_list      150    @     280      .,                
+
+
+           
+  TEXT     tx_var2      20    +25    150      .,                 ///
+           label("Size  variable:   ")  
+                   
+  VARNAME  vn_hs      150    @     280      .,                 ///
+           option(hsize) 
+  
+
+ 
+           
+
+
+
+  GROUPBOX chk_per  450    10  430 150,                         ///
+           label("Decomposition approach": )        
+                   
+    TEXT txt_al     +10    +35    100      .,                 ///  
+                  label("Approach:   ")                           
+       
+    COMBOBOX cb_appr       +100    @   300   .,               ///
+            dropdownlist contents(cb_appr) values(cb_appr_val)              ///
+             default(rao)     option(appr)   onselchangelist(appr_change)    
+           
+
+   TEXT    tx_gin       460    +25    180     .,                            ///
+           label("Index") 
+
+
+   COMBOBOX cb_gin        +100    @   300   .,                              ///
+            dropdownlist contents(cb_gin) values(cb_gin_val)               ///
+             default(nor)     option(type)          
+         
+  TEXT     txt_op1s     460    +25    100      .,                 ///  
+             label("Rule:   ")     
+  
+  COMBOBOX  cb_sappr      +100    @     300      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_sappr)  values(cb_sappr_val) option(sappr)  ///
+            default(mean)      
+ 
+            
+
+   
+     DEFINE _x 700
+     DEFINE _y 350
+     
+  INCLUDE _bu_svyset
+END
+
+
+
+
+LIST cb_appr
+BEGIN
+  Rao   (1969) approach
+  Lerman and Yitzhaki (1985) approach
+  Araar (2006) approach 
+  Shapley approach
+END
+
+
+LIST cb_appr_val
+BEGIN
+  rao
+  lay
+  ara
+  sha
+END
+
+
+LIST cb_sappr
+BEGIN
+  Replace eliminated income source by its mean value
+  Replace eliminated income source by zero 
+END
+
+LIST cb_sappr_val
+BEGIN
+ mean
+ zero
+END
+
+
+LIST cb_gin
+BEGIN
+  Gini Index
+  Absolute Gini Index
+END
+
+
+LIST cb_gin_val
+BEGIN
+  nor
+  abs
+END
+
+
+SCRIPT PREINIT
+BEGIN
+        create BOOLEAN has_cd1
+        create BOOLEAN has_cd2
+        create BOOLEAN has_cd3 
+		create BOOLEAN has_cd4
+        create BOOLEAN has_cond1
+        create BOOLEAN has_cond2
+END
+
+
+LIST appr_change
+BEGIN
+        script cd1
+        script cd2
+        script cd3
+		script cd4
+END
+
+
+SCRIPT cd1
+BEGIN
+        has_cd1.settrue
+        has_cd2.setfalse
+        has_cd3.setfalse
+		has_cd4.setfalse
+        program check_cds
+
+END
+
+SCRIPT cd2
+BEGIN
+        has_cd1.setfalse
+        has_cd2.settrue
+        has_cd3.setfalse
+		has_cd4.setfalse
+        program check_cds
+END
+
+
+SCRIPT cd3
+BEGIN   
+        has_cd1.setfalse
+        has_cd2.setfalse
+        has_cd3.settrue
+		has_cd4.setfalse
+        program check_cds
+END
+
+SCRIPT cd4
+BEGIN   
+        has_cd1.setfalse
+        has_cd2.setfalse
+        has_cd3.setfalse
+		has_cd4.settrue
+        program check_cds
+END
+
+PROGRAM check_cds
+BEGIN
+        if has_cd4 {
+			
+	  call main.txt_op1s.show     
+      call main.cb_sappr.show
+	    call main.tx_gin.disable
+         call main.cb_gin.disable
+		}
+		
+		     if !has_cd4 {
+			
+	  call main.txt_op1s.hide     
+      call main.cb_sappr.hide
+
+		}
+		
+		
+        if has_cd3 | has_cd4 {
+         call main.tx_gin.disable
+         call main.cb_gin.disable
+         call main.cb_gin.setvalue "nor"        
+        }
+        if !has_cd3 & !has_cd4 {
+         call main.tx_gin.enable
+         call main.cb_gin.enable      
+        }
+
+                
+END
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      160	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+CHECKBOX   chk_opd     +240    @    150    .,                   ///
+             label("Display standard errors") option(dste) default(1)
+
+   
+ CHECKBOX ck_xls  10    60  580 160,		///
+		 label(`"Save results in Excel format"')               ///
+		 groupbox						///
+		 option("txls")					///
+		 onclickoff(program resop_xls)                      ///
+                 onclickon(program resop_xls)                    ///
+                 default(0)
+  
+
+
+       TEXT  tx_nxfile     20    +25    80      .,                 ///  
+                   label("File :")                                  ///      
+            
+        
+        FILE  fnamex      90    @     360      .,                 ///
+        label ("Browse...")    save option("xfil")                   ///
+        filter("MetaFile (*.xlsx)|*.xlsx|*.* (*.*)|*.*")  
+
+        
+
+
+       COMBOBOX cb_modrep        460    @   100   .,                              ///
+            dropdownlist contents(cb_modrep) values(cb_modrep_val)               ///
+             default(replace)     option(modrep)        
+
+	 
+	 
+	 
+	    TEXT     tx_she  20   +35      80     .,			/*
+		*/ label("Sheet:")			/*
+		*/
+       
+	   
+	   EDIT     ed_she  90    @       470   .,			/*
+		*/ label("sheet")				/*
+		*/ option("xshe") default("Table 01")			/*
+		*/   
+
+      
+
+       TEXT     tx_tit  20   +35      80     .,			/*
+		*/ label("Title:")			/*
+		*/
+       EDIT     ed_tit  90    @       470   .,			/*
+		*/ label("Bandwidth of kernel")				/*
+		*/ option("xtit") default("Table 01: Decomposition of poverty by income source")					/*
+		*/   
+
+END
+
+LIST cb_modrep
+BEGIN
+  Replace
+  Modify
+END
+
+
+LIST cb_modrep_val
+BEGIN
+  replace
+  modify
+END
+
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2	
+END
+
+
+SCRIPT cond1
+BEGIN
+	has_cond1.settrue
+	has_cond2.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.setfalse
+	has_cond2.settrue
+	program check_conds
+END
+
+
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1){
+call resop.ed_tit.setvalue "Table ##: Decomposition of Gini by..."
+}
+
+if has_cond2{
+call resop.ed_tit.setvalue "Tableau ##: Dcomposition de Gini par..."
+}
+
+
+
+END
+
+PROGRAM resop_xls
+BEGIN
+if resop.ck_xls  {
+call resop.tx_nxfile.enable
+call resop.fnamex.enable
+call resop.tx_she.enable
+call resop.ed_she.enable
+
+call resop.cb_modrep.enable
+call resop.tx_tit.enable
+call resop.ed_tit.enable
+}
+
+if !resop.ck_xls {
+call resop.tx_nxfile.disable
+call resop.fnamex.disable
+call resop.tx_she.disable
+call resop.ed_she.disable
+
+call resop.cb_modrep.disable
+call resop.tx_tit.disable
+call resop.ed_tit.disable
+}
+END
+
+
+HELP hlp1,   view("help diginis")
+RESET res1
+
+
+PROGRAM command
+BEGIN
+
+        
+	put "diginis "
+        require  main.vl_list
+        varlist [main.vl_list]
+	
+	beginoptions  
+
+	                optionarg main.vn_hs
+	                
+		       
+		  if !main.cb_appr.isdefault() {
+                                               optionarg main.cb_appr
+                                               } 
+											   
+
+            if !main.cb_sappr.isdefault() {
+                                               optionarg main.cb_sappr
+                                               } 
+											   
+			   if !main.cb_gin.isdefault() {
+                                               optionarg main.cb_gin
+                                               } 								   
+											   
+											   
+											   
+			optionarg resop.fnamex
+                        optionarg resop.ed_she
+
+			if !resop.cb_modrep.isdefault(){
+			optionarg resop.cb_modrep
+			}
+
+			if !resop.ed_tit.isdefault(){
+			optionarg resop.ed_tit
+			}
+			
+			if !resop.chk_opd.isdefault(){
+			optionarg resop.chk_opd
+			}
+					
+			
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+					
+			
+        
+        
+END

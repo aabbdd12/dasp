@@ -1,0 +1,125 @@
+* May2013 - 
+v 3
+  DASP          : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   2.3   
+d Date          : May      2013
+d Stata Version : Required  10.0 and higher
+d
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_p3 Distributive Analysis Stata Package: PART III
+
+
+
+f files/decomposition/mk_xtab_m1.ado
+
+f files/decomposition/dfgtg.ado
+f files/decomposition/dfgtg.hlp
+f files/decomposition/dfgtg.dlg
+
+f files/decomposition/dfgts.ado
+f files/decomposition/dfgts.hlp
+f files/decomposition/dfgts.dlg
+
+f files/decomposition/distable.ado
+f files/decomposition/dmdafs.ado
+f files/decomposition/dmdafs.hlp
+f files/decomposition/dmdafs.dlg
+
+
+f files/decomposition/dtcpov.ado
+f files/decomposition/dtcpov.hlp
+f files/decomposition/dtcpov.dlg
+
+f files/decomposition/dentropyg.ado
+f files/decomposition/dentropyg.hlp
+f files/decomposition/dentropyg.dlg
+
+f files/decomposition/dfgtgr.ado
+f files/decomposition/dfgtgr.hlp
+f files/decomposition/dfgtgr.dlg
+
+
+f files/decomposition/dfgtg2d.ado
+f files/decomposition/dfgtg2d.hlp
+f files/decomposition/dfgtg2d.dlg
+
+f files/decomposition/diginis.ado
+f files/decomposition/diginis.hlp
+f files/decomposition/diginis.dlg
+
+f files/decomposition/dsginis.ado
+f files/decomposition/dsginis.hlp
+f files/decomposition/dsginis.dlg
+
+f files/decomposition/dsineqs.ado
+f files/decomposition/dsineqs.hlp
+f files/decomposition/dsineqs.dlg
+
+f files/decomposition/dsineqg.ado
+f files/decomposition/dsineqg.hlp
+f files/decomposition/dsineqg.dlg
+
+
+f files/decomposition/rbdineq.ado
+f files/decomposition/rbdineq.hlp
+f files/decomposition/rbdineq.dlg
+
+f files/decomposition/shapar.ado
+
+
+f files/decomposition/diginig.ado
+f files/decomposition/diginig.hlp
+f files/decomposition/diginig.dlg
+
+f files/decomposition/dpolag.ado
+f files/decomposition/dpolag.hlp
+f files/decomposition/dpolag.dlg
+
+f files/decomposition/dmdafg.ado
+f files/decomposition/dmdafg.hlp
+f files/decomposition/dmdafg.dlg
+
+
+f files/decomposition/dpolas.ado
+f files/decomposition/dpolas.hlp
+f files/decomposition/dpolas.dlg
+
+
+f files/dtools/imean.ado
+f files/dtools/imean.hlp
+f files/dtools/imean.dlg
+
+f files/dtools/dimean.ado
+f files/dtools/dimean.hlp
+f files/dtools/dimean.dlg
+
+
+f files/dtools/iprop.ado
+f files/dtools/iprop.hlp
+f files/dtools/iprop.dlg
+
+f files/dtools/diprop.ado
+f files/dtools/diprop.hlp
+f files/dtools/diprop.dlg
+
+f files/dtools/datest.ado
+f files/dtools/datest.hlp
+f files/dtools/datest.dlg
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,497 @@
+
+
+
+
+VERSION 14.0
+SYNCHRONOUS_ONLY 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 790 590
+DIALOG main, label("Sharing Household EXPenditure model --> shexp command") tabtitle("Main")
+
+BEGIN
+
+GROUPBOX intvarg7 10     10    380  130,                      ///
+label("Main specification of the model:")
+ 
+TEXT     tx_cmod      20      +25   180   .,            ///
+        label("Type of Collective model:")			
+
+COMBOBOX  cb_cmod      210    @     170      .,                  ///
+            dropdownlist                                          ///
+            contents(cb_cmod)  values(cb_cmod_val) option(colmod)     ///
+            default(1) onselchangelist(cond_change2)
+ 
+TEXT     tx_tyd      20      +25   180   .,            ///
+        label("Type of identification:")			
+
+COMBOBOX  cb_tyd      210    @     170      .,                  ///
+            dropdownlist                                          ///
+            contents(cb_tyd)  values(cb_tyd_val) option(tymod)     ///
+            default(1) 
+			
+			
+TEXT     tx_fshare      20      +25   260   .,            ///
+        label("Women's share in childless couples (f_share)*")			
+
+VARNAME  var_fshare      280    @     100      .,                  ///
+            option(fshare) 
+  			
+TEXT    note0     20      +25   360   .,   ///
+label("* Assumption on sharing in childless couples, for ex: f_share=nb adult females / nb of adults.")
+
+					
+
+ 
+
+GROUPBOX intvar 10     +40    380  200,                      ///
+label("Dependent variable: expenditures")
+    
+TEXT    tx_texp      20      +20   220   .,                      ///
+        label("Household total expenditures:")
+		
+VARNAME    var_totexp  250         @      130    .,           ///
+            option(totexp)
+			
+TEXT    tx_tpub      20      +30   220   .,                      ///
+        label("Total public expenditure*:")
+		
+VARNAME    var_totpub  250         @      130    .,           ///
+            option(totpub)
+			
+          
+
+TEXT     tx_tx10 150         +25      70    .,           ///
+          label("Male(s)")
+  
+TEXT     tx_tx11 230       @       70    .,           ///
+          label("Female(s)")
+                  
+TEXT     tx_tx12 310       @       70    .,           ///
+          label("Kids")           
+                
+TEXT   tx_share9      20      +20   220   .,                      ///
+        label("Exp. on exclusive good**:")
+
+VARNAME     var_expexm  150         @      70    .,           ///
+          option(expexm)
+  
+VARNAME     var_expexf  230        @       70    .,           ///
+                  option(expexf)      
+
+VARNAME    var_expexk 310        @       70    .,           ///
+option(expexk)        
+
+
+TEXT    note1a     20      +30   360   .,   ///
+label("* The current treatment of public expenditure is to allocate it to all members")
+TEXT    note1b     20      +20   360   .,   ///
+label("* on a per capita basis")
+TEXT    note1c     20      +20   220   .,   ///
+label("** For instance, assignable clothing expenditure")  
+				
+
+GROUPBOX intvarg2 10     +40    380  100,                      ///
+label("First-stage estimation of total expenditure")
+				
+TEXT    tx_listexpvar      20      +20   120   .,                      ///
+        label("List of model variables:")
+		
+VARLIST    varlist_texp  150         @      230    .,           ///
+            option(vlist)
+			
+TEXT     tx_inslist_texp      20      +25   120   .,                      ///
+        label("List of instruments*")
+		
+VARLIST    inslist_texp   150         @      230    .,           ///
+            option(ilist)	
+			
+TEXT    note2     20      +30   320   .,   ///
+label("* For instance, log disposable income and its square.")  
+	
+
+	
+	 
+  GROUPBOX chk_per11  10    +40  380 80,                         ///
+            label("Dialog box inputs: ")           ///
+                   
+    TEXT txt_vname11     20    +20    140      .,                 ///  
+                  label("Load the inputs:   ")                           
+       
+    BUTTON  bu_load    140    @     240      .,                 ///
+    label("Load") onpush("view dialog shexp_db_ini") 
+         
+         
+   TEXT  tx_dbsfile    20    +25    110      .,                 ///  
+         label("Save the inputs:")                                
+   
+   FILE  dbsamex      140    @     240      .,                    ///
+    label ("Browse...")    save option("inisave")                   ///
+    filter("MetaFile (*.shexp)*.shexp*.* (*.*)*.*")   
+ 
+     
+	
+GROUPBOX intvarg3 400     10    380  200,                      ///
+label("Demand system specification:")
+	
+
+TEXT    gtit     410      +20   360   .,                       ///
+label("Individual Engel curve specification: List of variables*")
+
+
+TEXT     tx_eng_father      420      +25   80   .,            ///
+        label("Father:")
+		
+VARLIST    var_liengf  500         @      270    .,           ///
+            option(liengf)		
+
+			
+TEXT     tx_eng_mother      420      +25   80  .,            ///
+        label("Mother:")
+		
+VARLIST    var_liengm  500        @      270    .,           ///
+            option(liengm)
+		
+TEXT     tx_eng_child     420      +25   80   .,            ///
+        label("Child:")
+		
+VARLIST    var_liengk  500         @      270    .,           ///
+            option(liengk)	
+
+
+TEXT     tx_model      420      +45   180   .,            ///
+        label("Functional form of expenditure:")			
+
+COMBOBOX  cb_nor      600    @     170      .,                  ///
+            dropdownlist                                          ///
+            contents(cb_mod)  values(cb_mod_val) option(engmod)     ///
+            default(1)
+
+			
+TEXT    note3     420      +30   360   .,   ///
+label("* For instance, nkid, age of the person, education of the person,...")  
+	
+
+
+
+
+
+GROUPBOX intvarg4 400     +40    380  210,                      ///
+label("Sharing rule specification:")
+
+/*Functional form of expenditure:*/
+
+TEXT   tx_nota1n      410      +20   220   .,                 ///
+        label("Demographic determinants:")
+		
+
+TEXT     tx_tx10n 540        +25      70    .,           ///
+          label("Male(s)")
+  
+TEXT     tx_tx11n 620       @       70    .,           ///
+          label("Female(s)")
+                  
+TEXT     tx_tx12n 700       @       70    .,           ///
+          label("Kids")           
+                
+TEXT   tx_share9n  410      +20   220   .,                      ///
+        label("Number:")
+
+		
+VARNAME     var_nfemales  540         @      70    .,           ///
+          option(nfemale)
+  
+VARNAME     var_nmales  620        @       70    .,           ///
+               option(nmale)      
+
+VARNAME    var_nkids 700        @       70    .,           ///
+option(nkid)        
+
+TEXT   tx_share10n      410      +25   220   .,                      ///
+        label("Average age:")
+
+VARNAME     var_avagef  540         @      70    .,           ///
+          option(avagef)
+  
+VARNAME     var_avagem  620        @       70    .,           ///
+               option(avagem)      
+			   
+VARNAME    var_avagek 700        @       70    .,           ///
+option(avagek)        
+				
+
+TEXT   tx_share333      410      +35   120   .,                 ///
+        label("Number of boys:")
+				  
+
+VARNAME    var_nboys 540         @      230    .,           ///
+          option(nboys)
+ 				  
+				  
+TEXT   tx_share4      410      +25   120   .,                      ///
+        label("Other determinants*")
+
+VARLIST    var_other 540         @      230    .,           ///
+          option(otherv)
+ 
+ 
+ TEXT tx_Note      410      +30   400   .,                      ///
+        label("* For instance, urban, women's income share, women's participation.")
+ 
+ 
+
+
+
+
+END
+
+
+
+LIST cb_mod
+BEGIN
+ Log 
+ Quadraticijn log
+END
+
+LIST cb_mod_val
+BEGIN
+1
+2
+END
+
+
+LIST cb_cmod
+BEGIN
+Complete model
+Rothbarth
+END
+
+LIST cb_cmod_val
+BEGIN
+1
+2
+END
+
+
+LIST cb_tyd
+BEGIN
+Nonparametric
+Dunbar et al
+END
+
+LIST cb_tyd_val
+BEGIN
+1
+2
+END
+
+
+LIST cb_tool
+BEGIN
+Stata : ML package
+R     : MAXLIK package
+END
+
+LIST cb_tool_val
+BEGIN
+1
+2
+END
+
+
+
+INCLUDE max_ml
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+                                        
+SPINNER  sp_dec    10       25      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(3) max(12)                            /*
+                */ option(dec)
+
+TEXT     sp_txt  70      25      140      .,                            /*
+                */ label("Number of decimals")  
+
+                              
+  CHECKBOX ck_dregres 10     +40    200  .,                           /*
+                */ label("Display regression results")               /*
+                */ option("dregres")                                 /*
+                */
+
+
+
+  TEXT  tx_xfile     10    +60    140      .,                 ///  
+  label("Save results in xml file:") 
+  FILE  xfil      140   @     270      .,                    ///
+  label ("Browse...")    save option("xfil")                   ///
+  filter("MetaFile (*.xml)*.xml*.* (*.*)*.*")
+                                
+                                
+END
+
+
+
+SCRIPT PREINIT
+BEGIN
+create BOOLEAN has_ini   
+create BOOLEAN has_cond1
+create BOOLEAN has_cond2  
+create BOOLEAN has_cond11
+create BOOLEAN has_cond22                    
+END
+
+
+LIST cond_change
+BEGIN
+        script cond1
+        script cond2
+END
+
+
+SCRIPT cond1
+BEGIN
+        has_cond1.settrue
+        has_cond2.setfalse
+        program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+        has_cond1.setfalse
+        has_cond2.settrue
+        program check_conds
+END
+
+
+LIST cond_change2
+BEGIN
+        script cond11
+        script cond22
+END
+
+
+SCRIPT cond11
+BEGIN
+        has_cond11.settrue
+        has_cond22.setfalse
+        program check_conds
+END
+
+SCRIPT cond22
+BEGIN
+        has_cond11.setfalse
+        has_cond22.settrue
+        program check_conds
+END
+
+
+
+
+PROGRAM check_conds
+BEGIN
+if (has_cond1){
+call main.trtool.disable
+call main.drtool.disable
+}
+
+if has_cond2{
+call main.trtool.enable
+call main.drtool.enable
+}
+
+if has_cond11{
+call main.tx_fshare.enable
+call main.var_fshare.enable
+}
+
+if (has_cond22){
+call main.tx_fshare.disable
+call main.var_fshare.disable
+}
+
+
+END
+
+PROGRAM POSTINIT_PROGRAM
+BEGIN
+        put "ashexp2"
+        stata hidden
+END
+
+
+
+HELP hlp1,   view("help shexp")
+RESET res1
+OK      ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY  copy1,
+
+
+
+
+PROGRAM command
+BEGIN
+        put "shexp "
+        require  main.var_totexp
+        varlist [main.var_totexp]
+      
+        beginoptions  
+        put " "
+		
+optionarg main.var_totpub
+optionarg main.var_expexm
+optionarg main.var_expexf
+optionarg main.var_expexk
+
+optionarg main.var_fshare
+
+optionarg main.varlist_texp
+optionarg main.inslist_texp
+
+optionarg main.var_liengf
+optionarg main.var_liengm
+optionarg main.var_liengk
+
+
+optionarg main.var_nkids
+optionarg main.var_avagek
+
+optionarg main.var_nfemales
+optionarg main.var_avagef
+
+optionarg main.var_nmales
+optionarg main.var_avagem
+
+optionarg main.var_nboys
+optionarg main.var_other
+
+optionarg main.cb_cmod
+optionarg main.cb_tyd
+optionarg main.dbsamex
+
+put " " /program max_output
+		
+		/*
+                        if !resop.sp_dec.isdefault() {
+                        optionarg resop.sp_dec
+                        }
+						
+                optionarg resop.ck_dregres 
+				optionarg resop.ck_dislas
+                
+             */
+			 
+		optionarg resop.xfil	 
+                                   
+        endoptions
+        
+  */      
+        
+END

@@ -1,0 +1,253 @@
+/* 
+  cdensity.dlg
+*/  
+
+VERSION 9.2
+
+
+INCLUDE graph_header
+INCLUDE header
+
+
+DIALOG main, label("DASP| Density curves --> cdensity command") tabtitle("Main")
+
+
+BEGIN
+  INCLUDE _glist_def
+   
+  GROUPBOX intvar 10     10    360  60,                      ///
+           label("Variable(s) of interest: ")
+           
+  VARLIST  vl_var 20     +25   340   .,                   ///
+           label("Variables")
+           
+           
+           
+  TEXT     tx_var2      20    100    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+ 
+  TEXT     tx_var4      20    +25    80      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      110    @     250      .,                 ///
+           option(hgroup)            
+
+
+ 
+  GROUPBOX percentile 390    10    360 80,                      ///
+             label("Options")
+             
+    CHECKBOX chk_var1     400    +25    140      .,                 ///  
+               label("Curves:   ")                                   ///      
+    onclickon(main.cb_reg.enable)                                 ///
+    onclickoff(main.cb_reg.disable)       
+        COMBOBOX  cb_reg      540    @     200      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_reg)  values(cb_reg_val) option(type)  
+
+
+    CHECKBOX chk_var2     400    +25    140      .,                 ///  
+               label("Boundary-bias correction:   ")                                   ///      
+    onclickon(program main_bias)  onclickoff(program main_bias)                                  
+        COMBOBOX  cb_bias      540    @     100      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_bias)  values(cb_bias_val) option(bcor)    ///
+              default(renor)   onselchangelist(cond_change)    
+
+        COMBOBOX  cb_order      640    @     100      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_order)  values(cb_order_val) option(border)            
+           
+        GROUPBOX chk_per  390    100  360 80,                         ///
+           label("Parameters: ")         ///
+  
+     
+           
+   TEXT    tx_min   510    +25    80      .,                    ///
+           label("Minimum:   ") 		                ///
+    		
+   TEXT    tx_max   660    @   80      .,                 ///
+           label("Maximum:   ") 
+           
+   
+   TEXT txt_pl     400     +15    100      .,                 ///  
+                  label("Range:   ")        
+   
+   EDIT    ed_min   510    @     80      .,                 ///
+           default(0) option(min)	  	             ///
+       		
+   EDIT    ed_max   660    @      80      .,                 ///
+           default(10000) option(max) 	
+           
+           
+   CHECKBOX ck_width  390    200  360 80,		///
+		 label(`"Override "optimal" bandwidth"')               ///
+		 groupbox						///
+		 option("width")					///
+		 onclickoff(main.en_width.enable)                      ///
+                 onclickon(main.en_width.disable)                    ///
+                 default(1)
+  TEXT     tx_width  400   +25      80     .,			/*
+		*/ label("Bandwidth of kernel:")			/*
+		*/
+  EDIT     en_width  500    @       120   .,			/*
+		*/ label("Bandwidth of kernel")				/*
+		*/ numonly						/*
+		*/ option("band") default(1.0)					/*
+		*/           
+   
+END
+
+
+
+SCRIPT PREINIT
+BEGIN
+	create BOOLEAN has_cond1
+	create BOOLEAN has_cond2	
+END
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2	
+END
+
+
+SCRIPT cond1
+BEGIN
+	has_cond1.settrue
+	has_cond2.setfalse
+        program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.setfalse
+	has_cond2.settrue
+        program check_conds
+END
+
+
+PROGRAM check_conds
+BEGIN
+if (has_cond1){
+call main.cb_order.show
+}
+
+if has_cond2{
+call main.cb_order.hide
+}
+END
+
+
+
+
+PROGRAM main_bias
+BEGIN
+if main.chk_var2  {
+call main.cb_bias.enable
+call main.cb_order.enable
+}
+
+if !main.chk_var2  {
+call main.cb_bias.disable
+call main.cb_order.disable
+}
+
+END
+
+
+
+LIST cb_reg
+BEGIN
+  Density curves
+  Derivative of density curves
+END
+
+LIST cb_reg_val
+BEGIN
+  den
+  dde
+END
+
+
+LIST cb_bias
+BEGIN
+  Renormalization
+  Reflection
+END
+
+LIST cb_bias_val
+BEGIN
+  renor
+  reflec
+END
+
+
+LIST cb_order
+BEGIN
+  First order
+  Second order
+  Third order
+END
+
+LIST cb_order_val
+BEGIN
+  1
+  2
+  3
+END
+
+
+
+
+INCLUDE dasp_gr_res_opts
+
+
+
+
+
+
+INCLUDE gr_twoway
+
+HELP hlp1,   view("help cdensity")
+RESET res1
+PROGRAM command
+BEGIN
+	put "cdensity "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+		       
+			optionarg main.vn_hhs
+			optionarg main.vn_hhg
+			optionarg main.cb_reg
+			optionarg main.cb_bias
+			optionarg main.ed_min
+			optionarg main.ed_max
+                  optionarg main.en_width
+			optionarg main.cb_order
+			optionarg res.fnamec
+						
+						optionarg res.fnamegs
+						optionarg res.fnamege
+						if res.chk_op1 {
+									
+									put "lres("
+									put res.chk_op1
+									put ")"
+					                       }
+					                       
+					        if !res.chk_op3 {
+									
+									put "dgra("
+									put res.chk_op3
+									put ")"
+					                       }               
+			put " " /program gr_twoway_output
+		        
+			
+	endoptions
+	
+END

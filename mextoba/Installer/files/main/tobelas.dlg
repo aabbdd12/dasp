@@ -1,0 +1,128 @@
+
+
+
+
+VERSION 9.2
+ 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 300
+
+
+DIALOG main, label(" TOBACTAX|  Tobacco Elasticity --> tobelas command") tabtitle("Main")
+
+BEGIN
+
+ GROUPBOX intvar 10     10    360  170,                      ///
+             label("Variables of the model")
+  TEXT   tx_qt      20      25   100   .,                      ///
+        label("Quantity:")
+  
+  VARNAME vn_qt   20      45   100       .,                      ///
+        label("") 
+                
+  TEXT tx_pr      130      25   100   .,                      ///
+        label("Price:")
+  
+  VARLIST vn_pr   130      45   100       .,                      ///
+        label("")  
+		
+   TEXT tx_dc      250      25   100   .,                      ///
+        label("Decile:")
+  
+  VARLIST vn_dc   250      45   100       .,                      ///
+        label("") 	option(decile)	
+
+  TEXT   tx_indcat      20     +30   260   .,                      ///
+        label("Other categorical independant variables:")
+  
+  VARLIST vl_indcat   20      +20   330       .,   ///
+  option(indcat)
+  
+   TEXT   tx_indcon      20     +30   260   .,                      ///
+  label("Other continues independant variables:")
+  
+  VARLIST vl_indcon   20      +20   330       .,    ///
+    option(indcon)
+   DEFINE _x 20
+   DEFINE _y 240
+     
+  INCLUDE _bu_svyset
+
+
+END
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+                                        
+SPINNER  sp_dec    10       25      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(6) max(12)                            /*
+                */ option(dec)
+
+TEXT     sp_txt  70      25      100      .,                            /*
+                */ label("Number of decimals")  
+
+				
+  CHECKBOX ck_dregres 10     +35    200  .,                           /*
+                */ label("Display regression results")               /*
+                */ option("dregres")                                 /*
+                */
+
+  CHECKBOX ck_dgra 10     +35    200  .,                           /*
+                */ label("Display the graph of elasticities according to the deciles")               /*
+                */ option("dgra")                                 /*
+                */
+				
+  TEXT  tx_eldecfile     10    +35    140      .,                 ///  
+  label("Save the elasticity file:") 
+  FILE  eldecfile      140   @     270      .,                    ///
+  label ("Browse...")    save option("elasfile")                   ///
+  filter("MetaFile (*.dta)*.dta*.* (*.*)*.*")
+				
+  				
+END
+
+
+
+
+
+
+
+HELP hlp1,   view("help tobelas")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+        put "tobelas "
+        require  main.vn_qt
+        varlist [main.vn_qt]
+		require  main.vn_pr
+        varlist [main.vn_pr]
+
+        beginoptions   
+        put " "
+        optionarg main.vn_dc  
+		optionarg main.vl_indcat
+		optionarg main.vl_indcon
+                        if !resop.sp_dec.isdefault() {
+                        optionarg resop.sp_dec
+                        }
+        optionarg resop.ck_dregres
+		optionarg resop.ck_dgra
+		optionarg resop.eldecfile
+                                            
+        endoptions
+        
+        
+        
+END

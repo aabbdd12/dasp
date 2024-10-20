@@ -1,0 +1,201 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim                       */
+/* Universite Laval, Quebec, Canada                                       */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+VERSION 9.2
+
+
+INCLUDE graph_header
+
+POSITION . . 760 300
+
+
+DIALOG main, label("DASP| Hypothesis testing --> datest command") tabtitle("Main")
+
+
+BEGIN
+
+GROUPBOX conf_int  390    10  360 100,                         ///
+           label("Confidence interval ")         ///
+
+TEXT     sp_txt  400      +25      120	  .,		                /*
+   		*/ label("Level of the test in (%) : ")	
+   		
+EDIT  sp_level    530       @      200	  .,		        /*
+   		*/ label("Confidence level")				/*
+   		*/  default(5) 			/*
+  		*/ option(slevel)
+
+TEXT     ci_txt  400      +30      120	  .,		                /*
+   		*/ label("Confidence interval      : ")	
+   		
+COMBOBOX cb_ci       530    @   200      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)		
+            
+            
+GROUPBOX ck_test  10    10  360 120,		///
+		 label(`"Hypothesis test"')               
+				 
+  TEXT     tx_est  20   +25      120     .,			/*
+		*/ label("Estimated value: ")			/*
+		*/
+  EDIT     en_est  130    @       120   .,			/*
+		*/ label("Test")				/*
+		*/ numonly						/*
+		*/ option("est") default(10)					/*
+		*/ 
+		
+  TEXT     tx_ste  20   +25      120     .,			/*
+		*/ label("Estimated standard error:  ")			/*
+		*/
+  EDIT     en_ste  130    @       120   .,			/*
+		*/ label("STE")				/*
+		*/ numonly						/*
+		*/ option("ste") default(1)					/*
+		*/ 
+		
+		
+		  TEXT     tx_test  20   +45      120     .,			/*
+		*/ label("Hypothesized value:")			/*
+		*/
+  EDIT     en_test  130    @       120   .,			/*
+		*/ label("TEST")				/*
+		*/ numonly						/*
+		*/  default(1)					/*
+		*/ 
+		
+GROUPBOX ck_dist  10    +30  360 80,		///
+		 label(`"Distribution of estimate"')               
+				 
+TEXT     dis_txt  20      +25      120	  .,		                /*
+   		*/ label("Distribution: ")	
+   		
+COMBOBOX cb_dis    150    @   200      .,                 ///
+            contents(cb_dist) values(cb_dist_val)              ///
+            dropdownlist default(norm)   option(dist)	 onselchangelist(cond_change)
+TEXT     tx_df  20   +25      120     .,			/*
+		*/ label("Degree of freedom:")			/*
+		*/
+ EDIT     en_df  150    @       200   .,			/*
+		*/ label("DF")				/*
+		*/ numonly option(df)						/*
+		*/  default(10)					/*
+		*/ 		
+			
+
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+LIST cb_dist
+BEGIN
+  Normal distribution
+  t-student distribution
+END
+
+
+LIST cb_dist_val
+BEGIN
+  norm
+  tstud
+END
+
+SCRIPT PREINIT
+BEGIN
+        create BOOLEAN has_cond1
+        create BOOLEAN has_cond2      
+END
+
+LIST cond_change
+BEGIN
+        script cond1
+        script cond2
+END
+
+
+SCRIPT cond1
+BEGIN
+        has_cond1.settrue
+        has_cond2.setfalse
+        program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+        has_cond1.setfalse
+        has_cond2.settrue
+        program check_conds
+END
+
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1){
+call main.tx_df.hide
+call main.en_df.hide
+}
+
+if has_cond2{
+call main.tx_df.show
+call main.en_df.show
+}
+
+END
+
+
+
+HELP hlp1,   view("help datest")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+
+BEGIN
+	put "datest "  main.en_test
+         
+beginoptions
+		       	
+                          optionarg main.en_est
+						  optionarg main.en_ste
+						   if !main.cb_dis.isdefault() {
+					                 optionarg main.cb_dis
+									 optionarg main.en_df
+							 }
+			
+			              if !main.sp_level.isdefault() {
+					                 optionarg main.sp_level
+							 }
+				                 
+			              if !main.cb_ci.isdefault()    {
+					                 optionarg main.cb_ci
+				                        } 				              
+
+endoptions	
+	
+END

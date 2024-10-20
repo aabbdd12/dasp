@@ -1,0 +1,850 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/*   bian.dlg                                                            */
+/*************************************************************************/
+
+VERSION 15.0
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 440
+DEFINE  _dlgwd 890
+INCLUDE header
+
+
+
+
+DIALOG main, label("DASP 3.0 | Benefit incidence analysis --> bian command") tabtitle("Main")
+BEGIN
+  DEFINE col0  90
+  DEFINE col1  160
+  DEFINE col2 280
+  DEFINE col3 400
+  DEFINE col4 520
+  DEFINE col5 640
+  
+  DEFINE colwd0 55
+  DEFINE colwd1 100
+
+  DEFINE _x _xsetbu
+  DEFINE _y _top
+
+
+
+  
+  GROUPBOX intvar 10     50    430  60,                      ///
+             label("Variable(s) of interest: ")
+                   
+           
+  TEXT     tx_stliv 20      +20      150       .,           ///
+  label("Welfare variable:") 
+  
+  VARNAME     vn_stliv +150      @     260       .,           ///
+  label("Standard of living :")   
+    
+ 
+  
+  GROUPBOX chk_per  450    50  430 60,                         ///
+             label("Options: ")         ///
+    
+      
+  TEXT tx_bi_apr     460     +30      120      .,                 ///  
+                    label("Approach:")       
+   
+
+  COMBOBOX cb_bi_apr +150      @         260       .,        ///
+        contents(bi_apr_contents)                                ///
+        values(bi_apr)                                    ///
+        onselchangelist(apr_change)                             ///
+        dropdownlist  option(approach)
+        
+ 
+   GROUPBOX intsec 10     +50    860  300,                      ///
+             label("Sectors: ")
+ 
+   TEXT     tx_sectors 30      +40      120       .,           ///
+          label("Number of sectors:") 
+          
+  COMBOBOX cb_sectors +130     @         60       .,        ///
+          contents(sector_contents)                                ///
+          values(sector_values)                                    ///
+          onselchangelist(sector_change) default(1)                          ///
+        dropdownlist option(nbsec)   
+
+  
+ 
+
+     TEXT   tx_pubser   +100      @      160       .,           ///
+        label("Label the public service:") right
+        
+     EDIT   ed_pubser   +170      @     310       .,           ///
+        label("Label the public service:") default("") option(mainlab)
+
+                        
+       
+  
+
+  
+  TEXT     tx_inl     col1      +40          @         .,           ///
+        label("Labels") 
+  
+  
+   
+  TEXT     tx_fr col2         @      @    .,           ///
+          label("Frequency")
+  
+  
+  TEXT     tx_sz col3          @  colwd1    100,           ///
+        label("Eligible HH members")
+ 
+  TEXT     tx_in     col4      @         @         .,           ///
+        label("Area indicator")
+  
+  TEXT     tx_din    col5      @         150         .,           ///
+        label("Regional pub. expenditures")
+
+  TEXT     tx_sector1 col0      _ss       colwd0    .,           ///
+        label("Sector 1:") right
+  
+  
+      
+
+  EDIT   ed_lbs1     col1      @         colwd1    .,           ///
+  label("")     default("")   option(lbs1) 
+  
+  
+   VARNAME  vn_fr1    col2     @         colwd1    .,           ///
+        label("")      option(frq1) 
+        
+        
+  VARNAME  vn_sz1    col3     @         colwd1    .,           ///
+        label("")      option(sz1)
+  
+ 
+  
+  VARNAME  vn_in1   col4      @         @         .,           ///
+        option(in1)                                            ///
+        label("Indicator variable for sector 1")                    
+        
+  VARNAME  vn_din1   col5      @         @         .,           ///                       
+        option(din1)                                             ///
+        label("Regional public expenditures: sector 1")             
+        
+   
+   
+   
+  TEXT     tx_sector2 col0      +30       colwd0    .,           ///
+        label("Sector 2:") right
+  
+  EDIT   ed_lbs2     col1      @         colwd1    .,           ///
+  label("")    option(lbs2) 
+  
+  
+   VARNAME  vn_fr2    col2      @         colwd1    .,           ///
+        label("")  option(frq2)  
+        
+  VARNAME  vn_sz2    col3     @         colwd1    .,           ///
+        label("")      option(sz2)
+        
+
+  VARNAME  vn_in2   col4      @         @         .,           ///
+        option(in2)                                            ///
+        label("Indicator variable for sector 2")                    
+        
+  VARNAME  vn_din2   col5      @         @         .,           ///                       
+        option(din2)                                             ///
+        label("Regional public expenditures: sector 2")                 
+        
+        
+        
+          
+  TEXT     tx_sector3 col0      +30       colwd0    .,           ///
+        label("Sector 3:") right
+ 
+  
+  EDIT   ed_lbs3     col1      @         colwd1    .,           ///
+  label("")          option(lbs3) 
+  
+  
+  VARNAME  vn_fr3    col2      @         colwd1    .,           ///
+        label("")  option(frq3)             
+
+   VARNAME  vn_sz3    col3     @         colwd1    .,           ///
+        label("")      option(sz3)
+
+  VARNAME  vn_in3   col4      @         @         .,           ///
+        option(in3)                                            ///
+        label("Indicator variable for sector 3")     
+        
+  VARNAME  vn_din3   col5      @         @         .,           ///                       
+        option(din3)                                             ///
+        label("Regional public expenditures: sector 3")                
+        
+   
+   
+           
+  TEXT     tx_sector4 col0      +30       colwd0    .,           ///
+        label("Sector 4:") right
+  
+  
+  EDIT   ed_lbs4     col1      @         colwd1    .,           ///
+  label("")          option(lbs4) 
+  
+  
+  VARNAME  vn_fr4    col2      @         colwd1    .,           ///
+        label("")  option(frq4) 
+  
+  VARNAME  vn_sz4    col3     @         colwd1    .,           ///
+        label("")      option(sz4)
+        
+           
+  VARNAME  vn_in4   col4      @         @         .,           ///
+        option(in4)                                            ///
+        label("Indicator variable for sector 4")                    
+        
+  VARNAME  vn_din4   col5      @         @         .,           ///                       
+        option(din4)                                             ///
+        label("Regional public expenditures: sector 4")                 
+
+
+
+
+           
+  TEXT     tx_sector5 col0      +30       colwd0    .,           ///
+        label("Sector 5:") right
+  
+  EDIT   ed_lbs5     col1      @         colwd1    .,           ///
+  label("")    option(lbs5) 
+  
+  VARNAME  vn_fr5    col2      @         colwd1    .,           ///
+        label("")  option(frq5)      
+  
+  VARNAME  vn_sz5    col3     @         colwd1    .,           ///
+        label("")      option(sz5)
+        
+  
+  VARNAME  vn_in5   col4      @         @         .,           ///
+        option(in5)                                            ///
+        label("Indicator variable for sector 5")                    
+        
+  VARNAME  vn_din5   col5      @         @         .,           ///                       
+        option(din5)                                             ///
+        label("Regional public expenditures: sector 5")                 
+        
+        
+        
+   TEXT     tx_sector6 col0      +30       colwd0    .,           ///
+        label("Sector 6:") right
+        
+        
+  EDIT   ed_lbs6     col1      @         colwd1    .,           ///
+  label("")          option(lbs6)       
+  
+  
+  VARNAME  vn_fr6    col2      @         colwd1    .,           ///
+        label("")  option(frq6)
+  
+  VARNAME  vn_sz6    col3     @         colwd1    .,           ///
+        label("")      option(sz6)
+  
+              
+
+  
+  VARNAME  vn_in6   col4      @         @         .,           ///
+        option(in6)                                            ///
+        label("Indicator variable for sector 6")                    
+        
+  VARNAME  vn_din6   col5      @         @         .,           ///                       
+        option(din6)                                             ///
+        label("Regional public expenditures: sector 6")                   
+
+END
+
+SCRIPT clear_all
+BEGIN
+        main.cb_sectors.setvalue "1"
+        main.vn_in1.setvalue ""
+        main.vn_fr1.setvalue ""
+        main.vn_din1.setvalue ""
+        main.vn_in2.setvalue ""
+        main.vn_fr2.setvalue ""
+        main.vn_din2.setvalue ""
+        main.vn_in3.setvalue ""
+        main.vn_fr3.setvalue ""
+        main.vn_din3.setvalue ""
+        main.vn_in4.setvalue ""
+        main.vn_fr4.setvalue ""
+        main.vn_din4.setvalue ""
+        main.vn_in5.setvalue ""
+        main.vn_fr5.setvalue ""
+        main.vn_din5.setvalue ""
+        main.vn_in6.setvalue ""
+        main.vn_fr6.setvalue ""
+        main.vn_din6.setvalue ""
+       
+END
+
+
+SCRIPT PREINIT
+BEGIN
+       
+        create BOOLEAN has_frequen
+        create BOOLEAN has_sector1
+        create BOOLEAN has_sector2
+        create BOOLEAN has_sector3
+        create BOOLEAN has_sector4
+        create BOOLEAN has_sector5
+        create BOOLEAN has_sector6
+END
+
+
+
+LIST bi_apr
+BEGIN
+        1
+        2
+END
+
+
+LIST bi_apr_contents
+BEGIN
+Frequency
+Unit-cost benefit     
+END
+
+
+
+
+LIST apr_change
+BEGIN
+        script apr1
+        script apr2
+END
+
+
+SCRIPT apr1
+BEGIN
+        has_frequen.settrue
+        program check_sectors
+END
+
+SCRIPT apr2
+BEGIN
+        has_frequen.setfalse
+        program check_sectors
+END
+
+
+
+
+
+
+
+
+LIST sector_contents
+BEGIN
+        1
+        2
+        3
+        4
+        5
+        6
+END
+
+
+
+
+LIST sector_change
+BEGIN
+        script sector1
+        script sector2
+        script sector3
+        script sector4
+        script sector5
+        script sector6
+END
+
+SCRIPT sector1
+BEGIN
+        has_sector1.settrue
+        has_sector2.setfalse
+        has_sector3.setfalse
+        has_sector4.setfalse
+        has_sector5.setfalse
+        has_sector6.setfalse
+        program check_sectors
+END
+
+SCRIPT sector2
+BEGIN
+        has_sector1.settrue
+        has_sector2.settrue
+        has_sector3.setfalse
+        has_sector4.setfalse
+        has_sector5.setfalse
+        has_sector6.setfalse
+        program check_sectors
+END
+
+SCRIPT sector3
+BEGIN
+        has_sector1.settrue
+        has_sector2.settrue
+        has_sector3.settrue
+        has_sector4.setfalse
+        has_sector5.setfalse
+        has_sector6.setfalse
+        program check_sectors
+END
+
+SCRIPT sector4
+BEGIN
+        has_sector1.settrue
+        has_sector2.settrue
+        has_sector3.settrue
+        has_sector4.settrue
+        has_sector5.setfalse
+        has_sector6.setfalse
+        program check_sectors
+END
+
+SCRIPT sector5
+BEGIN
+        has_sector1.settrue
+        has_sector2.settrue
+        has_sector3.settrue
+        has_sector4.settrue
+        has_sector5.settrue
+        has_sector6.setfalse
+        program check_sectors
+END
+
+SCRIPT sector6
+BEGIN
+        has_sector1.settrue
+        has_sector2.settrue
+        has_sector3.settrue
+        has_sector4.settrue
+        has_sector5.settrue
+        has_sector6.settrue
+        program check_sectors
+END
+
+PROGRAM check_sectors
+BEGIN
+        if has_sector1 {
+                call main.tx_sector1.show
+                call main.vn_sz1.show
+                call main.vn_fr1.show
+                call main.ed_lbs1.show
+                call main.vn_in1.show
+                call main.vn_din1.show
+        }
+        if !has_sector1 {
+                call main.tx_sector1.hide
+                call main.vn_sz1.hide
+                call main.vn_fr1.hide
+                call main.ed_lbs1.hide
+                call main.vn_in1.hide
+                call main.vn_din1.hide
+        }
+        if has_sector2 {
+                call main.tx_sector2.show
+                call main.vn_sz2.show
+                call main.vn_fr2.show
+                call main.ed_lbs2.show
+                call main.vn_in2.show
+                call main.vn_din2.show
+        }
+        if !has_sector2 {
+                call main.tx_sector2.hide
+                call main.vn_sz2.hide
+                call main.vn_fr2.hide
+                call main.ed_lbs2.hide
+                call main.vn_in2.hide
+                call main.vn_din2.hide
+        }
+        if has_sector3 {
+                call main.tx_sector3.show
+                call main.vn_sz3.show
+                call main.vn_fr3.show
+                call main.ed_lbs3.show
+                call main.vn_in3.show
+                call main.vn_din3.show
+        }
+        if !has_sector3 {
+                call main.tx_sector3.hide
+                call main.vn_sz3.hide
+                call main.vn_fr3.hide
+                call main.ed_lbs3.hide
+                call main.vn_in3.hide
+                call main.vn_din3.hide
+        }
+        if has_sector4 {
+                call main.tx_sector4.show
+                call main.vn_sz4.show
+                call main.vn_fr4.show
+                call main.ed_lbs4.show
+                call main.vn_in4.show
+                call main.vn_din4.show
+        }
+        if !has_sector4 {
+                call main.tx_sector4.hide
+                call main.vn_sz4.hide
+                call main.vn_fr4.hide
+                call main.ed_lbs4.hide
+                call main.vn_in4.hide
+                call main.vn_din4.hide
+        }
+        if has_sector5 {
+                call main.tx_sector5.show
+                call main.vn_sz5.show
+                call main.vn_fr5.show
+                call main.ed_lbs5.show
+                call main.vn_in5.show
+                call main.vn_din5.show
+        }
+        if !has_sector5 {
+                call main.tx_sector5.hide
+                call main.vn_sz5.hide
+                call main.vn_fr5.hide
+                call main.ed_lbs5.hide
+                call main.vn_in5.hide
+                call main.vn_din5.hide
+        }
+        if has_sector6 {
+                call main.tx_sector6.show
+                call main.vn_sz6.show
+                call main.vn_fr6.show
+                call main.ed_lbs6.show
+                call main.vn_in6.show
+                call main.vn_din6.show
+        }
+        if !has_sector6 {
+                call main.tx_sector6.hide
+                call main.vn_sz6.hide
+                call main.vn_fr6.hide
+                call main.ed_lbs6.hide
+                call main.vn_in6.hide
+                call main.vn_din6.hide
+        }
+        
+        
+         call main.tx_in.show
+         call main.tx_din.show
+         call res.chk_ge.enable;
+         call res.chk_tab2.enable;
+         call res.chk_tab3.enable;
+        
+        
+         if has_frequen {
+         call main.vn_in1.hide
+         call main.vn_din1.hide
+         call main.vn_in2.hide
+         call main.vn_din2.hide
+         call main.vn_in3.hide
+         call main.vn_din3.hide
+         call main.vn_in4.hide
+         call main.vn_din4.hide
+         call main.vn_in5.hide
+         call main.vn_din5.hide
+         call main.vn_in6.hide
+         call main.vn_din6.hide
+         
+         
+         call main.tx_in.hide
+         call main.tx_din.hide
+         
+         call res.chk_ge.disable;
+         call res.chk_tab2.disable;
+         call res.chk_tab3.disable;
+        }
+        
+        
+        
+                
+	 call main.tx_sz.show        
+	     
+        
+       
+       
+END
+
+
+
+PROGRAM sector1_output
+BEGIN
+        require   main.vn_fr1
+        optionarg main.vn_fr1
+        optionarg main.vn_sz1
+        if !has_frequen  {
+                        	
+                        	optionarg main.vn_in1
+                        	require main.vn_din1
+                        	optionarg main.vn_din1
+                         }  
+                         
+         
+                                                
+         if !main.ed_lbs1.isdefault()  {
+                                      optionarg main.ed_lbs1 
+                                     }
+END
+
+
+
+PROGRAM sector2_output
+BEGIN
+        if has_sector2 {
+                 require main.vn_fr2
+                  optionarg main.vn_sz2
+                 optionarg main.vn_fr2
+		        
+		        if !has_frequen  {
+		                        	
+		                        	optionarg main.vn_in2
+		                        	require main.vn_din2
+		                        	optionarg main.vn_din2
+                        }  
+                        
+                          
+         if !main.ed_lbs2.isdefault()  {
+			                optionarg main.ed_lbs2 
+                                      }
+        }
+END
+
+PROGRAM sector3_output
+BEGIN
+        if has_sector3 {
+	                 require main.vn_fr3
+	                  optionarg main.vn_sz3
+	                 optionarg main.vn_fr3
+			        
+			        if !has_frequen  {
+			                        	
+			                        	optionarg main.vn_in3
+			                        	require main.vn_din3
+			                        	optionarg main.vn_din3
+	                        }  
+	                        
+                                   	                        
+	         if !main.ed_lbs3.isdefault()  {
+				                optionarg main.ed_lbs3 
+	                                      }
+        }
+END
+
+PROGRAM sector4_output
+BEGIN
+        if has_sector4 {
+	                 require main.vn_fr4
+	                  optionarg main.vn_sz4
+	                 optionarg main.vn_fr4
+			        
+			        if !has_frequen  {
+			                        	
+			                        	optionarg main.vn_in4
+			                        	require main.vn_din4
+			                        	optionarg main.vn_din4
+	                        } 
+	                        
+	                                   
+	         if !main.ed_lbs4.isdefault()  {
+				                optionarg main.ed_lbs4 
+	                                      }
+        }
+END
+
+PROGRAM sector5_output
+BEGIN
+       if has_sector5 {
+                        require main.vn_fr5
+                         optionarg main.vn_sz5
+                        optionarg main.vn_fr5
+       		        
+       		        if !has_frequen  {
+       		                        	
+       		                        	optionarg main.vn_in5
+       		                        	require main.vn_din5
+       		                        	optionarg main.vn_din5
+                               }  
+                                         
+                               
+        if !main.ed_lbs5.isdefault()  {
+       			                optionarg main.ed_lbs5 
+                                             }
+        }
+END
+
+PROGRAM sector6_output
+BEGIN
+       if has_sector6 {
+                        require main.vn_fr6
+                         optionarg main.vn_sz6
+                        optionarg main.vn_fr6
+       		        
+       		        if !has_frequen  {
+       		                        	
+       		                        	optionarg main.vn_in6
+       		                        	require main.vn_din6
+       		                        	optionarg main.vn_din6
+                               }  
+                               
+                               
+                 
+                               
+                if !main.ed_lbs6.isdefault()  {
+       			                optionarg main.ed_lbs6 
+                                             }
+        }
+END
+
+
+
+DIALOG res,  tabtitle("Results")
+  BEGIN
+    GROUPBOX gb1     10     10    300  160,                      ///
+             label("Result options: ")
+   
+    
+    
+    TEXT     sp_txt  20      +25      120	  .,		                /*
+   		*/ label("Number of decimals:")	 
+   		
+    SPINNER  sp_dec    140       @      120	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(3) max(12)				/*
+  		*/ option(dec)
+  		
+    		
+    RADIO    rad_bu1      20    +25     120      .,/*
+ */ first label("Social groups")  onclickon(script rb_1)
+ 
+
+           
+    COMBOBOX  cb_gr      140    @     120      .,                  ///
+                 dropdownlist                                          ///
+                 contents(sgroup)  values(sgroup_val) option(sgroup)     ///
+                 default(qnt) 
+      RADIO    rad_bu2      20    +25     120      .,/*
+ */ last label("Group variable:")    onclickon(script rb_2)          
+                 
+ 	 
+           
+    VARNAME  vn_hg      140    @     120      .,                  ///
+                  option(hgroup)     
+            
+   
+       
+    CHECKBOX  chk_ge      20    +25    200      .,                  ///                                         
+                 default(0) option(bgen)    label("Generate benefit variable(s):") 
+                 
+                 
+     GROUPBOX gb2     10     180    300  140,                      ///
+             label("Displayed results : ")
+    
+       
+    CHECKBOX  chk_tab1      20    +25    200      .,                  ///                                         
+                 default(1) option(dtab1)    label("Share and rate of participation.")   
+    CHECKBOX  chk_tab2      20    +25    200      .,                  ///                                         
+                 default(1) option(dtab2)    label("Average benefits.") 
+    CHECKBOX  chk_tab3      20    +25    200      .,                  ///                                         
+                 default(0) option(dtab3)    label("Proportion of benefits.")              
+                                 
+END
+
+
+LIST sgroup_val
+BEGIN
+        qrt
+        qnt
+        dcl
+END
+
+
+LIST sgroup
+BEGIN
+Quartiles 
+Quintiles
+Deciles
+END
+
+SCRIPT rb_1
+BEGIN
+res.cb_gr.enable
+res.vn_hg.disable
+END
+
+SCRIPT rb_2
+BEGIN
+res.cb_gr.disable
+res.vn_hg.enable
+END
+
+HELP hlp1,   view("help bian")
+RESET res1
+
+
+PROGRAM command
+BEGIN
+        put "bian "
+        require  main.vn_stliv
+        varlist [main.vn_stliv]
+        
+        beginoptions
+                                 
+                                    optionarg res.vn_hg
+        
+         if !res.cb_gr.isdefault() {
+				            optionarg res.cb_gr
+			           }
+				                 
+        
+     
+	if !main.ed_pubser.isdefault() {
+	                                optionarg main.ed_pubser
+	                                }
+	if !main.cb_bi_apr.isdefault() {
+	                                optionarg main.cb_bi_apr
+	                                } 
+	                                
+	
+	                                
+	if !res.chk_ge.isdefault()       {
+					  optionarg res.chk_ge
+	                                 }
+	if !res.chk_tab1.isdefault()     {
+					  optionarg res.chk_tab1
+	                                 }                                 
+	                                 
+        if !res.chk_tab2.isdefault()     {
+				          optionarg res.chk_tab2
+	                                 }      
+	                                 
+	if !res.chk_tab3.isdefault()     {
+					  optionarg res.chk_tab3
+	                                 }
+	                                 
+	                                 
+        put " " /program sector1_output
+        
+        put " " /program sector2_output
+        
+        put " " /program sector3_output
+        
+	put " " /program sector4_output
+	
+	put " " /program sector5_output
+	
+        put " " /program sector6_output
+        
+        endoptions 
+        
+        
+END

@@ -1,0 +1,302 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 3.01)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2026)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/ 
+/* itargetg.dlg                                                          */
+/*************************************************************************/ 
+
+
+VERSION 15.0
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 380
+DEFINE  _dlgwd 890
+INCLUDE header
+
+
+
+DIALOG main, label("DASP 3.0 | Bi-dimensional Poverty & Targeting by Population Groups --> itargetg2d command") tabtitle("Main")
+
+
+BEGIN
+  
+   
+GROUPBOX intvar       10     10    430  120,                      ///
+           label("Variable(s) of interest: ")
+		   
+TEXT txt_prop1    300   +20     90     .,                ///  
+                  label("Poverty lines")      
+TEXT   txt_var1       20    +20     100      .,/*
+ */   label("Dimension 1:")  
+  VARNAME  vl_var 120     @   160   .,                   ///
+           label("Variables 1")
+  EDIT  ed_pline1      300    @     130      .,                  ///
+                  option(pline1)   default(10000)
+           
+  TEXT   txt_var2       20    +25     100      .,/*
+ */   label("Dimension 2:")  
+  VARNAME  v2_var 120     @   160   .,                   ///
+           label("Variables 2")
+		   
+  EDIT  ed_pline2      300    @     130      .,                  ///
+                  option(pline2)   default(10000)		   
+           
+  TEXT     tx_var2      20    +85    100      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      120    @     290      .,                 ///
+           option(hsize)                
+
+
+
+      TEXT   txt_hg       20    +25     100      .,/*
+ */   label("Group variable")  
+ 
+
+           
+    VARNAME  vn_hg      120    @     290      .,                  ///
+                  option(hgroup)   
+
+     
+      
+ 
+
+           
+  GROUPBOX chk_per  450    10  430 240,                         ///
+           label("Options and parameters: ")         ///
+  
+   TEXT txt_al     +10    +25    160      .,                 ///  
+                  label("Parameter alpha:   ")                           
+       
+   EDIT  ed_al    +160    @     250      .,                 ///
+              option(alpha)    default(0)    
+
+    
+    TEXT  tncost     460    +35    160      .,                 ///  
+             label("Normalized by the cost:")                                   ///      
+          
+  
+   COMBOBOX  cb_cnor      +160    @     250      .,                 ///
+            dropdownlist                                          ///
+            default(no) contents(cb_cnor)  values(cb_cnor_val) option(cnor)  
+
+
+    TEXT  tntype    460    +35    160      .,                 ///  
+             label("Targeting type:") 
+
+   COMBOBOX  cb_ttype      +160    @     250      .,                 ///
+            dropdownlist                                          ///
+            default(lump) contents(cb_ttype)  values(cb_ttype_val) option(type) ///
+             onselchangelist(cond_change_c)
+
+
+    TEXT txt_cm    460    130    160      .,                 ///  
+                  label("The constant amount:   ")                           
+       
+    EDIT  ed_cm    +160    @     250      .,                 ///
+              option(constam)    default(1)    
+
+
+   TEXT txt_prop    460    130    160      .,                 ///  
+                  label("The proportion (in %):   ")                           
+       
+    EDIT  ed_prop    +160    @     260      .,                 ///
+              option(prop)    default(1)    
+
+TEXT     sp_txt  460      +45      160    .,                            /*
+                */ label("Level of the test in (%) : ") 
+                
+EDIT  sp_level    +160       @      250    .,                    /*
+                */ label("Confidence level")                            /*
+                */  default(5)                  /*
+                */ option(slevel)
+				
+TEXT     spo_txt  460      +25      160    .,                            /*
+                */ label("Spill over parameter in (%):") 
+                
+EDIT  spo_level   +160       @      250    .,                    /*
+                */ label("SO")                            /*
+                */  default(10)                  /*
+                */ option(so)
+
+  
+   
+END
+
+
+
+
+
+
+LIST cb_cnor
+BEGIN
+  Not normalized
+  Normalized
+END
+
+LIST cb_cnor_val
+BEGIN
+  no
+  yes
+END
+
+
+
+LIST cb_ttype_val
+BEGIN
+  lump
+  prop
+END
+
+LIST cb_ttype
+BEGIN
+  Lump-sum     (constant amount)
+  Proportional  (proportional to income)
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SCRIPT PREINIT
+BEGIN
+        create BOOLEAN has_cond1
+        create BOOLEAN has_cond2  
+        create BOOLEAN has_cond3
+        create BOOLEAN has_cond4        
+END
+
+LIST cond_change_c
+BEGIN
+	script cond3
+	script cond4
+	
+END
+
+
+SCRIPT cond3
+BEGIN
+	has_cond3.settrue
+	has_cond4.setfalse
+	program check_conds_c
+END
+
+SCRIPT cond4
+BEGIN
+	has_cond3.setfalse
+	has_cond4.settrue
+	program check_conds_c
+END
+
+
+
+PROGRAM check_conds_c
+BEGIN
+
+if has_cond3{
+call main.txt_prop.hide
+call main.ed_prop.hide
+call main.txt_cm.show
+call main.ed_cm.show
+}
+
+if has_cond4{
+call main.txt_prop.show
+call main.ed_prop.show
+call main.txt_cm.hide
+call main.ed_cm.hide
+}
+
+END
+
+
+
+
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(9) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      160	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+
+
+END
+
+
+HELP hlp1,   view("help itargetg2d")
+RESET res1
+PROGRAM command
+BEGIN
+	put "itargetg2d "
+	require  main.vl_var
+	varlist [main.vl_var]
+	require  main.v2_var
+	varlist [main.v2_var]
+	beginoptions
+		       
+			optionarg main.ed_al
+            optionarg main.ed_pline1
+			optionarg main.ed_pline2
+			optionarg main.vn_hhs
+			optionarg main.vn_hg
+		
+	
+		
+
+			optionarg main.ed_cm
+			optionarg main.ed_prop
+			optionarg main.sp_level
+			optionarg main.spo_level
+
+
+			if !main.cb_ttype.isdefault()    {
+                                                         optionarg main.cb_ttype
+                                                         } 
+
+		         
+			if !main.cb_cnor.isdefault()    {
+                                                         optionarg main.cb_cnor
+                                                        }   
+
+                 
+			
+
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+                                                        
+		
+		                       
+		 
+		        
+			
+	endoptions
+	
+	
+	
+END

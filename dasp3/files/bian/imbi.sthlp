@@ -1,0 +1,74 @@
+{smcl}
+{* August 2021}{...}
+{hline}
+{hi:DASP 3.0 : Distributive Analysis Stata Package}{right:{bf:PEP}}
+help for {hi:imbi }{right:Dialog box:  {bf:{dialog imbi}}}
+{hline}
+
+{title:Marginal Benefit Incidence Analysis:} 
+
+{p 8 10}{cmd:imbi}  {it:varlist=2}  {cmd:,} 
+[   
+{cmd:WELfare(}{it:varname}{cmd:)} 
+{cmd:HRegion(}{it:string}{cmd:)}
+{cmd:APProach(}{it:int}{cmd:)}
+{cmd:MIN(}{it:real}{cmd:)}
+{cmd:MAX(}{it:real}{cmd:)}
+{cmd:BAND(}{it:real}{cmd:)}
+{cmd:DEC(}{it:int}{cmd:)}
+{cmd:DRR(}{it:int}{cmd:)}
+]
+ 
+
+{p}where {p_end}
+{p 8 8} {cmd:varlist} is a list of variables where the first is used to indicate the household benefit or frequency of use of a given public service and the first to indicate the number of eligible household members. {p_end}
+
+
+{title:Version} 15.0 and higher.
+
+{title:Description}
+
+{cmd:imdi} is designed to estimate the marginal benefit incidence for the five quintile population groups. {p_end}
+
+
+{title:Note}
+
+{p 0 4} Users should set their surveys' sampling design before using this module  (and then save their data files). If the sampling design is not set, simple-random sampling (SRS) will be automatically assigned 
+by default. {p_end} 
+
+
+{title:Options}
+
+{p 0 4} {cmdab:welfare}   Indicator of individual wellbeing, like the per capita income. {p_end}
+
+{p 0 4} {cmdab:hregion}   The spatial unit of analysis. With the cross-section data, we estimate the marginal impact based on observed variability of average benefits across the spatial units (Provinces or States).   {p_end}
+
+{p 0 4} {cmdab:appr}   By default, the Ajwad and Quentin (2002) no linear econometric model is used to estimate the marginal benefit for each of the five quintiles. The other proposed approach (appr(dlle)) is the derivative of the locally linear estimator.   {p_end}
+
+{p 0 4} {cmdab:band}     To indicate the desired bandwidth (by default, an "optimal" bandwidth is used ). {p_end}
+
+{p 0 4} {cmdab:min}    To indicate the minimum range of the X-axis. {p_end}
+ 
+{p 0 4} {cmdab:max}    To indicate the maximum range of the X-axis. {p_end}
+
+{p 0 4} {cmdab:drr}    With option drr(0), results of regressions are not displayed. {p_end}
+
+
+{title:Examples}
+sysuse imbi_data, replace
+imbi u_pri e_pri, welfare( pcexpdr) hregion(state) appr(aq)
+imbi u_pri e_pri, welfare(pcexpdr) hregion(state) min(0.7) max(0.9) band(0.1) appr(dlle) 
+
+{title:Reference(s)}
+
+{p 4 4 2} Ajwad, Mohamed Ishan & Wodon, Quentin (2002), {browse "http://ideas.repec.org/p/pra/mprapa/12309.html":Who Benefits from Increased Access to Public Services at the Local Level? A MBI Analysis for Education and Basic Infrastructure}, MPRA Paper 12309, University Library of Munich, Germany. {p_end} 
+
+
+
+{title:Authors}
+Abdelkrim Araar
+Jean-Yves Duclos
+
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}

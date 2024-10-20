@@ -1,0 +1,30 @@
+* November2009 - 
+v 3
+  DASP          : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   2.1    
+d Date          : November  2009
+d Stata Version : Required  9.2 and higher
+d
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos : jyves@ecn.ulaval.ca
+d
+d ===================================================
+d Before using modules of this package, users have to:
+d
+d  update the executable Stata file  to Stata 9.2   or higher:
+d  http://www.stata.com/support/updates/stata9.html 
+d
+d  update the ado files:                                                          
+d  http://www.stata.com/support/updates/stata9/ado/
+d ===================================================
+d The two follwing sub-packages  must be  installed to run DASP.
+d 
+d ===================================================
+p dasp_p1      Distributive Analysis Stata Package: PART   I
+p dasp_p2      Distributive Analysis Stata Package: PART  II
+p dasp_p3      Distributive Analysis Stata Package: PART III

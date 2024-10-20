@@ -1,0 +1,235 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.2)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2012)         */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/*   imdp_ihi.dlg                                                          */
+/*************************************************************************/
+
+VERSION 9.2
+
+
+
+INCLUDE graph_header
+POSITION . . 760 360
+
+
+DIALOG main, label("DASP| MODA: Multiple Overlapping Deprivation Analysis --> imoda command") tabtitle("Main")
+BEGIN
+  DEFINE col0  20
+  DEFINE col1 120
+  DEFINE col2 210
+  DEFINE col3 330
+  DEFINE col4 450
+  DEFINE col5 570
+  
+  DEFINE colwd0 55
+  DEFINE colwd1 100
+
+  DEFINE _x _xsetbu
+  DEFINE _y _top
+
+
+  
+      
+  
+     
+   
+  
+        
+
+  
+  TEXT     tx_var2      20    50    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+ 
+  TEXT     tx_var4      20    +25    80      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      110    @     250      .,                 ///
+           option(hgroup)   
+
+   TEXT     tx_fr col2         +70      100    .,                ///
+          label("Short name")
+   
+  TEXT     tx_vr col3         @      100    .,                ///
+          label("Variable(s) of interest")
+  
+  
+  TEXT     tx_sz col4          @  colwd1    .,                  ///
+        label("Poverty line(s)")   
+ 
+   
+  
+      
+  TEXT     tx_dim1 col1      +20       60    .,           ///
+        label("Dimension_1") right
+  
+    EDIT   en_sn1     col2     @         colwd1    .,           ///
+        label("")      option(sn1) default()
+  
+   VARNAME  vn_dim1    col3     @         colwd1    .,           ///
+        label("")      
+        
+		    
+   EDIT   en_pl1        col4     @         colwd1    .,           ///
+        label("")      option(pl1) default(10000)
+  
+
+     TEXT     tx_dim2 col1      +20       60    .,           ///
+        label("Dimension_2") right
+  
+    EDIT   en_sn2     col2     @         colwd1    .,           ///
+        label("")      option(sn2) default()
+  
+    VARNAME  vn_dim2    col3     @         colwd1    .,           ///
+        label("")      
+        
+		    
+    EDIT   en_pl2        col4     @         colwd1    .,           ///
+        label("")      option(pl2) default(10000)
+
+   
+    TEXT     tx_dim3 col1      +20       60    .,           ///
+        label("Dimension_3") right
+  
+    EDIT   en_sn3     col2     @         colwd1    .,           ///
+        label("")      option(sn3) default()
+  
+    VARNAME  vn_dim3    col3     @         colwd1    .,           ///
+        label("")      
+        
+		    
+    EDIT   en_pl3        col4     @         colwd1    .,           ///
+        label("")      option(pl3) default(10000)  
+ 
+		
+   DEFINE _x 600
+   DEFINE _y 280
+     
+  INCLUDE _bu_svyset
+
+END
+
+
+
+        
+
+
+
+
+
+DIALOG confop,  tabtitle("Confidence Interval")
+
+BEGIN
+
+
+TEXT     sp_txt  10      25      120      .,                            /*
+                */ label("Confidence level in (%) : ")  
+                
+SPINNER  sp_level    140       25      50         .,                    /*
+                */ label("Confidence level")                            /*
+                */ min(10) default(95) max(99)                          /*
+                */ option(level)
+
+				
+				               
+CHECKBOX   chk_opd     10    +30    150    .,                   ///
+             label("Display standard errors") option(dste) default(0)
+
+
+
+                                        
+
+
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+                                        
+SPINNER  sp_dec    10       25      50    .,                    /*
+                */ label("Decimals")                            /*
+                */ min(0) default(6) max(12)                            /*
+                */ option(dec)
+
+TEXT     sp_txt  70      25      100      .,                            /*
+                */ label("Number of decimals")  
+                
+
+
+END
+
+HELP hlp1,   view("help imoda")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+        put "imoda "
+        
+        
+        require main.vn_dim1
+        varlist [main.vn_dim1]
+        
+     
+       
+        require main.vn_dim2
+        varlist [main.vn_dim2]
+        
+     
+        require main.vn_dim3
+        varlist [main.vn_dim3]
+        
+		
+        beginoptions
+       
+        optionarg main.vn_hhs
+        optionarg main.vn_hhg
+       
+        
+                                                  
+		optionarg main.en_pl1
+		optionarg main.en_pl2
+		optionarg main.en_pl3
+		
+		optionarg main.en_sn1
+		optionarg main.en_sn2
+		optionarg main.en_sn3
+
+                        if !resop.sp_dec.isdefault() {
+                        optionarg resop.sp_dec
+                        }
+                        
+                        if !confop.chk_opd.isdefault() {
+                                                         optionarg confop.chk_opd
+                                                         }
+                     
+        endoptions 
+        
+        
+END

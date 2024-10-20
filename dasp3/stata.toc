@@ -1,0 +1,27 @@
+* Februrary2022 - v3.03
+  DASP 3.0         : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   3.03   
+d Date          : Februrary  2022
+d Stata Version : Required  15.0 and higher
+d
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos : jyves@ecn.ulaval.ca
+d
+d The next follwing sub-packages  must be  installed to run DASP.
+d ===================================================
+p dasp_p1      Distributive Analysis Stata Package: PART   I
+p dasp_p2      Distributive Analysis Stata Package: PART  II
+p dasp_p3      Distributive Analysis Stata Package: PART III
+p dasp_p4      Distributive Analysis Stata Package: PART  IV
+p dasp_p5      Distributive Analysis Stata Package: PART   V
+p dasp_p6      Distributive Analysis Stata Package: PART  VI
+p dasp_data    Distributive Analysis Stata Package: (data examples)
+
+
+
+

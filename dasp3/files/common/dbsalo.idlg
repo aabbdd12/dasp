@@ -1,0 +1,16 @@
+ GROUPBOX chk_per11  10    vposds  880 50,                         ///
+            label("Dialog box inputs: ")           ///
+                   
+    TEXT txt_vname11     20    +20    140      .,                 ///  
+                  label("Load the inputs:   ")                           
+       
+    BUTTON  bu_load    140    @     270      .,                 ///
+    label("Load") onpush("view dialog adaspini") 
+         
+         
+        TEXT  tx_dbsfile     460    @    140      .,                 ///  
+         label("Save the inputs:")                                
+   
+   FILE  dbsamex      +120    @     270      .,                    ///
+    label ("Browse...")    save option("inisave")                   ///
+    filter("MetaFile (*.dasp)*.dasp*.* (*.*)*.*")   

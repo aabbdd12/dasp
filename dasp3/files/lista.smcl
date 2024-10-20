@@ -1,0 +1,513 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\PDATA\dasp3i\files\lista.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}15 Sep 2021, 17:40:56
+{txt}
+{com}. foreach name of local mydlist {c -(};
+{txt}  2{com}. dis "`name'" ;
+{txt}  3{com}. cd "C:/PDATA/dasp3i/files/`name'" ;
+{txt}  4{com}. dir;
+{txt}  5{com}. {c )-};
+{txt}- foreach name of local mydlist {c -(}
+- dis "`name'"
+= dis "auxiliaries"
+auxiliaries
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/auxiliaries"
+{res}C:\PDATA\dasp3i\files\auxiliaries
+{txt}- dir
+  <dir>   9/15/21 11:23  {res}.                 
+{txt}  <dir>   9/15/21 11:23  {res}..                
+{txt}   1.7k   6/11/14  9:44  {res}addDMenu.ado      
+{txt}   5.7k   2/07/07  6:47  {res}dasp_conf_opts.idlg
+{txt}   3.7k   2/07/07  6:48  {res}dasp_dif_line_opts.idlg
+{txt}   1.6k   9/11/21  7:36  {res}dasp_gr_res_opts.idlg
+{txt}   5.6k   2/07/07  6:00  {res}dasp_line_opts1.idlg
+{txt}   7.0k  10/01/13  8:48  {res}graph_header.idlg 
+{txt}   3.1k   3/24/10 13:39  {res}resop.idlg        
+{txt}1782.5k   3/12/07 10:26  {res}wgnuplot.exe      
+{txt}  51.3k   3/15/10 15:16  {res}xml_tab.ado       
+{txt}  51.3k   1/16/13 15:08  {res}xml_taba.ado      
+{txt}   0.3k  11/18/07  5:25  {res}xml_taba_options.txt
+{txt}   0.3k   9/12/21  7:00  {res}xml_tab_options.txt
+{txt}   9.7k   9/15/21 11:23  {res}_daspmenu.ado     
+{txt}   7.5k  11/17/11 12:51  {res}_dasp_dif_table.ado
+{txt}   8.2k  11/30/11  6:32  {res}_dasp_dif_table_ifgt.ado
+{txt}   0.2k   5/27/10 15:54  {res}_nargs.ado        
+{txt}   1.5k   9/12/21  4:02  {res}_stat_inf.idlg    
+{txt}- {c )-}
+- dis "`name'"
+= dis "bian"
+bian
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/bian"
+{res}C:\PDATA\dasp3i\files\bian
+{txt}- dir
+  <dir>   9/14/21  4:51  {res}.                 
+{txt}  <dir>   9/14/21  4:51  {res}..                
+{txt}  14.1k   2/01/19 11:22  {res}bian.ado          
+{txt}  24.2k   9/15/21 11:35  {res}bian.dlg          
+{txt}   5.5k   9/15/21 17:24  {res}bian.sthlp        
+{txt}   5.0k  10/03/19  9:20  {res}imbi.ado          
+{txt}   6.7k   9/15/21 11:35  {res}imbi.dlg          
+{txt}   2.8k   9/15/21 17:24  {res}imbi.sthlp        
+{txt}- {c )-}
+- dis "`name'"
+= dis "common"
+common
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/common"
+{res}C:\PDATA\dasp3i\files\common
+{txt}- dir
+  <dir>   9/14/21  5:25  {res}.                 
+{txt}  <dir>   9/14/21  5:25  {res}..                
+{txt}   0.3k   8/11/21 11:15  {res}adasp2.ado        
+{txt}   0.2k   8/12/21  8:08  {res}adaspini.ado      
+{txt}   0.7k   9/15/21 11:35  {res}adaspini.dlg      
+{txt}   5.0k   9/14/21  5:25  {res}asdbsave_dasp.ado 
+{txt}   5.1k   5/14/21  8:50  {res}asdbsave_difgt.ado
+{txt}   7.6k   8/31/21  7:59  {res}asdbsave_di_dasp.ado
+{txt}   0.8k   9/14/21  5:17  {res}basic1d.idlg      
+{txt}   4.5k   8/16/21 10:38  {res}basic_gini.idlg   
+{txt}   3.7k   8/31/21  7:06  {res}basic_pola.idlg   
+{txt}   3.6k   9/06/21 11:37  {res}basic_pov.idlg    
+{txt}   1.2k   5/10/21 10:34  {res}comon1.idlg       
+{txt}   2.0k   5/10/21 10:20  {res}confop.idlg       
+{txt}   0.2k   5/10/21 11:07  {res}dasp_db_ini.ado   
+{txt}   0.7k   9/15/21 11:35  {res}dasp_db_ini.dlg   
+{txt}  11.7k   8/31/21  8:18  {res}dasp_examples.ado 
+{txt}   0.8k   8/11/21  8:45  {res}dbsalo.idlg       
+{txt}   0.5k   4/13/21  8:26  {res}GetLevels_DB.ado  
+{txt}   0.3k   8/12/21  8:07  {res}Init_DB.ado       
+{txt}   2.7k   9/06/21 10:18  {res}progra.idlg       
+{txt}   2.5k   9/06/21  8:37  {res}prograB.idlg      
+{txt}- {c )-}
+- dis "`name'"
+= dis "data"
+data
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/data"
+{res}C:\PDATA\dasp3i\files\data
+{txt}- dir
+  <dir>   9/15/21 17:32  {res}.                 
+{txt}  <dir>   9/15/21 17:32  {res}..                
+{txt} 296.8k  11/02/06 16:50  {res}bkf94.dta         
+{txt} 297.4k  12/24/06 15:31  {res}bkf94I.dta        
+{txt} 467.2k   8/19/21  9:13  {res}bkf98I.dta        
+{txt}  45.1k   9/15/21  8:05  {res}can6.dta          
+{txt} 347.3k   9/09/21 10:08  {res}China_rur.dta     
+{txt}  82.8k   3/18/07 14:34  {res}coir31fl.dta      
+{txt}  82.8k   4/10/07 12:20  {res}columbia95I.dta   
+{txt} 118.2k   4/10/07 12:20  {res}dominican_republic95I.dta
+{txt} 118.2k   3/18/07 14:35  {res}drir21fl.dta      
+{txt}1059.0k   9/14/21  4:45  {res}imbi_data.dta     
+{txt} 466.6k   8/26/21  7:58  {res}imdi_data.dta     
+{txt}  71.2k   5/23/07 15:05  {res}master_mex.dta    
+{txt}  28.8k   4/10/07 12:56  {res}mex_04_2mI.dta    
+{txt}  30.7k   4/10/07 12:56  {res}mex_92_2mI.dta    
+{txt}  26.8k   4/10/07 12:56  {res}mex_98_2mI.dta    
+{txt}1315.3k   9/08/21 18:18  {res}Namibia_2004.dta  
+{txt}1399.1k   9/03/21  7:12  {res}Nigeria_2004I.dta 
+{txt}  80.4k  11/01/09 18:01  {res}perede94I.dta     
+{txt}  99.9k   4/10/07 12:04  {res}peru94_A_I.dta    
+{txt}  85.4k   5/03/17 10:22  {res}targeting.dta     
+{txt}- {c )-}
+- dis "`name'"
+= dis "decomposition"
+decomposition
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/decomposition"
+{res}C:\PDATA\dasp3i\files\decomposition
+{txt}- dir
+  <dir>   9/15/21 17:32  {res}.                 
+{txt}  <dir>   9/15/21 17:32  {res}..                
+{txt}  24.0k   4/28/20 19:29  {res}dentropyg.ado     
+{txt}   6.4k   9/15/21 11:35  {res}dentropyg.dlg     
+{txt}   2.2k   9/15/21 17:24  {res}dentropyg.sthlp   
+{txt}   9.0k   9/09/21  8:06  {res}dfgtg.ado         
+{txt}   7.1k   9/15/21 11:35  {res}dfgtg.dlg         
+{txt}   2.3k   9/15/21 17:24  {res}dfgtg.sthlp       
+{txt}  30.5k   9/09/21  9:43  {res}dfgtg2d.ado       
+{txt}  11.3k   9/15/21 11:35  {res}dfgtg2d.dlg       
+{txt}   3.5k   9/15/21 17:28  {res}dfgtg2d.sthlp     
+{txt}  24.1k   6/19/19  8:58  {res}dfgtgr.ado        
+{txt}   6.5k   9/15/21 11:35  {res}dfgtgr.dlg        
+{txt}   3.8k   9/15/21 17:28  {res}dfgtgr.sthlp      
+{txt}   9.8k   9/09/21  8:22  {res}dfgts.ado         
+{txt}   6.3k   9/15/21 11:35  {res}dfgts.dlg         
+{txt}   2.0k   9/15/21 17:24  {res}dfgts.sthlp       
+{txt}   6.4k   9/09/21  8:13  {res}dfgtsn.sthlp      
+{txt}  16.0k   9/10/21  7:09  {res}diginig.ado       
+{txt}   6.5k   9/15/21 11:35  {res}diginig.dlg       
+{txt}   2.3k   9/15/21 17:28  {res}diginig.sthlp     
+{txt}   0.4k   9/10/21  9:53  {res}diginis.ado       
+{txt}   9.2k   9/15/21 11:35  {res}diginis.dlg       
+{txt}   3.3k   9/15/21 17:24  {res}diginis.sthlp     
+{txt}  22.3k   9/10/21  9:52  {res}diginisr.ado      
+{txt}   4.2k   5/08/20 14:11  {res}distable.ado      
+{txt}  18.7k   9/09/21 17:13  {res}dmdafg.ado        
+{txt}  18.6k   9/15/21 11:35  {res}dmdafg.dlg        
+{txt}   2.7k   9/15/21 17:28  {res}dmdafg.sthlp      
+{txt}   8.4k   2/01/19 11:22  {res}dmdafs.ado        
+{txt}  40.5k   9/15/21 11:35  {res}dmdafs.dlg        
+{txt}   4.0k   9/15/21 17:24  {res}dmdafs.sthlp      
+{txt}  16.5k   9/11/21  6:02  {res}dpolag.ado        
+{txt}   3.5k   9/15/21 11:35  {res}dpolag.dlg        
+{txt}   2.6k   9/15/21 17:24  {res}dpolag.sthlp      
+{txt}  10.0k   2/01/19 11:22  {res}dpolas.ado        
+{txt}   3.2k   9/15/21 11:35  {res}dpolas.dlg        
+{txt}   2.5k   9/15/21 17:24  {res}dpolas.sthlp      
+{txt}   6.1k   9/10/21  9:41  {res}dsginis.ado       
+{txt}  12.2k   3/26/21 18:14  {res}dsineqg.ado       
+{txt}   5.4k   9/15/21 17:22  {res}dsineqg.dlg       
+{txt}   3.0k   9/15/21 17:24  {res}dsineqg.sthlp     
+{txt}  10.4k   2/01/19 11:22  {res}dsineqs.ado       
+{txt}   5.6k   9/15/21 11:35  {res}dsineqs.dlg       
+{txt}   2.6k   9/15/21 17:24  {res}dsineqs.sthlp     
+{txt}  23.4k   2/01/19 11:22  {res}dtcpov.ado        
+{txt}   6.0k   9/15/21 11:35  {res}dtcpov.dlg        
+{txt}   3.1k   9/15/21 17:24  {res}dtcpov.sthlp      
+{txt}   1.7k   2/01/19 11:22  {res}mk_xtab_m1.ado    
+{txt}  17.1k   9/10/21 15:43  {res}rbdineq.ado       
+{txt}   9.7k   9/15/21 11:35  {res}rbdineq.dlg       
+{txt}   3.6k   9/15/21 17:24  {res}rbdineq.sthlp     
+{txt}   2.8k   2/01/19 11:22  {res}shapar.ado        
+{txt}- {c )-}
+- dis "`name'"
+= dis "dominance"
+dominance
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/dominance"
+{res}C:\PDATA\dasp3i\files\dominance
+{txt}- dir
+  <dir>   9/15/21 17:32  {res}.                 
+{txt}  <dir>   9/15/21 17:32  {res}..                
+{txt}  21.4k   9/09/21  5:13  {res}cdomc.ado         
+{txt}  11.3k   9/15/21 11:35  {res}cdomc.dlg         
+{txt}   5.2k   9/15/21 17:24  {res}cdomc.sthlp       
+{txt}  24.8k   9/09/21  7:40  {res}cdomc2d.ado       
+{txt}  11.5k   9/15/21 11:35  {res}cdomc2d.dlg       
+{txt}   5.2k   9/15/21 17:28  {res}cdomc2d.sthlp     
+{txt}  17.6k   2/01/19 11:22  {res}dombdpov.ado      
+{txt}  21.6k   9/15/21 11:35  {res}dombdpov.dlg      
+{txt}   5.5k   9/15/21 17:24  {res}dombdpov.sthlp    
+{txt}  21.6k   9/15/21 11:35  {res}dombdpovn.dlg     
+{txt}   8.3k   2/01/19 11:22  {res}domineq.ado       
+{txt}  12.8k   9/15/21 11:35  {res}domineq.dlg       
+{txt}   4.0k   9/15/21 17:24  {res}domineq.sthlp     
+{txt}  11.9k   2/10/20  8:23  {res}dompov.ado        
+{txt}   4.7k   9/15/21 11:35  {res}dompov.dlg        
+{txt}   3.6k   9/15/21 17:24  {res}dompov.sthlp      
+{txt}- {c )-}
+- dis "`name'"
+= dis "dtools"
+dtools
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/dtools"
+{res}C:\PDATA\dasp3i\files\dtools
+{txt}- dir
+  <dir>   9/15/21  9:21  {res}.                 
+{txt}  <dir>   9/15/21  9:21  {res}..                
+{txt}  16.3k   9/11/21  7:47  {res}cdensity.ado      
+{txt}   6.9k   9/15/21 11:35  {res}cdensity.dlg      
+{txt}   4.0k   9/15/21 17:24  {res}cdensity.sthlp    
+{txt}   5.5k   9/11/21  7:47  {res}cdf.ado           
+{txt}   3.6k   9/15/21 11:35  {res}cdf.dlg           
+{txt}   3.5k   9/15/21 17:24  {res}cdf.sthlp         
+{txt}   0.5k   9/11/21 18:03  {res}cnpe.ado          
+{txt}  12.3k   9/15/21 11:35  {res}cnpe.dlg          
+{txt}   4.2k   9/15/21 17:24  {res}cnpe.sthlp        
+{txt}  19.2k   9/11/21 17:58  {res}cnpeci.ado        
+{txt}  22.8k   9/11/21 17:58  {res}cnpel.ado         
+{txt}   5.8k   9/11/21  8:03  {res}c_quantile.ado    
+{txt}   5.6k   9/15/21 11:35  {res}c_quantile.dlg    
+{txt}   3.3k   9/15/21 17:24  {res}c_quantile.sthlp  
+{txt}   9.8k   9/12/21  5:04  {res}datest.ado        
+{txt}   4.6k   9/15/21 11:35  {res}datest.dlg        
+{txt}   1.4k   9/15/21 17:28  {res}datest.sthlp      
+{txt}   5.6k   2/01/19 11:22  {res}dimean.ado        
+{txt}   8.2k   9/15/21 11:35  {res}dimean.dlg        
+{txt}   3.4k   9/15/21 17:24  {res}dimean.sthlp      
+{txt}   9.4k   2/01/19 11:22  {res}diprop.ado        
+{txt}  11.8k   9/15/21 11:35  {res}diprop.dlg        
+{txt}   2.5k   9/15/21 17:24  {res}diprop.sthlp      
+{txt}   6.3k   2/01/19 11:22  {res}imean.ado         
+{txt}   3.2k   9/15/21 11:35  {res}imean.dlg         
+{txt}   2.1k   9/15/21 17:24  {res}imean.sthlp       
+{txt}   5.6k   2/01/19 11:22  {res}iprop.ado         
+{txt}   3.1k   9/15/21 11:35  {res}iprop.dlg         
+{txt}   2.0k   9/15/21 17:24  {res}iprop.sthlp       
+{txt}   3.2k   9/11/21  8:16  {res}quinsh.ado        
+{txt}   3.8k   9/15/21 11:35  {res}quinsh.dlg        
+{txt}   2.0k   9/15/21 17:24  {res}quinsh.sthlp      
+{txt}   5.8k   2/01/19 11:22  {res}sjdensity.ado     
+{txt}   8.0k   9/15/21 11:35  {res}sjdensity.dlg     
+{txt}   3.8k   9/15/21 17:24  {res}sjdensity.sthlp   
+{txt}   5.1k   2/01/19 11:22  {res}sjdistrub.ado     
+{txt}   7.0k   9/15/21 11:35  {res}sjdistrub.dlg     
+{txt}- {c )-}
+- dis "`name'"
+= dis "inequality"
+inequality
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/inequality"
+{res}C:\PDATA\dasp3i\files\inequality
+{txt}- dir
+  <dir>   9/15/21 17:31  {res}.                 
+{txt}  <dir>   9/15/21 17:31  {res}..                
+{txt}   1.2k   9/06/21 18:12  {res}clorenz.ado       
+{txt}  11.5k   9/15/21 11:35  {res}clorenz.dlg       
+{txt}   4.6k   9/15/21 17:24  {res}clorenz.sthlp     
+{txt}   8.9k   9/07/21  7:16  {res}clorenzl.ado      
+{txt}  14.1k   9/07/21  9:16  {res}clorenzm.ado      
+{txt}   7.8k   8/16/21 10:15  {res}diatkinson.ado    
+{txt}  16.0k   9/07/21 10:03  {res}diclorenz.ado     
+{txt}  24.1k   9/15/21 11:35  {res}diclorenz.dlg     
+{txt}   4.7k   9/15/21 17:24  {res}diclorenz.sthlp   
+{txt}   6.2k   8/18/21  9:52  {res}dicvar.ado        
+{txt}   8.2k   8/16/21 10:15  {res}dientropy.ado     
+{txt}   6.9k   9/10/21  6:55  {res}digini.ado        
+{txt}   1.6k   8/18/21  9:31  {res}dineq.ado         
+{txt}  17.3k   9/15/21 11:36  {res}dineq.dlg         
+{txt}   7.1k   9/15/21 17:24  {res}dineq.sthlp       
+{txt}   9.5k   8/16/21 10:23  {res}dinineq.ado       
+{txt}   7.7k   8/13/21  7:59  {res}iatkinson.ado     
+{txt}   6.6k   8/13/21  9:18  {res}icvar.ado         
+{txt}   8.1k   8/13/21  7:59  {res}ientropy.ado      
+{txt}   8.1k   9/10/21  6:52  {res}igini.ado         
+{txt}   8.0k   5/02/13  9:53  {res}imdi.ado          
+{txt}  12.4k   9/15/21 11:35  {res}imdi.dlg          
+{txt}   2.7k   9/12/21  8:25  {res}imdi.sthlp        
+{txt}   0.9k   9/15/21  7:54  {res}ineq.ado          
+{txt}  14.4k   9/15/21 11:36  {res}ineq.dlg          
+{txt}   6.0k   9/15/21 17:24  {res}ineq.sthlp        
+{txt}   9.8k   8/13/21  8:00  {res}inineq.ado        
+{txt}- {c )-}
+- dis "`name'"
+= dis "polarization"
+polarization
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/polarization"
+{res}C:\PDATA\dasp3i\files\polarization
+{txt}- dir
+  <dir>   9/13/21  7:53  {res}.                 
+{txt}  <dir>   9/13/21  7:53  {res}..                
+{txt}  11.4k   4/28/10 10:51  {res}ccpol.ado         
+{txt}   0.8k   8/31/21  8:00  {res}dipola.ado        
+{txt}  12.6k   9/15/21 11:36  {res}dipola.dlg        
+{txt}   5.7k   9/15/21 17:24  {res}dipola.sthlp      
+{txt}  12.2k   5/02/12 14:41  {res}dipolar.ado       
+{txt}  12.3k   8/31/21  8:19  {res}dipolder.ado      
+{txt}   8.0k   8/31/21  7:30  {res}dipolfw.ado       
+{txt}  18.5k   8/30/21 11:14  {res}dspol.ado         
+{txt}   7.5k   8/30/21  9:35  {res}ipoegr.ado        
+{txt}   0.7k   8/30/21 10:49  {res}ipola.ado         
+{txt}  13.7k   9/15/21 11:36  {res}ipola.dlg         
+{txt}   6.1k   9/15/21 17:24  {res}ipola.sthlp       
+{txt}  14.7k   8/30/21 11:05  {res}ipolder.ado       
+{txt}   8.9k   8/30/21  9:03  {res}ipolfw.ado        
+{txt}- {c )-}
+- dis "`name'"
+= dis "povelas"
+povelas
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/povelas"
+{res}C:\PDATA\dasp3i\files\povelas
+{txt}- dir
+  <dir>   9/13/21  7:53  {res}.                 
+{txt}  <dir>   9/13/21  7:53  {res}..                
+{txt}  15.5k   2/01/19 11:22  {res}efgtc.ado         
+{txt}   4.4k   9/15/21 11:35  {res}efgtc.dlg         
+{txt}   2.4k   9/15/21 17:28  {res}efgtc.sthlp       
+{txt}  15.1k   2/01/19 11:22  {res}efgtg.ado         
+{txt}   3.8k   9/15/21 11:35  {res}efgtg.dlg         
+{txt}   2.6k   9/15/21 17:24  {res}efgtg.sthlp       
+{txt}   7.8k   2/01/19 11:22  {res}efgtgr.ado        
+{txt}   3.5k   9/15/21 11:35  {res}efgtgr.dlg        
+{txt}   2.4k   9/15/21 17:24  {res}efgtgr.sthlp      
+{txt}  30.2k   9/02/21 10:38  {res}efgtgro.ado       
+{txt}   9.8k   9/15/21 11:35  {res}efgtgro.dlg       
+{txt}   4.8k   9/15/21 17:24  {res}efgtgro.sthlp     
+{txt}  32.0k   9/02/21 10:55  {res}efgtine.ado       
+{txt}   9.8k   9/15/21 11:35  {res}efgtine.dlg       
+{txt}   4.7k   9/15/21 17:28  {res}efgtine.sthlp     
+{txt}  12.4k   2/01/19 11:22  {res}efgtineq.ado      
+{txt}   3.5k   9/15/21 11:35  {res}efgtineq.dlg      
+{txt}   2.4k   9/15/21 17:28  {res}efgtineq.sthlp    
+{txt}- {c )-}
+- dis "`name'"
+= dis "poverty"
+poverty
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/poverty"
+{res}C:\PDATA\dasp3i\files\poverty
+{txt}- dir
+  <dir>   9/15/21 17:31  {res}.                 
+{txt}  <dir>   9/15/21 17:31  {res}..                
+{txt}   0.4k   9/06/21  7:04  {res}cfgt.ado          
+{txt}   9.4k   9/15/21 11:35  {res}cfgt.dlg          
+{txt}   4.2k   9/15/21 17:24  {res}cfgt.sthlp        
+{txt}   5.6k   9/06/21  7:06  {res}cfgtl.ado         
+{txt}   8.0k   9/06/21  7:40  {res}cfgtm.ado         
+{txt}  14.9k   5/29/13  8:56  {res}cfgts2r.ado       
+{txt}   7.5k   9/06/21 12:12  {res}cpoverty.ado      
+{txt}   8.5k   9/15/21 11:35  {res}cpoverty.dlg      
+{txt}   3.5k   9/15/21 17:28  {res}cpoverty.sthlp    
+{txt}  25.0k   8/23/21  7:37  {res}dfgtgr_boot.ado   
+{txt}  10.0k   9/06/21 11:27  {res}dicfgt.ado        
+{txt}  22.5k   9/15/21 11:35  {res}dicfgt.dlg        
+{txt}   4.8k   9/15/21 17:28  {res}dicfgt.sthlp      
+{txt}  18.3k   8/19/21 10:31  {res}difgt.ado         
+{txt}  21.0k   9/15/21 11:35  {res}difgt.dlg         
+{txt}   0.9k   8/19/21 10:30  {res}dipov.ado         
+{txt}  14.3k   9/15/21 11:36  {res}dipov.dlg         
+{txt}   6.4k   9/15/21 17:24  {res}dipov.sthlp       
+{txt}  13.3k   8/09/21  8:26  {res}disst.ado         
+{txt}  15.4k   9/15/21 11:35  {res}disst.dlg         
+{txt}   8.4k   8/09/21  8:25  {res}diwatts.ado       
+{txt}  15.4k   9/15/21 11:35  {res}diwatts.dlg       
+{txt}  12.7k   8/11/21 10:03  {res}ifgt.ado          
+{txt}  24.1k   9/13/21  7:55  {res}imdpov.ado        
+{txt}  48.2k   9/15/21 11:35  {res}imdpov.dlg        
+{txt}  10.6k   9/15/21 17:24  {res}imdpov.sthlp      
+{txt}   0.2k   4/23/13 11:19  {res}imdp_afi.ado      
+{txt}   0.2k   2/01/19 11:22  {res}imdp_bci.ado      
+{txt}   0.2k   4/23/13 11:19  {res}imdp_cmr.ado      
+{txt}   0.2k   4/23/13 11:20  {res}imdp_ewi.ado      
+{txt}   0.2k   4/23/13 11:14  {res}imdp_ihi.ado      
+{txt}   0.2k   4/23/13 11:21  {res}imdp_mfi.ado      
+{txt}   0.2k   4/23/13 11:22  {res}imdp_tsu.ado      
+{txt}   0.2k   4/23/13 11:13  {res}imdp_uhi.ado      
+{txt}  20.9k   8/23/21  7:37  {res}imoda.ado         
+{txt}   6.0k   9/15/21 11:35  {res}imoda.dlg         
+{txt}   3.0k   9/15/21 17:24  {res}imoda.sthlp       
+{txt}   0.6k   8/13/21  8:10  {res}ipov.ado          
+{txt}  14.0k   9/15/21 11:36  {res}ipov.dlg          
+{txt}   5.3k   9/15/21 17:24  {res}ipov.sthlp        
+{txt}   7.9k   8/11/21  9:52  {res}isst.ado          
+{txt}   6.6k   8/11/21  9:52  {res}iwatts.ado        
+{txt}- {c )-}
+- dis "`name'"
+= dis "progressivity"
+progressivity
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/progressivity"
+{res}C:\PDATA\dasp3i\files\progressivity
+{txt}- dir
+  <dir>   9/03/21  9:14  {res}.                 
+{txt}  <dir>   9/03/21  9:14  {res}..                
+{txt}   7.0k   9/03/21  9:11  {res}cprog.ado         
+{txt}   6.7k   9/15/21 11:35  {res}cprog.dlg         
+{txt}   4.2k   9/15/21 17:24  {res}cprog.sthlp       
+{txt}   7.3k   9/03/21  9:12  {res}cprogtb.ado       
+{txt}   6.7k   9/15/21 11:35  {res}cprogtb.dlg       
+{txt}   3.9k   9/15/21 17:24  {res}cprogtb.sthlp     
+{txt}   9.9k   3/26/21 18:14  {res}iprog.ado         
+{txt}   5.4k   9/15/21 11:35  {res}iprog.dlg         
+{txt}   2.4k   9/15/21 17:24  {res}iprog.sthlp       
+{txt}- {c )-}
+- dis "`name'"
+= dis "propoor"
+propoor
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/propoor"
+{res}C:\PDATA\dasp3i\files\propoor
+{txt}- dir
+  <dir>   9/15/21 10:15  {res}.                 
+{txt}  <dir>   9/15/21 10:15  {res}..                
+{txt}   8.6k   2/01/19 11:22  {res}capropoor.ado     
+{txt}   6.2k   9/15/21 10:15  {res}cpropoord.ado     
+{txt}  19.1k   9/15/21 11:35  {res}cpropoord.dlg     
+{txt}   6.3k   9/15/21 17:28  {res}cpropoord.sthlp   
+{txt}  17.3k   8/29/21  8:25  {res}cpropoordi.ado    
+{txt}   5.5k   9/15/21 10:14  {res}cpropoorp.ado     
+{txt}  23.1k   9/15/21 11:35  {res}cpropoorp.dlg     
+{txt}   6.5k   9/15/21 17:28  {res}cpropoorp.sthlp   
+{txt}  16.6k   2/01/19 11:22  {res}crpropoor.ado     
+{txt}   6.1k   9/06/21  9:53  {res}gicur.ado         
+{txt}  18.7k   9/15/21 11:35  {res}gicur.dlg         
+{txt}   4.8k   9/15/21 17:28  {res}gicur.sthlp       
+{txt}  22.0k   9/15/21 11:35  {res}gicur_or.dlg      
+{txt}  22.0k   8/27/21  7:16  {res}ipropoor.ado      
+{txt}   5.3k   9/15/21 11:35  {res}ipropoor.dlg      
+{txt}   5.9k   9/15/21 17:28  {res}ipropoor.sthlp    
+{txt}- {c )-}
+- dis "`name'"
+= dis "target"
+target
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/target"
+{res}C:\PDATA\dasp3i\files\target
+{txt}- dir
+  <dir>   9/13/21  7:53  {res}.                 
+{txt}  <dir>   9/13/21  7:53  {res}..                
+{txt}   0.1k   3/13/17 10:22  {res}example.do        
+{txt}  20.2k   9/01/21  7:12  {res}itargetc.ado      
+{txt}  11.0k   9/15/21 11:35  {res}itargetc.dlg      
+{txt}   4.9k   9/15/21 17:24  {res}itargetc.sthlp    
+{txt}  21.2k   9/01/21  7:07  {res}itargetg.ado      
+{txt}  11.7k   9/15/21 11:35  {res}itargetg.dlg      
+{txt}   5.3k   9/15/21 17:24  {res}itargetg.sthlp    
+{txt}  31.8k   5/03/17 10:20  {res}itargetg2d.ado    
+{txt}   7.2k   9/15/21 11:35  {res}itargetg2d.dlg    
+{txt}   3.0k   9/15/21 17:24  {res}itargetg2d.sthlp  
+{txt}  12.4k   9/02/21  7:43  {res}ogtpr.ado         
+{txt}   5.2k   9/15/21 11:35  {res}ogtpr.dlg         
+{txt}   2.7k   9/15/21 17:24  {res}ogtpr.sthlp       
+{txt}- {c )-}
+- dis "`name'"
+= dis "ungroup"
+ungroup
+- cd "C:/PDATA/dasp3i/files/`name'"
+= cd "C:/PDATA/dasp3i/files/ungroup"
+{res}C:\PDATA\dasp3i\files\ungroup
+{txt}- dir
+  <dir>   9/13/21  7:54  {res}.                 
+{txt}  <dir>   9/13/21  7:54  {res}..                
+{txt}   2.9k   9/12/21  7:29  {res}ungroup.ado       
+{txt}   6.6k   9/15/21 11:35  {res}ungroup.dlg       
+{txt}   3.4k   9/12/21  7:30  {res}ungroup.sthlp     
+{txt}   2.4k   2/01/19 11:22  {res}_cumdis.ado       
+{txt}   3.3k   2/01/19 11:22  {res}_expadj.ado       
+{txt}   2.0k   2/01/19 11:22  {res}_expex.ado        
+{txt}   4.1k   2/01/19 11:22  {res}_inidis.ado       
+{txt}   0.4k   2/01/19 11:22  {res}_sima.ado         
+{txt}- {c )-}
+
+{com}. log close lista;
+{err}log lista not found
+{txt}{search r(111), local:r(111);}
+
+end of do-file
+
+{search r(111), local:r(111);}
+
+{com}. do "C:\Users\aabd\AppData\Local\Temp\STDe3b4_000000.tmp"
+{txt}
+{com}. #delimit ;
+{txt}delimiter now ;
+{com}. set trace on ;
+{txt}
+{com}. local mydlist
+> auxiliaries
+> bian
+> common
+> data
+> decomposition
+> dominance
+> dtools
+> inequality
+> polarization
+> povelas
+> poverty
+> progressivity
+> propoor
+> target
+> ungroup  
+> ;
+{txt}
+{com}. cap log close _all;
+{smcl}
+{com}{sf}{ul off}

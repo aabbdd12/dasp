@@ -1,0 +1,37 @@
+* SEPTEMBER2019 - 
+v 3
+d {bf:SHEXP     : Sharing Household EXPenditures}
+d Version       : Version           0.20   
+d Date          : SEPTEMBER         2019
+d Stata Version : Required  15.0 and higher
+d
+d SHEXP is a product of PEP.
+d
+d Authors : {bf:Abdelkrim Araar(a)}  {bf:Luca Tiberti (b)}  {bf:Olivier Bargain  (c)} 
+d
+d Emails  :  
+d           (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  
+d           (b) {browse "mailto:luca.tiberti@ecn.ulaval.ca":luca.tiberti@ecn.ulaval.ca}
+d           (c) {browse "mailto:olivier.bargain@u-bordeaux.fr":olivier.bargain@u-bordeaux.fr}
+d
+f files/main/asdbsave_shexp.ado
+f files/main/ashexp2.ado       
+f files/main/distable.ado      
+f files/main/graph_header.idlg 
+f files/main/getrpath.ado 
+f files/main/mk_xtab_mc.ado    
+f files/main/shexp.ado         
+f files/main/shexp.dlg         
+f files/main/shexp.sthlp 
+f files/main/ll_shexp.ado
+f files/main/shexp_db_ini.dlg  
+f files/main/shexp_db_ini.ado 
+f files/main/shexp_examples.ado
+f files/main/tsateng.ado       
+f files/main/wrfiles2.ado      
+f files/main/xml_tab.ado       
+f files/main/xml_taba2.ado     
+f files/main/xml_tab_options.txt
+f files/main/getrpath.ado
+
+

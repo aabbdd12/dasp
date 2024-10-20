@@ -1,0 +1,296 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package                           */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-26)            */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+
+
+
+VERSION 15.0
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 380
+DEFINE  _dlgwd 890
+INCLUDE header
+  
+
+
+
+
+DIALOG main, label("DASP 3.0 | Decomposition of total poverty into transient and chronic poverty --> dtcpov command") tabtitle("Main")
+
+
+
+BEGIN
+  GROUPBOX intvar    10     10    430  150,                       ///
+             label("Variable(s) of interest: ")
+             
+
+    TEXT     tx_var23      20    +40    130      .,                 ///
+           label("Welfare components:   ")  			  
+  
+  VARLIST  vl_var +130     @   260   .,                   ///
+             label("list_var")
+                 
+         
+           
+  TEXT     tx_var2      20    +25    130      .,                 ///
+           label("Size  variable:   ")  
+		   
+  VARNAME  vn_hhs      +130    @     260      .,                 ///
+           option(hsize)     
+
+  
+   GROUPBOX intvar2 450     10    430   80,                      ///
+             label("Decomposition approach")
+
+   TEXT    tx_index      460    +25    120      .,                 ///
+           label("Approach: ") 
+
+
+  COMBOBOX cb_appr        +120    @   260   .,               ///
+            dropdownlist contents(cb_app) values(cb_app_val)              ///
+            default(jr)  onselchangelist(appr_change)  option(appr)
+
+  CHECKBOX    cens_appr     580    +25    260      .,                 ///
+           label("Censored incomes")  default(0) 
+
+
+  GROUPBOX chk_per  450    100  430 80,                         ///
+           label("Parameters: ")         ///
+  
+    TEXT txt_al     +10    +25    120      .,                 ///  
+                  label("Parameter alpha:   ")                           
+       
+     EDIT  ed_al    +120    @     260      .,                 ///
+              option(alpha)    default(2)    
+           
+  
+           
+   
+   TEXT txt_pl     460     +25    120      .,                 ///  
+                  label("Poverty line (z):   ")        
+   
+   EDIT    ed_pl   +120    @     260      .,                 ///
+           default(10000) option(pline)	  	             ///
+      
+
+
+
+     CHECKBOX ck_bias  450    200  430 60,		///
+		 label(`"Bias correction"')               ///
+		 groupbox						///
+		 onclickoff(script scripto1)                      ///
+                 onclickon(script scripto2)                    ///
+                 default(0)
+           
+  
+    TEXT     tx_bia  460   +25      120     .,			/*
+		*/ label("Approach:")			/*
+		*/
+
+   COMBOBOX  cb_bia      +120    @     120      .,                  ///
+             dropdownlist                                          ///
+             contents(cb_bi)  values(cb_bi_val) option(cbias)     ///
+             default(anal)    onselchangelist(cond_change)
+             
+             
+   TEXT    ofrep    +130  @   110 ., ///
+           label("# of replications:")  
+           
+   EDIT   nrep      +110  @   40 ., ///
+           default(100) label("pr")   option(nrep)   
+     DEFINE _x 700
+     DEFINE _y 350
+     
+  INCLUDE _bu_svyset
+END
+
+
+SCRIPT scripto1
+BEGIN
+main.tx_bia.disable
+main.cb_bia.disable
+main.ofrep.disable
+main.nrep.disable
+END
+
+SCRIPT scripto2
+BEGIN
+main.tx_bia.enable
+main.cb_bia.enable
+main.ofrep.enable
+main.nrep.enable
+END
+
+
+LIST appr_change
+BEGIN
+        script appr1
+	script appr2	
+END
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2	
+END
+
+
+SCRIPT PREINIT
+BEGIN
+	create BOOLEAN has_cond1
+	create BOOLEAN has_cond2
+        create BOOLEAN has_appr1
+	create BOOLEAN has_appr2	
+END
+
+SCRIPT appr1
+BEGIN
+	has_appr1.settrue
+        has_appr2.setfalse
+	program check_appr
+END
+
+SCRIPT appr2
+BEGIN
+	has_appr1.setfalse
+        has_appr2.settrue
+	program check_appr
+END
+
+
+SCRIPT cond1
+BEGIN
+	has_cond1.settrue
+	has_cond2.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.setfalse
+	has_cond2.settrue
+	program check_conds
+END
+
+
+PROGRAM check_appr
+BEGIN
+if (has_appr1){
+call main.cens_appr.show
+}
+if (has_appr2){
+call main.cens_appr.hide
+}
+END
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1){
+call main.ofrep.hide
+call main.nrep.hide
+
+}
+
+if has_cond2{
+call main.ofrep.show
+call main.nrep.show
+}
+
+END
+
+DIALOG resop,  tabtitle("Results")
+BEGIN					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(3) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      160	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+END
+
+
+LIST cb_app
+BEGIN
+  Jalan and Ravallion     (1998)
+  Duclos, Araar and Giles (2006)
+END
+
+
+LIST cb_app_val
+BEGIN
+  jr
+  dag
+END
+
+
+LIST cb_bi
+BEGIN
+  Analytic
+  Bootstrap
+END
+
+LIST cb_bi_val
+BEGIN
+  anal
+  boot
+END
+
+
+HELP hlp1,   view("help dtcpov")
+RESET res1
+
+
+PROGRAM command
+BEGIN
+	put "dtcpov "
+	require  main.vl_var
+	varlist [main.vl_var]
+	
+	beginoptions  
+	                optionarg main.vn_hhs
+			optionarg main.ed_al
+			optionarg main.ed_pl
+			optionarg main.nrep
+
+			if !main.cb_appr.isdefault() {
+			optionarg main.cb_appr
+			}		
+		
+		       	if !main.ck_bias.isdefault() {
+			optionarg main.cb_bia
+			}
+
+                        if !main.cens_appr.isdefault() {
+			put "cens(yes)"
+			}
+					
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}	       
+
+endoptions
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+

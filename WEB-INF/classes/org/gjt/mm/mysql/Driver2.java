@@ -1,0 +1,16 @@
+package org.gjt.mm.mysql;
+
+import java.sql.SQLException;
+
+/**
+ * Here for backwards compatibility with MM.MySQL
+ */
+
+public class Driver2 extends com.mysql.jdbc.Driver 
+{
+	public Driver2() throws SQLException
+	{
+		super();
+	}
+
+}

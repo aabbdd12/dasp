@@ -1,0 +1,19 @@
+* JUNE2017 - 
+v 3
+d {bf:PEP_Stata_Adds     : PAS Stata modules}
+d Version       : Version       1.00   
+d Date          : June          2017
+d Stata Version : Required  11.0 and higher
+d
+d PAS is a product of the PEP network.
+d
+d Authors : {bf:Abdelkrim Araar(a)} }
+d
+d Emails  :  
+d           (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  
+
+d 
+
+d
+p msat      Post estimation command to estimate the ATE and ATU after the movestaty command
+

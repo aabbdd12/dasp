@@ -1,0 +1,107 @@
+* Februrary2022 - v3.03
+  DASP 3.0         : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   3.03   
+d Date          : Februrary  2022
+d Stata Version : Required  15.0 and higher
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_p1 Distributive Analysis Stata Package: PART I
+
+f files/auxiliaries/adddmenu.ado
+f files/auxiliaries/dasp_conf_opts.idlg
+f files/auxiliaries/dasp_dif_line_opts.idlg
+f files/auxiliaries/dasp_gr_res_opts.idlg
+f files/auxiliaries/dasp_line_opts1.idlg
+f files/auxiliaries/graph_header.idlg
+f files/auxiliaries/resop.idlg
+f files/auxiliaries/wgnuplot.exe
+f files/auxiliaries/xml_tab.ado
+f files/auxiliaries/xml_taba.ado
+f files/auxiliaries/xml_taba_options.txt
+f files/auxiliaries/xml_tab_options.txt
+f files/auxiliaries/_daspmenu.ado
+f files/auxiliaries/_dasp_dif_table.ado
+f files/auxiliaries/_dasp_dif_table_ifgt.ado
+f files/auxiliaries/_nargs.ado
+f files/auxiliaries/_stat_inf.idlg
+f files/auxiliaries/dasp.dlg
+f files/auxiliaries/_dasp_vers.ado
+f files/auxiliaries/_dasp_inst.ado
+f files/auxiliaries/adddmenu.ado
+
+
+
+
+
+
+f files/bian/bian.ado
+f files/bian/bian.dlg
+f files/bian/bian.sthlp
+f files/bian/imbi.ado
+f files/bian/imbi.dlg
+f files/bian/imbi.sthlp
+
+
+f files/common/adasp2.ado
+f files/common/adaspini.ado
+f files/common/adaspini.dlg
+f files/common/asdbsave_dasp.ado
+f files/common/asdbsave_difgt.ado
+f files/common/asdbsave_di_dasp.ado
+f files/common/basic1d.idlg
+f files/common/basic_gini.idlg
+f files/common/basic_pola.idlg
+f files/common/basic_pov.idlg
+f files/common/comon1.idlg
+f files/common/confop.idlg
+f files/common/dasp_db_ini.ado
+f files/common/dasp_db_ini.dlg
+f files/common/dasp_examples.ado
+f files/common/dbsalo.idlg
+f files/common/GetLevels_DB.ado
+f files/common/Init_DB.ado
+f files/common/mk_xls.ado
+f files/common/progra.idlg
+f files/common/prograB.idlg
+f files/common/mk_xls_m1.ado     
+f files/common/mk_xls_m1_2d.ado  
+f files/common/mk_xls_m1_pl.ado  
+f files/common/tabstr.ado        
+f files/common/_dis_dasp_table.ado
+f files/common/_dis_dasp_table_2d.ado
+f files/common/_dis_dasp_table_pl.ado
+f files/common/DASP.sthlp
+f files/common/add_data_examples.ado
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

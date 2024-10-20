@@ -1,0 +1,732 @@
+
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package                           */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-26)            */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/* module  : dombdpov.dlg                                                 */
+/*************************************************************************/
+
+VERSION 15
+SYNCHRONOUS_ONLY
+
+
+POSITION . . 900 420
+
+  DEFINE col10  10
+  DEFINE line10  10
+   
+  DEFINE col11  20
+  DEFINE col20  450
+  DEFINE vposds 340
+  
+
+
+DIALOG main, label("DASP 3.0 | Difference between multiplicative FGT indices --> dombipov command") tabtitle("Main")
+
+
+BEGIN
+  
+  GROUPBOX intvar       col10     line10    430  160,                      ///
+           label("Distribution 1: ")
+           
+  COMBOBOX  fi_d1        col11   +25     120      .,                  ///
+            contents(dt_src)  values(dt_src_val)  dropdownlist                         ///
+            onselchange(program data_change1)  default(1)         
+                     
+           
+  FILE  file_d1      150    @     280      .,                 ///
+    label ("Browse...")    save option(file1)                      ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*) onchange(program getLevels)
+    
+
+  
+  TEXT     tx_var11      20    +25    150      .,                 ///
+             label("Dimension_1:   ")  
+  
+  
+   
+  COMBOBOX  en_y_d11     150    @     280        .,      ///
+        dropdown contents(levels) 
+           
+  
+  VARNAME  vn_y_d11      150    @     280      .,                 ///
+  option(wel1)
+  
+   
+  TEXT     tx_var12      20    +25    150      .,                 ///
+             label("Dimension_2:   ")  
+  
+  
+   
+  COMBOBOX  en_y_d12     150    @     280        .,      ///
+        dropdown contents(levels) 
+           
+  
+  VARNAME  vn_y_d12      150    @     280      .,                 ///
+  option(wel1)
+
+  
+
+  
+    
+
+
+           
+  TEXT     tx_var2      20    +25    150      .,                 ///
+           label("Size  variable:   ")  
+  
+  COMBOBOX  en_hhs_d1   150    @     280        .,      ///
+        dropdown contents(levels)  option(hsize1)  
+           
+ 
+  VARNAME  vn_hhs_d1      150    @     280      .,                 ////
+           option(hsize1) 
+
+
+           
+  CHECKBOX    chk_cd1     20    +25    120      .,                 ///  
+             label("Condition(s)    ")                            ///
+             onclickon(program cd1_on)                             ///
+             onclickoff(program cd1_off)  default(0)     
+             
+  
+ EDIT     ed_d1c1        150    @    280      .,               ///  
+  option(cond1)
+ 
+ 
+ 
+ 
+ 
+ GROUPBOX intvar2 460     line10    430  160,                      ///
+            label("Distribution 2: ")
+            
+   
+
+               
+               
+  COMBOBOX  fi_d2        470   +25     120      .,              ///
+            contents(dt_src)  values(dt_src_val) dropdownlist                ///
+            onselchange(program data_change2)  default(1)              
+                        
+              
+    FILE  file_d2      600    @     280      .,      onchange(program getLevels2)           ///
+    label ("Browse...")    option(file2)                        ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*)
+    
+   TEXT     tx_var31      470    +25    150      .,                 ///
+              label("Dimension_1:   ")  
+   
+   
+   COMBOBOX      en_y_d21      600    @     280      .,       ///                      
+   dropdown contents(levels2)          
+        
+                
+   VARNAME  vn_y_d21      600    @     280      .,      ///
+  option(wel2)
+  
+      
+   TEXT     tx_var32      470    +25    150      .,                 ///
+              label("Dimension_2:   ")  
+   
+   
+   COMBOBOX      en_y_d22      600    @     280      .,       ///                      
+   dropdown contents(levels2)          
+        
+                
+   VARNAME  vn_y_d22      600    @     280      .,      ///
+  option(wel2)
+
+
+   
+            
+   TEXT     tx_var4      470    +25    150      .,                 ///
+            label("Size  variable:   ")  
+                        
+   COMBOBOX     en_hhs_d2      600    @     280      .,                 ///
+            option(hsize2)      dropdown contents(levels2) 
+        
+                
+   VARNAME  vn_hhs_d2      600    @     280      .,                 ///
+            option(hsize2) 
+            
+             
+
+       CHECKBOX    chk_cd2     470    +25    120      .,                 ///  
+              label("Condition(s)    ")                            ///
+              onclickon(program cd2_on)                             ///
+              onclickoff(program cd2_off)  default(0)     
+              
+
+   
+  EDIT     ed_d2c1        600    @    280      .,               ///     
+   option(cond2)
+            
+     
+            
+
+     
+   GROUPBOX chk_per  50    220  760 170,                         ///
+           label("Parameters: ")         ///
+  
+     
+           
+   TEXT    tx_min   190    +25    80      .,                    ///
+           label("Minimum:   ")                                 ///
+                
+   TEXT    tx_max   280    @   80      .,                 ///
+           label("Maximum:   ") 
+          
+   TEXT    tx_par   370    @    80      .,                    ///
+           label("# of partitions:   ")                                 ///                     
+
+   TEXT    tx_alp   470    @    100      .,                    ///
+           label("Paremeter alpha(*)") 
+
+   TEXT    tx_lab   590    @    150      .,                    ///
+           label("Graph labels") 
+   
+   TEXT txt_pl1     70     +20    120      .,                 ///  
+                  label("Range Dimension_1:   ")        
+   
+   EDIT    ed_min1   190    @     80      .,                 ///
+           default(0) option(min1)                           
+                
+   EDIT    ed_max1   280    @      80      .,                 ///
+           default(10000) option(max1)  
+           
+   EDIT    ed_par1   370    @      80      .,                 ///
+           default(20) option(par1)    
+
+  EDIT     ed_alp1      470    @     100      .,               ///
+           option(alpha1) default(0) 
+
+  EDIT     ed_lab1      590    @     200      .,               ///
+           option(lab1) default() 
+           
+           
+  TEXT txt_pl2     70     +25    120      .,                 ///  
+                  label("Range Dimension_2:  ")        
+   
+   EDIT    ed_min2   190    @     80      .,                 ///
+           default(0) option(min2)                           
+                
+   EDIT    ed_max2   280    @      80      .,                 ///
+           default(10000) option(max2)  
+           
+  EDIT    ed_par2   370    @      80      .,                 ///
+           default(20) option(par2)             
+  
+ EDIT     ed_alp2      470    @     100      .,               ///
+           option(alpha2) default(0)    
+
+ 
+  EDIT     ed_lab2      590    @     200      .,               ///
+           option(lab2) default()      
+
+  TEXT    tx_tit   70    +35    80      .,                    ///
+           label("Graph title   ")                              ///
+                
+  EDIT     ed_tit      190    @     340      .,               ///
+           option(title) default()   
+
+  
+
+   TEXT    tx_rm1   70    +25    630     .,                    ///
+      label("*: The link between the parameter alpha and the order of dominance s is: s = alpha +1 ") 
+            
+END
+
+
+
+
+LIST dt_src
+BEGIN
+  Data in memory
+  Data in file
+END
+
+LIST dt_src_val
+BEGIN
+  1
+  2
+END
+
+
+PROGRAM data_change1
+BEGIN
+        
+if   main.fi_d1.isdefault()  {
+                               call main.file_d1.hide
+                               call main.vn_y_d11.show
+							   call main.vn_y_d12.show
+							   
+							   
+                               call main.vn_hhs_d1.show
+
+							   
+                               call main.en_y_d11.hide
+							   call main.en_y_d12.hide
+                               call main.en_hhs_d1.hide
+
+                               
+                               
+                              }
+							  
+if  !main.fi_d1.isdefault()  {
+                              call main.file_d1.show
+							  
+                                call main.vn_y_d11.hide
+							   call main.vn_y_d12.hide
+                               call main.vn_hhs_d1.hide  
+
+														   
+                                call main.en_y_d11.show
+							   call main.en_y_d12.show
+                               call main.en_hhs_d1.show
+
+
+                              }
+							  
+END
+
+PROGRAM data_change2
+BEGIN
+        
+
+if   main.fi_d2.isdefault()  {
+                               call main.file_d2.hide
+							   
+                               call main.vn_y_d21.show
+							   call main.vn_y_d22.show
+                               call main.vn_hhs_d2.show
+							
+							   
+                               call main.en_y_d21.hide
+							   call main.en_y_d22.hide
+                               call main.en_hhs_d2.hide
+							
+                               
+                               
+                              }
+if  !main.fi_d2.isdefault()  {
+                              call main.file_d2.show
+							  
+                              call main.vn_hhs_d2.hide
+                               call main.vn_y_d21.hide
+							   call main.vn_y_d22.hide
+						
+                              
+                               call main.en_y_d21.show
+							   call main.en_y_d22.show
+                              call main.en_hhs_d2.show
+						
+                              }         
+END
+
+
+
+PROGRAM cd1_on
+BEGIN
+        
+
+                call main.ed_d1c1.enable
+
+
+END
+
+PROGRAM cd1_off
+BEGIN
+        
+                call main.ed_d1c1.disable
+
+                
+END
+
+
+PROGRAM cd2_on
+BEGIN
+        
+
+                call main.ed_d2c1.enable         
+
+END
+
+PROGRAM cd2_off
+BEGIN
+        
+ call main.ed_d2c1.disable
+END
+
+
+
+LIST variables
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END
+
+LIST levels
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END
+
+LIST levels2
+BEGIN
+	// intentionally empty
+	// this list will be populated by d1_work.ado
+END
+
+
+LIST cb_nor_val
+BEGIN
+  nor
+  not
+END
+
+
+
+PROGRAM getLevels
+BEGIN
+        if main.file_d1 & isLoading1 {
+                put "GetLevels_DB " main.file_d1 " , mia(en_y_d11 en_y_d12   en_hhs_d1) ndb(dombdpovn)"
+                stata hidden
+        }
+END
+
+PROGRAM getLevels2
+BEGIN
+        if main.file_d2 & isLoading2 {
+                put "GetLevels_DB " main.file_d2 " , mia(en_y_d21 en_y_d22  en_hhs_d2) ndb(dombdpovn)"
+                stata hidden
+        }
+END
+
+
+
+
+
+
+SCRIPT PREINIT
+BEGIN
+               create BOOLEAN has_cd1
+        create BOOLEAN has_cd2
+        create BOOLEAN has_cd3
+        create BOOLEAN has_cond11
+        create BOOLEAN has_cond12
+        create BOOLEAN has_cond13
+       create BOOLEAN has_cond21
+        create BOOLEAN has_cond22
+        create BOOLEAN has_cond23
+        create BOOLEAN has_cond1
+        create BOOLEAN has_cond2
+        create BOOLEAN has_cond3
+        create BOOLEAN has_cond4        
+                    create BOOLEAN isLoading1
+             isLoading1.settrue
+            create BOOLEAN isLoading2
+             isLoading2.settrue
+            program initialize
+END
+
+
+
+SCRIPT POSTINIT
+BEGIN
+        .isLoading1.settrue
+        .isLoading2.settrue
+        program getLevels
+        program getLevels2
+END
+
+
+
+
+
+
+
+DIALOG res,  tabtitle("Graphical Results")
+  BEGIN
+
+    GROUPBOX gbop 10     10    360  140,                      ///
+             label("Graphical options: ")
+             
+    CHECKBOX   gra_op1        20    +25    150    .,                   ///
+             label("Draw the difference")  default(1)
+    CHECKBOX   gra_op2        20    +25    150    .,                   ///
+             label("Draw the lower bound")   
+    CHECKBOX   gra_op3        20    +25    150    .,                   ///
+             label("Draw the upper bound") 
+			 
+    
+	TEXT   txt_tgr        20    +25    80    .,                   ///
+             label("Type of graph") 
+	COMBOBOX cb_tgra        100    @   150      .,                 ///
+           contents(cb_tgr) values(cb_tgr_val)   dropdownlist 	 ///
+		   default(1) option(tgr)
+  
+    GROUPBOX gb1 10     +60    360  240,                      ///
+             label("Coordinates: ")
+             
+    CHECKBOX   chk_op1        20    +25    60    .,                   ///
+             label("List:")      
+             
+   TEXT  txt0     80    +35    280      .,                 ///  
+                   label("To save coordinates in Stata format") 
+                   
+   TEXT  txt1     20    +20    40      .,                 ///  
+               label("Save:")                                 
+    
+    FILE  fnamec      80    @     280      .,                 ///
+    label ("Browse...")    save option(sres)  
+    
+    
+    TEXT  txt2     80    +35    280      .,                 ///  
+                   label("To save coordinates in GnuPolt-ASCII format")   
+    
+    TEXT  txt3     20    +20    40      .,                 ///  
+                   label("Save:")                                 
+        
+    FILE  fnamecg      80    @     280      .,                 ///
+    label ("Browse...")    save option(sresg)                  ///
+    filter("DAT (*.dat)|*.dat|TXT (*.txt)|*.txt")
+
+    TEXT  txt4     20    +35    280      .,                 ///  
+                   label("To save graph in *.emf/gif format (for World doc.)")   
+    
+    TEXT  txt5     20    +20    180      .,                 ///  
+                   label("Name of file (without extension)")                                 
+        
+    EDIT  fnamemf      190    @     160      .,                 ///
+    label ("")   option(sgemf)                  
+
+    
+    
+    
+    
+END
+
+LIST yes_no
+BEGIN
+  yes
+  no
+END
+
+
+
+
+
+LIST cb_tgr
+BEGIN
+  Surface 3D
+  MapView 2D
+END
+
+
+
+
+LIST cb_tgr_val
+BEGIN
+  1
+  2
+END
+
+
+
+
+DIALOG confop,  tabtitle("Confidence interval")
+
+BEGIN
+
+
+TEXT     sp_txt  10      25      120      .,                            /*
+                */ label("Confidence level in (%) : ")  
+                
+SPINNER  sp_level    140       25      50         .,                    /*
+                */ label("Confidence level")                            /*
+                */ min(10) default(95) max(99)                          /*
+                */ option(level)
+TEXT     ci_txt  10      +25      120     .,                            /*
+                */ label("Confidence interval      : ") 
+                
+COMBOBOX cb_ci       140    @   200      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)  onselchangelist(cd_change)         
+
+                                        
+
+END
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+
+
+/* Common opts for area, bar, spike, and dropline */
+
+
+
+
+
+HELP hlp1,   view("help dombdpov")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+
+PROGRAM command
+BEGIN
+        put "dombdpov "
+
+if main.fi_d1.isdefault() {     
+        require  main.vn_y_d11
+        varlist  main.vn_y_d11
+        require  main.vn_y_d12
+        varlist  main.vn_y_d12
+        }
+if !main.fi_d1.isdefault() {
+        require  main.en_y_d11
+        varlist  main.en_y_d11
+        require  main.en_y_d12
+        varlist  main.en_y_d12
+        }
+        
+if main.fi_d2.isdefault() {     
+        require  main.vn_y_d21
+        varlist  main.vn_y_d21
+        require  main.vn_y_d22
+        varlist  main.vn_y_d22
+        }
+if !main.fi_d2.isdefault() {
+        require  main.en_y_d21
+        varlist  main.en_y_d21
+        require  main.en_y_d22
+        varlist  main.en_y_d22
+        }                               
+
+beginoptions
+                        
+                        optionarg main.ed_alp1
+                        optionarg main.ed_alp2
+                        
+                        
+                        
+                        if !main.ed_min1.isdefault() {
+                        optionarg main.ed_min1
+                         }
+                        
+                        if !main.ed_max1.isdefault() {
+                        optionarg main.ed_max1
+                        }
+                        if !main.ed_par1.isdefault() {
+                        optionarg main.ed_par1
+                        }
+                        if !main.ed_min2.isdefault() {
+                        optionarg main.ed_min2
+                        }
+                        if !main.ed_max2.isdefault() {
+                        optionarg main.ed_max2
+                        }
+                        if !main.ed_par2.isdefault() {
+                        optionarg main.ed_par2
+                        }
+                        
+                        optionarg main.file_d1
+                        optionarg main.vn_hhs_d1
+                        optionarg main.en_hhs_d1
+                        optionarg main.ed_lab1
+                        optionarg main.ed_lab2
+                        optionarg main.ed_tit
+                        if !main.chk_cd1.isdefault() {
+                        put " cond1("
+                        put main.vn_d1c1
+                        put main.cb_d1c1
+                        put main.ed_d1c1
+                        put " "
+                        put main.cb_d1aoc2
+                        put " "
+                        put main.vn_d1c2
+                        put main.cb_d1c2
+                        put main.ed_d1c2
+                        put ") "
+                        }
+                        
+                        optionarg main.file_d2
+                        optionarg main.vn_hhs_d2
+                        optionarg main.en_hhs_d2
+                        if !main.chk_cd2.isdefault() {
+                        put " cond2("
+                        put main.vn_d2c1
+                        put main.cb_d2c1
+                        put main.ed_d2c1
+                        put " "
+                        put main.cb_d2aoc2
+                        put " "
+                        put main.vn_d2c2
+                        put main.cb_d2c2
+                        put main.ed_d2c2
+                        put ") "
+                        }                               
+                        
+                        optionarg res.fnamec
+                        optionarg res.fnamecg
+                        optionarg res.fnamemf
+                      
+                        if !confop.sp_level.isdefault() {
+                                                         optionarg confop.sp_level
+                                                        }
+                         
+
+                        if res.chk_op1 {
+                                                                        
+                                                                        put " lres("
+                                                                        put res.chk_op1
+                                                                        put ")"
+                                       }
+
+		        if !res.gra_op1 {
+                                                                        
+                                                                        put " dif("
+                                                                        put res.gra_op1
+                                                                        put ")"
+                                       }
+		        if res.gra_op2 {
+                                                                        
+                                                                        put " lb("
+                                                                        put res.gra_op2
+                                                                        put ")"
+                                       }
+		        if res.gra_op3 {
+                                                                        
+                                                                        put " ub("
+                                                                        put res.gra_op3
+                                                                        put ")"
+                                       }
+			    if !res.cb_tgra.isdefault()    {
+                                                         optionarg res.cb_tgra
+                                                        } 						   
+                        if !confop.cb_ci.isdefault()    {
+                                                         optionarg confop.cb_ci
+                                                        } 
+endoptions      
+        
+END

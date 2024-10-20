@@ -1,0 +1,185 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+
+VERSION 9.2
+ 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 300
+
+
+DIALOG main, label("DASP| Gini & Concentration indices --> igini command") tabtitle("Main")
+
+
+BEGIN
+  GROUPBOX intvar 10     10    360  80,                      ///
+             label("Variable(s) of interest: ")
+             
+    VARLIST  vl_var 20     +25   340   .,                   ///
+             label("Variables")
+             
+             
+    CHECKBOX chk_var0     20    +25    100      .,                 ///  
+               label("Ranking variable:   ")                       ///      
+    onclickon(main.vn_rank.enable)                                 ///
+    onclickoff(main.vn_rank.disable)           
+    
+    VARNAME  vn_rank      140    @     220      .,                 ///
+           option(rank)            
+           
+           
+  TEXT     tx_var2      20    120    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+  TEXT     tx_var4      20    +25    80      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      110    @     250      .,                 ///
+           option(hgroup)            
+
+  GROUPBOX intvar2 390     10    360   60,                      ///
+             label("Options")
+
+   TEXT    tx_gin       400    +25    80      .,                            ///
+           label("Index") 
+
+
+   COMBOBOX cb_gin        500    @   200   .,                              ///
+            dropdownlist contents(cb_gin) values(cb_gin_val)               ///
+             default(nor)     option(type)          
+           
+  
+           
+   DEFINE _x 20
+   DEFINE _y 240
+     
+  INCLUDE _bu_svyset
+END
+
+
+LIST cb_gin
+BEGIN
+  Gini Index
+  Absolute Gini Index
+END
+
+
+LIST cb_gin_val
+BEGIN
+  nor
+  abs
+END
+
+DIALOG confop,  tabtitle("Confidence Interval")
+
+BEGIN
+
+
+TEXT     sp_txt  10      25      120	  .,		                /*
+   		*/ label("Confidence level in (%) : ")	
+   		
+SPINNER  sp_level    140       25      50	  .,		        /*
+   		*/ label("Confidence level")				/*
+   		*/ min(10) default(95) max(99)				/*
+  		*/ option(level)
+TEXT     ci_txt  10      +25      120	  .,		                /*
+   		*/ label("Confidence interval      : ")	
+   		
+COMBOBOX cb_ci       140    @   200      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)		
+
+					
+
+
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+
+
+END
+
+
+
+
+
+
+HELP hlp1,   view("help igini")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "igini "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+		       
+			optionarg main.vn_rank
+			
+			
+			optionarg main.vn_hhs
+			optionarg main.vn_hhg	
+			
+			
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+			
+			if !confop.sp_level.isdefault() {
+					                 optionarg confop.sp_level
+							 }
+				                 
+			if !confop.cb_ci.isdefault()    {
+					                 optionarg confop.cb_ci
+				                        } 
+			
+		      	if !main.cb_gin.isdefault() {
+			optionarg main.cb_gin
+			}	
+			       
+	endoptions
+	
+	
+	
+END

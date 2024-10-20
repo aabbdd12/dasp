@@ -1,0 +1,115 @@
+
+*PART I: Learning Stata : Ansewrs
+
+#delim cr
+  
+*Exercise 1:  
+
+/* 1 */
+use data\Nigeria_04I.dta, clear 
+count 
+
+/* 2 */
+bysort strata : count 
+tab strata
+ 
+/* 3 */
+tabstat sweight, statistics( sum ) by(strata) columns(variables) format(%10.2g)
+
+/* 4 */
+cap drop fw
+gen fw = sweight*hsize
+tabstat fw, statistics( sum ) by(strata) columns(variables) format(%10.2g)
+
+/* 5 */
+svy: tabulate sector zone, tab(hsize) format(%10.4f)
+
+/* 6 */ 
+sum pcexp 
+
+/* 7 */
+sum pcexp  [aweight = fw] 
+
+/* 8 */
+mean pcexp  [aweight = fw] 
+
+/* 9 */
+cap drop spcexp ;
+gen spcexp  = hsize*pcexp 
+svy: ratio spcexp/hsize
+
+/* 10 */
+by sex, sort : summarize pcexp  [aweight = fw], detail
+
+/* 11 */
+bysort zone: tabstat pcexp  [aweight = fw], stats(mean)  
+table  zone [aweight = fw], contents(mean pcexp)  
+
+/* 12 */
+table  zone sector [aweight = fw], contents(mean pcexp)
+
+* Exercise 2:  
+#delimit ;
+use 		data\Uganda_99I.dta, clear	;
+/* 01 */
+use data/Uganda_92I.dta, clear;
+keep hh psu strata urban region hsize sweight welfare;
+gen year = 1992;
+save data/temp,replace;
+use data/Uganda_99I.dta, clear;
+keep hh psu strata urban region hsize sweight welfare;
+gen year = 1999;
+append using data/temp;
+
+/* 02 */
+tab year;
+
+
+
+* Exercise 3:  
+
+use 		data\Uganda_f1, replace 							
+merge using data\Uganda_f2 			 					
+tab _merge 											
+clear 
+use 		data\Uganda_f1  							
+merge 	hh using Data\Uganda_f2, unique sort				
+tab 		_merge 									
+drop 		_merge 									
+save 		data\Uganda_m99, replace 						
+
+
+
+* Exercise 4: 
+
+use data\hhexp_94, clear 
+/* 1 */
+expand size 
+
+/* 2 */
+sort hhid, stable 
+
+/* 3 */
+bysort hhid: gen indv_id = _n  
+
+
+/* 4 */
+gen hh_inc = pc_exp*size 
+
+/* 5 */
+gen     indv_inc = hh_inc      if size == 1 
+replace indv_inc = 0.6*hh_inc  if size >= 2 &  indv_id == 1 
+replace indv_inc = 0.4*hh_inc  if              indv_id == 2 
+replace indv_inc = 0           if              indv_id  > 2 
+
+ /* 6 */
+bysort hhid: egen chk_inc = total(indv_inc) 
+gen x = chk_inc - hh_inc 
+sum chk_inc hh_inc x
+
+/* 7 */
+keep hhid indv_id indv_inc  
+save data\indv_inc_94, replace 
+
+
+

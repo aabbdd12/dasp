@@ -1,0 +1,79 @@
+* NOVEMBER2018 - 
+v 3
+d {bf:WELCOM   : WELfare and COMpetition}
+d Version       : Version       2.20   
+d Date          : November      2018
+d Stata Version : Required   11.0 and higher
+d
+d WELCOM is a product of the World Bank.
+d
+d Authors : {bf:Abdelkrim Araar(a)}  {bf:Eduardo Malasquez (b)} {bf:Sergio Olivieri(c)}  {bf:Carlos Rodriguez-Castelan (d)} 
+d
+d Emails  :  
+d           (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  
+d           (b) {browse "mailto:emalasquez@worldbank.org":emalasquez@worldbank.org}
+d           (c) {browse "mailto:solivieri@worldbank.org":solivieri@worldbank.org}   
+d           (d) {browse "mailto:crodriguezc@worldbank.org":crodriguezc@worldbank.org}
+d 
+d Website : {browse "http://dasp.ecn.ulaval.ca/welcom/mi/":http://dasp.ecn.ulaval.ca/welcom/mi/}
+d
+
+f files/main/mcwel.dlg         
+f files/main/mcwel.sthlp       
+f files/main/mcwell_ini_mcw.ado
+f files/main/mcwell_ini_mcw.dlg
+f files/main/mcwel_example     
+f files/main/mcwel_example.mcw 
+f files/main/migropt.ado       
+f files/main/mijobgr1.ado      
+f files/main/mijobgr2.ado      
+f files/main/mijobgr3.ado      
+f files/main/welcom.dlg         
+f files/main/mi_gr_options.idlg
+f files/main/mk_xtab_mc.ado    
+f files/main/mk_xtab_ms.ado    
+f files/main/tabtitmc.ado      
+f files/main/tb_options_mc.idlg
+f files/main/xml_tab.ado
+f files/main/xml_tabas.ado
+f files/main/xml_taba2.ado
+f files/main/nargs.ado
+f files/main/basicstats.ado
+f files/main/aggrvar.ado
+f files/main/_nargs.ado
+f files/main/_welcom_vers.ado
+f files/main/_welcom_inst.ado
+f files/main/_welcom_menu.ado
+f files/main/_welcom_vers.ado 
+f files/main/graph_header.idlg
+f files/main/aduvm2.ado
+f files/main/aeasi2.ado
+f files/main/asdbsave_duvm.ado
+f files/main/asdbsave_easi.ado
+f files/main/asdbsave_wquaids.ado
+f files/main/awquaids2.ado
+f files/main/duvm.ado
+f files/main/duvm.dlg
+f files/main/duvm.sthlp
+f files/main/duvm_db_ini.ado
+f files/main/duvm_db_ini.dlg
+f files/main/easi_db_ini.ado
+f files/main/easi_db_ini.dlg
+f files/main/lquaids.mlib
+f files/main/mk_xtab_tr.ado
+f files/main/xml_tabastr.ado
+f files/main/nlsur__quaids.ado
+f files/main/quaids.ado
+f files/main/quaids_estat.ado
+f files/main/quaids_p.ado
+f files/main/sr_easi.ado
+f files/main/getRpath.ado
+f files/main/sr_easi.dlg
+f files/main/sr_easi.sthlp
+f files/main/welcom_examples.ado
+f files/main/wquaids.ado
+f files/main/wquaids.dlg
+f files/main/wquaids.sthlp
+f files/main/wquaids_db_ini.ado
+f files/main/wquaids_db_ini.dlg
+f files/main/_quaids__utils.mata

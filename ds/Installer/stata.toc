@@ -1,0 +1,16 @@
+* JULLY2017 - 
+v 3
+d {bf:DS        : Some developed and updated Stata modules for the estimation of the demand systems and elasticities}
+d Version       : Version        0.01   
+d Date          : Jully          2017
+d Stata Version : Required  13.0 and higher
+d
+d
+d Authors : {bf:Abdelkrim Araar(a)} }
+d
+d Emails  : (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  
+d
+
+d
+p ds      Developed and updated Stata commands for the estimation of demand system  models
+

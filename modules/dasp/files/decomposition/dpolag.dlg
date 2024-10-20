@@ -1,0 +1,123 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+
+VERSION 9.2
+ 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 300
+
+
+DIALOG main, label("DASP| Decomposition of the Duclos, Esteban and Ray polarization index (2004) by population groups --> dpolag command") tabtitle("Main")
+
+
+BEGIN
+  GROUPBOX intvar 10     10    360  60,                      ///
+             label("Variable(s) of interest: ")
+             
+    VARLIST  vl_var 20     +25   340   .,                   ///
+             label("Variables")
+             
+             
+           
+  TEXT     tx_var2      20    120    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+  TEXT     tx_var4      20    +25    80      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      110    @     250      .,                 ///
+           option(hgroup)            
+
+
+ 
+    GROUPBOX group1  390    10  360 100,                         ///
+           label("Parameter(s) and options: ")     
+  
+    TEXT txt_al     +10    +25    100      .,                 ///  
+                  label("Parameter alpha:   ")                          
+       
+    EDIT  ed_al    +100    @     240      .,                 ///
+              option(alpha)    default(0.5)    
+           
+    CHECKBOX   chk_fast 500     +35    260      ., ///
+    label("Use a fast approach for density estimation")  ///
+    option(fast)  
+
+       
+           
+   DEFINE _x 20
+   DEFINE _y 240
+     
+  INCLUDE _bu_svyset
+END
+
+
+
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+
+
+END
+
+
+
+
+
+
+HELP hlp1,   view("help dpolag")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "dpolag "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+		       
+
+			
+			
+			optionarg main.vn_hhs
+			optionarg main.vn_hhg	
+			optionarg main.ed_al
+			if !main.chk_fast.isdefault() {
+			optionarg main.chk_fast
+			}
+			
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+			
+		       
+	endoptions
+	
+	
+	
+END

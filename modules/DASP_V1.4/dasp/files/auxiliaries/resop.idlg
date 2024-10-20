@@ -1,0 +1,151 @@
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+CHECKBOX   chk_opd     200    @    150    .,                   ///
+             label("Display standard errors") option(dstd) default(1)
+
+   CHECKBOX ck_xls  10    60  360 160,		///
+		 label(`"Save results in Excel format"')               ///
+		 groupbox						///
+		 option("txls")					///
+		 onclickoff(program resop_xls)                      ///
+                 onclickon(program resop_xls)                    ///
+                 default(0)
+  
+
+
+       TEXT  tx_nxfile     20    +25    40      .,                 ///  
+                   label("File :")                                  ///      
+            
+        
+       FILE  fnamex      80    @     280      .,                 ///
+        label ("Browse...")    save option("xfil")                   ///
+        filter("MetaFile (*.xml)|*.xml|*.* (*.*)|*.*")  
+
+       TEXT     tx_she  20   +25      40     .,			/*
+		*/ label("Sheet:")			/*
+		*/
+       EDIT     ed_she  80    @       280   .,			/*
+		*/ label("sheet")				/*
+		*/ option("xshe") default("table 01")			/*
+		*/   
+
+      
+
+      TEXT    tx_lan       20    +45    50      .,                            ///
+           label("Language:") 
+
+
+       COMBOBOX cb_lan        80    @   280   .,                              ///
+            dropdownlist contents(cb_lan) values(cb_lan_val)               ///
+             default(en)     option(xlan)     onselchangelist(cond_change)     
+
+       TEXT     tx_tit  20   +25      40     .,			/*
+		*/ label("Title:")			/*
+		*/
+       EDIT     ed_tit  80    @       280   .,			/*
+		*/ label("xtit")				/*
+		*/ option("xtit") default("Table ##: Decomposition of poverty by...")					/*
+		*/   
+
+END
+
+
+LIST cb_lan
+BEGIN
+  English
+  Français
+END
+
+
+LIST cb_lan_val
+BEGIN
+  en
+  fr
+END
+
+
+
+SCRIPT PREINIT
+BEGIN
+	create BOOLEAN has_cond1
+	create BOOLEAN has_cond2	
+END
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2	
+END
+
+
+SCRIPT cond1
+BEGIN
+	has_cond1.settrue
+	has_cond2.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.setfalse
+	has_cond2.settrue
+	program check_conds
+END
+
+
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1){
+call resop.ed_tit.setvalue "Table ##: Decomposition of poverty by..."
+}
+
+if has_cond2{
+call resop.ed_tit.setvalue "Tableau ##: Décomposition de la pauvreté par..."
+}
+
+
+
+END
+
+
+PROGRAM resop_xls
+BEGIN
+if resop.ck_xls  {
+call resop.tx_nxfile.enable
+call resop.fnamex.enable
+call resop.tx_she.enable
+call resop.ed_she.enable
+call resop.tx_lan.enable
+call resop.cb_lan.enable
+call resop.tx_tit.enable
+call resop.ed_tit.enable
+}
+
+if !resop.ck_xls {
+call resop.tx_nxfile.disable
+call resop.fnamex.disable
+call resop.tx_she.disable
+call resop.ed_she.disable
+call resop.tx_lan.disable
+call resop.cb_lan.disable
+call resop.tx_tit.disable
+call resop.ed_tit.disable
+}
+END
+

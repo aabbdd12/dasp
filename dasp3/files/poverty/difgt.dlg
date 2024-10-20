@@ -1,0 +1,909 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 1.5)          */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006)               */
+/* Universite Laval, Quebec, Canada                                    */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+VERSION 15.0
+
+
+
+
+POSITION . . 760 400
+
+
+DIALOG main, label("DASP 3.0 | Difference Between FGT Indices --> difgt command") tabtitle("Main")
+
+
+BEGIN
+  GROUPBOX intvar       10     10    360  300,                      ///
+           label("Distribution 1: ")
+           
+  COMBOBOX  fi_d1        20   +25     100      .,                  ///
+            contents(dt_src)  dropdownlist                         ///
+            onselchange(program data_change1)  default("Data in memory")         
+                     
+           
+  FILE  file_d1      120    @     240      .,                 ///
+    label ("Browse...")    option(file1)                      ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*)
+    
+  
+  TEXT     tx_var1      20    +25    90      .,                 ///
+             label("Variable of interest:   ")  
+  VARNAME  vn_y_d1      120    @     240      .,                 ///
+              
+  EDIT     en_y_d1      120    @     240      .,                 ///         
+           
+           
+  TEXT     tx_var2      20    +25    90      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs_d1      120    @     240      .,                 ///
+           option(hsize1) 
+  
+  EDIT     en_hhs_d1      120    @     240      .,                 ///
+           option(hsize1)    
+           
+ 
+GROUPBOX chk_pl1  20    110  340 90,                         ///
+           label("Poverty line: ")         ///
+           
+           
+  RADIO    rb_a1      30     +25    60      .,			///
+		 onclickon(program main_rb)  onclickoff(program main_rb) first		///
+		 label("Absolute:")
+  
+  EDIT    ed_pl1   110    @     240      .,                 ///
+           default(10000) option(pline1)	  	
+           
+  RADIO    rb_r1     30         +30        80         .,			///
+  		 onclickon(program main_rb) last		///
+  		 label("Relative:")        
+   
+  SPINNER prop1    110  @   40 ., ///
+          min(1) max(100) default(50) label("% of the ")  option(prop1) 
+          
+  TEXT    ofthe1    150  @   40 ., ///
+           label("% of the ")      		
+   
+   
+   COMBOBOX  cb_pl1      190    @     70      .,                  ///
+             dropdownlist                                          ///
+             contents(cb_pl)  values(cb_pl_val) option(opl1)     ///
+             default(me)   onselchangelist(co_change1)
+             
+             
+   TEXT    ofpr1    260  @   60 ., ///
+           label("at percentile")  
+           
+   EDIT perc1      320  @   30 ., ///
+           default(0.40) label("pr")   option(perc1)   
+           
+   
+             
+             
+           
+  CHECKBOX    chk_cd1     120    +45    80      .,                 ///  
+             label("Condition(s)    ")                            ///
+             onclickon(program cd1_on)                             ///
+             onclickoff(program cd1_off)  default(0)     
+             
+ COMBOBOX       li_numd1      200    @     60      .,              ///
+            contents(li_num) default(1) dropdownlist                ///
+            onselchangelist(cond_change)           
+            
+ 
+ TEXT      tx_d1c1      70    +35      80      .,                 ///
+            label("  Condition (1):") 
+            
+  VARNAME  vn_d1c1        140    @    90      .,                 ///
+            option(vn_d1c1)      
+ 
+  COMBOBOX cb_d1c1        230    @    40      .,                 ///
+            contents(cb_opr1)    dropdownlist 
+  
+ EDIT     ed_d1c1        270    @    90      .,               ///     
+ 
+ 
+ COMBOBOX cb_d1aoc2        20    +25   50      .,                 ///
+           contents(cb_opr2) values(cb_opr2_val)   dropdownlist 
+           
+           
+           
+ TEXT      tx_d1c2      70    @      80      .,                 ///
+           label("  Condition (2):")  
+           
+ VARNAME  vn_d1c2        140    @    90      .,                 ///
+           option(vn_d1c1)      
+
+ COMBOBOX cb_d1c2        230    @    40      .,                 ///
+           contents(cb_opr1)    dropdownlist 
+ 
+ EDIT     ed_d1c2        270    @    90      .,               /// 
+ 
+ 
+ 
+ 
+ GROUPBOX intvar2 390     10    360  300,                      ///
+            label("Distribution 2: ")
+            
+   
+
+               
+               
+  COMBOBOX  fi_d2        400   +25     100      .,              ///
+            contents(dt_src)  dropdownlist                ///
+            onselchange(program data_change2)  default("Data in memory")              
+                        
+              
+    FILE  file_d2      500    @     240      .,                 ///
+    label ("Browse...")    option(file2)                        ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*)
+    
+   TEXT     tx_var3      400    +25    90      .,                 ///
+              label("Variable of interest:   ")  
+   VARNAME  vn_y_d2      500    @     240      .,                 
+   EDIT     en_y_d2      500    @     240      .,                             
+            
+            
+            
+   TEXT     tx_var4      400    +25    90      .,                 ///
+            label("Size  variable:   ")  
+   VARNAME  vn_hhs_d2      500    @     240      .,                 ///
+            option(hsize2) 
+            
+   EDIT     en_hhs_d2      500    @     240      .,                 ///
+            option(hsize2)    
+                     
+            
+   
+   GROUPBOX chk_pl2  400    110  340 90,                         ///
+              label("Poverty line: ")         ///
+              
+              
+     RADIO    rb_a2      410     +25    60      .,			///
+   		 onclickon(program main_rb)  onclickoff(program main_rb) first		///
+   		 label("Absolute:")
+     
+     EDIT    ed_pl2   490    @     240      .,                 ///
+              default(10000) option(pline2)	  	
+              
+     RADIO    rb_r2     410         +30        80         .,			///
+     		 onclickon(program main_rb) last		///
+     		 label("Relative:")        
+      
+     SPINNER prop2    490  @   40 ., ///
+             min(1) max(100) default(50) label("% of the ")  option(prop2) 
+             
+     TEXT    ofthe2    530  @   40 ., ///
+              label("% of the ")      		
+      
+      
+      COMBOBOX  cb_pl2      570    @     70      .,                  ///
+                dropdownlist                                          ///
+                contents(cb_pl)  values(cb_pl_val) option(opl2)     ///
+                default(me)   onselchangelist(co_change2)
+                
+                
+      TEXT    ofpr2    640  @   60 ., ///
+              label("at percentile")  
+              
+      EDIT perc2      700  @   30 ., ///
+           default(0.40) label("pr")   option(perc2) 
+   
+   
+   CHECKBOX    chk_cd2     500    +45    80      .,                 ///  
+              label("Condition(s)    ")                            ///
+              onclickon(program cd2_on)                             ///
+              onclickoff(program cd2_off)  default(0)     
+              
+  COMBOBOX       li_numd2      600    @     60      .,              ///
+             contents(li_num) default(1) dropdownlist                ///
+             onselchangelist(cond_change2)           
+             
+  
+  TEXT      tx_d2c1      450    +35      80      .,                 ///
+             label("  Condition (1):") 
+             
+   VARNAME  vn_d2c1        520    @    90      .,                 ///
+             option(vn_d1c1)      
+  
+   COMBOBOX cb_d2c1        610    @    40      .,                 ///
+             contents(cb_opr1)    dropdownlist 
+   
+  EDIT     ed_d2c1        650    @    90      .,               ///     
+  
+  
+  COMBOBOX cb_d2aoc2       400    +25   50      .,                 ///
+            contents(cb_opr2) values(cb_opr2_val)   dropdownlist 
+            
+            
+            
+  TEXT      tx_d2c2      450    @      80      .,                 ///
+            label("  Condition (2):")  
+            
+  VARNAME  vn_d2c2        520    @    90      .,                 ///
+            option(vn_d1c1)      
+ 
+  COMBOBOX cb_d2c2        610    @    40      .,                 ///
+            contents(cb_opr1)    dropdownlist 
+  
+ EDIT     ed_d2c2        650    @    90      .,               ///    
+ 
+   	                   
+            
+           
+  GROUPBOX chk_per  190    320  360 80,                         ///
+           label("Parameters and options: ")         ///
+  
+    TEXT txt_al     +10    +25    100      .,                 ///  
+                  label("Parameter alpha:   ")                           
+       
+     EDIT  ed_al    +90    @     250      .,                 ///
+              option(alpha)    default(0)    
+           
+  
+           
+   
+   
+   
+             
+           
+   TEXT       txt_op2     200    +25    80      .,                 ///  
+             label("Type:   ")                             ///      
+          
+    COMBOBOX  cb_nor      +90    @     250      .,                  ///
+            dropdownlist                                          ///
+            contents(cb_nor)  values(cb_nor_val) option(type)     ///
+            default(nor)       
+            
+            
+                                  
+          
+     
+ 
+END
+
+
+
+
+
+LIST dt_src
+BEGIN
+  Data in memory
+  Data in file
+END
+
+
+
+LIST cb_nor
+BEGIN
+  Normalised
+  Not normalised
+END
+
+LIST cb_nor_val
+BEGIN
+  nor
+  not
+END
+
+LIST li_num
+BEGIN
+  1
+  2
+END
+
+LIST cb_opr1
+BEGIN
+  ==
+  !=
+  >
+  >=
+  <
+  <=
+END
+
+
+
+LIST cb_opr2
+BEGIN
+  AND
+  OR
+END
+
+LIST cb_opr2_val
+BEGIN
+ &
+ |
+END
+
+LIST cb_pl
+BEGIN
+  Mean
+  Median
+  Quantile
+END
+
+LIST cb_pl_val
+BEGIN
+  mean
+  median
+  quantile
+END
+
+
+
+
+
+
+
+
+SCRIPT PREINIT
+BEGIN
+	create BOOLEAN has_cond11
+	create BOOLEAN has_cond12
+	create BOOLEAN has_cond13
+        create BOOLEAN has_cond21
+	create BOOLEAN has_cond22
+	create BOOLEAN has_cond23
+	create BOOLEAN has_cond1
+	create BOOLEAN has_cond2
+	create BOOLEAN has_cond3
+	create BOOLEAN has_cond4	
+END
+
+LIST co_change1
+BEGIN
+	script cond11
+	script cond12
+	script cond13
+	
+END
+
+
+SCRIPT cond11
+BEGIN
+	has_cond11.settrue
+	has_cond12.setfalse
+	has_cond13.setfalse
+	program check_co1
+END
+
+SCRIPT cond12
+BEGIN
+	has_cond11.setfalse
+	has_cond12.settrue
+	has_cond13.setfalse
+	program check_co1
+END
+
+SCRIPT cond13
+BEGIN
+	has_cond11.setfalse
+	has_cond12.setfalse
+	has_cond13.settrue
+	program check_co1
+END
+
+
+PROGRAM check_co1
+BEGIN
+
+if (has_cond11|has_cond12){
+call main.ofpr1.hide
+call main.perc1.hide
+
+}
+
+if has_cond13{
+call main.ofpr1.show
+call main.perc1.show
+
+}
+
+END
+
+
+LIST co_change2
+BEGIN
+	script cond21
+	script cond22
+	script cond23
+	
+END
+
+
+SCRIPT cond21
+BEGIN
+	has_cond21.settrue
+	has_cond22.setfalse
+	has_cond23.setfalse
+	program check_co2
+END
+
+SCRIPT cond22
+BEGIN
+	has_cond21.setfalse
+	has_cond22.settrue
+	has_cond23.setfalse
+	program check_co2
+END
+
+SCRIPT cond23
+BEGIN
+	has_cond21.setfalse
+	has_cond22.setfalse
+	has_cond23.settrue
+	program check_co2
+END
+
+
+PROGRAM check_co2
+BEGIN
+
+if (has_cond21|has_cond22){
+call main.ofpr2.hide
+call main.perc2.hide
+
+}
+
+if has_cond23{
+call main.ofpr2.show
+call main.perc2.show
+}
+
+END
+
+
+
+
+
+
+
+
+
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2
+	
+END
+
+LIST cond_change2
+BEGIN
+	script cond3
+	script cond4
+	
+END
+
+SCRIPT cond1
+BEGIN
+	has_cond1.setfalse
+	has_cond2.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.settrue
+	has_cond2.settrue
+	program check_conds
+END
+
+
+SCRIPT cond3
+BEGIN
+	has_cond3.setfalse
+	has_cond4.setfalse
+	program check_conds2
+END
+
+SCRIPT cond4
+BEGIN
+	has_cond3.settrue
+	has_cond4.settrue
+	program check_conds2
+END
+
+PROGRAM cd1_on
+BEGIN
+	
+		call main.tx_d1c1.show
+		call main.vn_d1c1.show
+		call main.cb_d1c1.show
+		call main.ed_d1c1.show
+		call main.li_numd1.enable
+		
+if !main.li_numd1.isdefault() {
+		call main.tx_d1c2.show
+		call main.vn_d1c2.show
+		call main.cb_d1c2.show
+		call main.ed_d1c2.show
+		call main.cb_d1aoc2.show		
+}
+END
+
+PROGRAM cd1_off
+BEGIN
+	
+		call main.tx_d1c1.hide
+		call main.vn_d1c1.hide
+		call main.cb_d1c1.hide
+		call main.ed_d1c1.hide
+		call main.li_numd1.disable
+		
+		call main.tx_d1c2.hide
+		call main.vn_d1c2.hide
+		call main.cb_d1c2.hide
+		call main.ed_d1c2.hide
+		call main.cb_d1aoc2.hide
+		
+END
+
+
+PROGRAM data_change1
+BEGIN
+	
+if   main.fi_d1.isdefault()  {
+                               call main.file_d1.hide
+                               
+                               call main.vn_y_d1.show
+                               call main.vn_hhs_d1.show
+                               
+                               call main.en_y_d1.hide
+                               call main.en_hhs_d1.hide
+                               
+                               
+                              }
+if  !main.fi_d1.isdefault()  {
+                              call main.file_d1.show
+                              
+                               call main.vn_y_d1.hide
+			       call main.vn_hhs_d1.hide                                  
+                               call main.en_y_d1.show
+                               call main.en_hhs_d1.show
+                              }
+            
+END
+
+PROGRAM data_change2
+BEGIN
+	
+
+if   main.fi_d2.isdefault()  {
+                               call main.file_d2.hide
+                    
+                               call main.vn_y_d2.show
+                               call main.vn_hhs_d2.show
+                               
+                               call main.en_y_d2.hide
+                               call main.en_hhs_d2.hide
+                               
+                               
+                              }
+if  !main.fi_d2.isdefault()  {
+                              call main.file_d2.show
+                              call main.vn_hhs_d2.hide
+                              call main.vn_y_d2.hide
+                              
+                              call main.en_y_d2.show
+                              call main.en_hhs_d2.show
+                              }         
+END
+
+
+
+
+PROGRAM cd2_on
+BEGIN
+	
+		call main.tx_d2c1.show
+		call main.vn_d2c1.show
+		call main.cb_d2c1.show
+		call main.ed_d2c1.show
+		call main.li_numd2.enable
+		
+if !main.li_numd2.isdefault() {
+		call main.tx_d2c2.show
+		call main.vn_d2c2.show
+		call main.cb_d2c2.show
+		call main.ed_d2c2.show
+		call main.cb_d2aoc2.show		
+}
+END
+
+PROGRAM cd2_off
+BEGIN
+	
+		call main.tx_d2c1.hide
+		call main.vn_d2c1.hide
+		call main.cb_d2c1.hide
+		call main.ed_d2c1.hide
+		call main.li_numd2.disable
+		
+		call main.tx_d2c2.hide
+		call main.vn_d2c2.hide
+		call main.cb_d2c2.hide
+		call main.ed_d2c2.hide
+		call main.cb_d2aoc2.hide
+		
+END
+
+
+
+
+PROGRAM check_conds
+BEGIN
+	if has_cond1 {
+		call main.tx_d1c1.show
+		call main.vn_d1c1.show
+		call main.cb_d1c1.show
+		call main.ed_d1c1.show
+	}
+	if !has_cond2 {
+		call main.tx_d1c2.hide
+		call main.vn_d1c2.hide
+		call main.cb_d1c2.hide
+		call main.ed_d1c2.hide
+		call main.cb_d1aoc2.hide
+	}
+	if has_cond2 {
+		call main.tx_d1c2.show
+		call main.vn_d1c2.show
+		call main.cb_d1c2.show
+		call main.ed_d1c2.show
+		call main.cb_d1aoc2.show
+	}
+	
+	
+END
+
+PROGRAM check_conds2
+BEGIN
+	if has_cond3 {
+		call main.tx_d2c1.show
+		call main.vn_d2c1.show
+		call main.cb_d2c1.show
+		call main.ed_d2c1.show
+	}
+	if !has_cond4 {
+		call main.tx_d2c2.hide
+		call main.vn_d2c2.hide
+		call main.cb_d2c2.hide
+		call main.ed_d2c2.hide
+		call main.cb_d2aoc2.hide
+	}
+	if has_cond4 {
+		call main.tx_d2c2.show
+		call main.vn_d2c2.show
+		call main.cb_d2c2.show
+		call main.ed_d2c2.show
+		call main.cb_d2aoc2.show
+	}
+	
+	
+END
+
+
+
+PROGRAM main_rb
+BEGIN
+if main.rb_a1  {
+call main.ed_pl1.enable
+call main.prop1.disable
+call main.ofthe1.disable
+call main.cb_pl1.disable
+call main.ofpr1.disable
+call main.perc1.disable
+}
+
+if !main.rb_a1  {
+call main.ed_pl1.disable
+call main.prop1.enable
+call main.ofthe1.enable
+call main.cb_pl1.enable
+call main.ofpr1.enable
+call main.perc1.enable
+}
+
+if main.rb_a2  {
+call main.ed_pl2.enable
+
+call main.prop2.disable
+call main.ofthe2.disable
+call main.cb_pl2.disable
+call main.ofpr2.disable
+call main.perc2.disable
+}
+
+if !main.rb_a2  {
+call main.ed_pl2.disable
+call main.prop2.enable
+call main.ofthe2.enable
+call main.cb_pl2.enable
+call main.ofpr2.enable
+call main.perc2.enable
+}
+
+END
+
+
+DIALOG confop,  tabtitle("Statistical Inferences")
+
+BEGIN
+
+
+ GROUPBOX conf_int  10    10  360 80,                         ///
+           label("Confidence interval ")         ///
+
+TEXT     sp_txt  20      25      120	  .,		                /*
+   		*/ label("Confidence level in (%) : ")	
+   		
+SPINNER  sp_level    150       25      50	  .,		        /*
+   		*/ label("Confidence level")				/*
+   		*/ min(10) default(95) max(99)				/*
+  		*/ option(level)
+TEXT     ci_txt  20      +25      120	  .,		                /*
+   		*/ label("Confidence interval      : ")	
+   		
+COMBOBOX cb_ci       150    @   200      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)		
+            
+            
+CHECKBOX ck_test  10    +45  360 80,		///
+		 label(`"Hypothesis test"')               ///
+		 groupbox						///
+		 option("test")					///
+		 onclickoff(confop.en_test.disable)                      ///
+                 onclickon(confop.en_test.enable)                    ///
+                 default(0)
+  TEXT     tx_test  20   +25      80     .,			/*
+		*/ label("  Difference   =  ")			/*
+		*/
+  EDIT     en_test  100    @       120   .,			/*
+		*/ label("Test")				/*
+		*/ numonly						/*
+		*/ option("test") default(0)					/*
+		*/                     
+
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sideded
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+
+
+
+
+
+HELP hlp1,   view("help difgt")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "difgt "
+
+if main.fi_d1.isdefault() {	
+	require  main.vn_y_d1
+	varlist  main.vn_y_d1
+	}
+if !main.fi_d1.isdefault() {
+        require  main.en_y_d1
+	varlist  main.en_y_d1
+	}
+	
+if main.fi_d2.isdefault() {	
+	require  main.vn_y_d2
+	varlist  main.vn_y_d2
+	}
+if !main.fi_d2.isdefault() {
+        require  main.en_y_d2
+	varlist  main.en_y_d2
+	}	                        
+beginoptions
+		       	
+			optionarg main.ed_al
+		      
+		        
+		        optionarg main.file_d1
+                        optionarg main.vn_hhs_d1
+                        optionarg main.en_hhs_d1
+                        optionarg confop.en_test
+			if !main.chk_cd1.isdefault() {
+			put " cond1("
+			put main.vn_d1c1
+			put main.cb_d1c1
+			put main.ed_d1c1
+			put " "
+			put main.cb_d1aoc2
+			put " "
+			put main.vn_d1c2
+			put main.cb_d1c2
+			put main.ed_d1c2
+			put ") "
+			}
+			
+			optionarg main.file_d2
+			optionarg main.vn_hhs_d2
+			optionarg main.en_hhs_d2
+			if !main.chk_cd2.isdefault() {
+			put " cond2("
+			put main.vn_d2c1
+			put main.cb_d2c1
+			put main.ed_d2c1
+			put " "
+			put main.cb_d2aoc2
+			put " "
+			put main.vn_d2c2
+			put main.cb_d2c2
+			put main.ed_d2c2
+			put ") "
+			}				
+			
+			
+			if !main.cb_nor.isdefault() {
+						        optionarg main.cb_nor
+						     }
+			
+				                        
+			 
+			if main.rb_a1  {
+			               optionarg main.ed_pl1
+			               }
+			
+			if !main.rb_a1 {
+			               optionarg main.cb_pl1 
+			               optionarg main.prop1
+			               optionarg main.perc1
+			               
+			              } 
+			              
+                        if main.rb_a2  {
+			               optionarg main.ed_pl2
+			               }
+			
+			if !main.rb_a2 {
+			               optionarg main.cb_pl2 
+			               optionarg main.prop2
+			               optionarg main.perc2
+			              } 
+			              
+
+			              if !confop.sp_level.isdefault() {
+					                 optionarg confop.sp_level
+							 }
+				                 
+			              if !confop.cb_ci.isdefault()    {
+					                 optionarg confop.cb_ci
+				                        } 			              
+				                        
+				
+						
+
+endoptions	
+	
+END

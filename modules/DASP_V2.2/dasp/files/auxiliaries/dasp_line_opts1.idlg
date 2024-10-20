@@ -1,0 +1,160 @@
+
+
+DIALOG line_opts, tabtitle("Line options")
+BEGIN
+  GROUPBOX gb_line1           _lft      _top      _gwd1     _ht6,        ///
+                label("Difference line options")
+                
+  TEXT     tx_ccol1           _lft4_1gi _ms       _txwd     .,           ///
+                label("Color:") right
+DEFINE y @y
+  COMBOBOX cb_ccol1           _txsep    @         _tcr2b4g  .,           ///
+                dropdownlist option(clcolor)                             ///
+                contents(colors) onselchangelist(_line_opts_color_ccol)
+ 
+
+  TEXT     tx_clpat1          _lft4_1gi _ls       _txwd     .,           ///
+                label("Pattern:") right
+  COMBOBOX cb_clpat1          _txsep    @         _txr2b4g  .,           ///
+                dropdownlist contents(linepatterns) option(lpattern)
+
+  TEXT     tx_clwid1          _igft4_2  y         _txwd     .,           ///
+                label("Width:") right
+  COMBOBOX cb_clwid1          _txsep    @         _txr2b4g  .,           ///
+                dropdownlist contents(linewidths) option(lwidth)
+
+  TEXT     tx_conn1           _igft4_2  _ls       _txwd     .,           ///
+                label("Type:") right
+  COMBOBOX cb_conn1           _txsep    @         _txr2b4g  .,           ///
+                option(connect) dropdownlist contents(connecttypes)
+
+
+
+ 
+ 
+ GROUPBOX gb_line2           _lft      150      _gwd1     120,        ///
+                 label("Null horizontal line options")
+                 
+ CHECKBOX   chk_hl_dr        +20    +20      220       .,                    ///
+             label("Draw the null horizontal line.")  default(1)  option(dhol)
+             
+ TEXT     tx_ccol2           _lft4_1gi _ms       _txwd     .,           ///
+                 label("Color:") right
+ DEFINE y @y
+  
+  COMBOBOX cb_ccol2           _txsep    @         _tcr2b4g  .,           ///
+                 dropdownlist option(clcolor)                             ///
+                 contents(colors) onselchangelist(_line_opts_color_ccol)
+  
+   TEXT     tx_clpat2          _lft4_1gi _ls       _txwd     .,           ///
+                 label("Pattern:") right
+   COMBOBOX cb_clpat2          _txsep    @         _txr2b4g  .,           ///
+                 dropdownlist contents(linepatterns) option(lpattern)
+ 
+   TEXT     tx_clwid2          _igft4_2  y         _txwd     .,           ///
+                 label("Width:") right
+   COMBOBOX cb_clwid2          _txsep    @         _txr2b4g  .,           ///
+                 dropdownlist contents(linewidths) option(lwidth)
+ 
+   TEXT     tx_conn2           _igft4_2  _ls       _txwd     .,           ///
+                 label("Type:") right
+   COMBOBOX cb_conn2           _txsep    @         _txr2b4g  .,           ///
+                option(connect) dropdownlist contents(connecttypes)
+
+END
+
+
+
+SCRIPT line_opts_disable
+BEGIN
+        line_opts.gb_line1.disable
+        line_opts.tx_ccol1.disable
+        line_opts.cb_ccol1.disable
+        line_opts.tx_clwid1.disable
+        line_opts.cb_clwid1.disable
+        line_opts.tx_clpat1.disable
+        line_opts.cb_clpat1.disable
+        line_opts.tx_conn1.disable
+        line_opts.cb_conn1.disable
+        
+        line_opts.gb_line2.disable
+	line_opts.tx_ccol2.disable
+	line_opts.cb_ccol2.disable
+	line_opts.tx_clwid2.disable
+	line_opts.cb_clwid2.disable
+	line_opts.tx_clpat2.disable
+	line_opts.cb_clpat2.disable
+	line_opts.tx_conn2.disable
+        line_opts.cb_conn2.disable
+END
+
+SCRIPT line_opts_enable
+BEGIN
+        line_opts.gb_line1.enable
+        line_opts.tx_ccol1.enable
+        line_opts.cb_ccol1.enable
+        line_opts.tx_clwid1.enable
+        line_opts.cb_clwid1.enable
+        line_opts.tx_clpat1.enable
+        line_opts.cb_clpat1.enable
+        line_opts.tx_conn1.enable
+        line_opts.cb_conn1.enable
+        
+        line_opts.gb_line2.enable
+        line_opts.tx_ccol2.enable
+        line_opts.cb_ccol2.enable
+        line_opts.tx_clwid2.enable
+        line_opts.cb_clwid2.enable
+        line_opts.tx_clpat2.enable
+        line_opts.cb_clpat2.enable
+        line_opts.tx_conn2.enable
+        line_opts.cb_conn2.enable
+END
+
+PROGRAM line_opts_output1
+BEGIN
+       
+        optionarg /hidedefault line_opts.cb_ccol1
+        optionarg /hidedefault line_opts.cb_clwid1
+        optionarg /hidedefault line_opts.cb_clpat1
+        optionarg /hidedefault line_opts.cb_conn1
+END
+
+PROGRAM line_opts_output2
+BEGIN
+        
+        optionarg /hidedefault line_opts.cb_ccol2
+        optionarg /hidedefault line_opts.cb_clwid2
+        optionarg /hidedefault line_opts.cb_clpat2
+        optionarg /hidedefault line_opts.cb_conn2
+END
+
+PROGRAM line_opts_dilopts_output
+BEGIN
+        if ( (line_opts.cb_ccol1   & !H(line_opts.cb_ccol1))        | ///
+           (line_opts.cb_clwid1  & !H(line_opts.cb_clwid1))       | ///
+           (line_opts.cb_clpat1  & !H(line_opts.cb_clpat1))       | ///
+           (line_opts.cb_conn1   & !H(line_opts.cb_conn1)) )         ///
+        {
+                put "dif_line_opts("
+                put /program line_opts_output1
+                put ")"
+        }
+END
+
+
+
+
+PROGRAM line_opts_holopts_output
+BEGIN
+        if ( (line_opts.cb_ccol2   & !H(line_opts.cb_ccol2))        | ///
+           (line_opts.cb_clwid2  & !H(line_opts.cb_clwid2))       | ///
+           (line_opts.cb_clpat2  & !H(line_opts.cb_clpat2))       | ///
+           (line_opts.cb_conn2   & !H(line_opts.cb_conn2))  )        ///
+        {
+                put "hor_line_opts("
+                put /program line_opts_output2
+                put ")"
+        }
+END
+

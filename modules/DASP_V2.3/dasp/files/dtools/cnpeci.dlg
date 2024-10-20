@@ -1,0 +1,389 @@
+/* 
+  cnpe.dlg
+*/  
+
+VERSION 9.0
+
+
+INCLUDE graph_header
+INCLUDE header
+
+
+DIALOG main, label("DASP| Non-parametric regression with CI --> cnpeci command") tabtitle("Main")
+
+
+  BEGIN
+  INCLUDE _glist_def
+   
+  GROUPBOX intvar 10     10    360  80,                      ///
+           label("Variable(s) of interest: ")
+  
+  TEXT     tx_y  20      +25   20    .,                   ///
+           label("Y:")
+           
+  VARLIST  vl_var 40      @   320   .,                   ///
+           label("Variables")
+           
+   
+  TEXT     tx_x  20      +25   20    .,                   ///
+           label("X:")
+           
+  VARNAME  var_x 40      @   320   .,                   ///
+           label("Variables")   option(xvar)      
+           
+  TEXT     tx_var2      20    140    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+  TEXT     tx_var4      20    +25    80      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      110    @     250      .,                 ///
+           option(hgroup)            
+
+
+ 
+  GROUPBOX percentile 390    10    360 80,                      ///
+             label("Regression and approach options")
+      /*       
+    CHECKBOX chk_var1     400    +25    80      .,                 ///  
+               label("Regression:   ")                                   ///      
+    onclickon(main.cb_reg.enable)                                 ///
+    onclickoff(main.cb_reg.disable)           
+    
+    COMBOBOX  cb_reg      500    @     240      .,                 ///
+              dropdownlist                                          ///
+              contents(cb_reg)  values(cb_reg_val) option(type)  
+      */        
+    CHECKBOX chk_var2     400    +25    80      .,                 ///  
+               label("Approach:   ")                             ///      
+    onclickon(main.cb_apr.enable)                                  ///
+    onclickoff(main.cb_apr.disable)           
+    COMBOBOX  cb_apr      500    @     240      .,                  ///
+              dropdownlist                                          ///
+              contents(cb_apr)  values(cb_apr_val) option(approach)     
+            
+ 
+            
+           
+  GROUPBOX chk_per  390    100  360 120,                         ///
+           label("Parameters: ")         ///
+  
+    TEXT     tx_rtype  400   +25      80     .,			/*
+		*/ label("Type of range:")			/*
+		*/
+     COMBOBOX cb_rtype 510      @         230       .,        ///
+        contents(rt_contents)                                ///
+        values(rt_values)                                    ///
+        onselchangelist(rt_change)                             ///
+        dropdownlist  option(rtype) default(lvl)
+  
+           
+ RADIO    rad_bu3      400    +25     140      .,/*
+ */ first label("X value")  onclickon(script rb_3)
+ 
+
+           
+    EDIT  ed_val      550    @     190      .,                  ///
+                  option(xval)   default(10000)
+
+
+   TEXT    tx_min   550    +25    80      .,                    ///
+           label("Minimum:   ")                                 ///
+                
+   TEXT    tx_max   660    @       80      .,                 ///
+           label("Maximum:   ") 
+           
+
+      RADIO    rad_bu4      400    +20     140      .,/*
+ */ last label("Range:")    onclickon(script rb_4)                 
+   
+   EDIT    ed_min   550    @     80      .,                 ///
+           default(0) option(min)                            ///
+                
+   EDIT    ed_max   660    @      80      .,                 ///
+           default(10000) option(max)   
+		   
+		   
+
+           
+   CHECKBOX ck_width  390    240  360 80,		///
+		 label(`"Override "optimal" bandwidth"')               ///
+		 groupbox						///
+		 option("width")					///
+		 onclickoff(main.en_width.enable)                      ///
+                 onclickon(main.en_width.disable)                    ///
+                 default(1)
+  TEXT     tx_width  400   +25      80     .,			/*
+		*/ label("Bandwidth of kernel:")			/*
+		*/
+  EDIT     en_width  500    @       120   .,			/*
+		*/ label("Bandwidth of kernel")				/*
+		*/ numonly						/*
+		*/ option("band") default(1.0)					/*
+		*/           
+   
+END
+
+
+
+
+
+
+
+
+LIST cb_reg
+BEGIN
+  Non-parametric regression
+  Derivatives of non-parametric regression
+END
+
+LIST cb_reg_val
+BEGIN
+  npr
+  dnp
+END
+
+LIST cb_apr
+BEGIN
+  Local linear approach
+  Nadaraya-Watson approach
+
+END
+
+LIST cb_apr_val
+BEGIN
+ lle
+ nw
+END
+
+
+
+
+SCRIPT PREINIT
+BEGIN
+        create BOOLEAN has_ty1
+        create BOOLEAN has_ty2
+END
+
+LIST rt_values
+BEGIN
+        lvl
+        prc
+END
+
+LIST rt_contents
+BEGIN
+Level
+Percentile 
+END
+
+LIST rt_change
+BEGIN
+        script ty1
+        script ty2
+END
+
+SCRIPT ty1
+BEGIN
+        has_ty1.settrue
+        has_ty2.setfalse
+        program check_tys
+END
+
+SCRIPT ty2
+BEGIN
+        has_ty1.setfalse
+        has_ty2.settrue
+		program check_tys
+
+END
+
+
+
+PROGRAM check_tys
+BEGIN
+        if has_ty1  {
+                      call main.ed_min.setvalue "0" 
+					  call main.ed_max.setvalue "10000" 
+					  call main.ed_val.setvalue "10000"  
+                     }
+       if !has_ty1 {
+                      call main.ed_min.setvalue "0" 
+					  call main.ed_max.setvalue "1"  
+					  call main.ed_val.setvalue "0.5" 
+                     }  
+
+END
+
+SCRIPT rb_3
+BEGIN
+main.ed_val.enable
+main.ed_min.disable
+main.ed_max.disable
+END
+
+SCRIPT rb_4
+BEGIN
+main.ed_val.disable
+main.ed_min.enable
+main.ed_max.enable
+END
+
+DIALOG res,  tabtitle(" Graphical Results")
+  BEGIN
+    
+
+     GROUPBOX gb0 10     10    360  100,                      ///
+             label("Curves ")
+    
+
+    TEXT     sp_txt  20      +25      120      .,                            /*
+                */ label("Confidence level in (%) : ")  
+                
+    SPINNER  sp_level    140       @      140         .,                    /*
+                */ label("Confidence level")                            /*
+                */ min(10) default(95) max(99)                          /*
+                */ option(level)      
+
+    TEXT     ci_txt  20      +25      120	  .,		                /*
+   		*/ label("Confidence interval   : ")	
+   		
+COMBOBOX cb_ci       140    @   140      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)  onselchangelist(cd_change)		
+
+    GROUPBOX gb1 10     110    360  80,                      ///
+             label("Coordinates: ")
+             
+    CHECKBOX   chk_op1        20    +25    60    .,                   ///
+             label("List:")      
+             
+    TEXT  txt2     20    +25    40      .,                 ///  
+               label("Save:")                                 
+    
+    FILE  fnamec      80    @     280      .,                 ///
+    label ("Browse...")    save option(sres)    
+    
+    
+    
+    GROUPBOX gb2     10     200  360  120,                      ///
+             label("Graph: ")
+             
+    CHECKBOX   chk_op3     20    +25    60    .,                   ///
+             label("Display:") default(1)
+             
+             
+    TEXT  txt4     20    +25    40      .,                 ///  
+               label("Save:")                                  ///      
+         
+    
+    FILE  fnamegs      80    @     280      .,                 ///
+    label ("Browse...")    save option(sgra)                   ///
+    filter("Stata Gragh (*.gph)|*.gph|All Files (*.*)|*.*")
+    
+    TEXT  chk_op5     20    +25    40      .,                 ///  
+                   label("Export:")                                  ///      
+            
+        
+        FILE  fnamege      80    @     280      .,                 ///
+        label ("Browse...")    save option(egra)                   ///
+        filter("MetaFile (*.wmf)|*.wmf|EPS (*.eps)|*.eps")
+    
+    
+END
+
+
+
+LIST cb_gt
+BEGIN
+  Curves
+  Confidence intervals
+END
+
+LIST cb_gt_val
+BEGIN
+  no
+  yes
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+
+LIST yes_no
+BEGIN
+  yes
+  no
+END
+
+
+
+
+
+INCLUDE gr_twoway
+
+HELP hlp1,   view("help cnpe")
+RESET res1
+PROGRAM command
+BEGIN
+	put "cnpeci "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+		       
+			optionarg main.var_x
+			optionarg main.vn_hhs
+			optionarg main.vn_hhg
+			optionarg main.cb_apr
+			optionarg main.ed_min
+			optionarg main.ed_max
+			optionarg main.ed_val
+            optionarg main.en_width
+			optionarg res.fnamec
+			optionarg res.fnamegs
+			optionarg res.fnamege
+			if !main.cb_rtype.isdefault() {
+		        optionarg main.cb_rtype
+			}
+			if res.chk_op1 {
+						
+						put "lres("
+						put res.chk_op1
+						put ")"
+		                       }
+		                      
+		        if !res.chk_op3 {
+						
+						put "dgra("
+						put res.chk_op3
+						put ")"
+		                       } 
+
+
+			 optionarg res.sp_level
+	                
+
+			if !res.cb_ci.isdefault()      {
+					                 optionarg res.cb_ci
+				                        } 
+                                            
+			put " " /program gr_twoway_output
+		        
+			
+	endoptions
+	
+END

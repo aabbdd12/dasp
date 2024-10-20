@@ -1,0 +1,370 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 1.4  )          */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2008)          */
+/* Université Laval, Quebec, Canada                                    */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+
+
+VERSION 9.2
+ 
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 300
+
+
+DIALOG main, label("DASP| Decomposition of the Gini index by income sources --> diginis command") tabtitle("Main")
+
+
+BEGIN
+  GROUPBOX intvar 10     10    360  60,                      ///
+             label("Variable(s) of interest: ")
+             
+    VARLIST  vl_var 20     +25   340   .,                   ///
+             label("Variables")
+                 
+           
+           
+  TEXT     tx_var2      20    100    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+
+  
+   GROUPBOX intvar2 390     10    360   80,                      ///
+             label("Decomposition approach")
+
+   TEXT    tx_index      400    +25    80      .,                 ///
+           label("Approach") 
+
+
+   COMBOBOX cb_appr        500    @   200   .,               ///
+            dropdownlist contents(cb_appr) values(cb_appr_val)              ///
+             default(rao)     option(appr)   onselchangelist(appr_change)  
+
+   TEXT    tx_gin       400    +25    80      .,                            ///
+           label("Index") 
+
+
+   COMBOBOX cb_gin        500    @   200   .,                              ///
+            dropdownlist contents(cb_gin) values(cb_gin_val)               ///
+             default(nor)     option(type)          
+           
+  
+           
+   DEFINE _x 20
+   DEFINE _y 240
+     
+  INCLUDE _bu_svyset
+END
+
+
+
+
+
+LIST cb_appr
+BEGIN
+  Rao   (1969) approach
+  Lerman and Yitzhaki (1985) approach
+  Araar (2006) approach
+END
+
+
+LIST cb_appr_val
+BEGIN
+  rao
+  lay
+  ara
+END
+
+LIST cb_gin
+BEGIN
+  Gini Index
+  Absolute Gini Index
+END
+
+
+LIST cb_gin_val
+BEGIN
+  nor
+  abs
+END
+
+
+
+///============
+
+
+SCRIPT PREINIT
+BEGIN
+	create BOOLEAN has_cd1
+	create BOOLEAN has_cd2
+	create BOOLEAN has_cd3	
+        create BOOLEAN has_cond1
+	create BOOLEAN has_cond2
+END
+
+
+LIST appr_change
+BEGIN
+	script cd1
+	script cd2
+        script cd3	
+END
+
+
+SCRIPT cd1
+BEGIN
+	has_cd1.settrue
+	has_cd2.setfalse
+	has_cd3.setfalse
+        program check_cds
+
+END
+
+SCRIPT cd2
+BEGIN
+	has_cd1.setfalse
+	has_cd2.settrue
+	has_cd3.setfalse
+	program check_cds
+END
+
+
+SCRIPT cd3
+BEGIN	
+	has_cd1.setfalse
+	has_cd2.setfalse
+	has_cd3.settrue
+	program check_cds
+END
+
+
+PROGRAM check_cds
+BEGIN
+	if has_cd3 {
+	 call main.tx_gin.disable
+         call main.cb_gin.disable
+         call main.cb_gin.setvalue "nor"	
+	}
+	if !has_cd3 {
+	 call main.tx_gin.enable
+         call main.cb_gin.enable      
+	}
+
+		
+END
+
+///============
+
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+CHECKBOX   chk_opd     200    @    150    .,                   ///
+             label("Display standard errors") option(dstd) default(1)
+
+   CHECKBOX ck_xls  10    60  360 160,		///
+		 label(`"Save results in Excel format"')               ///
+		 groupbox						///
+		 option("txls")					///
+		 onclickoff(program resop_xls)                      ///
+                 onclickon(program resop_xls)                    ///
+                 default(0)
+  
+
+
+       TEXT  tx_nxfile     20    +25    40      .,                 ///  
+                   label("File :")                                  ///      
+            
+        
+       FILE  fnamex      80    @     280      .,                 ///
+        label ("Browse...")    save option("xfil")                   ///
+        filter("MetaFile (*.xml)|*.xml|*.* (*.*)|*.*")  
+
+       TEXT     tx_she  20   +25      40     .,			/*
+		*/ label("Sheet:")			/*
+		*/
+       EDIT     ed_she  80    @       280   .,			/*
+		*/ label("sheet")				/*
+		*/ option("xshe") default("table 01")			/*
+		*/   
+
+      
+
+      TEXT    tx_lan       20    +45    50      .,                            ///
+           label("Language:") 
+
+
+       COMBOBOX cb_lan        80    @   280   .,                              ///
+            dropdownlist contents(cb_lan) values(cb_lan_val)               ///
+             default(en)     option(xlan)     onselchangelist(cond_change)     
+
+       TEXT     tx_tit  20   +25      40     .,			/*
+		*/ label("Title:")			/*
+		*/
+       EDIT     ed_tit  80    @       280   .,			/*
+		*/ label("xtit")				/*
+		*/ option("xtit") default("Table ##: Decomposition of inequality by...")					/*
+		*/   
+
+END
+
+
+LIST cb_lan
+BEGIN
+  English
+  Français
+END
+
+
+LIST cb_lan_val
+BEGIN
+  en
+  fr
+END
+
+
+
+
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2	
+END
+
+
+SCRIPT cond1
+BEGIN
+	has_cond1.settrue
+	has_cond2.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.setfalse
+	has_cond2.settrue
+	program check_conds
+END
+
+
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1){
+call resop.ed_tit.setvalue "Table ##: Decomposition of inequality by..."
+}
+
+if has_cond2{
+call resop.ed_tit.setvalue "Tableau ##: Decomposition de l'inégalité par..."
+}
+
+
+
+END
+
+
+PROGRAM resop_xls
+BEGIN
+if resop.ck_xls  {
+call resop.tx_nxfile.enable
+call resop.fnamex.enable
+call resop.tx_she.enable
+call resop.ed_she.enable
+call resop.tx_lan.enable
+call resop.cb_lan.enable
+call resop.tx_tit.enable
+call resop.ed_tit.enable
+}
+
+if !resop.ck_xls {
+call resop.tx_nxfile.disable
+call resop.fnamex.disable
+call resop.tx_she.disable
+call resop.ed_she.disable
+call resop.tx_lan.disable
+call resop.cb_lan.disable
+call resop.tx_tit.disable
+call resop.ed_tit.disable
+}
+END
+
+
+
+
+
+
+
+
+HELP hlp1,   view("help diginis")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "diginis "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+		       
+		
+			
+			
+			optionarg main.vn_hhs
+
+                        if !main.cb_appr.isdefault(){
+			optionarg main.cb_appr
+			}
+			if !resop.chk_opd.isdefault(){
+			optionarg resop.chk_opd
+			}
+					
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+
+				
+			optionarg resop.fnamex
+                        optionarg resop.ed_she
+
+			if !resop.cb_lan.isdefault(){
+			optionarg resop.cb_lan
+			}
+
+			if !resop.ed_tit.isdefault(){
+			optionarg resop.ed_tit
+			}
+
+			if !main.cb_gin.isdefault() {
+			optionarg main.cb_gin
+			}
+			
+			
+			       
+	endoptions
+	
+	
+	
+END

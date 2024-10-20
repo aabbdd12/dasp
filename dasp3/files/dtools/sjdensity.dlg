@@ -1,0 +1,285 @@
+/* 
+  cdensity.dlg
+*/  
+
+
+VERSION 15.0
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 430
+DEFINE  _dlgwd 890
+INCLUDE header
+
+
+DIALOG main, label("DASP 3.0 | Joint density surfaces --> sjdensity command") tabtitle("Main")
+
+
+BEGIN
+ 
+   
+  GROUPBOX intvar 10     10    430  120,                      ///
+           label("Domensional Variable(s): ")
+           
+  TEXT     tx_dim1      20    50    150      .,                 ///
+             label("Dim.1 variable:   ")  
+  VARNAME  vn_d1      +150    @     250      .,                 ///
+           option(d1)  
+  
+  TEXT     tx_dim2      20    +35   150      .,                 ///
+               label("Dim.2 variable:   ")  
+  VARNAME  vn_d2      +150    @     250      .,                 ///
+           option(d2)  
+           
+  
+  
+  GROUPBOX intvar2  10     +100    430  140,                      ///
+           label("Variable(s) of interest: ")
+		   
+  TEXT     tx_var2      20    +35    150      .,                 ///
+           label("Size  variable:   ")  
+  
+  VARNAME  vn_hhs      +150    @     250      .,                 ///
+           option(hsize)      
+ 
+  TEXT     tx_var4      20    +35   150      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      +150    @     250      .,                 ///
+           option(hgroup)            
+
+  
+  TEXT     tx_var5     20    +35    150      .,                 ///
+             label("Group  number:   ") 
+    
+    
+  EDIT    en_hhgn      +150    @     250      .,                 ///
+           option(ngroup)              
+
+
+ 
+            
+           
+  GROUPBOX chk_per  450    10  430 120,                         ///
+           label("Parameters: ")         ///
+  
+     
+           
+   TEXT    tx_min   580    +25    90      .,                    ///
+           label("Minimum:   ") 		                ///
+    		
+   TEXT    tx_max   +100    @   90      .,                 ///
+           label("Maximum:   ") 
+          
+   TEXT    tx_par   +100    @    90      .,                    ///
+	   label("# of partitions:   ") 		                ///
+	      		
+
+   
+   TEXT txt_pl1     460     +20    120      .,                 ///  
+                  label("Range of Dimension 1:")        
+   
+   EDIT    ed_min1   580    @     90      .,                 ///
+           default(0) option(min1)	  	             ///
+       		
+   EDIT    ed_max1   +100    @      90      .,                 ///
+           default(10000) option(max1) 	
+           
+  EDIT    ed_par1   +100    @      90      .,                 ///
+           default(20) option(par1)    
+           
+           
+  TEXT txt_pl2     460     +25    120      .,                 ///  
+                  label("Range of Dimension 2:")        
+   
+   EDIT    ed_min2   580    @     90      .,                 ///
+           default(0) option(min2)	  	             ///
+       		
+   EDIT    ed_max2   +100    @      90      .,                 ///
+           default(10000) option(max2) 	
+           
+  EDIT    ed_par2   +100    @      90      .,                 ///
+           default(20) option(par2)             
+           
+           
+   CHECKBOX ck_width  450    140  430 80,		///
+		 label(`"Override "optimal" bandwidths"')               ///
+		 groupbox						///
+		 option("width")					///
+		 onclickoff(script width_en)                       ///
+                 onclickon(script width_de)                    ///
+                 default(1)
+  TEXT     tx_width1  460   +25      200     .,			/*
+		*/ label("Kernel Bandwidth of Dimension 1:")			/*
+		*/
+  EDIT     en_width1  +210    @       200   .,			/*
+		*/ label("Bandwidth of kernel (Dim. 1)")				/*
+		*/ numonly						/*
+		*/ option("band1") default(1.0)					/*
+		*/     
+		
+  TEXT     tx_width2  460   +25      200     .,			/*
+		*/ label("Kernel Bandwidth of Dimension 2:")			/*
+		*/
+  EDIT     en_width2  +210    @       200   .,			/*
+		*/ label("Bandwidth of kernel (Dim. 2)")				/*
+		*/ numonly						/*
+		*/ option("band2") default(1.0)					/*
+		*/  
+
+
+    
+   GROUPBOX gb_tit   450    220  4300 140,		///
+		 label(`"Graph title and label axis"')              
+						
+     TEXT    tx_tit   460   +25      160     .,                    ///
+           label("Graph title   ")                              ///
+                
+    EDIT     ed_tit      +160   @      250    .,               ///
+           option(title) default()    
+   
+    TEXT    txt_lab1     460   +45      200     .,                 ///  
+                  label("Label of Dimension 1:   ")        
+   
+    EDIT    ed_lab1      +160    @       250   .	,               ///
+           option(lab1) default() 
+           
+           
+    TEXT     txt_lab2     460   +25      200     .,                 ///  
+                  label("Label of Dimension 2:   ")        
+    EDIT     ed_lab2      +160    @       250   .,               ///
+           option(lab2) default()      
+
+    		
+		
+   
+END
+
+
+
+
+SCRIPT width_en
+BEGIN
+main.en_width1.enable
+main.en_width2.enable
+END
+
+
+SCRIPT width_de
+BEGIN
+main.en_width1.disable
+main.en_width2.disable
+END
+
+
+DIALOG res,  tabtitle("Results")
+  BEGIN
+    GROUPBOX gb1 10     10    430  240,                      ///
+             label("Coordinates: ")
+             
+    CHECKBOX   chk_op1        20    +25    60    .,                   ///
+             label("List:")      
+             
+   TEXT  txt0     80    +35    280      .,                 ///  
+                   label("To save coordinates in Stata format") 
+                   
+   TEXT  txt1     20    +20    40      .,                 ///  
+               label("Save:")                                 
+    
+    FILE  fnamec      80    @     340      .,                 ///
+    label ("Browse...")    save option(sres)  
+    
+    
+    TEXT  txt2     80    +35    280      .,                 ///  
+                   label("To save coordinates in GnuPolt-ASCII format")   
+    
+    TEXT  txt3     20    +20    40      .,                 ///  
+                   label("Save:")                                 
+        
+    FILE  fnamecg      80    @     340      .,                 ///
+    label ("Browse...")    save option(sresg)                  ///
+    filter("DAT (*.dat)|*.dat|TXT (*.txt)|*.txt")
+
+    TEXT  txt4     80    +35    280      .,                 ///  
+                   label("To save graph in *.emf format (for Word doc.)")   
+    
+    TEXT  txt5     20    +20    40      .,                 ///  
+                   label("Save:")                                 
+        
+    FILE  fnamemf      80    @     340      .,                 ///
+    label ("Browse...")    save option(sgemf)                  ///
+    filter("EMF (*.emf)|*.emf")
+    
+    
+    
+    
+END
+
+
+LIST yes_no
+BEGIN
+  yes
+  no
+END
+
+
+
+
+
+
+
+
+
+
+
+HELP hlp1,   view("help sjdensity")
+RESET res1
+PROGRAM command
+BEGIN
+	put "sjdensity "
+	require  main.vn_d1
+	varlist [main.vn_d1]
+	require  main.vn_d2
+	varlist [main.vn_d2]
+	beginoptions
+		       
+			optionarg main.vn_hhs
+			optionarg main.vn_hhg
+			optionarg main.en_hhgn
+			optionarg main.en_width1
+			optionarg main.en_width2
+			optionarg main.ed_lab1
+                        optionarg main.ed_lab2
+                        optionarg main.ed_tit
+			if !main.ed_min1.isdefault() {
+			 optionarg main.ed_min1
+			 }
+			if !main.ed_max1.isdefault() {
+			optionarg main.ed_max1
+			}
+			if !main.ed_par1.isdefault() {
+			optionarg main.ed_par1
+			}
+			if !main.ed_min2.isdefault() {
+			optionarg main.ed_min2
+			}
+			if !main.ed_max2.isdefault() {
+			optionarg main.ed_max2
+			}
+			if !main.ed_par2.isdefault() {
+			optionarg main.ed_par2
+			}
+			
+			
+                        optionarg res.fnamec
+			optionarg res.fnamecg
+			optionarg res.fnamemf
+						if res.chk_op1 {
+									
+									put "lres("
+									put res.chk_op1
+									put ")"
+					                       }
+					                          
+			
+	endoptions
+	
+END

@@ -1,0 +1,808 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/*   dmdafg.dlg                                                          */
+/*************************************************************************/
+
+VERSION 9.2
+
+
+
+INCLUDE graph_header
+POSITION . . 760 360
+
+
+DIALOG main, label("DASP| Decomposition of the Alkire and Foster 2007 index by population groups --> dmdafg command") tabtitle("Main")
+BEGIN
+  DEFINE col0  20
+  DEFINE col1 120
+  DEFINE col2 210
+  DEFINE col3 330
+  DEFINE col4 450
+  DEFINE col5 570
+  
+  DEFINE colwd0 55
+  DEFINE colwd1 100
+
+  DEFINE _x _xsetbu
+  DEFINE _y _top
+
+
+  
+      
+  
+
+        
+
+
+
+ TEXT     tx_dims 470      10      120       .,           ///
+          label("Number of dimensions:") 
+          
+  COMBOBOX cb_dims 600      10         80       .,        ///
+          contents(dim_contents)                                ///
+          values(dim_values)                                    ///
+          onselchangelist(dim_change) default(1)                          ///
+          dropdownlist option(nbsec)  
+
+  
+  TEXT     tx_var2      20    50    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+ 
+  TEXT     tx_var4      20    +25    80      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      110    @     250      .,                 ///
+           option(hgroup)   
+
+  GROUPBOX chk_per  390    40  360 60,                         ///
+             label("Common parameters: ")         ///
+        
+       
+  TEXT tx_dcut     400     60      100      .,                 ///  
+                    label("dimensional cut-off")       
+        
+  EDIT  ed_dcut   500      @        30       .,                ///
+      option(dcut) default(0.5)
+
+
+
+ 
+
+        
+
+   
+  TEXT     tx_fr col2         +70      100    .,           ///
+          label("Variable(s) of interest")
+  
+  
+  TEXT     tx_sz col3          @  colwd1    .,           ///
+        label("Poverty line(s)")   
+
+  
+
+   TEXT     tx_in4     col4      @         @         .,           ///
+        label("Atribut weight(s)")
+  
+      
+  TEXT     tx_dim1 col1      +20       60    .,           ///
+        label("Dimension_1") right
+  
+  
+   VARNAME  vn_dim1    col2     @         colwd1    .,           ///
+        label("")      
+        
+        
+  EDIT   en_pl1    col3     @         colwd1    .,           ///
+        label("")      option(pl1) default(10000)
+  
+
+
+  EDIT  en_pr_w1   col4      @         @         .,           ///
+        option(w1)      default(1)                                        ///
+        label("")                 
+        
+   
+        
+   
+   
+   
+  TEXT  tx_dim2    col1      +30       60    .,           ///
+        label("Dimension_2") right
+  
+  VARNAME  vn_dim2    col2      @         colwd1    .,           ///
+        label("")   
+        
+  EDIT  en_pl2    col3     @         colwd1    .,           ///
+        label("")      option(pl2) default(10000)
+
+ 
+
+  EDIT  en_pr_w2   col4      @         @         .,           ///
+        option(w2)      default(1)                                        ///
+        label("")                    
+           
+          
+  TEXT     tx_dim3 col1      +30       60    .,           ///
+           label("Dimension_3") right
+
+  
+  VARNAME  vn_dim3    col2      @         colwd1    .,           ///
+        label("")              
+
+  EDIT  en_pl3    col3     @         colwd1    .,           ///
+        label("")      option(pl3) default(10000)
+          
+                          
+    EDIT  en_pr_w3   col4      @         @         .,           ///
+        option(w3)      default(1)                                        ///
+        label("")  
+   
+           
+  TEXT     tx_dim4 col1      +30       60    .,           ///
+        label("Dimension_4") right
+  
+  VARNAME  vn_dim4    col2      @         colwd1    .,           ///
+        label("")  
+  
+  EDIT  en_pl4    col3     @         colwd1    .,           ///
+        label("")      option(pl4) default(10000)
+        
+ 
+
+  EDIT  en_pr_w4   col4      @         @         .,           ///
+        option(w4)      default(1)                                        ///
+        label("")                 
+           
+  TEXT     tx_dim5 col1      +30       60    .,           ///
+        label("Dimension_5") right
+  
+
+  VARNAME  vn_dim5    col2      @         colwd1    .,           ///
+        label("")        
+  
+  EDIT  en_pl5    col3     @         colwd1    .,           ///
+        label("")      option(pl5) default(10000)
+        
+                  
+        
+          
+    EDIT  en_pr_w5   col4      @         @         .,           ///
+        option(w5)      default(1)                                        ///
+        label("")        
+        
+        
+  TEXT     tx_dim6 col1      +30       60    .,           ///
+        label("Dimension_6") right
+        
+  VARNAME  vn_dim6    col2      @         colwd1    .,           ///
+        label("")  
+  
+  EDIT  en_pl6    col3     @         colwd1    .,           ///
+        label("")      option(pl6) default(10000)
+                
+
+    EDIT  en_pr_w6   col4      @         @         .,           ///
+        option(w6)      default(1)                                        ///
+        label("") 
+
+   DEFINE _x 600
+   DEFINE _y 280
+     
+  INCLUDE _bu_svyset
+
+END
+
+SCRIPT clear_all
+BEGIN
+        main.cb_dims.setvalue "1"
+        main.vn_dim1.setvalue ""
+        main.vn_dim2.setvalue ""
+        main.vn_dim3.setvalue ""
+        main.vn_dim4.setvalue ""
+        main.vn_dim5.setvalue ""
+        main.vn_dim6.setvalue ""  
+END
+
+
+SCRIPT PREINIT
+BEGIN
+       
+        create BOOLEAN has_frequen
+        
+        create BOOLEAN has_dim1
+        create BOOLEAN has_dim2
+        create BOOLEAN has_dim3
+        create BOOLEAN has_dim4
+        create BOOLEAN has_dim5
+        create BOOLEAN has_dim6
+
+	create BOOLEAN has_ind1
+	create BOOLEAN has_ind2
+	create BOOLEAN has_ind3
+	create BOOLEAN has_ind4
+	create BOOLEAN has_ind5
+	create BOOLEAN has_ind6
+	create BOOLEAN has_ind7
+	create BOOLEAN has_ind8
+	
+	
+	create BOOLEAN has_cond1
+	create BOOLEAN has_cond2
+END
+
+
+
+
+
+
+
+
+
+
+
+
+LIST dim_contents
+BEGIN
+        1
+        2
+        3
+        4
+        5
+        6
+END
+
+
+
+
+LIST dim_change
+BEGIN
+        script dim1
+        script dim2
+        script dim3
+        script dim4
+        script dim5
+        script dim6
+END
+
+SCRIPT dim1
+BEGIN
+        has_dim1.settrue
+        has_dim2.setfalse
+        has_dim3.setfalse
+        has_dim4.setfalse
+        has_dim5.setfalse
+        has_dim6.setfalse
+        program check_dims
+END
+
+SCRIPT dim2
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.setfalse
+        has_dim4.setfalse
+        has_dim5.setfalse
+        has_dim6.setfalse
+        program check_dims
+END
+
+SCRIPT dim3
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.setfalse
+        has_dim5.setfalse
+        has_dim6.setfalse
+        program check_dims
+END
+
+SCRIPT dim4
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.settrue
+        has_dim5.setfalse
+        has_dim6.setfalse
+        program check_dims
+END
+
+SCRIPT dim5
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.settrue
+        has_dim5.settrue
+        has_dim6.setfalse
+        program check_dims
+END
+
+SCRIPT dim6
+BEGIN
+        has_dim1.settrue
+        has_dim2.settrue
+        has_dim3.settrue
+        has_dim4.settrue
+        has_dim5.settrue
+        has_dim6.settrue
+        program check_dims
+END
+
+
+
+PROGRAM check_dims
+BEGIN
+        if has_dim1 {
+               
+                call main.en_pl1.show
+                call main.vn_dim1.show
+
+		        call main.en_pr_w1.show
+                             
+               
+        }
+
+        if !has_dim1 {
+                call main.tx_dim1.show
+                call main.en_pl1.hide
+                call main.vn_dim1.hide
+		        call main.en_pr_w1.hide	
+        }
+        if has_dim2 {
+                call main.tx_dim2.show
+                call main.en_pl2.show
+                call main.vn_dim2.show
+		call main.en_pr_w2.show	
+        }
+        if !has_dim2 {
+                call main.tx_dim2.hide
+                call main.en_pl2.hide
+                call main.vn_dim2.hide
+		call main.en_pr_w2.hide
+        }
+        if has_dim3 {
+                call main.tx_dim3.show
+                call main.en_pl3.show
+                call main.vn_dim3.show
+		call main.en_pr_w3.show	
+
+        }
+        if !has_dim3 {
+                call main.tx_dim3.hide
+                call main.en_pl3.hide
+                call main.vn_dim3.hide
+		call main.en_pr_w3.hide	
+        }
+        if has_dim4 {
+                call main.tx_dim4.show
+                call main.en_pl4.show
+                call main.vn_dim4.show
+		call main.en_pr_w4.show	
+
+        }
+        if !has_dim4 {
+                call main.tx_dim4.hide
+                call main.en_pl4.hide
+                call main.vn_dim4.hide
+		call main.en_pr_w4.hide	
+  
+        }
+        if has_dim5 {
+                call main.tx_dim5.show
+                call main.en_pl5.show
+                call main.vn_dim5.show
+		call main.en_pr_w5.show	
+     
+        }
+        if !has_dim5 {
+                call main.tx_dim5.hide
+                call main.en_pl5.hide
+                call main.vn_dim5.hide
+		call main.en_pr_w5.hide		
+ 
+        }
+        if has_dim6 {
+                call main.tx_dim6.show
+                call main.en_pl6.show
+                call main.vn_dim6.show
+		call main.en_pr_w6.show	
+
+        }
+        if !has_dim6 {
+                call main.tx_dim6.hide
+                call main.en_pl6.hide
+                call main.vn_dim6.hide
+		call main.en_pr_w6.hide	
+ 
+        }
+	
+        
+    
+        
+        
+
+        
+       
+        
+        
+         
+        
+        
+        
+                
+	
+       
+END
+
+
+
+PROGRAM dim1_output
+BEGIN
+ if has_dim1 {
+                        	
+     
+	             optionarg main.ed_dcut	
+		     optionarg main.en_pr_w1	
+         	     optionarg main.en_pl1
+}
+END
+
+
+
+PROGRAM dim2_output
+BEGIN
+        if has_dim2 {
+                          
+
+		     optionarg main.en_pr_w2	
+         	     optionarg main.en_pl2
+        }
+END
+
+PROGRAM dim3_output
+BEGIN
+        if has_dim3 {
+	                       
+
+                     optionarg main.en_pr_w3
+         	     optionarg main.en_pl3
+        }
+END
+
+PROGRAM dim4_output
+BEGIN
+        if has_dim4 {
+	                      
+
+		     optionarg main.en_pr_w4	
+         	     optionarg main.en_pl4
+        }
+END
+
+PROGRAM dim5_output
+BEGIN
+       if has_dim5 {
+                    	          
+
+		     optionarg main.en_pr_w5
+         	     optionarg main.en_pl5
+        }
+END
+
+PROGRAM dim6_output
+BEGIN
+       if has_dim6 {
+                             
+   
+		     optionarg main.en_pr_w6
+         	     optionarg main.en_pl6
+        }
+END
+
+
+
+DIALOG confop,  tabtitle("Confidence Interval")
+
+BEGIN
+
+
+TEXT     sp_txt  10      25      120	  .,		                /*
+   		*/ label("Confidence level in (%) : ")	
+   		
+SPINNER  sp_level    140       25      50	  .,		        /*
+   		*/ label("Confidence level")				/*
+   		*/ min(10) default(95) max(99)				/*
+  		*/ option(level)
+TEXT     ci_txt  10      +25      120	  .,		                /*
+   		*/ label("Confidence interval      : ")	
+   		
+COMBOBOX cb_ci       140    @   200      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)		
+
+					
+
+
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(6) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+
+   CHECKBOX ck_xls  10    60  360 160,		///
+		 label(`"Save results in Excel format"')               ///
+		 groupbox						///
+		 option("txls")					///
+		 onclickoff(program resop_xls)                      ///
+                 onclickon(program resop_xls)                    ///
+                 default(0)
+  
+
+
+       TEXT  tx_nxfile     20    +25    40      .,                 ///  
+                   label("File :")                                  ///      
+            
+        
+       FILE  fnamex      80    @     280      .,                 ///
+        label ("Browse...")    save option("xfil")                   ///
+        filter("MetaFile (*.xml)|*.xml|*.* (*.*)|*.*")  
+
+
+      
+
+      TEXT    tx_lan       20    +45    50      .,                            ///
+           label("Language:") 
+
+
+       COMBOBOX cb_lan        80    @   280   .,                              ///
+            dropdownlist contents(cb_lan) values(cb_lan_val)               ///
+             default(en)     option(xlan)     onselchangelist(cond_change)     
+
+       TEXT     tx_tit1  20   +25      40     .,			/*
+		*/ label("Title1:")			/*
+		*/
+       EDIT     ed_tit1  80    @       280   .,			/*
+		*/ option("xtit1") default("Table ##: Decomposition AF-H0 by...")					/*
+		*/   
+		
+		
+		       TEXT     tx_tit2  20   +25      40     .,			/*
+		*/ label("Title2:")			/*
+		*/
+       EDIT     ed_tit2  80    @       280   .,			/*
+		*/ option("xtit2") default("Table ##: Decomposition AF-M0 by...")					/*
+		*/   
+		
+				
+		       TEXT     tx_tit3  20   +25      40     .,			/*
+		*/ label("Title3:")			/*
+		*/
+       EDIT     ed_tit3  80    @       280   .,			/*
+		*/ option("xtit3") default("Table ##: Decomposition AF-M1 by...")					/*
+		*/   
+		
+				
+		       TEXT     tx_tit4  20   +25      40     .,			/*
+		*/ label("Title4:")			/*
+		*/
+       EDIT     ed_tit4  80    @       280   .,			/*
+		*/ option("xtit4") default("Table ##: Decomposition AF-M2 by...")					/*
+		*/   
+		
+
+END
+
+
+LIST cb_lan
+BEGIN
+  English
+  Français
+END
+
+
+LIST cb_lan_val
+BEGIN
+  en
+  fr
+END
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2	
+END
+
+
+
+
+SCRIPT cond1
+BEGIN
+	has_cond1.settrue
+	has_cond2.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.setfalse
+	has_cond2.settrue
+	program check_conds
+END
+
+
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1){
+call resop.ed_tit1.setvalue "Table ##: Decomposition AF-H0 by..."
+call resop.ed_tit2.setvalue "Table ##: Decomposition AF-M0 by..."
+call resop.ed_tit3.setvalue "Table ##: Decomposition AF-M1 by..."
+call resop.ed_tit4.setvalue "Table ##: Decomposition AF-M2 by..."
+}
+
+if has_cond2{
+call resop.ed_tit1.setvalue "Tableau ##: Dcomposition de l'indice AF-H0 par..."
+call resop.ed_tit2.setvalue "Tableau ##: Dcomposition de l'indice AF-M0 par..."
+call resop.ed_tit3.setvalue "Tableau ##: Dcomposition de l'indice AF-M1 par..."
+call resop.ed_tit4.setvalue "Tableau ##: Dcomposition de l'indice AF-M2 par..."
+}
+
+
+
+END
+
+
+PROGRAM resop_xls
+BEGIN
+if resop.ck_xls  {
+call resop.tx_nxfile.enable
+call resop.fnamex.enable
+call resop.tx_lan.enable
+call resop.cb_lan.enable
+call resop.tx_tit1.enable
+call resop.ed_tit1.enable
+call resop.tx_tit2.enable
+call resop.ed_tit2.enable
+call resop.tx_tit3.enable
+call resop.ed_tit3.enable
+call resop.tx_tit4.enable
+call resop.ed_tit4.enable
+}
+
+if !resop.ck_xls {
+call resop.tx_nxfile.disable
+call resop.fnamex.disable
+call resop.tx_lan.disable
+call resop.cb_lan.disable
+call resop.tx_tit1.disable
+call resop.ed_tit1.disable
+call resop.tx_tit2.disable
+call resop.ed_tit2.disable
+call resop.tx_tit3.disable
+call resop.ed_tit3.disable
+call resop.tx_tit4.disable
+call resop.ed_tit4.disable
+}
+END
+
+
+
+
+HELP hlp1,   view("help dmdafg")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+        put "dmdafg "
+        
+        if has_dim1 {
+        require main.vn_dim1
+        varlist [main.vn_dim1]
+        }
+     
+        if has_dim2 {
+        require main.vn_dim2
+        varlist [main.vn_dim2]
+        }
+        if has_dim3 {
+        require main.vn_dim3
+        varlist [main.vn_dim3]
+        }
+        if has_dim4 {
+        require main.vn_dim4
+        varlist [main.vn_dim4]
+        }
+        if has_dim5 {
+        require main.vn_dim5
+        varlist [main.vn_dim5]
+        }
+        if has_dim6 {
+        require main.vn_dim6
+        varlist [main.vn_dim6]
+        }
+        
+        beginoptions
+       
+        optionarg main.vn_hhs
+        optionarg main.vn_hhg
+       
+	
+				                  
+        put " " /program dim1_output
+        put " " /program dim2_output
+        put " " /program dim3_output
+	    put " " /program dim4_output
+	    put " " /program dim5_output
+        put " " /program dim6_output
+
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+			
+			if !confop.sp_level.isdefault() {
+					                 optionarg confop.sp_level
+							 }
+				                 
+			if !confop.cb_ci.isdefault()    {
+					                 optionarg confop.cb_ci
+				                        } 
+										
+			optionarg resop.fnamex
+           
+
+			if !resop.cb_lan.isdefault(){
+			optionarg resop.cb_lan
+			}
+
+			if !resop.ed_tit1.isdefault(){
+			optionarg resop.ed_tit1
+			optionarg resop.ed_tit2
+			optionarg resop.ed_tit3
+			optionarg resop.ed_tit4
+			}
+        endoptions 
+        
+        
+END

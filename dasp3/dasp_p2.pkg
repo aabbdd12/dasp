@@ -1,0 +1,89 @@
+* Februrary2022 - v3.03
+  DASP 3.0         : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   3.03   
+d Date          : Februrary  2022
+d Stata Version : Required  15.0 and higher
+d
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_p2 Distributive Analysis Stata Package: PART II
+
+
+
+f files/decomposition/dentropyg.ado
+f files/decomposition/dentropyg.dlg
+f files/decomposition/dentropyg.sthlp
+f files/decomposition/dfgtg.ado
+f files/decomposition/dfgtg.dlg
+f files/decomposition/dfgtg.sthlp
+f files/decomposition/dfgtg2d.ado
+f files/decomposition/dfgtg2d.dlg
+f files/decomposition/dfgtg2d.sthlp
+f files/decomposition/dfgtgr.ado
+f files/decomposition/dfgtgr.dlg
+f files/decomposition/dfgtgr.sthlp
+f files/decomposition/dfgts.ado
+f files/decomposition/dfgts.dlg
+f files/decomposition/dfgts.sthlp
+f files/decomposition/dfgtsn.sthlp
+f files/decomposition/diginig.ado
+f files/decomposition/diginig.dlg
+f files/decomposition/diginig.sthlp
+f files/decomposition/diginis.ado
+f files/decomposition/diginis.dlg
+f files/decomposition/diginis.sthlp
+f files/decomposition/diginisr.ado
+f files/decomposition/distable.ado
+f files/decomposition/dmdafg.ado
+f files/decomposition/dmdafg.dlg
+f files/decomposition/dmdafg.sthlp
+f files/decomposition/dmdafs.ado
+f files/decomposition/dmdafs.dlg
+f files/decomposition/dmdafs.sthlp
+f files/decomposition/dpolag.ado
+f files/decomposition/dpolag.dlg
+f files/decomposition/dpolag.sthlp
+f files/decomposition/dpolas.ado
+f files/decomposition/dpolas.dlg
+f files/decomposition/dpolas.sthlp
+f files/decomposition/dsginis.ado
+f files/decomposition/dsineqg.ado
+f files/decomposition/dsineqg.dlg
+f files/decomposition/dsineqg.sthlp
+f files/decomposition/dsineqs.ado
+f files/decomposition/dsineqs.dlg
+f files/decomposition/dsineqs.sthlp
+f files/decomposition/dtcpov.ado
+f files/decomposition/dtcpov.dlg
+f files/decomposition/dtcpov.sthlp
+f files/decomposition/mk_xtab_m1.ado
+f files/decomposition/rbdineq.ado
+f files/decomposition/rbdineq.dlg
+f files/decomposition/rbdineq.sthlp
+f files/decomposition/shapar.ado
+
+
+f files/dominance/cdomc.ado
+f files/dominance/cdomc.dlg
+f files/dominance/cdomc.sthlp
+f files/dominance/cdomc2d.ado
+f files/dominance/cdomc2d.dlg
+f files/dominance/cdomc2d.sthlp
+f files/dominance/dombdpov.ado
+f files/dominance/dombdpov.dlg
+f files/dominance/dombdpov.sthlp
+f files/dominance/dombdpovn.dlg
+f files/dominance/domineq.ado
+f files/dominance/domineq.dlg
+f files/dominance/domineq.sthlp
+f files/dominance/dompov.ado
+f files/dominance/dompov.dlg
+f files/dominance/dompov.sthlp

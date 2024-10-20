@@ -1,0 +1,35 @@
+
+
+VERSION 11
+INCLUDE _std_medium
+POSITION . . 420 _dlght
+
+DIALOG main, title("TOBACTAX: Package Manager")
+BEGIN
+
+        BUTTON   bt_install      90  20  240  30, ///
+                label("Install/Update TOBACTAX Package")    onpush(program install_tax)
+                                
+        BUTTON   bt_check @        _xls  @         @,  ///
+                label("Check for Updates") onpush(program check_tax_ver)
+
+        BUTTON   bt_refs      @        _xls  @         @, ///
+                label("Basic TOBACTAX References") onpush(view help http://dasp.ecn.ulaval.ca/TOBACTAX/ts/references/mi_user_manual_01.pdf)
+        BUTTON   bt_www         @        _xls  @         @, label("Go to TOBACTAX Website") onpush(view browse http://dasp.ecn.ulaval.ca/TOBACTAX/ts/)
+
+END
+
+
+                
+PROGRAM check_tax_ver
+BEGIN
+        put "_tobactax_vers"
+        stata
+END
+
+                
+PROGRAM install_tax
+BEGIN
+        put "_tobactax_inst"
+        stata
+END

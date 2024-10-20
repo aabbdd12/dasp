@@ -1,0 +1,497 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                      */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/ 
+/* itargetg.dlg                                                          */
+/*************************************************************************/ 
+
+VERSION 9.2
+
+
+INCLUDE graph_header
+INCLUDE header
+
+
+DIALOG main, label("DASP| Poverty & Targeting by Population Groups --> itargetg command") tabtitle("Main")
+
+
+BEGIN
+  
+   
+  GROUPBOX intvar 10     10    360  60,                      ///
+           label("Variable of interest: ")
+           
+  VARNAME  vl_var 20     +25   340   .,                   ///
+           label("Variables")
+           
+           
+           
+  TEXT     tx_var2      20    +65    100      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      120    @     250      .,                 ///
+           option(hsize)                
+
+
+
+      TEXT   txt_hg       20    +25     100      .,/*
+ */   label("Group variable")  
+ 
+
+           
+    VARNAME  vn_hg      120    @     250      .,                  ///
+                  option(hgroup)   
+
+     
+      
+ 
+
+           
+  GROUPBOX chk_per  390    10  360 240,                         ///
+           label("Options and parameters: ")         ///
+  
+   TEXT txt_al     +10    +25    140      .,                 ///  
+                  label("Parameter alpha:   ")                           
+       
+   EDIT  ed_al    +150    @     190      .,                 ///
+              option(alpha)    default(0)    
+
+    
+    TEXT  tncost     400    +35    140      .,                 ///  
+             label("Normalized by the cost:")                                   ///      
+          
+  
+   COMBOBOX  cb_cnor      550    @     190      .,                 ///
+            dropdownlist                                          ///
+            default(no) contents(cb_cnor)  values(cb_cnor_val) option(cnor)  
+
+
+    TEXT  tntype    400    +35    120      .,                 ///  
+             label("Targeting type:") 
+
+   COMBOBOX  cb_ttype      550    @     190      .,                 ///
+            dropdownlist                                          ///
+            default(lump) contents(cb_ttype)  values(cb_ttype_val) option(type) ///
+             onselchangelist(cond_change_c)
+
+
+    TEXT txt_cm    400    130    140      .,                 ///  
+                  label("The constant amount:   ")                           
+       
+    EDIT  ed_cm    +150    @     190      .,                 ///
+              option(constam)    default(1)    
+
+
+   TEXT txt_prop    400    130    140      .,                 ///  
+                  label("The proportion (in %):   ")                           
+       
+    EDIT  ed_prop    +150    @     190      .,                 ///
+              option(prop)    default(1)    
+
+
+
+
+   RADIO    rad_bu3      400    +45     140      .,/*
+ */ first label("Poverty line (z)")  onclickon(script rb_3)
+ 
+
+           
+    EDIT  ed_pline      550    @     190      .,                  ///
+                  option(pline)   default(10000)
+
+
+   TEXT    tx_min   550    +25    80      .,                    ///
+           label("Minimum:   ") 		                ///
+    		
+   TEXT    tx_max   660    @       80      .,                 ///
+           label("Maximum:   ") 
+           
+
+      RADIO    rad_bu4      400    +15     140      .,/*
+ */ last label("Range of pov. line")    onclickon(script rb_4)                 
+   
+   EDIT    ed_min   550    @     80      .,                 ///
+           default(0) option(min)	  	             ///
+       		
+   EDIT    ed_max   660    @      80      .,                 ///
+           default(10000) option(max) 	
+   
+END
+
+
+
+
+
+
+LIST cb_cnor
+BEGIN
+  Not normalized
+  Normalized
+END
+
+LIST cb_cnor_val
+BEGIN
+  no
+  yes
+END
+
+
+
+LIST cb_ttype_val
+BEGIN
+  lump
+  prop
+END
+
+LIST cb_ttype
+BEGIN
+  Lump-sum     (constant amount)
+  Proportional  (proportional to income)
+END
+
+
+
+
+
+
+LIST cb_dif
+BEGIN
+  No
+  With the first curve
+END
+
+LIST cb_dif_val
+BEGIN
+ no
+ c1
+END
+
+
+
+
+
+
+
+
+
+SCRIPT rb_3
+BEGIN
+main.ed_pline.enable
+main.ed_min.disable
+main.ed_max.disable
+END
+
+SCRIPT rb_4
+BEGIN
+main.ed_pline.disable
+main.ed_min.enable
+main.ed_max.enable
+END
+
+
+
+
+
+SCRIPT PREINIT
+BEGIN
+        create BOOLEAN has_cond1
+        create BOOLEAN has_cond2  
+        create BOOLEAN has_cond3
+        create BOOLEAN has_cond4        
+END
+
+LIST cond_change_c
+BEGIN
+	script cond3
+	script cond4
+	
+END
+
+
+SCRIPT cond3
+BEGIN
+	has_cond3.settrue
+	has_cond4.setfalse
+	program check_conds_c
+END
+
+SCRIPT cond4
+BEGIN
+	has_cond3.setfalse
+	has_cond4.settrue
+	program check_conds_c
+END
+
+
+
+PROGRAM check_conds_c
+BEGIN
+
+if has_cond3{
+call main.txt_prop.hide
+call main.ed_prop.hide
+call main.txt_cm.show
+call main.ed_cm.show
+}
+
+if has_cond4{
+call main.txt_prop.show
+call main.ed_prop.show
+call main.txt_cm.hide
+call main.ed_cm.hide
+}
+
+END
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(9) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of decimals")	
+   		
+
+
+END
+
+
+DIALOG res,  tabtitle(" Graphical Results")
+  BEGIN
+    
+
+     GROUPBOX gb0 10     10    360  100,                      ///
+             label("Curves ")
+    
+    TEXT  txt0     20    +25    120      .,                 ///  
+               label("Draw")  
+
+     COMBOBOX  cb_gt      140    @     140      .,                  ///
+             dropdownlist                                          ///
+             contents(cb_gt)  values(cb_gt_val)      ///
+             default(no)   onselchangelist(cond_change)	 option(dci) 
+
+    TEXT     sp_txt  20      +25      120      .,                            /*
+                */ label("Confidence level in (%) : ")  
+                
+    SPINNER  sp_level    140       @      140         .,                    /*
+                */ label("Confidence level")                            /*
+                */ min(10) default(95) max(99)                          /*
+                */ option(level)      
+
+TEXT     ci_txt  20      +25      120	  .,		                /*
+   		*/ label("Confidence interval   : ")	
+   		
+COMBOBOX cb_ci       140    @   140      .,                 ///
+            contents(cb_ci) values(cb_ci_val)              ///
+            dropdownlist default(ts)   option(conf)  onselchangelist(cd_change)		
+
+    GROUPBOX gb1 10     110    360  80,                      ///
+             label("Coordinates: ")
+             
+    CHECKBOX   chk_op1        20    +25    60    .,                   ///
+             label("List:")      
+             
+    TEXT  txt2     20    +25    40      .,                 ///  
+               label("Save:")                                 
+    
+    FILE  fnamec      80    @     280      .,                 ///
+    label ("Browse...")    save option(sres)    
+    
+    
+    
+    GROUPBOX gb2     10     200  360  120,                      ///
+             label("Graph: ")
+             
+    CHECKBOX   chk_op3     20    +25    60    .,                   ///
+             label("Display:") default(1)
+             
+             
+    TEXT  txt4     20    +25    40      .,                 ///  
+               label("Save:")                                  ///      
+         
+    
+    FILE  fnamegs      80    @     280      .,                 ///
+    label ("Browse...")    save option(sgra)                   ///
+    filter("Stata Gragh (*.gph)|*.gph|All Files (*.*)|*.*")
+    
+    TEXT  chk_op5     20    +25    40      .,                 ///  
+                   label("Export:")                                  ///      
+            
+        
+        FILE  fnamege      80    @     280      .,                 ///
+        label ("Browse...")    save option(egra)                   ///
+        filter("MetaFile (*.wmf)|*.wmf|EPS (*.eps)|*.eps")
+    
+    
+END
+
+
+
+
+
+
+LIST cond_change
+BEGIN
+        script cond1
+        script cond2
+END
+
+
+SCRIPT cond1
+BEGIN
+        has_cond1.settrue
+        has_cond2.setfalse
+        program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+        has_cond1.setfalse
+        has_cond2.settrue
+        program check_conds
+END
+
+
+
+
+PROGRAM check_conds
+BEGIN
+
+if (has_cond1){
+call res.sp_txt.hide
+call res.sp_level.hide
+call res.ci_txt.hide
+call res.cb_ci.hide
+
+}
+
+if (has_cond2){
+call res.sp_txt.show
+call res.sp_level.show
+call res.ci_txt.show
+call res.cb_ci.show
+}
+END
+
+
+
+
+
+
+LIST cb_gt
+BEGIN
+  Curves
+  Confidence intervals
+END
+
+LIST cb_gt_val
+BEGIN
+  no
+  yes
+END
+
+
+LIST cb_ci
+BEGIN
+  Two-sided
+  Lower-bounded
+  Upper-bounded
+END
+
+
+LIST cb_ci_val
+BEGIN
+  ts
+  lb
+  ub
+END
+
+
+
+
+
+INCLUDE gr_twoway
+
+HELP hlp1,   view("help itargetg")
+RESET res1
+PROGRAM command
+BEGIN
+	put "itargetg "
+	require  main.vl_var
+	varlist [main.vl_var]
+	beginoptions
+		       
+			optionarg main.ed_al
+                        optionarg main.ed_pline
+			optionarg main.vn_hhs
+			optionarg main.vn_hg
+		
+	
+		
+			optionarg main.ed_min
+			optionarg main.ed_max
+			optionarg main.ed_cm
+			optionarg main.ed_prop
+
+
+			if !main.cb_ttype.isdefault()    {
+                                                         optionarg main.cb_ttype
+                                                         } 
+
+		         
+			if !main.cb_cnor.isdefault()    {
+                                                         optionarg main.cb_cnor
+                                                        }   
+
+                        if !res.cb_gt.isdefault()    {
+                                                          optionarg res.cb_gt
+                                                        }   
+
+          
+		       if !res.cb_ci.isdefault()    {
+					                 optionarg res.cb_ci
+				                        } 
+			
+			optionarg res.fnamec
+			
+			optionarg res.fnamegs
+			optionarg res.fnamege
+
+                       
+                       
+	                optionarg res.sp_level
+			if !resop.sp_dec.isdefault() {
+			optionarg resop.sp_dec
+			}
+                                                        
+			if res.chk_op1 {
+						
+						put "lres("
+						put res.chk_op1
+						put ")"
+		                       }
+		                       
+		        if !res.chk_op3 {
+						
+						put "dgra("
+						put res.chk_op3
+						put ")"
+		                       }               
+			put " " /program gr_twoway_output
+		        
+			
+	endoptions
+	
+	
+	
+END

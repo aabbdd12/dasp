@@ -1,0 +1,59 @@
+{smcl}
+{* 2008}{...}
+{hline}
+{hi:DASP : Distributive Analysis Stata Package}{right:{bf:PEP, CIRPEE and  World Bank}}
+help for {hi:quinsh }
+{hline}
+
+{title: Income share and cumulative income share by quantile groups} 
+
+{p 8 10}{cmd:quinsh}  {it:varname}  {cmd:,} [ 
+{cmd:HSize(}{it:varname}{cmd:)}
+{cmd:PARtition(}{it:int}{cmd:)}
+{cmd:TYPE(}{it:string}{cmd:)}
+{cmd:VNAME(}{it:string}{cmd:)}
+{cmd:DEC(}{it:string}{cmd:)}
+{cmd:DGRaph(}{it:string}{cmd:)}]
+ 
+
+
+{title:Version} 9.2 and higher.
+
+{title:Description}
+{cmd:quinsh}  estimates the income share or cumulative income share by a given group partition. For instance, if the indicated group partition is 5, income shares are provided by quintiles}  
+
+{p}Users should set their surveys' sampling design before using this module 
+ (and to save their data files). If the sampling design is not set, simple-random sampling (SRS) will be automatically assigned 
+by default. 
+{p_end}
+
+{title:Options}
+
+{p 0 4} {cmdab:hsize}        Household size. For example, to compute poverty at the invididual level, one will want to weight household-level observations by household size (in addition to sampling weights, best set in survey design). {p_end}
+
+{p 0 4} {cmdab:partition}       Indicate the number of group partition. For instance, 5 for quintiles, 10 for deciles, etc {p_end}
+
+{p 0 4} {cmdab:type}       Select the option type(cum) to estimate the cumule income shares. {p_end}
+
+{p 0 4} {cmdab:type}       Indicate the name of variable that contains the group indicator to be generated. {p_end}
+
+{p 0 4} {cmdab:dec}          To set the number of decimals used in the display of results. {p_end}
+
+{p 0 4} {cmdab:dgraph}          Indicate 1 if you like to plot the graph bar of income shares. {p_end}
+
+
+{title:Examples}
+
+{p 4 8}{inp:. quinsh income, par(5) dgr(1)}{p_end}
+{p 4 8}{inp:. quinsh income, par(5) type(cum) dgr(1)}{p_end}
+
+
+{title:Authors}
+Abdelkrim Araar
+Duclos Jean-Yves
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}
+
+
+

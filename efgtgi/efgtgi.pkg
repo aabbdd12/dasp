@@ -1,0 +1,54 @@
+* April2012 - 
+v 3
+  STPSR          : Stata Toolkit for Price Schedule Reforms
+                       
+d ===================================================
+d Version       : Version   1.0    
+d Date          : April 2012 
+d Stata Version : Required  9.2 and higher
+d
+d Author:
+d STPSR is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d
+d ===================================================
+d Before using modules of this package, users have to:
+d
+d  update the executable Stata file  to Stata 9.2   or higher:
+d  http://www.stata.com/support/updates/stata9.html 
+d
+d  update the ado files:                                                          
+d  http://www.stata.com/support/updates/stata9/ado/
+d ===================================================
+
+p efgtgi       Stata Toolkit for Price Schedule Reforms
+
+
+
+f files/main/efgtgro.ado
+f files/main/efgtgro.dlg
+f files/main/efgtgro.hlp
+
+f files/main/efgtine.ado
+f files/main/efgtine.dlg
+f files/main/efgtine.hlp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

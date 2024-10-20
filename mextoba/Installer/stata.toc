@@ -1,0 +1,11 @@
+* APR 2018 - 
+v 3
+d {bf:MEXATOBA     : A set of ado files for the project Mexico Tobacco
+d Version       : Version       2.00   
+
+d
+d Authors : {bf:Abdelkrim Araar(a)} 
+d Emails  :  
+d           (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  
+d
+p mextoba      

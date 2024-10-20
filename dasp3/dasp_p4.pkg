@@ -1,0 +1,83 @@
+* Februrary2022 - v3.03
+  DASP 3.0         : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   3.03   
+d Date          : Februrary  2022
+d Stata Version : Required  15.0 and higher
+d
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_p4 Distributive Analysis Stata Package: PART IV
+
+f files/polarization/ccpol.ado
+f files/polarization/dipola.ado
+f files/polarization/dipola.dlg
+f files/polarization/dipola.sthlp
+f files/polarization/dipolar.ado
+f files/polarization/dipolder.ado
+f files/polarization/dipolfw.ado
+f files/polarization/dspol.ado
+f files/polarization/ipoegr.ado
+f files/polarization/ipola.ado
+f files/polarization/ipola.dlg
+f files/polarization/ipola.sthlp
+f files/polarization/ipolder.ado
+f files/polarization/ipolfw.ado
+
+
+f files/povelas/efgtc.ado
+f files/povelas/efgtc.dlg
+f files/povelas/efgtc.sthlp
+f files/povelas/efgtg.ado
+f files/povelas/efgtg.dlg
+f files/povelas/efgtg.sthlp
+f files/povelas/efgtgr.ado
+f files/povelas/efgtgr.dlg
+f files/povelas/efgtgr.sthlp
+f files/povelas/efgtgro.ado
+f files/povelas/efgtgro.dlg
+f files/povelas/efgtgro.sthlp
+f files/povelas/efgtine.ado
+f files/povelas/efgtine.dlg
+f files/povelas/efgtine.sthlp
+f files/povelas/efgtineq.ado
+f files/povelas/efgtineq.dlg
+f files/povelas/efgtineq.sthlp
+
+f files/poverty/cfgt.ado
+f files/poverty/cfgt.dlg
+f files/poverty/cfgt.sthlp
+f files/poverty/cfgtl.ado
+f files/poverty/cfgtm.ado
+f files/poverty/cfgts2r.ado
+f files/poverty/cpoverty.ado
+f files/poverty/cpoverty.dlg
+f files/poverty/cpoverty.sthlp
+f files/poverty/dfgtgr_boot.ado
+f files/poverty/dicfgt.ado
+f files/poverty/dicfgt.dlg
+f files/poverty/dicfgt.sthlp
+f files/poverty/difgt.ado
+f files/poverty/difgt.dlg
+f files/poverty/dipov.ado
+f files/poverty/dipov.dlg
+f files/poverty/dipov.sthlp
+f files/poverty/disst.ado
+f files/poverty/disst.dlg
+f files/poverty/diwatts.ado
+f files/poverty/diwatts.dlg
+f files/poverty/genjobpova.ado
+f files/poverty/gen_pov_2d.ado
+f files/poverty/mbasicfgt.ado
+f files/poverty/mbasicfgt2.ado
+f files/poverty/mbasicsst.ado
+f files/poverty/mbasicsst2.ado
+f files/poverty/mbasicwatts.ado
+f files/poverty/mbasicwatts2.ado

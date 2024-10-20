@@ -1,0 +1,19 @@
+* DEC2017 - 
+v 3
+d {bf:MIWEL     : Market Imperfection and WELl-being}
+d Version       : Version       2.00  
+d Date          : December          2017
+d Stata Version : Required  11.0 and higher
+d
+d MIWEL is a product of the World Bank.
+d
+d Authors : {bf:Abdelkrim Araar(a)} {bf:Sergio Olivieri(b)}  {bf:Carlos Rodriguez Castelan c)}
+d
+d Emails  : (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  
+d           (b) {browse "mailto:solivieri@worldbank.org":solivieri@worldbank.org}   
+d           (c) {browse "mailto:crodriguezc@worldbank.org":crodriguezc@worldbank.org}
+d 
+d Website : {browse "http://dasp.ecn.ulaval.ca/miwel/mi/":http://dasp.ecn.ulaval.ca/miwel/mi/}
+d
+p miwel      Stata Toolkit for the Market Imperfection and WELl-being
+

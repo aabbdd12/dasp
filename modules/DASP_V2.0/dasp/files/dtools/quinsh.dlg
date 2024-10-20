@@ -1,0 +1,123 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.0)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim  (2006-2010)          */
+/* Universite Laval, Quebec, Canada                                       */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/* quinsh.dlg                                                            */
+/*************************************************************************/
+
+VERSION 9.2
+
+
+INCLUDE graph_header
+//INCLUDE header
+POSITION . . 760 280
+
+
+DIALOG main, label("Income share and cumulative income shape by quantile groups --> quinsh command") tabtitle("Main")
+
+
+BEGIN
+  GROUPBOX intvar 10     10    360  60,                      ///
+             label("Variable of interest: ")
+             
+   VARNAME  vl_var 20     +25   340   .,                   ///
+             label("Variable")
+             
+           
+             
+         
+  TEXT     tx_var2      20    80    80      .,                 ///
+           label("Size  variable:   ")  
+
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+         
+           
+  GROUPBOX chk_per  390    10  360 80,                         ///
+           label("Options ")         ///
+  
+    TEXT txt_npar     +10    +25    100      .,                 ///  
+                  label("Number of partitions:   ")                           
+       
+     EDIT  ed_npar    +100    @     220      .,                 ///
+              option(partition)    default(4)    
+           
+  TEXT       txt_op2     400    +25    80      .,                 ///  
+             label("Type:")                          ///      
+          
+  COMBOBOX  cb_cum      500    @     220      .,                  ///
+            dropdownlist                                          ///
+            contents(cb_cum)  values(cb_cum_val) option(type)     ///
+            default(sha)
+
+
+     GROUPBOX chk_vname  390    +40  360 50,                         ///
+           label("Generate the group indicator ")         ///
+  
+    TEXT txt_vname     +10    +20    100      .,                 ///  
+                  label("Name of group variable:   ")                           
+       
+     EDIT  ed_vname    +100    @     220      .,                 ///
+              option(vname)     
+
+   GROUPBOX graphs  390    +60  360 50,                         ///
+           label("Plotting the Graph")         ///
+
+
+        CHECKBOX    chk_his      400    +20     340      .,/*
+ */      label("Plot the histogram graph of shares /cumulative shares.")                                ///
+                 default(0) option(dgraph) 
+END
+
+
+LIST cb_cum
+BEGIN
+  Income shares
+  Cumulative income shares
+END
+
+LIST cb_cum_val
+BEGIN
+sha
+cum
+END
+
+
+
+
+
+HELP hlp1,   view("help quinsh")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+
+PROGRAM command
+BEGIN
+	put "quinsh "
+       	require  main.vl_var
+	varlist  main.vl_var
+ 	
+       	beginoptions  
+			optionarg main.vn_hhs
+			optionarg main.ed_vname
+                        if !main.ed_npar.isdefault(){
+			optionarg main.ed_npar
+			}
+                         
+                    	if !main.cb_cum.isdefault(){
+			optionarg main.cb_cum
+			} 
+			if !main.chk_his.isdefault(){
+			optionarg main.chk_his
+			}
+                         
+		
+        endoptions	
+END

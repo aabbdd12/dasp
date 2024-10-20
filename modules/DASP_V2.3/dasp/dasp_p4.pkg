@@ -1,0 +1,113 @@
+* May2013 - 
+v 3
+  DASP          : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   2.3   
+d Date          : May      2013
+d Stata Version : Required  10.0 and higher
+d
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_p4 Distributive Analysis Stata Package: PART IV
+
+f files/curves/cdf.ado
+f files/curves/cdf.hlp
+f files/curves/cdf.dlg
+
+f files/curves/cdomc.ado
+f files/curves/cdomc.hlp
+f files/curves/cdomc.dlg
+
+f files/curves/cdomc2d.ado
+f files/curves/cdomc2d.hlp
+f files/curves/cdomc2d.dlg
+
+f files/curves/cdomc2r.ado
+f files/curves/cdomc2r.hlp
+f files/curves/cdomc2r.dlg
+
+f files/povelas/efgtgro.ado
+f files/povelas/efgtgro.hlp
+f files/povelas/efgtgro.dlg
+
+f files/povelas/efgtine.ado
+f files/povelas/efgtine.hlp
+f files/povelas/efgtine.dlg
+
+f files/poverty/imdp_afi.ado
+f files/poverty/imdp_afi.dlg
+f files/poverty/imdp_afi.hlp
+
+f files/poverty/imdp_bci.ado
+f files/poverty/imdp_bci.dlg
+f files/poverty/imdp_bci.hlp
+
+f files/poverty/imdp_cmr.ado
+f files/poverty/imdp_cmr.dlg
+f files/poverty/imdp_cmr.hlp
+
+f files/poverty/imdp_ewi.ado
+f files/poverty/imdp_ewi.dlg
+f files/poverty/imdp_ewi.hlp
+
+f files/poverty/imdp_ihi.ado
+f files/poverty/imdp_ihi.dlg
+f files/poverty/imdp_ihi.hlp
+
+f files/poverty/imdp_mfi.ado
+f files/poverty/imdp_mfi.dlg
+f files/poverty/imdp_mfi.hlp
+
+f files/poverty/imdp_tsu.ado
+f files/poverty/imdp_tsu.dlg
+f files/poverty/imdp_tsu.hlp
+
+f files/poverty/imdp_uhi.ado
+f files/poverty/imdp_uhi.dlg
+f files/poverty/imdp_uhi.hlp
+
+
+f files/poverty/imdpov.ado
+
+f files/poverty/imoda.ado
+f files/poverty/imoda.dlg
+f files/poverty/imoda.hlp
+
+f files/inequality/iprog.ado
+f files/inequality/iprog.dlg
+f files/inequality/iprog.hlp
+
+f files/ungroup/ungroup.ado
+f files/ungroup/_sima.ado
+f files/ungroup/_inidis.ado
+f files/ungroup/_expadj.ado
+f files/ungroup/_expex.ado
+f files/ungroup/_cumdis.ado
+f files/ungroup/ungroup.dlg
+f files/ungroup/ungroup.hlp
+f files/dominance/dombdpov.ado
+f files/dominance/dombdpov.hlp
+f files/dominance/dombdpov.dlg
+F files/auxiliaries/wgnuplot.exe
+f files/auxiliaries/_daspmenu.ado
+f files/auxiliaries/_nargs.ado
+f files/auxiliaries/resop.idlg
+f files/auxiliaries/dasp_line_opts1.idlg
+f files/auxiliaries/dasp_gr_res_opts.idlg
+f files/auxiliaries/dasp_dif_line_opts.idlg
+f files/auxiliaries/dasp_conf_opts.idlg
+f files/auxiliaries/_stat_inf.idlg
+f files/auxiliaries/xml_taba.hlp
+f files/auxiliaries/xml_taba.ado
+F files/auxiliaries/xml_taba_options.txt
+f files/auxiliaries/_dasp_dif_table_ifgt.ado
+f files/auxiliaries/_dasp_dif_table.ado
+f files/auxiliaries/graph_header.idlg
+f files/auxiliaries/addDMenu.ado

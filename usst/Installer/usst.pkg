@@ -1,0 +1,34 @@
+* JUNE 2020 - 
+v 3
+d {bf:USST       : Usefull Stata Tools}
+d Version       : Version           0.10   
+d Date          : JUNE         2020
+d Stata Version : Required  15.0 and higher
+d
+d USST is a product of WB.
+d
+d Authors : {bf:Abdelkrim Araar(a)} }
+d
+d Emails  :  
+d           (a) {browse "mailto:aabd@ecn.ulaval.ca":aabd@ecn.ulaval.ca}  
+d
+f files/main/drogen.ado	    
+f files/main/putexmat.ado	     
+f files/main/qdrogen.ado	     
+f files/main/simwd.ado	     
+f files/main/vratio.ado
+f files/main/vsuma.ado
+f files/main/genjobstat.ado
+f files/main/genjobstatgr.ado
+f files/main/genjobpov.ado
+f files/main/genjobgini.ado
+f files/main/hotdeck.ado
+f files/main/_nargs.ado
+f files/main/ddfgts.ado
+f files/main/shapar.ado
+f files/main/tabout.ado
+f files/main/cnpe.ado
+f files/main/gencatvar.ado
+f files/main/genjobginigr.ado
+f files/main/genjobpovgr.ado
+f files/main/genjobstatigr.ado

@@ -1,0 +1,59 @@
+a:link.menu {
+	COLOR: #FFFFFF; TEXT-DECORATION: none
+}
+a:active.menu {
+	COLOR: #FFFFFF; TEXT-DECORATION: none
+}
+a:visited.menu {
+	COLOR: #FFFFFF; TEXT-DECORATION: none
+}
+a:hover.menu {
+	COLOR: #333333; TEXT-DECORATION: none
+}
+TD.menu {
+font-family: Tohama;
+font-size: 11px;
+color: #333333;
+}
+DIV.menu {
+font-family: Tohama;
+font-size: 11px;
+color: #333333;
+}
+
+A:link  {
+	color: #0000FF;
+	text-decoration: none;
+}
+
+A:visited  {
+	color: #0000FF;
+	text-decoration: none;
+}
+
+A:active  {
+	color: #0000FF;
+	text-decoration: none;
+}
+
+A:hover  {
+	color: #003333;
+	text-decoration: none;
+}
+
+TD  {
+font-family: Black,Arial;
+font-size: 13px;
+           }
+           
+P  {
+font-family: Black,Arial;
+font-size: 13px;
+           }
+
+           
+TD.right {
+font-family: Black,Arial;
+font-size: 11px;
+color: #333333;
+}

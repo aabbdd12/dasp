@@ -1,0 +1,58 @@
+{smcl}
+{* January 2018}{...}
+{hline}
+{hi:DUVM : Deaton Unit Value Model}{right:{bf: World Bank}}
+{hline}
+
+
+{title:DUVM} 
+
+{p 8 10}{cmd:duvm}  {it:namelist} (min=2) {cmd:,} 
+[ 
+{cmd:EXPEND(}{it:varname}{cmd:)} 
+{cmd:HHSIZE(}{it:varname}{cmd:)} 
+{cmd:CLUSTER(}{it:varname}{cmd:)}
+{cmd:HWEIGHT(}{it:varname}{cmd:)}
+{cmd:REGION(}{it:varname}{cmd:)}
+{cmd:SUBROUND(}{it:varname}{cmd:)}
+{cmd:INDEPVAR(}{it:varlist}{cmd:)} 
+{cmd:CBS(}{it:string}{cmd:)} 
+{cmd:BOOT(}{it:int}{cmd:)} 
+]
+
+{p 8 8} {cmd:namelist}  should contain the names for the expenditure items.  Note that the data file must contain two variables for each item.  The name of the first variable is composed of the letter w and the name of the item.  The name of second variable is composed of the word luv and the name of the item.  For instance, if the name is: food, we must have the two variables wfood and luvfood, which refers to the expenditure share and the log of the unit value of the food item respectively. {p_end}
+
+{title:Version} 13.0 and higher.
+
+{title:Description}
+ {p}{cmd:DUVM}  This module can be used to estimate the income and price elasticities with the Deaton Unit Value Model. {p_end}
+
+
+{title:Options ((*) required)}
+
+{p 4 8} {cmdab:*hsize} The household size. {p_end}
+
+{p 4 8} {cmdab:*expend} the household expenditures. {p_end}
+
+{p 4 8} {cmdab:*cluster} the cluster is required in an intermediate step to estimate the derivative of the log(exp_share) with regards to the log(unit value).  {p_end}
+
+{p 4 8} {cmdab:region} the region area. {p_end}
+
+{p 4 8} {cmdab:subround} the round of the surveyed household. {p_end}
+
+{p 4 8} {cmdab:indepvar} The independent variables of the first stage estimation models. {p_end}
+
+{p 4 8} {cmdab:cbs} Correction of Selection Bias. With the option cbs(yes), for each item c, the routine computes the beforehand the IML ratio, and this based on the estimation of a binary model (consumption is not nil ), and then, it uses the IMR variable in the models of the first stage. {p_end}
+
+{p 4 8} {cmdab:hweight}  to indicate the sampling weight. {p_end}
+
+{p 4 8} {cmdab:boot}(number of replications) : The number of bootstrap iterations to estimate the standard errors of the price elasticities. {p_end}
+
+
+{title:Examples}
+{title:Authors}
+Abdelkrim Araar
+
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}

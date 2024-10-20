@@ -1,0 +1,71 @@
+* Februrary2022 - v3.03
+  DASP 3.0         : Distributive Analysis Stata Package
+                       
+d ===================================================
+d Version       : Version   3.03   
+d Date          : Februrary  2022
+d Stata Version : Required  15.0 and higher
+d
+d ===================================================
+d Author:
+d DASP is conceived by:
+d
+d Dr. Abdelkrim Araar  :  aabd@ecn.ulaval.ca
+d Dr. Jean-Yves Duclos :  jyves@ecn.ulaval.ca
+d
+d ===================================================
+p dasp_p6 Distributive Analysis Stata Package: PART IV
+
+f files/progressivity/cprog.ado
+f files/progressivity/cprog.dlg
+f files/progressivity/cprog.sthlp
+f files/progressivity/cprogtb.ado
+f files/progressivity/cprogtb.dlg
+f files/progressivity/cprogtb.sthlp
+f files/progressivity/iprog.ado
+f files/progressivity/iprog.dlg
+f files/progressivity/iprog.sthlp
+
+
+f files/propoor/capropoor.ado
+f files/propoor/cpropoord.ado
+f files/propoor/cpropoord.dlg
+f files/propoor/cpropoord.sthlp
+f files/propoor/cpropoordi.ado
+f files/propoor/cpropoorp.ado
+f files/propoor/cpropoorp.dlg
+f files/propoor/cpropoorp.sthlp
+f files/propoor/crpropoor.ado
+f files/propoor/gicur.ado
+f files/propoor/gicur.dlg
+f files/propoor/gicur.sthlp
+f files/propoor/gicur_or.dlg
+f files/propoor/ipropoor.ado
+f files/propoor/ipropoor.dlg
+f files/propoor/ipropoor.sthlp
+
+
+f files/target/example.do
+f files/target/itargetc.ado
+f files/target/itargetc.dlg
+f files/target/itargetc.sthlp
+f files/target/itargetg.ado
+f files/target/itargetg.dlg
+f files/target/itargetg.sthlp
+f files/target/itargetg2d.ado
+f files/target/itargetg2d.dlg
+f files/target/itargetg2d.sthlp
+f files/target/ogtpr.ado
+f files/target/ogtpr.dlg
+f files/target/ogtpr.sthlp
+
+
+f files/ungroup/lista.smcl
+f files/ungroup/ungroup.ado
+f files/ungroup/ungroup.dlg
+f files/ungroup/ungroup.sthlp
+f files/ungroup/_cumdis.ado
+f files/ungroup/_expadj.ado
+f files/ungroup/_expex.ado
+f files/ungroup/_inidis.ado
+f files/ungroup/_sima.ado

@@ -1,0 +1,241 @@
+/* 
+  cdistrub.dlg
+*/  
+
+VERSION 9.2
+
+
+INCLUDE graph_header
+INCLUDE header
+
+
+DIALOG main, label("DASP| Joint distribution surfaces --> sjdistrub command") tabtitle("Main")
+
+
+BEGIN
+  INCLUDE _glist_def
+   
+  GROUPBOX intvar 10     10    360  140,                      ///
+           label("Variable(s) of interest: ")
+           
+  TEXT     tx_dim1      20    50    80      .,                 ///
+             label("Dim.1 variable:   ")  
+  VARNAME  vn_d1      110    @     250      .,                 ///
+           option(d1)  
+  
+  TEXT     tx_dim2      20    +25    80      .,                 ///
+               label("Dim.2 variable:   ")  
+  VARNAME  vn_d2      110    @     250      .,                 ///
+           option(d2)  
+           
+           
+  TEXT     tx_var2      20    160    80      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      110    @     250      .,                 ///
+           option(hsize)      
+ 
+  TEXT     tx_var4      20    +45    80      .,                 ///
+           label("Group  variable:   ") 
+  VARNAME  vn_hhg      110    @     250      .,                 ///
+           option(hgroup)            
+
+  TEXT     tx_var5      20    +25    80      .,                 ///
+             label("Group  number:   ") 
+    
+    
+  EDIT    en_hhgn      110    @     250      .,                 ///
+           option(ngroup)              
+
+
+ 
+            
+           
+  GROUPBOX chk_per  390    10  360 120,                         ///
+           label("Parameters: ")         ///
+  
+     
+           
+   TEXT    tx_min   470    +25    80      .,                    ///
+           label("Minimum:   ") 		                ///
+    		
+   TEXT    tx_max   560    @   80      .,                 ///
+           label("Maximum:   ") 
+          
+   TEXT    tx_par   650    @    80      .,                    ///
+	   label("# of partitions:   ") 		                ///
+	      		
+
+   
+   TEXT txt_pl1     400     +15    100      .,                 ///  
+                  label("Range Dim. 1:   ")        
+   
+   EDIT    ed_min1   470    @     80      .,                 ///
+           default(0) option(min1)	  	             ///
+       		
+   EDIT    ed_max1   560    @      80      .,                 ///
+           default(10000) option(max1) 	
+           
+  EDIT    ed_par1   650    @      80      .,                 ///
+           default(20) option(par1)    
+           
+           
+  TEXT txt_pl2     400     +25    100      .,                 ///  
+                  label("Range Dim. 2:   ")        
+   
+   EDIT    ed_min2   470    @     80      .,                 ///
+           default(0) option(min2)	  	             ///
+       		
+   EDIT    ed_max2   560    @      80      .,                 ///
+           default(10000) option(max2) 	
+           
+  EDIT    ed_par2   650    @      80      .,                 ///
+           default(20) option(par2)             
+           
+  
+   GROUPBOX gb_tit   390    160  360 120,		///
+		 label(`"Graph title and label axis"')              
+						
+     TEXT    tx_tit   400   +25      160     .,                    ///
+           label("Graph title   ")                              ///
+                
+    EDIT     ed_tit      470   @      250    .,               ///
+           option(title) default()    
+   
+    TEXT    txt_lab1     400   +45      160     .,                 ///  
+                  label("Label Dim. 1:   ")        
+   
+    EDIT    ed_lab1      470    @       250   .	,               ///
+           option(lab1) default() 
+           
+           
+    TEXT     txt_lab2     400   +25      160     .,                 ///  
+                  label("Label Dim. 2:   ")        
+    EDIT     ed_lab2      470    @       250   .,               ///
+           option(lab2) default()      
+         
+  
+   
+END
+
+
+
+
+
+
+
+
+
+DIALOG res,  tabtitle("Results")
+  BEGIN
+    GROUPBOX gb1 10     10    360  240,                      ///
+             label("Coordinates: ")
+             
+    CHECKBOX   chk_op1        20    +25    60    .,                   ///
+             label("List:")      
+             
+   TEXT  txt0     80    +35    280      .,                 ///  
+                   label("To save coordinates in Stata format") 
+                   
+   TEXT  txt1     20    +15    40      .,                 ///  
+               label("Save:")                                 
+    
+    FILE  fnamec      80    @     280      .,                 ///
+    label ("Browse...")    save option(sres)  
+    
+    
+    TEXT  txt2     80    +35    280      .,                 ///  
+                   label("To save coordinates in GnuPolt-ASCII format")   
+    
+    TEXT  txt3     20    +15    40      .,                 ///  
+                   label("Save:")                                 
+        
+    FILE  fnamecg      80    @     280      .,                 ///
+    label ("Browse...")    save option(sresg)                  ///
+    filter("DAT (*.dat)|*.dat|TXT (*.txt)|*.txt")
+
+    TEXT  txt4     80    +35    280      .,                 ///  
+                   label("To save graph in *.emf format (for World doc.)")   
+    
+    TEXT  txt5     20    +15    40      .,                 ///  
+                   label("Save:")                                 
+        
+    FILE  fnamemf      80    @     280      .,                 ///
+    label ("Browse...")    save option(sgemf)                  ///
+    filter("EMF (*.emf)|*.emf")
+    
+    
+    
+    
+END
+
+LIST yes_no
+BEGIN
+  yes
+  no
+END
+
+
+
+
+
+
+
+
+HELP hlp1,   view("help sjdistrub")
+RESET res1
+PROGRAM command
+BEGIN
+	put "sjdistrub "
+	require  main.vn_d1
+	varlist [main.vn_d1]
+	require  main.vn_d2
+	varlist [main.vn_d2]
+
+	beginoptions
+		       
+			optionarg main.vn_hhs
+			optionarg main.vn_hhg
+			optionarg main.en_hhgn
+			optionarg main.ed_lab1
+                        optionarg main.ed_lab2
+                        optionarg main.ed_tit
+			
+			if !main.ed_min1.isdefault() {
+			 optionarg main.ed_min1
+			 }
+			if !main.ed_max1.isdefault() {
+			optionarg main.ed_max1
+			}
+			if !main.ed_par1.isdefault() {
+			optionarg main.ed_par1
+			}
+			if !main.ed_min2.isdefault() {
+			optionarg main.ed_min2
+			}
+			if !main.ed_max2.isdefault() {
+			optionarg main.ed_max2
+			}
+			if !main.ed_par2.isdefault() {
+			optionarg main.ed_par2
+			}
+			
+
+			
+                        optionarg res.fnamec
+			optionarg res.fnamecg
+			optionarg res.fnamemf
+						if res.chk_op1 {
+									
+									put "lres("
+									put res.chk_op1
+									put ")"
+					                       }
+					                          
+			
+	endoptions
+					                       
+					            
+		        
+			
+	
+END

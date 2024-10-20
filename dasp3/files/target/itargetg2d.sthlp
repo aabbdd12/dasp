@@ -1,0 +1,69 @@
+{smcl}
+{* August 2021}{...}
+{hline}
+{hi:DASP 3.0 : Distributive Analysis Stata Package}{right:{bf:PEP}}
+help for {hi:itargetg2d }{right:Dialog box:  {bf:{dialog itargetg2d}}}
+{hline}
+
+{title: Bi-Dimensional Poverty and targeting by population groups}
+
+{p 8 12}{cmd:itargetg2d}  {it:varlist}{cmd:,} [  
+{cmd:HSize(}{it:varname}{cmd:)} 
+{cmd:HGroup(}{it:varname}{cmd:)} 
+{cmd:TYPE(}{it:string}{cmd:)} 
+{cmd:ALpha(}{it:real}{cmd:)} 
+{cmd:PLINE(}{it:real}{cmd:)} 
+{cmd:MIN(}{it:real}{cmd:)} 
+{cmd:MAX(}{it:real}{cmd:)}  
+{cmd:TYPE(}{it:string}{cmd:)}
+{cmd:CNOR(}{it:string}{cmd:)}
+{cmd:DEC(}{it:int}{cmd:)}]
+
+
+ 
+{p}where {cmd:varlist} is a list of the two dimensional variables. {p_end}
+
+{title:Version} 15.0 and higher.
+
+{title:Description}
+ 
+ {p}{cmd:itargetg2d} produces the following estimates and curves for a given list of population groups:{p_end}
+ 
+{p 4 8}{inp:. Impact of targeting population groups with the first dimension of wellbeing on the bidimensional poverty indices (Duclos, Sahn and Younger (2006)).}{p_end}
+
+{title:Notes:}
+
+{p 0 4} {cmdab:hweight} Users should set their surveys' sampling design {help svyset} before using this module 
+ (and save their data files). If the sampling design is not set, simple-random sampling (SRS) will be automatically assigned 
+by default. {p_end}
+ 
+ 
+{title:Options:} 
+
+{p 0 4} {cmdab:hsize}   Household size. For example, to compute poverty at the individual level, one will want to weight household-level observations by household size (in addition to sampling weights, best set in survey design). {p_end}
+  
+{p 0 4} {cmdab:hgroup}   Variable that captures a socio-demographic group. For example, this variable could equal 1 for rural households and 2 for urban ones. When this option is used, the associated varlist should contain only one variable. If the values of variable {it:hgroup} are labelled, the graphs that will be produced will automatically show these labels.  {p_end}
+  
+{p 0 4} {cmdab:alpha}   To set the FGT parameter (alpha). By default, alhpha=0.  Note that alpha is supposed to be the same for the two dimensions.{p_end}
+
+{p 0 4} {cmdab:pline1}    To set the poverty line of the first  dimension. {p_end}
+{p 0 4} {cmdab:pline2}    To set the poverty line of the second dimension. {p_end}
+
+{p 0 4} {cmdab:type}    The lumpsum targeting is the default scheme of targeting. Selected the option "prop" for the proportional scheme of targeting. {p_end}
+
+{p 0 4} {cmdab:constam}   To indicate the constant amount of lumpsum targeting . {p_end}
+
+{p 0 4} {cmdab:prop}    To indicate the proportion of the proportional scheme of targeting. {p_end}
+
+
+sysuse targeting.dta, replace
+itargetg2d tot98eq haz, alpha(0) pline1(1790) pline2(8) hgroup(urban92) constam(1) slevel(5) so(10)
+
+
+{title:Authors}
+Abdelkrim Araar and Jean-Yves Duclos
+
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}  or please contact {bf:Jean-Yves Duclos:} {browse "mailto:jyves@ecn.ulaval.ca"}
+

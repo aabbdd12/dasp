@@ -1,0 +1,8 @@
+dictionary using data/persons.raw {
+            _column(5) 
+                       long  idnumb %9f "Identifier number"
+                       str6  sex    %6s "Sex"
+                       int   age    %2f "Age"
+            _column(27)
+                       float income %6f "Income"
+    }

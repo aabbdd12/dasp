@@ -1,0 +1,122 @@
+/*************************************************************************/
+/* DASP  : Distributive Analysis Stata Package  (version 2.3)            */
+/*************************************************************************/
+/* Conceived and programmed by Dr. Araar Abdelkrim   (2006-2012)          */
+/* Universite Laval, Quebec, Canada                                       */
+/* email : aabd@ecn.ulaval.ca                                            */
+/* Phone : 1 418 656 7507                                                */
+/*************************************************************************/
+/* quinsh.dlg                                                            */
+/*************************************************************************/
+
+VERSION 15.0
+
+INCLUDE _std_xlarge
+DEFINE  _dlght 430
+DEFINE  _dlgwd 890
+INCLUDE header
+
+
+
+DIALOG main, label("DASP 3.0 | Income shares and cumulative income shares by percentile-based groups --> quinsh command") tabtitle("Main")
+
+
+BEGIN
+ GROUPBOX intvar       10     10    430  140,                      ///
+           label("Variable of ineterst: ")
+           
+  
+  TEXT     tx_var111     20    +35    150      .,                 ///
+           label("Welafre variable(s):   ")  
+  
+  VARLIST  vl_var 150     @   280   .,                   ///
+           label("Variables")
+           
+  TEXT     tx_var2      20    +35    150      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs      150    @     280      .,                 ///
+           option(hsize)      
+ 
+
+
+           
+  GROUPBOX chk_per  450    10  430 80,                         ///
+           label("Options ")         ///
+  
+    TEXT txt_npar     +10    +25    150      .,                 ///  
+                  label("Number of partitions:   ")                           
+       
+     EDIT  ed_npar    +150    @     250      .,                 ///
+              option(partition)    default(4)    
+           
+  TEXT       txt_op2     460    +25    150      .,                 ///  
+             label("Type:")                          ///      
+          
+  COMBOBOX  cb_cum      +150    @     250      .,                  ///
+            dropdownlist                                          ///
+            contents(cb_cum)  values(cb_cum_val) option(type)     ///
+            default(sha)
+
+
+     GROUPBOX chk_vname  450    +40  430 50,                         ///
+           label("Generate the group indicator ")         ///
+  
+    TEXT txt_vname     +10    +20    150      .,                 ///  
+                  label("Name of group variable:   ")                           
+       
+     EDIT  ed_vname    +150    @     250      .,                 ///
+              option(vname)     
+
+   GROUPBOX graphs  450    +60  430 50,                         ///
+           label("Plotting the graph")         ///
+
+
+        CHECKBOX    chk_his      460    +20     340      .,/*
+ */      label("Plot a histogram of shares /cumulative shares.")                                ///
+                 default(0) option(dgraph) 
+END
+
+
+LIST cb_cum
+BEGIN
+  Income shares
+  Cumulative income shares
+END
+
+LIST cb_cum_val
+BEGIN
+sha
+cum
+END
+
+
+
+
+
+HELP hlp1,   view("help quinsh")
+RESET res1
+
+
+PROGRAM command
+BEGIN
+	put "quinsh "
+       	require  main.vl_var
+	varlist  main.vl_var
+ 	
+       	beginoptions  
+			optionarg main.vn_hhs
+			optionarg main.ed_vname
+                        if !main.ed_npar.isdefault(){
+			optionarg main.ed_npar
+			}
+                         
+                    	if !main.cb_cum.isdefault(){
+			optionarg main.cb_cum
+			} 
+			if !main.chk_his.isdefault(){
+			optionarg main.chk_his
+			}
+                         
+		
+        endoptions	
+END

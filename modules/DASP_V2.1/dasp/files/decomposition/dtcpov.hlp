@@ -1,0 +1,78 @@
+
+{smcl}
+{* January 2007}{...}
+{hline}
+{hi:DASP : Distributive Analysis Stata Package}{right:{bf:PEP, CIRPEE, World Bank and UNDP}}
+help for {hi:dtcpov }{right:Dialog box:  {bf:{dialog dtcpov}}}
+{hline}
+
+{title:Transient and chronic poverty} 
+
+{title:Description}
+{p 8 8} 
+The module {cmd:dtcpov} decomposes total poverty into transient and chronic components.
+
+{title:Syntax}
+
+{p 8 10}{cmd:dtcpov}  {it:varlist}  [{it:aw=weight}] {cmd:,} 
+[ 
+{cmd:HSize(}{it:varname}{cmd:)}  
+{cmd:PLine(}{it:real}{cmd:)}  
+{cmd:ALpha(}{it:real} {cmd:)} 
+{cmd:APPR(}{it:string} {cmd:)}
+{cmd:CBIas(}{it:string} {cmd:)} 
+{cmd:NRep(}{it:int}{cmd:)} 
+{cmd:Cens(}{it:int}{cmd:)}
+{cmd:DEC(}{it:int}{cmd:)}
+]
+ 
+
+{p}where {p_end}
+{p 8 8} {cmd:varlist} is a list of living standard variables (e.g., incomes or expenditures) such as inc_1998 inc_2000, etc. {p_end}
+
+
+{title:Version} 9.2 and higher.
+
+{title:Remark}
+ {p} Users should set their surveys' sampling design before using this module 
+ (and save their data files). If the sampling design is not set, simple-random sampling (SRS) will be automatically assigned 
+by default.
+{p_end}
+
+{title:Options}
+
+{p 0 4} {cmdab:hsize}   Household size. For example, if variable of interest is income per capita, one should weight observations by household size.{p_end}
+
+{p 0 4} {cmdab:pline}   To indicate the poverty line. {p_end}
+
+{p 0 4} {cmdab:alpha}   To indicate the alpha parameter of the FGT index. {p_end}
+
+{p 0 4} {cmdab:appr}    By default, the Jalan and Ravallion approach (1998) is used. To use the Duclos et al. approach (2006), choose the option appr(dag). {p_end}
+
+{p 0 4} {cmdab:cbias}   If option "anal" is chosen, the bias correction is analytical. You can also choose "boot" for a bootstrap correction. {p_end}
+
+{p 0 4} {cmdab:nrep}    To indicate the number of boostrap replications to be used when the bootstrap approach is used for bias corrections. {p_end}
+
+{p 0 4} {cmdab:cens}    If option yes is chosen, censored incomes are used. {p_end}
+
+{title:Examples}
+
+{p 4 8}{inp:. dtcpov pccon87 pccon89 pccon91 pccon93 , pline(1.0) alpha(2.0) }{p_end}
+{p 4 8}{inp:. dtcpov pccon87 pccon89 pccon91 pccon93 , pline(1.0) alpha(2.0) hsize(size) cbias(anal)}{p_end}
+{p 4 8}{inp:. dtcpov pccon87 pccon89 pccon91 pccon93 , pline(1.0) alpha(2.0) hsize(size) cbias(boot) cens(yes) nrep(200)}{p_end}
+
+{title:Reference(s)}
+{p 4 8} Jalan,Jyotsna, and Martin Ravallion. (1998) "Transient Poverty in Postreform Rural China" Journal of Comparative Economics, 26(2), pp. 338:57{p_end}
+{p 4 8} Jalan, Jyotsna and Martin Ravallion. (2000) "Is Transient Poverty Different? Evidence for Rural China," Journal of Development Studies, Vol. 36(6), August 2000, pp. 82:99{p_end}
+{p 4 8} Duclos Jean-Yves, Abdeklrim Araar, and John Gilles (2006). {browse "http://132.203.59.36/CIRPEE/cahierscirpee/2006/description/descrip0611.htm":Chronic and Transient Poverty: Measurement and Estimation, with Evidence from China}, CIRPEE WP-11-06, Universite Laval.{p_end}
+
+
+{title:Authors}
+Abdelkrim Araar
+Jean-Yves Duclos
+
+
+{title:Contact}
+If you note any problems, please contact {bf:Abdelkrim Araar:} {browse "mailto:aabd@ecn.ulaval.ca"}
+
+

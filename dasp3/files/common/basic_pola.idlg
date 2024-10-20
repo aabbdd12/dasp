@@ -1,0 +1,116 @@
+ GROUPBOX intvar       col10     170    430  160,                      ///
+           label("Distribution 1: ")
+           
+  COMBOBOX  fi_d1        col11   +25     120      .,                  ///
+            contents(dt_src)  values(dt_src_val)  dropdownlist                         ///
+            onselchange(program data_change1)  default(1)         
+                     
+           
+  FILE  file_d1      150    @     280      .,                 ///
+    label ("Browse...")    save option(file1)                      ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*) onchange(program getLevels)
+    
+
+  
+  TEXT     tx_var1      20    +25    150      .,                 ///
+             label("Welfare variable:   ")  
+  
+  
+   /* EDIT     en_y_d1      120    @     240      .,                 ///  */
+  COMBOBOX  en_y_d1 	150    @     280 	.,	///
+	dropdown contents(levels) 
+           
+  
+  VARNAME  vn_y_d1      150    @     280      .,                 ///
+  option(wel1)
+
+  
+  
+  
+
+           
+  TEXT     tx_var2      20    +25    150      .,                 ///
+           label("Size  variable:   ")  
+  
+  COMBOBOX  en_hhs_d1 	150    @     280 	.,	///
+	dropdown contents(levels)  option(hsize1)  
+           
+ 
+  VARNAME  vn_hhs_d1      150    @     280      .,                 ////
+           option(hsize1) 
+
+
+           
+  CHECKBOX    chk_cd1     20    +25    120      .,                 ///  
+             label("Condition(s)    ")                            ///
+             onclickon(program cd1_on)                             ///
+             onclickoff(program cd1_off)  default(0)     
+             
+  
+ EDIT     ed_d1c1        150    @    280      .,               ///  
+  option(cond1)
+ 
+ 
+ 
+ 
+ 
+ GROUPBOX intvar2 460     170    430  160,                      ///
+            label("Distribution 2: ")
+            
+   
+
+               
+               
+  COMBOBOX  fi_d2        470   +25     120      .,              ///
+            contents(dt_src)  values(dt_src_val) dropdownlist                ///
+            onselchange(program data_change2)  default(1)              
+                        
+              
+    FILE  file_d2      600    @     280      .,      onchange(program getLevels2)           ///
+    label ("Browse...")    option(file2)                        ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*)
+    
+   TEXT     tx_var3      470    +25    150      .,                 ///
+              label("Welfare variable:   ")  
+   
+   
+   COMBOBOX      en_y_d2      600    @     280      .,       ///                      
+   dropdown contents(levels2)          
+        
+		
+   VARNAME  vn_y_d2      600    @     280      .,                 
+ 
+
+
+
+            
+   TEXT     tx_var4      470    +25    150      .,                 ///
+            label("Size  variable:   ")  
+			
+   COMBOBOX     en_hhs_d2      600    @     280      .,                 ///
+            option(hsize2)      dropdown contents(levels2) 
+        
+		
+   VARNAME  vn_hhs_d2      600    @     280      .,                 ///
+            option(hsize2) 
+            
+             
+
+       CHECKBOX    chk_cd2     470    +25    120      .,                 ///  
+              label("Condition(s)    ")                            ///
+              onclickon(program cd2_on)                             ///
+              onclickoff(program cd2_off)  default(0)     
+              
+
+   
+  EDIT     ed_d2c1        600    @    280      .,               ///     
+   option(cond2)
+            
+     
+            
+           
+
+            
+            
+                                  
+          

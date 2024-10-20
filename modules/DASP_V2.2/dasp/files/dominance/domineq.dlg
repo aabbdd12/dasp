@@ -1,0 +1,653 @@
+/* 
+  domineq.dlg
+  Araar Abdelkrim
+*/  
+
+VERSION 9.2
+
+
+
+
+POSITION . . 760 360
+
+
+DIALOG main, label("DASP| Intersections between Lorenz/Concentration curves --> domineq command") tabtitle("Main")
+
+
+BEGIN
+  GROUPBOX intvar       10     10    360  240,                      ///
+           label("Distribution 1: ")
+           
+  COMBOBOX  fi_d1        20   +25     100      .,                   ///
+            contents(dt_src)  dropdownlist                          ///
+            onselchange(program data_change1)  default("Data in memory")         
+                     
+           
+  FILE  file_d1      120    @     240      .,                 ///
+    label ("Browse...")    option(file1)                      ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*)
+    
+  
+  TEXT     tx_var1      20    +25    90      .,                 ///
+             label("Variable of interest:   ")  
+  VARNAME  vn_y_d1      120    @     240      .,                 ///
+              
+  EDIT     en_y_d1      120    @     240      .,                 ///         
+     
+     
+  CHECKBOX chk_var1     20    +25    100      .,                 ///  
+               label("Ranking var.:   ")                       ///      
+    onclickon(script onclick1)                                 ///
+    onclickoff(script offclick1)           
+    
+    VARNAME  vn_rank_d1      120    @     240      .,                 ///
+           option(rank1)  
+           
+    EDIT    en_rank_d1       120    @     240      .,                 ///
+            option(rank1)          
+           
+           
+  TEXT     tx_var2      20    +25    90      .,                 ///
+           label("Size  variable:   ")  
+  VARNAME  vn_hhs_d1      120    @     240      .,                 ///
+           option(hsize1) 
+  
+  EDIT     en_hhs_d1      120    @     240      .,                 ///
+           option(hsize1)    
+           
+ 
+  
+   
+             
+             
+           
+  CHECKBOX    chk_cd1     120    +45    80      .,                 ///  
+             label("Condition(s)    ")                            ///
+             onclickon(program cd1_on)                             ///
+             onclickoff(program cd1_off)  default(0)     
+             
+ COMBOBOX       li_numd1      200    @     60      .,              ///
+            contents(li_num) default(1) dropdownlist                ///
+            onselchangelist(cond_change)           
+            
+ 
+ TEXT      tx_d1c1      70    +35      80      .,                 ///
+            label("  Condition (1):") 
+            
+  VARNAME  vn_d1c1        140    @    90      .,                 ///
+            option(vn_d1c1)      
+ 
+  COMBOBOX cb_d1c1        230    @    40      .,                 ///
+            contents(cb_opr1)    dropdownlist 
+  
+ EDIT     ed_d1c1        270    @    90      .,               ///     
+ 
+ 
+ COMBOBOX cb_d1aoc2        20    +25   50      .,                 ///
+           contents(cb_opr2) values(cb_opr2_val)   dropdownlist 
+           
+           
+           
+ TEXT      tx_d1c2      70    @      80      .,                 ///
+           label("  Condition (2):")  
+           
+ VARNAME  vn_d1c2        140    @    90      .,                 ///
+           option(vn_d1c1)      
+
+ COMBOBOX cb_d1c2        230    @    40      .,                 ///
+           contents(cb_opr1)    dropdownlist 
+ 
+ EDIT     ed_d1c2        270    @    90      .,               /// 
+ 
+ 
+ 
+ 
+ GROUPBOX intvar2 390     10    360  240,                      ///
+            label("Distribution 2: ")
+            
+   
+
+               
+               
+  COMBOBOX  fi_d2        400   +25     100      .,              ///
+            contents(dt_src)  dropdownlist                ///
+            onselchange(program data_change2)  default("Data in memory")              
+                        
+              
+    FILE  file_d2      500    @     240      .,                 ///
+    label ("Browse...")    option(file2)                        ///
+    filter(Stata files (*.dta)|*.dta|All files (*.*)|*.*)
+    
+   TEXT     tx_var3      400    +25    90      .,                 ///
+              label("Variable of interest:   ")  
+   VARNAME  vn_y_d2      500    @     240      .,                 
+   EDIT     en_y_d2      500    @     240      .,                             
+            
+    CHECKBOX chk_var2     400    +25    100      .,                 ///  
+               label("Ranking var.:   ")                            ///      
+     onclickon(script onclick2)                                 ///
+    onclickoff(script offclick2)            
+    
+    VARNAME  vn_rank_d2      500    @     240      .,                 ///
+           option(rank2) 
+    
+    EDIT  en_rank_d2      500    @     240      .,                 ///
+           option(rank2)  
+            
+   TEXT     tx_var4      400    +25    90      .,                 ///
+            label("Size  variable:   ")  
+   VARNAME  vn_hhs_d2      500    @     240      .,                 ///
+            option(hsize2) 
+            
+   EDIT     en_hhs_d2      500    @     240      .,                 ///
+            option(hsize2)    
+                     
+            
+   
+   
+   CHECKBOX    chk_cd2     500    +45    80      .,                 ///  
+              label("Condition(s)    ")                            ///
+              onclickon(program cd2_on)                             ///
+              onclickoff(program cd2_off)  default(0)     
+              
+  COMBOBOX       li_numd2      600    @     60      .,              ///
+             contents(li_num) default(1) dropdownlist                ///
+             onselchangelist(cond_change2)           
+             
+  
+  TEXT      tx_d2c1      450    +35      80      .,                 ///
+             label("  Condition (1):") 
+             
+   VARNAME  vn_d2c1        520    @    90      .,                 ///
+             option(vn_d1c1)      
+  
+   COMBOBOX cb_d2c1        610    @    40      .,                 ///
+             contents(cb_opr1)    dropdownlist 
+   
+  EDIT     ed_d2c1        650    @    90      .,               ///     
+  
+  
+  COMBOBOX cb_d2aoc2       400    +25   50      .,                 ///
+            contents(cb_opr2) values(cb_opr2_val)   dropdownlist 
+            
+            
+            
+  TEXT      tx_d2c2      450    @      80      .,                 ///
+            label("  Condition (2):")  
+            
+  VARNAME  vn_d2c2        520    @    90      .,                 ///
+            option(vn_d1c1)      
+ 
+  COMBOBOX cb_d2c2        610    @    40      .,                 ///
+            contents(cb_opr1)    dropdownlist 
+  
+ EDIT     ed_d2c2        650    @    90      .,               ///    
+ 
+   	                   
+    
+           
+   GROUPBOX chk_per  190    260  360 60,                         ///
+              label("Parameters and Options: ")         ///
+     
+      
+     
+      
+       TEXT       txt_op2     200    +25    80      .,                 ///  
+                   label("Type:   ")                             ///      
+                
+          COMBOBOX  cb_nor      +110    @     230      .,                  ///
+                  dropdownlist                                          ///
+                  contents(cb_nor)  values(cb_nor_val) option(type)     ///
+               default(nor)       
+      
+      
+                                  
+          
+     
+ 
+END
+
+
+
+
+
+LIST dt_src
+BEGIN
+  Data in memory
+  Data in file
+END
+
+
+
+LIST cb_nor
+BEGIN
+  Normalised
+  Generalised
+END
+
+LIST cb_nor_val
+BEGIN
+  nor
+  gen
+END
+
+LIST li_num
+BEGIN
+  1
+  2
+END
+
+LIST cb_opr1
+BEGIN
+  ==
+  !=
+  >
+  >=
+  <
+  <=
+END
+
+
+LIST cb_opr2
+BEGIN
+  AND
+  OR
+END
+
+LIST cb_opr2_val
+BEGIN
+ &
+ |
+END
+
+
+
+
+
+SCRIPT onclick1
+BEGIN
+main.vn_rank_d1.enable
+main.en_rank_d1.enable
+END
+
+SCRIPT offclick1
+BEGIN
+main.vn_rank_d1.disable
+main.en_rank_d1.disable
+END
+
+SCRIPT onclick2
+BEGIN
+main.vn_rank_d2.enable
+main.en_rank_d2.enable
+END
+
+SCRIPT offclick2
+BEGIN
+main.vn_rank_d2.disable
+main.en_rank_d2.disable
+END
+
+
+
+
+SCRIPT PREINIT
+BEGIN
+
+	create BOOLEAN has_cond1
+	create BOOLEAN has_cond2
+	create BOOLEAN has_cond3
+	create BOOLEAN has_cond4	
+END
+
+
+
+
+
+
+
+
+
+
+LIST cond_change
+BEGIN
+	script cond1
+	script cond2
+	
+END
+
+LIST cond_change2
+BEGIN
+	script cond3
+	script cond4
+	
+END
+
+SCRIPT cond1
+BEGIN
+	has_cond1.setfalse
+	has_cond2.setfalse
+	program check_conds
+END
+
+SCRIPT cond2
+BEGIN
+	has_cond1.settrue
+	has_cond2.settrue
+	program check_conds
+END
+
+
+SCRIPT cond3
+BEGIN
+	has_cond3.setfalse
+	has_cond4.setfalse
+	program check_conds2
+END
+
+SCRIPT cond4
+BEGIN
+	has_cond3.settrue
+	has_cond4.settrue
+	program check_conds2
+END
+
+PROGRAM cd1_on
+BEGIN
+	
+		call main.tx_d1c1.show
+		call main.vn_d1c1.show
+		call main.cb_d1c1.show
+		call main.ed_d1c1.show
+		call main.li_numd1.enable
+		
+if !main.li_numd1.isdefault() {
+		call main.tx_d1c2.show
+		call main.vn_d1c2.show
+		call main.cb_d1c2.show
+		call main.ed_d1c2.show
+		call main.cb_d1aoc2.show		
+}
+END
+
+PROGRAM cd1_off
+BEGIN
+	
+		call main.tx_d1c1.hide
+		call main.vn_d1c1.hide
+		call main.cb_d1c1.hide
+		call main.ed_d1c1.hide
+		call main.li_numd1.disable
+		
+		call main.tx_d1c2.hide
+		call main.vn_d1c2.hide
+		call main.cb_d1c2.hide
+		call main.ed_d1c2.hide
+		call main.cb_d1aoc2.hide
+		
+END
+
+
+PROGRAM data_change1
+BEGIN
+	
+if   main.fi_d1.isdefault()  {
+                               call main.file_d1.hide
+                               
+                               call main.vn_y_d1.show
+                               call main.vn_rank_d1.show
+                               call main.vn_hhs_d1.show
+                               
+                               call main.en_y_d1.hide
+                               call main.en_rank_d1.hide
+                               call main.en_hhs_d1.hide
+                               
+                               
+                              }
+if  !main.fi_d1.isdefault()  {
+                               call main.file_d1.show
+                              
+                               call main.vn_y_d1.hide
+                               call main.vn_rank_d1.hide
+			       call main.vn_hhs_d1.hide  
+			       
+                               call main.en_y_d1.show
+                               call main.en_rank_d1.show
+                               call main.en_hhs_d1.show
+                              }
+            
+END
+
+PROGRAM data_change2
+BEGIN
+	
+
+if   main.fi_d2.isdefault()  {
+                               call main.file_d2.hide
+                    
+                               call main.vn_y_d2.show
+                               call main.vn_rank_d2.show
+                               call main.vn_hhs_d2.show
+                               
+                               call main.en_y_d2.hide
+                               call main.en_rank_d2.hide
+                               call main.en_hhs_d2.hide
+                               
+                               
+                              }
+if  !main.fi_d2.isdefault()  {
+                              call main.file_d2.show
+                              call main.vn_hhs_d2.hide
+                              call main.vn_rank_d2.hide
+                              call main.vn_y_d2.hide
+                              
+                              call main.en_y_d2.show
+                              call main.en_rank_d2.show
+                              call main.en_hhs_d2.show
+                              }         
+END
+
+
+
+
+PROGRAM cd2_on
+BEGIN
+	
+		call main.tx_d2c1.show
+		call main.vn_d2c1.show
+		call main.cb_d2c1.show
+		call main.ed_d2c1.show
+		call main.li_numd2.enable
+		
+if !main.li_numd2.isdefault() {
+		call main.tx_d2c2.show
+		call main.vn_d2c2.show
+		call main.cb_d2c2.show
+		call main.ed_d2c2.show
+		call main.cb_d2aoc2.show		
+}
+END
+
+PROGRAM cd2_off
+BEGIN
+	
+		call main.tx_d2c1.hide
+		call main.vn_d2c1.hide
+		call main.cb_d2c1.hide
+		call main.ed_d2c1.hide
+		call main.li_numd2.disable
+		
+		call main.tx_d2c2.hide
+		call main.vn_d2c2.hide
+		call main.cb_d2c2.hide
+		call main.ed_d2c2.hide
+		call main.cb_d2aoc2.hide
+		
+END
+
+
+
+
+PROGRAM check_conds
+BEGIN
+	if has_cond1 {
+		call main.tx_d1c1.show
+		call main.vn_d1c1.show
+		call main.cb_d1c1.show
+		call main.ed_d1c1.show
+	}
+	if !has_cond2 {
+		call main.tx_d1c2.hide
+		call main.vn_d1c2.hide
+		call main.cb_d1c2.hide
+		call main.ed_d1c2.hide
+		call main.cb_d1aoc2.hide
+	}
+	if has_cond2 {
+		call main.tx_d1c2.show
+		call main.vn_d1c2.show
+		call main.cb_d1c2.show
+		call main.ed_d1c2.show
+		call main.cb_d1aoc2.show
+	}
+	
+	
+END
+
+PROGRAM check_conds2
+BEGIN
+	if has_cond3 {
+		call main.tx_d2c1.show
+		call main.vn_d2c1.show
+		call main.cb_d2c1.show
+		call main.ed_d2c1.show
+	}
+	if !has_cond4 {
+		call main.tx_d2c2.hide
+		call main.vn_d2c2.hide
+		call main.cb_d2c2.hide
+		call main.ed_d2c2.hide
+		call main.cb_d2aoc2.hide
+	}
+	if has_cond4 {
+		call main.tx_d2c2.show
+		call main.vn_d2c2.show
+		call main.cb_d2c2.show
+		call main.ed_d2c2.show
+		call main.cb_d2aoc2.show
+	}
+	
+	
+END
+
+
+
+
+
+
+
+DIALOG resop,  tabtitle("Results")
+
+BEGIN
+					
+SPINNER  sp_dec    10       25      50	  .,		        /*
+   		*/ label("Decimals")				/*
+   		*/ min(0) default(3) max(12)				/*
+  		*/ option(dec)
+
+TEXT     sp_txt  70      25      100	  .,		                /*
+   		*/ label("Number of Decimals")	
+   		
+
+
+END
+
+
+HELP hlp1,   view("help domineq")
+RESET res1
+OK ok1,      label("OK")
+CANCEL can1, label("Cancel")
+SUBMIT sub1, label("Submit")
+COPY copy1
+
+PROGRAM command
+BEGIN
+	put "domineq "
+
+if main.fi_d1.isdefault() {	
+	require  main.vn_y_d1
+	varlist  main.vn_y_d1
+	}
+if !main.fi_d1.isdefault() {
+        require  main.en_y_d1
+	varlist  main.en_y_d1
+	}
+	
+if main.fi_d2.isdefault() {	
+	require  main.vn_y_d2
+	varlist  main.vn_y_d2
+	}
+if !main.fi_d2.isdefault() {
+        require  main.en_y_d2
+	varlist  main.en_y_d2
+	}	                        
+beginoptions
+		       	
+			
+                     
+		        
+		        optionarg main.file_d1
+		        optionarg main.vn_rank_d1
+                        optionarg main.en_rank_d1
+                        optionarg main.vn_hhs_d1
+                        optionarg main.en_hhs_d1
+                        
+			if !main.chk_cd1.isdefault() {
+			put " cond1("
+			put main.vn_d1c1
+			put main.cb_d1c1
+			put main.ed_d1c1
+			put " "
+			put main.cb_d1aoc2
+			put " "
+			put main.vn_d1c2
+			put main.cb_d1c2
+			put main.ed_d1c2
+			put ") "
+			}
+			
+			optionarg main.file_d2
+			optionarg main.vn_rank_d2
+                        optionarg main.en_rank_d2
+			optionarg main.vn_hhs_d2
+			optionarg main.en_hhs_d2
+			if !main.chk_cd2.isdefault() {
+			put " cond2("
+			put main.vn_d2c1
+			put main.cb_d2c1
+			put main.ed_d2c1
+			put " "
+			put main.cb_d2aoc2
+			put " "
+			put main.vn_d2c2
+			put main.cb_d2c2
+			put main.ed_d2c2
+			put ") "
+			}				
+			
+			
+			if !main.cb_nor.isdefault() {
+						        optionarg main.cb_nor
+						     }
+			if !resop.sp_dec.isdefault() {
+						        optionarg resop.sp_dec
+					             }						     
+		
+			
+				                        
+				
+						
+
+endoptions	
+	
+END

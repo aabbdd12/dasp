@@ -1,0 +1,25 @@
+ if ("$prg_pointer"== "main") {
+.aitsim_dlg.main.vn_pcexp.setvalue "exp"
+.aitsim_dlg.main.vn_hhid.setvalue "hhid"
+.aitsim_dlg.main.vn_hhs.setvalue "hhsize"
+.aitsim_dlg.main.vn_inc.setvalue "income"
+.aitsim_dlg.main.cb_inc.setvalue "2"
+.aitsim_dlg.main.vn_pl1.setvalue "pline"
+.aitsim_dlg.main.dbsamex.setvalue "example_ait"
+.aitsim_dlg.main.ed_cname.setvalue "Tunisia_sub_sample"
+.aitsim_dlg.main.ed_ysvy.setvalue "2010/11"
+.aitsim_dlg.main.ed_ysim.setvalue "2014"
+.aitsim_dlg.main.ed_lcur.setvalue "DT"
+.aitsim_dlg.main.vn_hhg.setvalue "region"
+.aitsim_dlg.tb_options_t.ck_excel.seton
+.aitsim_dlg.tb_options_t.fnamex.setvalue "myresults"
+itschset initial_it , nrange(6) bun(1) str(1) mxb1(1500) tax1(0) mxb2(5000) tax2(.15) mxb3(10000) tax3(.2) mxb4(20000) tax4(.25) mxb5(50000) tax5(.3) tax6(.35)
+itschset final_it1 , nrange(8) bun(1) str(1) mxb1(1500) tax1(0) mxb2(4000) tax2(.12) mxb3(10000) tax3(.22) mxb4(20000) tax4(.27) mxb5(40000) tax5(.29) mxb6(46000) tax6(.3) mxb7(60000) tax7(.33) tax8(.36)
+itschset final_it2 , nrange(8) bun(1) str(1) mxb1(1500) tax1(0) mxb2(4000) tax2(.12) mxb3(10000) tax3(.23) mxb4(20000) tax4(.26) mxb5(40000) tax5(.28) mxb6(46000) tax6(.33) mxb7(60000) tax7(.34) tax8(.37)
+.aitsim_dlg.main.cb_nscen.setvalue  2
+.aitsim_dlg.main.ed_itsch.setvalue "initial_it"
+.aitsim_dlg.main.ed_ftsch1.setvalue "final_it1"
+.aitsim_dlg.main.var_elas1.setvalue "elas1"
+.aitsim_dlg.main.ed_ftsch2.setvalue "final_it2"
+.aitsim_dlg.main.var_elas2.setvalue "elas2"
+}

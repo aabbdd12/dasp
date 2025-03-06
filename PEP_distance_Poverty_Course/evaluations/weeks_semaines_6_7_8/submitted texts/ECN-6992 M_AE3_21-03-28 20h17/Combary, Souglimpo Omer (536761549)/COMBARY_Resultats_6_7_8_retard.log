@@ -1,0 +1,509 @@
+--------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Evaluation_3\COMBARY_Resultats_6_7_8.log
+  log type:  text
+ opened on:  30 Mar 2021, 19:45:09
+
+. set more off
+
+. 
+. //*EXERCICE PRATIQUE 1*//
+. 
+. /*1.1   En utilisant le fichier de données data_b3_1.dta, estimez le seuil de pauvreté subjectiv
+> e en considérant les informations suivantes :
+> •     Le bien-être équivalent adulte observé est la variable :  ae_exp
+> •     Le bien-être équivalent-adulte perçu minimum pour échapper à la pauvreté est min_ae_exp.
+> •     L’unité d'analyse est l’individu (utilisez la variable de taille du ménage).*/
+. 
+. use "C:\Evaluation_3\COMBARY_data_b3_1.dta", clear
+
+. 
+. cnpe ae_exp min_ae_exp, xvar(ae_exp) hsize(hsize) min(0) max(60000) legend(order(1 "Bien-être ob
+> servé"  ///
+> 2 "Perception sur le niveau de bien-être minimum")) title(Seuil de pauvreté subjective) ///
+> xtitle(Bien-être observé) ytitle(Perceptions sur le niveau de bien-être minimum) vgen(yes)
+WAIT: Estimation of in progress: ==>>
+: . : . : . : . : . 10%
+: . : . : . : . : . 20%
+: . : . : . : . : . 30%
+: . : . : . : . : . 40%
+: . : . : . : . : . 50%
+: . : . : . : . : . 60%
+: . : . : . : . : . 70%
+: . : . : . : . : . 80%
+: . : . : . : . : . 90%
+: . : . : . : . : . 100%
+<== END
+WAIT: Estimation of in progress: ==>>
+: . : . : . : . : . 10%
+: . : . : . : . : . 20%
+: . : . : . : . : . 30%
+: . : . : . : . : . 40%
+: . : . : . : . : . 50%
+: . : . : . : . : . 60%
+: . : . : . : . : . 70%
+: . : . : . : . : . 80%
+: . : . : . : . : . 90%
+: . : . : . : . : . 100%
+<== END
+
+. 
+. cnpe ae_exp min_ae_exp, xvar(ae_exp) hsize(hsize) xval(0) legend(order(1 "Bien-être observé"  //
+> /
+> 2 "Perception sur le niveau de bien-être minimum")) title(Seuil de pauvreté subjective) ///
+> xtitle(Bien-être observé) ytitle(Perceptions sur le niveau de bien-être minimum) vgen(yes)
+In progress ...
+   Household size     :  hsize
+   Sampling weight    :  sweight
+  +---------------------------------+
+  |   Variable(s)  |Estimated value |
+  |----------------+----------------|
+  |ae_exp          |        0.000000|
+  |min_ae_exp      |     3961.501221|
+  +---------------------------------+
+
+. 
+. cap drop dif
+
+. gen dif=_npe_min_ae_exp- ae_exp
+
+. cnpe ae_exp, xvar(dif) xval(0) vgen(yes)
+In progress ...
+   Sampling weight    :  sweight
+  +---------------------------------+
+  |   Variable(s)  |Estimated value |
+  |----------------+----------------|
+  |ae_exp          |    22914.478516|
+  +---------------------------------+
+
+. 
+. cnpe ae_exp min_ae_exp, xvar(ae_exp) hsize(hsize) min(0) max(60000) legend(order(1 "Bien-être ob
+> servé"  ///
+> 2 "Perception sur le niveau de bien-être minimum")) title(Seuil de pauvreté subjective) xline(22
+> 914.478516)  ///
+> xtitle(Bien-être observé) ytitle(Perceptions sur le niveau de bien-être minimum) vgen(yes)
+WAIT: Estimation of in progress: ==>>
+: . : . : . : . : . 10%
+: . : . : . : . : . 20%
+: . : . : . : . : . 30%
+: . : . : . : . : . 40%
+: . : . : . : . : . 50%
+: . : . : . : . : . 60%
+: . : . : . : . : . 70%
+: . : . : . : . : . 80%
+: . : . : . : . : . 90%
+: . : . : . : . : . 100%
+<== END
+WAIT: Estimation of in progress: ==>>
+: . : . : . : . : . 10%
+: . : . : . : . : . 20%
+: . : . : . : . : . 30%
+: . : . : . : . : . 40%
+: . : . : . : . : . 50%
+: . : . : . : . : . 60%
+: . : . : . : . : . 70%
+: . : . : . : . : . 80%
+: . : . : . : . : . 90%
+: . : . : . : . : . 100%
+<== END
+
+. 
+. /*1.2   Estimez l’intensité de la pauvreté (avec les variables : ae_exp and hsize) pour chacun d
+> e ces trois cas, et discutez les résultats :*/
+. 
+. /*a) Le seuil de pauvreté subjective*/
+. ifgt ae_exp, alpha(0) hsize(hsize) pline(22914.478516)
+
+    Poverty index   :  FGT index
+    Household size  :  hsize
+    Sampling weight :  sweight
+    Parameter alpha :  0.00
+-----------------------------------------------------------------------------------------------
+   Variable   |       Estimate            STE             LB              UB         Pov. line
+--------------+--------------------------------------------------------------------------------
+ae_exp        |        0.422207        0.016916        0.389005        0.455409        22914.48
+-----------------------------------------------------------------------------------------------
+
+. 
+. /*b) Le seuil de pauvreté absolue (z=21000)*/
+. ifgt ae_exp, alpha(0) hsize(hsize) pline(21000)
+
+    Poverty index   :  FGT index
+    Household size  :  hsize
+    Sampling weight :  sweight
+    Parameter alpha :  0.00
+-----------------------------------------------------------------------------------------------
+   Variable   |       Estimate            STE             LB              UB         Pov. line
+--------------+--------------------------------------------------------------------------------
+ae_exp        |        0.350031        0.016666        0.317320        0.382743        21000.00
+-----------------------------------------------------------------------------------------------
+
+. 
+. /*c) Le seuil de pauvreté relative (z= moitié du revenu moyens).*/    
+. ifgt ae_exp, alpha(0) hsize(hsize) opl(mean) prop(50)
+
+    Poverty index   :  FGT index
+    Household size  :  hsize
+    Sampling weight :  sweight
+    Parameter alpha :  0.00
+-----------------------------------------------------------------------------------------------
+   Variable   |       Estimate            STE             LB              UB         Pov. line
+--------------+--------------------------------------------------------------------------------
+ae_exp        |        0.223689        0.017554        0.189235        0.258143        17119.96
+-----------------------------------------------------------------------------------------------
+
+. 
+. /*1.3 Selon vous, quelle est la méthode la plus appropriée pour mesurer la pauvreté dans les pay
+> s développés et pourquoi?*/
+. 
+. /*Le seuil de pauvreté absolue est le plus approprié pour mesurer la pauvreté pour deux raisons 
+> : 
+> i)      il permet d'obtenir des profils de pauvreté « cohérents » 
+> ii)     il permet de faire des comparaisons de pauvreté « cohérentes ».*/
+. 
+. //*EXERCICE PRATIQUE 2*//
+. 
+. /*Les indices de pauvreté additive, comme l'indice FGT, permettent d'effectuer une décomposition
+>  analytique exacte de ces 
+> indices par sous-groupe de population. Ceci est utile pour montrer la contribution de chaque gro
+> upe à la pauvreté totale.*/
+. 
+. /*2.1 Utilisez le fichier data_b3_1.dta et décomposez la pauvreté (taux de pauvreté) selon le se
+> xe du chef de ménage (sex) 
+> (le seuil de pauvreté est 21000). Que pouvons-nous conclure ?*/      
+. 
+. use "C:\Evaluation_3\COMBARY_data_b3_1.dta", clear
+
+. dfgtg ae_exp, hgroup(sex) hsize(hsize) alpha(0) pline(21000) 
+
+    Decomposition of the FGT index by groups
+    Poverty index   :  FGT index
+    Household size  :  hsize
+    Sampling weight :  sweight
+    Group variable  :  sex
+    Parameter alpha :  0.00
+  +-----------------------------------------------------------------------------------+
+  |          Group   |      FGT index     Population       Absolute        Relative   |
+  |                  |                       share       contribution    contribution |
+  |------------------+----------------------------------------------------------------|
+  |Male              |        0.334968        0.774717        0.259505        0.741378|
+  |                  |        0.018325        0.013552        0.014879        0.025128|
+  |Female            |        0.401831        0.225283        0.090526        0.258622|
+  |                  |        0.032614        0.013552        0.009948        0.025128|
+  |------------------+----------------------------------------------------------------|
+  |Population        |        0.350031        1.000000        0.350031        1.000000|
+  |                  |        0.016666        0.000000        0.016666        0.000000|
+  +-----------------------------------------------------------------------------------+
+
+. 
+. /*La contribution (à la pauvreté totale) de la pauvreté chez les ménages dirigés par des 
+> femmes est supérieure à la contribution qui vient de leur représentativité dans la 
+> population totale (0.389 VS 0.221). Comme connu, la contribution absolue à la pauvreté 
+> totale est donnée par le produit de ces deux composantes: la pauvreté dans le groupe x 
+> la part de la population dans le groupe. (Comparer la part de la population du groupe 
+> féminin et la contribution relative de ce groupe à la pauvreté totale)
+> Toutefois, bien évidemment, il faut noter que la contribution relative et absolue des 
+> ménages dirigés par des femmes est inférieure à celle des ménages dirigés par des 
+> hommes.*/ 
+. 
+. /*2.2 Estimez la pauvreté totale (taux de pauvreté) en fonction de la région du chef de ménage (
+> region).*/ 
+. 
+. dfgtg ae_exp, hgroup(region) hsize(hsize) alpha(0) pline(21000) 
+
+    Decomposition of the FGT index by groups
+    Poverty index   :  FGT index
+    Household size  :  hsize
+    Sampling weight :  sweight
+    Group variable  :  region
+    Parameter alpha :  0.00
+  +-----------------------------------------------------------------------------------+
+  |          Group   |      FGT index     Population       Absolute        Relative   |
+  |                  |                       share       contribution    contribution |
+  |------------------+----------------------------------------------------------------|
+  |central           |        0.238141        0.271279        0.064603        0.184563|
+  |                  |        0.025688        0.015086        0.007822        0.021801|
+  |eastern           |        0.356487        0.277255        0.098838        0.282369|
+  |                  |        0.029508        0.016460        0.010327        0.027736|
+  |northern          |        0.625147        0.198947        0.124371        0.355315|
+  |                  |        0.039117        0.014995        0.013992        0.032705|
+  |western           |        0.246394        0.252519        0.062219        0.177753|
+  |                  |        0.028467        0.013810        0.008466        0.023089|
+  |------------------+----------------------------------------------------------------|
+  |Population        |        0.350031        1.000000        0.350031        1.000000|
+  |                  |        0.016666        0.000000        0.016666        0.000000|
+  +-----------------------------------------------------------------------------------+
+
+. 
+. /*2.3 La répartition des dépenses en équivalent-adultes est similaire à celle de la période init
+> iale (ae_exp), avec les légères différences suivantes
+> • Les dépenses en équivalent-adultes ont augmenté de 10% dans la région 3;
+> • Les dépenses en équivalent-adultes ont diminué de 6% dans la région 2;
+> Générez la variable ae_exp2 en vous basant sur les informations ci-dessus.*/ 
+. 
+. gen ae_exp2=ae_exp
+
+. replace ae_exp2=(1+0.1)*ae_exp if region==3 
+(525 real changes made)
+
+. replace ae_exp2=(1-0.06)*ae_exp if region==2 
+(791 real changes made)
+
+. 
+. /*2.4 En utilisant l'approche de Shapley, décomposez le changement de l'intensité de la pauvreté
+>  en croissance et redistribution. Puis discutez des résultats.*/
+. 
+. dfgtgr ae_exp ae_exp2, alpha(1) pline(21000) hsize1(hsize) hsize2(hsize) 
+
+   Decomposition of the variation in the FGT index into growth and redistribution.
+   Parameter alpha :         1.00
+   Poverty line    :     21000.00
+  -------------------------------------------------------------------------------------
+                      |       Estimate            STE             LB              UB  
+  --------------------+----------------------------------------------------------------
+       Distribution_1 |        0.102046        0.007282        0.087753        0.116339
+       Distribution_2 |        0.099618        0.006934        0.086007        0.113228
+  --------------------+----------------------------------------------------------------
+  Difference: (d2-d1) |       -0.002428        0.001030       -0.004450       -0.000406
+  --------------------+----------------------------------------------------------------
+                      |  Datt & Ravallion approach: reference period  t1               
+  --------------------+----------------------------------------------------------------
+      Growth          |        0.001151        0.000406        0.000354        0.001948
+      Redistribution  |       -0.003618        0.000895       -0.005375       -0.001861
+      Residue         |        0.000039            ---             ---             ---
+  --------------------+----------------------------------------------------------------
+                      |  Datt & Ravallion approach: reference period  t2               
+  --------------------+----------------------------------------------------------------
+      Growth          |        0.001190        0.000427        0.000352        0.002028
+      Redistribution  |       -0.003579        0.000897       -0.005339       -0.001818
+      Residue         |       -0.000039            ---             ---             ---
+  --------------------+----------------------------------------------------------------
+                      |  Shapley approach                                             
+  --------------------+----------------------------------------------------------------
+      Growth          |        0.001170        0.007077       -0.012720        0.015061
+      Redistribution  |       -0.003598        0.000896       -0.005356       -0.001840
+  -------------------------------------------------------------------------------------
+
+. 
+. /*2.5 Effectuez une décomposition sectorielle (basée sur les groupes de régions) de la variation
+>  de l'intensité de la pauvreté totale. Discutez des résultats.*/ 
+. 
+. dfgtg2d ae_exp ae_exp2, alpha(1) hgroup(region) pline(21000) hsize1(hsize) hsize2(hsize)
+
+    Decomposition of the FGT index by groups
+    Group variable  :  region
+    Parameter alpha :  1.00
+
+    Population shares and FGT indices
+  +-------------------------------------------------------------------------------------------+
+  |  Group   |     Initial            Initial          Final           Final    Difference in |
+  |          |     Pop. share       FGT index      Pop. share       FGT index   FGT index     |
+  |----------+--------------------------------------------------------------------------------|
+  |central   |        0.271279        0.054521        0.271279        0.054521        0.000000|
+  |          |        0.015086        0.007091        0.015086        0.007091        0.000000|
+  |eastern   |        0.277255        0.094075        0.277255        0.111385        0.017310|
+  |          |        0.016460        0.010901        0.016460        0.011666        0.001326|
+  |northern  |        0.198947        0.239558        0.198947        0.203230       -0.036328|
+  |          |        0.014995        0.023578        0.014995        0.022679        0.002369|
+  |western   |        0.252519        0.053512        0.252519        0.053512        0.000000|
+  |          |        0.013810        0.007864        0.013810        0.007864        0.000000|
+  |----------+--------------------------------------------------------------------------------|
+  |Population|        1.000000        0.102046        1.000000        0.099618       -0.002428|
+  |          |        0.000000        0.007282        0.000000        0.006934        0.001030|
+  +-------------------------------------------------------------------------------------------+
+
+    Decomposition components
+  +-----------------------------------------------------------+
+  |  Group   |      Poverty        Population     Interaction |
+  |          |      Component      Component      Component   |
+  |----------+------------------------------------------------|
+  |central   |        0.000000        0.000000        0.000000|
+  |          |        0.000000        0.000000        0.000000|
+  |eastern   |        0.004799        0.000000        0.000000|
+  |          |        0.000495        0.000000        0.000000|
+  |northern  |       -0.007227        0.000000        0.000000|
+  |          |        0.000812        0.000000        0.000000|
+  |western   |        0.000000        0.000000        0.000000|
+  |          |        0.000000        0.000000        0.000000|
+  |----------+------------------------------------------------|
+  |Population|       -0.002428        0.000000        0.000000|
+  |          |            ===             ===             === |
+  +-----------------------------------------------------------+
+
+. 
+. //*EXERCICE PRATIQUE 3*//
+. 
+. /*Supposons que la population est composée de dix individus. Le tableau suivant montre la distri
+> bution des revenus pour deux périodes successives.
+> 3.1     Insérez les données, puis générez les centiles (basé sur le rang des revenus de la pério
+> de initiale (variable perc)), et le premier centile doit être égal à zéro).*/
+. 
+. clear
+
+. input identifier weight inc_t1 inc_t2 
+
+     identif~r     weight     inc_t1     inc_t2
+  1. 0       0       0.00    0.00
+  2. 1       0.1     1.50    1.54
+  3. 2       0.1     4.50    3.85
+  4. 3       0.1     7.50    6.60
+  5. 4       0.1     3.00    2.75
+  6. 5       0.1     4.50    4.40
+  7. 6       0.1     9.00    7.70
+  8. 7       0.1     10.50   8.80
+  9. 8       0.1     15.00   7.70
+ 10. 9       0.1     12.00   6.60
+ 11. 10      0.1     13.50   6.60
+ 12. end 
+
+. save "C:\Evaluation_3\COMBARY_Data_0.dta", replace  
+file C:\Evaluation_3\COMBARY_Data_0.dta saved
+
+. 
+. sort inc_t1
+
+. gen perc=sum(weight) 
+
+. list perc
+
+     +------+
+     | perc |
+     |------|
+  1. |    0 |
+  2. |   .1 |
+  3. |   .2 |
+  4. |   .3 |
+  5. |   .4 |
+     |------|
+  6. |   .5 |
+  7. |   .6 |
+  8. |   .7 |
+  9. |   .8 |
+ 10. |   .9 |
+     |------|
+ 11. |    1 |
+     +------+
+
+. 
+. *3.2 Initialisez le scalaire g_mean, qui est égal au taux de croissance du revenu moyen.
+. 
+. qui sum inc_t1 [aw=weight] 
+
+. scalar mean1=r(mean) 
+
+. qui sum inc_t2 [aw=weight]
+
+. scalar mean2=r(mean)
+
+. 
+. scalar g_mean = (mean2-mean1)/mean1
+
+. gen g_mean  = (mean2-mean1)/mean1  
+
+. dis "Mean 1 = " mean1
+Mean 1 = 8.1
+
+. dis "Mean 2 = " mean2
+Mean 2 = 5.6539999
+
+. dis "Growth in averages = " g_mean
+Growth in averages = -.30197531
+
+. 
+. *3.3    Générez la variable g_inc, comme la croissance des revenus individuels.
+. 
+. gen g_inc =(inc_t2-inc_t1)/inc_t1
+(1 missing value generated)
+
+. replace g_inc = 0 in 1 
+(1 real change made)
+
+. 
+. *3.4 Dessinez la courbe d’incidence de la croissance à l’aide des variables g_inc et perc. Discu
+> tez des résultats.
+. 
+. line g_inc g_mean perc, title(Growth Incidence Curve) yline(`g_mean') legend(order(1 "GIC curve"
+>  2 "Growth in average income")) ///
+> xtitle(Percentiles (p)) ytitle(Growth in incomes) plotregion(margin(zero))
+
+. 
+. *3.5 Supposons que le seuil de pauvreté est égal à 10.2. Estimez l'indice pro-pauvres de Chen et
+>  Ravallion (2003). Discutez des résultats.
+. 
+. drop in 1
+(1 observation deleted)
+
+. sum g_inc [aw=weight] if (inc_t1<10.2)  
+
+    Variable |     Obs      Weight        Mean   Std. Dev.       Min        Max
+-------------+-----------------------------------------------------------------
+       g_inc |       6  .600000009   -.0812963   .0701759  -.1444445   .0266666
+
+. dis = r(mean)
+-.08129631
+
+. ipropoor inc_t1 inc_t2, pline(10.2)     
+MUM-.4  DENUM -.29999999
+   Poverty line    :        10.20
+   Parameter alpha :         0.00
+  -----------------------------------------------------------------------------------------------
+               Pro-poor indices |       Estimate            STE             LB              UB  
+  ------------------------------+----------------------------------------------------------------
+                 Growth rate(g) |       -0.301975        0.068365       -0.456627       -0.147324
+  ------------------------------+----------------------------------------------------------------
+  Ravallion & Chen (2003) index |       -0.081296        0.027568       -0.143659       -0.018934
+  Ravallion & Chen (2003) - g   |        0.220679        0.075578        0.049710        0.391648
+  ------------------------------+----------------------------------------------------------------
+  Kakwani & Pernia (2000) index |        1.333333        0.423542        0.375216        2.291451
+  ------------------------------+----------------------------------------------------------------
+                     PEGR index |       -0.402634        0.184119       -0.819140        0.013872
+                     PEGR - g   |       -0.100658        0.138512       -0.413995        0.212678
+  -----------------------------------------------------------------------------------------------
+
+. 
+. *3.6 En utilisant l'approche de Shapley, décomposez le changement de l'intensité de la pauvreté 
+> en composantes de croissance et de redistribution. Discutez des résultats.
+. 
+. dfgtgr inc_t1 inc_t2, alpha(1) pline(10.2) 
+
+   Decomposition of the variation in the FGT index into growth and redistribution.
+   Parameter alpha :         1.00
+   Poverty line    :        10.20
+  -------------------------------------------------------------------------------------
+                      |       Estimate            STE             LB              UB  
+  --------------------+----------------------------------------------------------------
+       Distribution_1 |        0.305882        0.105336        0.067595        0.544170
+       Distribution_2 |        0.445686        0.073902        0.278508        0.612864
+  --------------------+----------------------------------------------------------------
+  Difference: (d2-d1) |        0.139804        0.042347        0.044007        0.235601
+  --------------------+----------------------------------------------------------------
+                      |  Datt & Ravallion approach: reference period  t1               
+  --------------------+----------------------------------------------------------------
+      Growth          |        0.142455        0.035167        0.062901        0.222008
+      Redistribution  |       -0.060105        0.028402       -0.124355        0.004145
+      Residue         |        0.057455            ---             ---             ---
+  --------------------+----------------------------------------------------------------
+                      |  Datt & Ravallion approach: reference period  t2               
+  --------------------+----------------------------------------------------------------
+      Growth          |        0.199909        0.060038        0.064093        0.335725
+      Redistribution  |       -0.002651        0.008859       -0.022690        0.017389
+      Residue         |       -0.057455            ---             ---             ---
+  --------------------+----------------------------------------------------------------
+                      |  Shapley approach                                             
+  --------------------+----------------------------------------------------------------
+      Growth          |        0.171182        0.045998        0.067126        0.275238
+      Redistribution  |       -0.031378        0.011738       -0.057931       -0.004825
+  -------------------------------------------------------------------------------------
+
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+end of do-file
+
+. exit, clear

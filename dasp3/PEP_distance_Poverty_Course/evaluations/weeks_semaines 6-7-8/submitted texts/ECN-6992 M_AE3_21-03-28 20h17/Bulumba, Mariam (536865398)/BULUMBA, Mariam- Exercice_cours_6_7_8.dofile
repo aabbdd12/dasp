@@ -1,0 +1,111 @@
+//Code Stata pour l'exercice des semaines 6, 7 et 8
+
+//Exercice 1
+ //Chargement des donnÃ©es
+clear
+use "C:\Users\MARIAM\Downloads\data_b3_2 (2).dta"
+
+ // 1.1
+//1ère etape
+cnpe ae_exp  min_ae_exp, xvar(ae_exp) min(0) max(60000) hsize(hsize) legend(order( 1 "Perceived  minimum  well-being " 2 "Observed well-being")) subtitle("") title(The subjective poverty line) xtitle(Observed well-being) ytitle(Predicted level of the perceived  minimum  well-being ) vgen(yes)
+
+//2ème étape
+cap drop dif
+gen dif = _npe_min_ae_exp- ae_exp
+cnpe ae_exp, xvar(dif) xval(0) vgen(yes) hsize(hsize)
+
+//3ème étape
+cnpe ae_exp  min_ae_exp, xvar(ae_exp) min(0) max(60000) hsize(hsize) legend(order( 1 "Perceived  minimum  well-being " 2 "Observed well-being")) subtitle("") title(The subjective poverty line) xline(22828.025391) xtitle(Observed well-being) ytitle(Predicted level of the perceived  minimum  well-being )
+ 
+ // 1.2
+ifgt  ae_exp, alpha(0) hsize(hsize) pline( 22828.025391)
+ifgt  ae_exp, alpha(0) hsize(hsize) pline(20600)
+ifgt  ae_exp, alpha(0) hsize(hsize) opl(mean) prop(50)
+ 
+ // 1.3
+// reponse dans document word
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+//Exercice 2
+
+ //Chargement des données
+clear
+use "C:\Users\MARIAM\Downloads\data_b3_2 (2).dta"
+
+ //2.1
+dfgtg ae_exp, hgroup(sex) hsize(hsize) alpha(0) pline(20600)
+
+ //2.2
+
+dfgtg ae_exp, hgroup(region) hsize(hsize) alpha(0) pline(20600)
+
+ //2.3
+gen ae_exp2 = ae_exp
+replace ae_exp2 = ae_exp*0.94 if region == 2
+replace ae_exp2 = ae_exp*1.12 if region == 3
+
+ //2.4
+dfgtgr ae_exp ae_exp2, alpha(1) pline(20600) 
+ //2.5
+dfgtg2d ae_exp ae_exp2, alpha(1) hgroup(region) pline(20600) hsize1(hsize) hsize2(hsize) ref(0)
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+//Exercice 3
+
+ //Insertion des donées
+clear
+input Identifier	weight	inc_t1	inc_t2
+          0	           0	0.00	0.00
+          1	           0.1	1.50	1.54
+          2	           0.1	4.50	3.85
+          3	           0.1	7.50	6.60
+          4	           0.1	3.00	2.75
+          5	           0.1	4.50	4.40
+          6	           0.1	9.00	7.70
+          7	           0.1	10.50	8.80
+          8	           0.1	15.00	7.70
+          9	           0.1	12.00	6.60
+          10	       0.1	13.50	6.60
+end
+
+
+
+ //3.1
+sort inc_t1
+gen perc=sum(weight)
+
+  //3.2
+qui sum inc_t1 [aw=weight]
+scalar mean1=r(mean)
+qui sum inc_t2 [aw=weight]
+scalar mean2=r(mean)
+scalar g_mean = (mean2-mean1)/mean1
+gen g_mean  = (mean2-mean1)/mean1
+dis "Mean 1              =" mean1
+dis "Mean 2             = " mean2
+dis "Growth in averages = " g_mean
+  
+  //3.3
+gen g_inc =(inc_t2-inc_t1)/inc_t1
+replace g_inc = 0 in 1
+  
+  //3.4
+line g_inc g_mean perc, title(Growth Incidence Curve) yline(`g_mean') ///
+legend(order( 1 "GIC curve" 2 "Growth in average income")) ///
+xtitle(Percentiles (p)) ytitle(Growth in incomes)  ///
+plotregion(margin(zero))
+  
+  //3.5
+drop in 1
+cap drop temp
+gen temp = g_inc
+sum temp [aw=weight] if (inc_t1<10.4)
+dis = r(mean)
+ipropoor inc_t1 inc_t2, pline(10.4)
+ipropoor inc_t1 inc_t2, pline(10.4)
+
+  
+  //3.6
+dfgtgr inc_t1 inc_t2, alpha(1) pline(10.4)
+
+

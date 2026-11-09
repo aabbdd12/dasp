@@ -17,6 +17,9 @@ d           (d) {browse "mailto:crodriguezc@worldbank.org":crodriguezc@worldbank
 d 
 d Website : {browse "http://dasp-two.vercel.app/welcom/mi/":http://dasp-two.vercel.app/welcom/mi/}
 d
+d The EASI model (menu and dialog sr_easi) is computed by the easi package:
+d {stata ssc install easi:ssc install easi}
+d
 
 f files/main/aduvm2.ado
 f files/main/aeasi2.ado
@@ -24,9 +27,9 @@ f files/main/asdbsave_duvm.ado
 f files/main/asdbsave_easi.ado
 f files/main/asdbsave_wquaids.ado
 f files/main/awquaids2.ado
-f files/main/duvm.ado
-f files/main/duvm.dlg
-f files/main/duvm.sthlp
+f files/main/wel_duvm.ado
+f files/main/wel_duvm.dlg
+f files/main/wel_duvm.sthlp
 f files/main/duvm_db_ini.ado
 f files/main/duvm_db_ini.dlg
 f files/main/easi_db_ini.ado
@@ -38,7 +41,6 @@ f files/main/nlsur__quaids.ado
 f files/main/quaids.ado
 f files/main/quaids_estat.ado
 f files/main/quaids_p.ado
-f files/main/sr_easi.ado
 f files/main/getRpath.ado
 f files/main/sr_easi.dlg
 f files/main/sr_easi.sthlp
@@ -52,8 +54,8 @@ f files/main/_quaids__utils.mata
 f files/main/almcwel.ado       
 f files/main/almcwel2.ado      
 f files/main/asdbsave_lmc.ado  
-f files/main/basicstats.ado    
-f files/main/distable.ado      
+f files/main/wel_basicstats.ado    
+f files/main/wel_distable.ado      
 f files/main/distable0.ado     
 f files/main/labor_info_lmcwel.idlg
 f files/main/lmcgropt.ado      

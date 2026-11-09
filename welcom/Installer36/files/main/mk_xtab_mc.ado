@@ -49,7 +49,7 @@ if ("`add'"=="append") local op1= "append";
 if ("`add'"=="replace") local op1= "replace";
 if ("`ceq1'"=="") local cn1  COL_NAMES 14 ;
 if ("`ceq1'"~="") local cn1 SCOL_NAMES 13 ;
-xml_taba2 
+wel_xml_taba2 
 `mym',
 title("`xtit'")  
 lines(`cn1' `lst1' LAST_ROW 13)  

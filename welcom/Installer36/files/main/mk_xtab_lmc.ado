@@ -45,7 +45,7 @@ if (`dste' == -1)  {;
 
 if ("`add'"=="")       local op1= "newappend";
 if ("`add'"=="append") local op1= "append";
-xml_taba2 
+wel_xml_taba2 
 
 `mym',
 title("`xtit'")  

@@ -2,8 +2,8 @@
 /* small changes by A. Araar */
 
 # delimit ;
-cap program drop xml_taba2;
-program define xml_taba2;
+cap program drop wel_xml_taba2;
+program define wel_xml_taba2;
 version 8;
 
 syntax [anything] [, STYle(string) EXcelpath(passthru) CAlcpath(passthru) DMAT(int 1) updateopts Noisily CEQ1(string) *];
@@ -1237,8 +1237,7 @@ program define savetodataset;
    	forvalues j = 1/`rc' {;
 		matrix `tmp' = `D'[....,`j'];
 		generate str d_`j' = "`: word `j' of `etitle''" in 1;
-		local coleq : word `j' of `ALign
-		';
+		local coleq : word `j' of `ceq';
 		if missing(`"`coleq'"') local coleq : coleq `tmp';
 		 replace     d_`j' = `"`coleq'"' in 2;
 		 if `j'>1 replace     d_`=`j'-1' = cond(d_`j' == d_`=`j'-1', ".x", `"`coleq1'"') in 2;

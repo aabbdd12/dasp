@@ -6,7 +6,7 @@
 
 
 {title:DUVM} 
-{p 8 10}{cmd:duvm}  {it:namelist} (min=2) {cmd:,} [ {cmd:EXPEND(}{it:varname}{cmd:)} 
+{p 8 10}{cmd:wel_duvm}  {it:namelist} (min=2) {cmd:,} [ {cmd:EXPEND(}{it:varname}{cmd:)} 
 {cmd:HHSIZE(}{it:varname}{cmd:)} 
 {cmd:HGROUP(}{it:varname}{cmd:)} 
 {cmd:INDCAT(}{it:varlist}{cmd:)} 
@@ -52,7 +52,7 @@ which refers to the expenditure share and the log of the unit value of the food 
 
 {title:Options ((*) required)}
 
-{p 4 8} {cmd:inisave:} To save the duvm dialog box information. Mainly, all inserted information in the dialogue box will be save in this file. In another session, the user can open the project using the command duvm_db_ini followed by the name of project. {p_end}
+{p 4 8} {cmd:inisave:} To save the wel_duvm dialog box information. Mainly, all inserted information in the dialogue box will be save in this file. In another session, the user can open the project using the command duvm_db_ini followed by the name of project. {p_end}
 
 {p 4 8} {cmdab:*hsize} The household size. {p_end}
 
@@ -96,7 +96,7 @@ NOTE: All the examples illustrated in the present and in the following sections
 {cmd}
 #delimit ; 
 sysuse Mexico_2014_Cereals.dta , replace; 
-duvm corn wheat rice other,  hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
+wel_duvm corn wheat rice other,  hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex1_duvm_db))  indcat(sex educ)  indcon(age)   xfil(myfile) ;
 {txt}      ({stata "welcom_examples ex_duvm_01":example 1: click to run in command window})
 {txt}      ({stata "welcom_examples ex_duvm_db_01 ":example 1: click to run in dialog box})
@@ -106,7 +106,7 @@ inisave(ex1_duvm_db))  indcat(sex educ)  indcon(age)   xfil(myfile) ;
 {cmd}
 #delimit ; 
 sysuse Mexico_2014_Cereals.dta , replace; 
-duvm corn wheat rice other,  hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
+wel_duvm corn wheat rice other,  hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex2_duvm_db))  indcat(sex educ)  indcon(age)   xfil(myfile) boot(50);
 {txt}      ({stata "welcom_examples ex_duvm_02":example 2: click to run in command window})
 {txt}      ({stata "welcom_examples ex_duvm_db_02 ":example 2: click to run in dialog box})
@@ -116,7 +116,7 @@ inisave(ex2_duvm_db))  indcat(sex educ)  indcon(age)   xfil(myfile) boot(50);
 {cmd}
 #delimit ; 
 sysuse Mexico_2014_Cereals.dta , replace; 
-duvm corn wheat rice other,  hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
+wel_duvm corn wheat rice other,  hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex3_duvm_db))  indcat(sex educ)  indcon(age)   xfil(myfile) hgroup(decile);
 {txt}      ({stata "welcom_examples ex_duvm_03":example 3: click to run in command window})
 {txt}      ({stata "welcom_examples ex_duvm_db_03 ":example 3: click to run in dialog box})

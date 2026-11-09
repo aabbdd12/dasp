@@ -11,6 +11,7 @@
  net install welcom_p4,   force
  net get     welcom_data, force
  cap addITMenu profile.do _welcom_menu
+ ssc install easi, replace
 
 
 /********************************************************************************************/
@@ -18,8 +19,6 @@
 /********************************************************************************************/
 1- Load the zipped folder:
 http://dasp-two.vercel.app/welcom/Installer36/welcom.zip
-or 
-http://dasp-two.vercel.app/welcom/Installer36/welcom.rar
 
 2- Unzip the forlder in a local directory. For instance, c:/temp
 
@@ -32,3 +31,6 @@ http://dasp-two.vercel.app/welcom/Installer36/welcom.rar
  net install welcom_p4,   force
  net get     welcom_data, force
  cap addITMenu profile.do _welcom_menu
+ ssc install easi, replace
+
+/* The EASI model of WELCOM (menu, dialog sr_easi) is computed by the easi package. */

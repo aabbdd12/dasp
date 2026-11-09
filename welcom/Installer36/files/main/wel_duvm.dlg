@@ -8,7 +8,7 @@ SYNCHRONOUS_ONLY
 INCLUDE graph_header
 //INCLUDE header
 POSITION . . 790 380
-DIALOG main, label(" WELCOM| Price Elasticity | Deaton Unit Value Model--> duvm command") tabtitle("Main")
+DIALOG main, label(" WELCOM| Price Elasticity | Deaton Unit Value Model--> wel_duvm command") tabtitle("Main")
 
 BEGIN
 
@@ -190,7 +190,7 @@ END
 
 
 
-HELP hlp1,   view("help duvm")
+HELP hlp1,   view("help wel_duvm")
 RESET res1
 OK      ok1,      label("OK")
 CANCEL can1, label("Cancel")
@@ -199,7 +199,7 @@ COPY  copy1,
 
 PROGRAM command
 BEGIN
-        put "duvm "
+        put "wel_duvm "
         require  main.name_items
         varlist [main.name_items]
       

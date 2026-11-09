@@ -234,10 +234,10 @@ tempname   coltit  coltit2
  local dsmidl = 0
  if `ngr1' == 1  local dsmidl = -1 
  dis "Table ##:  Number of old and new consumers"
-  distable `resa1', dec1(1) dec2(1) dec3(1) dec4(1) coltit1(`coltit') dsmidl(`dsmidl')  coltit2(`coltit2')
+  wel_distable `resa1', dec1(1) dec2(1) dec3(1) dec4(1) coltit1(`coltit') dsmidl(`dsmidl')  coltit2(`coltit2')
 
  dis "Table ##:  Percentages of old and new consumers"
-  distable `resa2', dec1(3) dec2(3) dec3(3) coltit1(`coltit')  dsmidl(`dsmidl')  coltit2(`coltit2')
+  wel_distable `resa2', dec1(3) dec2(3) dec3(3) coltit1(`coltit')  dsmidl(`dsmidl')  coltit2(`coltit2')
 
  cap drop _est_*
  cap drop _I*;

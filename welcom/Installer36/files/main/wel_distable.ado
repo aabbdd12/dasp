@@ -35,8 +35,8 @@ end;
 
 
 
-cap program drop distable;
-program define distable;
+cap program drop wel_distable;
+program define wel_distable;
 version 9.2;
 syntax namelist(min=1 max=1) [, 
 MATRIX(string) DEC(int 3) DEC1(string) DEC2(string) DEC3(string) DEC4(string) DEC5(string) DEC6(string) 

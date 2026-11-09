@@ -7,7 +7,7 @@ program duvm_db_ini
    local dof = "`1'"
 	global duvm_db_ini `dof'
 	discard
-    db duvm
+    db wel_duvm
     
 end
 

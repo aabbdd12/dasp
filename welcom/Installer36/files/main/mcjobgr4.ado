@@ -35,7 +35,7 @@ local glegend `"`glegend' ))"';
 
 mcgropt 4 `lan' ;
 
-clore `pcexp' `flist', rank (`pcexp') hsize(`hsize') 
+wel_clore `pcexp' `flist', rank (`pcexp') hsize(`hsize') 
 title(`r(gtitle)')  
 xtitle(`r(gxtitle)')
 ytitle(`r(gytitle)') 

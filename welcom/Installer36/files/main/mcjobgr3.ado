@@ -150,7 +150,7 @@ local glegend `"`glegend' ))"';
 
 
 mcgropt 3 `lan' ;
-curvnpe `glist', xvar(`pcexp') hsize(`hsize') 
+wel_curvnpe `glist', xvar(`pcexp') hsize(`hsize') 
 title(`r(gtitle)')  
 xtitle(`r(gxtitle)')
 ytitle(`r(gytitle)') 

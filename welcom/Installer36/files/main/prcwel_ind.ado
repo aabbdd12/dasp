@@ -467,7 +467,7 @@ matrix ma=(1);
             local frm = "SCCB0 N2316 N2316";
            cap drop __compna;
         capture {;
-            xml_taba2 ma , title("`xtit'")  /* lines(COL_NAMES 14 `lst1' 2 LAST_ROW 13) */  
+            wel_xml_taba2 ma , title("`xtit'")  /* lines(COL_NAMES 14 `lst1' 2 LAST_ROW 13) */  
             topnote( `tnote' `tnote2' `tnote3' `tnote4' `tnote5' `tnote6' `tnote7' `tnote8' `tnote9' `tnote10' `tnote11' `tnote12'  `tnote13'  ) 
                 font("Courier New" 8) format((S2111) (`frm'))  dmat(0)
             lines(COL_NAMES 14 `nitems' 2 LAST_ROW 13) save(`xfil') sheet(General Info) replace;
@@ -495,7 +495,7 @@ forvalues i=1/`ntables' {;
 
 if (`tjob`i'' == 10)    {;
 local tabtit = "Table 1.0: Estimaded price changes of consumption aggregates with the I/O model and the matching map.";
-distable  RESA, dec(`dec`tjob`i''') atit(Consumption aggregates) head1(`tabtit') rowtit(`mylabel') dsmidl(-1) ;
+wel_distable  RESA, dec(`dec`tjob`i''') atit(Consumption aggregates) head1(`tabtit') rowtit(`mylabel') dsmidl(-1) ;
 mk_xtab_mc `exp_pc' ,  matn(RESA) dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0)  midline(0);
 
 };
@@ -506,7 +506,7 @@ qui prjob11 `all_vars' `pline' `hweight';
 tempname mat11 ;
 matrix `mat11'= e(est);
 local tabtit = "Table 1.1: Information on used variables";
-distable `mat11', dec1(0) dec2(0) dec3(0) dec4(0) dec5(0) dec6(0)   atit(Variables) head1(`tabtit')  head2(`head2') ;
+wel_distable `mat11', dec1(0) dec2(0) dec3(0) dec4(0) dec5(0) dec6(0)   atit(Variables) head1(`tabtit')  head2(`head2') ;
 dis as result _col(4) " Notes:";
 dis as text   _col(4)  " [1]- Jointly checked  refers to the case of cross conditions. For instance, if all variables " ;
 dis as text   _col(9)  " are with non-missing values, number in cell (Jointly checked | All items)  will be zero." ;
@@ -534,7 +534,7 @@ tempname mat12 ;
 matrix `mat12'= e(est);
 tabtit 12 `lan';
 local tabtit = "Table 1.2: Population and expenditures";
-distable `mat12', dec1(0) dec2(0) dec3(2) dec4(0) dec5(2) dec6(2)   atit(`langr') head1(`tabtit')  head2(`head2') ;
+wel_distable `mat12', dec1(0) dec2(0) dec3(2) dec4(0) dec5(2) dec6(2)   atit(`langr') head1(`tabtit')  head2(`head2') ;
 mk_xtab_mc `1' ,  matn(`mat12') dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0) dec1(0) dec2(0) dec3(2) dec4(0) dec5(2) dec6(2) control(2);
 cap matrix drop `mat`tjob`i''';
 };
@@ -546,7 +546,7 @@ prijob2a `vlist',   hs(`hsize') hgroup(`hgroup') lan(`lan')  xrnames(`slist')  a
 tempname  mat`tjob`i'' ; 
 matrix `mat`tjob`i'''= e(est);
 tabtit `tjob`i'' `lan'; local tabtit = "`r(tabtit)'";
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`r(tabtit)')  head2(`head2') ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`r(tabtit)')  head2(`head2') ;
 if (`tjob`i''!=21) {;
 mk_xtab_mc `1' ,  matn(`mat`tjob`i''') dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0);
 cap matrix drop `mat`tjob`i''';
@@ -579,7 +579,7 @@ if `tjob`i''==31  local tabtit Table 3.1: Structure of expenditure on products (
 if `tjob`i''==32  local tabtit Table 3.2: Expenditure shares (in %) ;
 if `tjob`i''==33  local tabtit Table 3.3: Proportion of consumers with non nil expenditures (in %) ;
 
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`tabtit')  head2(`head2') ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`tabtit')  head2(`head2') ;
 
 if (`tjob`i''!=31) {;
 mk_xtab_mc `1' ,  matn(`mat`tjob`i''') dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0);
@@ -612,7 +612,7 @@ prijob4a `impvlist',   hs(`hsize') hgroup(`hgroup') lan(en)  xrnames(`impslist')
 tempname  mat`tjob`i'' ;
 matrix `mat`tjob`i'''= e(est);
 local tabtit = "Table 4.1: Total impact on well-being (at population level and in currency)";
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`tabtit')  head2(`head2') ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`tabtit')  head2(`head2') ;
 mk_xtab_mc `1' ,  matn(`mat`tjob`i''') dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0);
 cap matrix drop `mat`tjob`i''';
 };
@@ -624,7 +624,7 @@ prijob4a `impvlist',   hs(`hsize') hgroup(`hgroup') lan(en)  xrnames(`impslist')
 tempname  mat`tjob`i'' ;
 matrix `mat`tjob`i'''= e(est);
 local tabtit = "Table 4.2: Impact on per capita well-being (in currency)";
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`tabtit')  head2(`head2') ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`tabtit')  head2(`head2') ;
 mk_xtab_mc `1' ,  matn(`mat`tjob`i''') dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0)  ;
 cap matrix drop `mat`tjob`i''';
 
@@ -637,7 +637,7 @@ prijob4a `impvlist',   hs(`hsize') hgroup(`hgroup') lan(en) xrnames(`impslist') 
 tempname  mat`tjob`i'' ;
 matrix `mat`tjob`i'''= e(est);
 local tabtit = "Table 4.3: The impact on per capita well-being (in %)";
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`tabtit')  head2(`head2') ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`tabtit')  head2(`head2') ;
 mk_xtab_mc `exp_pc' ,  matn(`mat`tjob`i''') dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0);
 cap matrix drop `mat`tjob`i''';
 };
@@ -651,7 +651,7 @@ local colsize = colsof(`mat`tjob`i''')-1;
 local rowsize = rowsof(`mat`tjob`i''');	
 matrix `mat`tjob`i''' = `mat`tjob`i'''[1..`rowsize' , 1..`colsize'] ;
 local tabtit = "Table 4.4: Impact on per capita well-being (consumers with non-nil expenditures)";
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`tabtit')  head2(`head2') ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(`langr') head1(`tabtit')  head2(`head2') ;
 dis as result _col(4) " Notes:";
 dis as text   _col(4)  " [1] Statistics of Table 4.4 only concern the population of consumers with non-nil expenditures on each of the studied items;" ;
 dis as text   _col(4)  " [2] Statistics of column -All items- only concern the population of consumers with non-nil expenditures on at leats one of the studied items." ;
@@ -676,7 +676,7 @@ matrix   `mat`tjob`i'''= e(est);
 if `tjob`i'' == 51 local tabtit = "Table 5.1: Price changes and poverty headcount";
 if `tjob`i'' == 52 local tabtit = "Table 5.2: Price changes power and poverty gap";
 if `tjob`i'' == 53 local tabtit = "Table 5.3: Price changes and squared poverty gap";
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
 dis as result _col(4) " Notes:";
 dis as text   _col(4)  " [1] - Initial          : Refers to the base line case (the case before price changes);" ;
 dis as text   _col(4)  " [2] - With_Pr_Ch_Item  : Refers to the case with only the price change of the item of interest;  " ;
@@ -706,7 +706,7 @@ matrix `mat`tjob`i'''= e(est);
 
 tabtitmc `tjob`i''; 
 local tabtit = "Table 6.1: Price change(s) and inequality: Gini";
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1) ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1) ;
 dis as result _col(4) " Notes:";
 dis as text   _col(4)  " [1] - Initial          : Refers to the base line case (the case before price changes);" ;
 dis as text   _col(4)  " [2] - With_Pr_Ch_Item  : Refers to the case with only the price change of the item of interest;  " ;
@@ -732,7 +732,7 @@ matrix   `mat`tjob`i'''= e(est);
 
 tabtitmc `tjob`i''; 
 local tabtit = "Table 6.2: Price change(s) and inequality: Atkinson";
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1) ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1) ;
 dis as result _col(4) " Notes:";
 dis as text   _col(4)  " [1] - Initial          : Refers to the base line case (the case before price changes);" ;
 dis as text   _col(4)  " [2] - With_Pr_Ch_Item  : Refers to the case with only the price change of the item of interest;  " ;
@@ -758,7 +758,7 @@ matrix `mat`tjob`i'''= e(est);
 
 tabtitmc `tjob`i''; 
 local tabtit = "Table 6.3: Price change(s) and inequality: Entropy";
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
 dis as result _col(4) " Notes:";
 dis as text   _col(4)  " [1] - Initial          : Refers to the base line case (the case before price changes);" ;
 dis as text   _col(4)  " [2] - With_Pr_Ch_Item  : Refers to the case with only the price change of the item of interest;  " ;
@@ -780,7 +780,7 @@ tempname  mat`tjob`i'' ;
 matrix `mat`tjob`i'''= e(est);
 tabtitmc `tjob`i''; 
 local tabtit = "Table 6.4: Price change(s) and inequality: Ratio Q(p=0.1)/Q(p=0.9)";
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
 dis as result _col(4) " Notes:";
 dis as text   _col(4)  " [1] - Initial          : Refers to the base line case (the case before price changes);" ;
 dis as text   _col(4)  " [2] - With_Pr_Ch_Item  : Refers to the case with only the price change of the item of interest;  " ;

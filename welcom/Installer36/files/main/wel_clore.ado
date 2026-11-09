@@ -84,8 +84,8 @@ restore;
 };
 end;
 
-capture program drop clore;
-program define clore, rclass;
+capture program drop wel_clore;
+program define wel_clore, rclass;
 version 9.2;
 syntax varlist(min=1)[, HWeight(varname) HSize(varname) HGroup(varname)
  RANK(varname) MIN(real 0) MAX(real 1) type(string) DIF(string)

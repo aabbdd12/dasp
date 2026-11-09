@@ -22,9 +22,9 @@ f files/main/addmimenu3.ado
 f files/main/amcwel.ado        
 f files/main/amcwel2.ado       
 f files/main/asdbsave_mcw.ado  
-f files/main/clore.ado         
-f files/main/curvnpe.ado       
-f files/main/distable.ado  
+f files/main/wel_clore.ado         
+f files/main/wel_curvnpe.ado       
+f files/main/wel_distable.ado  
 f files/main/distable2.ado
 f files/main/extend_opt_graph.ado
 f files/main/extend_opt_item_mcwel.ado
@@ -98,9 +98,9 @@ f files/main/tabtitmc.ado
 f files/main/tb_options_mc.idlg
 f files/main/xml_tab.ado
 f files/main/xml_tabas.ado
-f files/main/xml_taba2.ado
+f files/main/wel_xml_taba2.ado
 f files/main/nargs.ado
-f files/main/basicstats.ado
+f files/main/wel_basicstats.ado
 f files/main/aggrvar.ado
 f files/main/_nargs.ado
 f files/main/_welcom_vers.ado

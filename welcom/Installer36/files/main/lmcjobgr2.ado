@@ -29,7 +29,7 @@ local glegend `"`glegend' ))"';
 
 lmcgropt 2 `lan' ;
 
-clore `pcexp' `varlist', rank (`pcexp') hsize(`hsize') 
+wel_clore `pcexp' `varlist', rank (`pcexp') hsize(`hsize') 
 title(`r(gtitle)')  
 xtitle(`r(gxtitle)')
 ytitle(`r(gytitle)') 

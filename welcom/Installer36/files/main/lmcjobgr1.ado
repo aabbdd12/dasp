@@ -8,7 +8,7 @@ tokenize  `varlist';
 _nargs    `varlist';
 
 lmcgropt 1 `lan' ;
-curvnpe `varlist', xvar(`pcexp') hsize(`hsize') 
+wel_curvnpe `varlist', xvar(`pcexp') hsize(`hsize') 
 title(`r(gtitle)')  
 xtitle(`r(gxtitle)')
 ytitle(`r(gytitle)') 

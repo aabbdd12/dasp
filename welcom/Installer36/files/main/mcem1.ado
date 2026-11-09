@@ -882,7 +882,7 @@ qui replace `coltit3' = "    ([6]/[4])*100        " 		in 7 ;
 matrix colnames aaa = "[1] Prop. if change in `compo' (in %)" " [2] `Compo' Elasticity" "[3] Obs. prop. of consumers" " [4] Predicted  prob. (intial values)" " [5] Predicted  prob. (final values)" " [6] Absolute change" "[7] Relative change in (%)" ;
 dis _n as result  "Table 02: Estimated impact on the proportions of consummers (Predictions with the model `um')" ;
 if `nr' == 1  distable2 aaa, dec(`dec') atit(`langr')	head1(`r(tabtit)')  head2(`head2') coltit1(`coltit1')  coltit2(`coltit2')  coltit3(`coltit3');
-if `nr' > 1   distable  aaa, dec(`dec') atit(`langr')	head1(`r(tabtit)')  head2(`head2') coltit1(`coltit1')  coltit2(`coltit2')  coltit3(`coltit3');
+if `nr' > 1   wel_distable  aaa, dec(`dec') atit(`langr')	head1(`r(tabtit)')  head2(`head2') coltit1(`coltit1')  coltit2(`coltit2')  coltit3(`coltit3');
 dis as result "Notes:";
 dis as text  " [1]: Estimated based on averages of the population/groups." ;
 dis " [2]: Estimated based on the reference individual (at means of X covariates)." ;
@@ -1635,7 +1635,7 @@ local dec = 2 ;
 local lst1 = rowsof(aaa)-1;
 if `lst1'==1 local lst1 =="";
 
-qui xml_taba2 aaa,  format(sclb0 nccr`dec' nccr`dec' nccr`dec' nccr`dec' nccr`dec' nccr`dec' nccr`dec' nccr`dec' nccr`dec') ///
+qui wel_xml_taba2 aaa,  format(sclb0 nccr`dec' nccr`dec' nccr`dec' nccr`dec' nccr`dec' nccr`dec' nccr`dec' nccr`dec' nccr`dec') ///
 save(`xfil')    cwidth(0 220, . 60) font("Cambria" 10) ///
 sheet(Table_03,  nogridlines)  ///
 lines(-1 13 0 2  `lst1'  2  LAST_ROW 13)     ///
@@ -1679,7 +1679,7 @@ tempname mat1;
 matrix `mat1' = e(est); 
 matrix rownames `mat1' = "Initial/Concentrated Market" "With benefits of current users" "With benefits of new users" "Final" ;
 local tabtit = "Table 04: Poverty headcount & market power"; 
-distable `mat1', dec(4) atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
+wel_distable `mat1', dec(4) atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
 mk_xtab_mc `welfare' ,  matn(`mat1') dec(4) xfil(`xfil') xshe(Table_04) xtit(`tabtit') xlan(`lan') dste(0) 
 ;
 
@@ -1688,7 +1688,7 @@ tempname mat1;
 matrix `mat1' = e(est); 
 matrix rownames `mat1' = "Initial/Concentrated Market" "With benefits of current users" "With benefits of new users" "Final" ;
 local tabtit = "Table 05: Poverty gap & market power"; 
-distable `mat1', dec(4) atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
+wel_distable `mat1', dec(4) atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
 mk_xtab_mc `welfare' ,  matn(`mat1') dec(4) xfil(`xfil') xshe(Table_05) xtit(`tabtit') xlan(`lan') dste(0) 
 ;
 
@@ -1699,7 +1699,7 @@ tempname mat1;
 matrix `mat1' = e(est); 
 matrix rownames `mat1' = "Initial/Concentrated Market" "With benefits of current users" "With benefits of new users" "Final" ;
 local tabtit = "Table 06: Gini index & market power"; 
-distable `mat1', dec(4) atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
+wel_distable `mat1', dec(4) atit(Step) head1(`tabtit')  head2(`head2') dsmidl(1);
 mk_xtab_mc `welfare' ,  matn(`mat1') dec(4) xfil(`xfil') xshe(Table_06) xtit(`tabtit') xlan(`lan') dste(0) 
 ;
 

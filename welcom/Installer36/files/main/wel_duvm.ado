@@ -566,8 +566,8 @@ set tracedepth 1;
 
 
 
-cap program drop duvm;
-program define duvm, eclass ;
+cap program drop wel_duvm;
+program define wel_duvm, eclass ;
 syntax namelist(min=1)[ ,   
 hweight(varname) 
 hhsize(varname) 
@@ -1043,7 +1043,7 @@ local mycmd = "`0'" ;
 local mycmd = subinstr("`mycmd'" , "gmodifier(1)", "",.);
 local mycmd = subinstr("`mycmd'" , "gmodifier(0)", "",.);
 *set trace on ;
-qui duvm `mycmd' gmodifier(1);
+qui wel_duvm `mycmd' gmodifier(1);
 dis "`d':" _continue ;
 forvalues j=1/$indican {;
                 local  elas_`j'_`d' = el(rC_SY_ep,`j',`j');

@@ -247,7 +247,7 @@ epsilon(.5)   xfil(myexample3)
 sysuse Mexico_2014_Cereals_F.dta, replace;
 preserve;
 qui keep if wcorn!=.;
-qui duvm corn wheat rice other, hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) inisave(ex3_duvm_db) indcat(sex educ) indcon(age) csb(0) dregres(0) hgroup(decile);
+qui wel_duvm corn wheat rice other, hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) inisave(ex3_duvm_db) indcat(sex educ) indcon(age) csb(0) dregres(0) hgroup(decile);
 restore;
 matrix elas_price = e(elprice);
 matrix elas_income= e(elincome);

@@ -302,7 +302,7 @@ cap program drop ex_duvm_01
 program ex_duvm_01
 #delimit ; 
 use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
-duvm corn wheat rice other, 
+wel_duvm corn wheat rice other, 
 hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex1_duvm_db)  indcat(sex educ )  indcon(age)   xfil(myfile) 
  ;
@@ -314,7 +314,7 @@ cap program drop ex_duvm_02
 program ex_duvm_02
 #delimit ; 
 use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
-duvm corn wheat rice other, 
+wel_duvm corn wheat rice other, 
 hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex2_duvm_db)  indcat(sex educ )  indcon(age)   xfil(myfile)
 boot(50)
@@ -326,7 +326,7 @@ cap program drop ex_duvm_03
 program ex_duvm_03
 #delimit ; 
 use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace; 
-duvm corn wheat rice other, 
+wel_duvm corn wheat rice other, 
 hhsize(hhsize) expend(hh_current_inc) hweight(sweight) cluster(psu) region(rururb) 
 inisave(ex3_duvm_db)  indcat(sex educ )  indcon(age)   xfil(myfile) 
 hgroup(decile)
@@ -338,18 +338,18 @@ cap program drop ex_duvm_db_01
 program ex_duvm_db_01
 use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
 discard
-db duvm
-.duvm_dlg.main.dbsamex.setvalue "ex1_duvm_db"
-.duvm_dlg.main.name_items.setvalue "corn wheat rice other"
-.duvm_dlg.main.vn_hhsize.setvalue "hhsize"
-.duvm_dlg.main.vn_hhexp.setvalue "hh_current_inc"
-.duvm_dlg.main.vn_hhwe.setvalue  "sweight"
-.duvm_dlg.main.vl_indcat.setvalue  "sex educ "
-.duvm_dlg.main.vl_indcon.setvalue  "age"
-.duvm_dlg.main.vn_cluster.setvalue "psu"
-.duvm_dlg.main.vn_region.setvalue "rururb"
-.duvm_dlg.resop.sp_dec.setvalue "3"
-.duvm_dlg.resop.n_boot.setvalue "0"
+db wel_duvm
+.wel_duvm_dlg.main.dbsamex.setvalue "ex1_duvm_db"
+.wel_duvm_dlg.main.name_items.setvalue "corn wheat rice other"
+.wel_duvm_dlg.main.vn_hhsize.setvalue "hhsize"
+.wel_duvm_dlg.main.vn_hhexp.setvalue "hh_current_inc"
+.wel_duvm_dlg.main.vn_hhwe.setvalue  "sweight"
+.wel_duvm_dlg.main.vl_indcat.setvalue  "sex educ "
+.wel_duvm_dlg.main.vl_indcon.setvalue  "age"
+.wel_duvm_dlg.main.vn_cluster.setvalue "psu"
+.wel_duvm_dlg.main.vn_region.setvalue "rururb"
+.wel_duvm_dlg.resop.sp_dec.setvalue "3"
+.wel_duvm_dlg.resop.n_boot.setvalue "0"
 #delimit cr
 end
 
@@ -358,18 +358,18 @@ cap program drop ex_duvm_db_02
 program ex_duvm_db_02
 use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
 discard
-db duvm
-.duvm_dlg.main.dbsamex.setvalue "ex2_duvm_db"
-.duvm_dlg.main.name_items.setvalue "corn wheat rice other"
-.duvm_dlg.main.vn_hhsize.setvalue "hhsize"
-.duvm_dlg.main.vn_hhexp.setvalue "hh_current_inc"
-.duvm_dlg.main.vn_hhwe.setvalue  "sweight"
-.duvm_dlg.main.vl_indcat.setvalue  "sex educ "
-.duvm_dlg.main.vl_indcon.setvalue  "age"
-.duvm_dlg.main.vn_cluster.setvalue "psu"
-.duvm_dlg.main.vn_region.setvalue "rururb"
-.duvm_dlg.resop.sp_dec.setvalue "3"
-.duvm_dlg.resop.n_boot.setvalue "50"
+db wel_duvm
+.wel_duvm_dlg.main.dbsamex.setvalue "ex2_duvm_db"
+.wel_duvm_dlg.main.name_items.setvalue "corn wheat rice other"
+.wel_duvm_dlg.main.vn_hhsize.setvalue "hhsize"
+.wel_duvm_dlg.main.vn_hhexp.setvalue "hh_current_inc"
+.wel_duvm_dlg.main.vn_hhwe.setvalue  "sweight"
+.wel_duvm_dlg.main.vl_indcat.setvalue  "sex educ "
+.wel_duvm_dlg.main.vl_indcon.setvalue  "age"
+.wel_duvm_dlg.main.vn_cluster.setvalue "psu"
+.wel_duvm_dlg.main.vn_region.setvalue "rururb"
+.wel_duvm_dlg.resop.sp_dec.setvalue "3"
+.wel_duvm_dlg.resop.n_boot.setvalue "50"
 #delimit cr
 end
 
@@ -378,19 +378,19 @@ cap program drop ex_duvm_db_03
 program ex_duvm_db_03
 use http://dasp-two.vercel.app/welcom/examples/ds/Mexico_2014_Cereals.dta , replace
 discard
-db duvm
-.duvm_dlg.main.dbsamex.setvalue "ex3_duvm_db"
-.duvm_dlg.main.name_items.setvalue "corn wheat rice other"
-.duvm_dlg.main.vn_hhsize.setvalue "hhsize"
-.duvm_dlg.main.vn_hhexp.setvalue "hh_current_inc"
-.duvm_dlg.main.vn_hhwe.setvalue  "sweight"
-.duvm_dlg.resop.vn_dec.setvalue "decile"
-.duvm_dlg.main.vl_indcat.setvalue  "sex educ "
-.duvm_dlg.main.vl_indcon.setvalue  "age"
-.duvm_dlg.main.vn_cluster.setvalue "psu"
-.duvm_dlg.main.vn_region.setvalue "rururb"
-.duvm_dlg.resop.sp_dec.setvalue "3"
-.duvm_dlg.resop.n_boot.setvalue "0"
+db wel_duvm
+.wel_duvm_dlg.main.dbsamex.setvalue "ex3_duvm_db"
+.wel_duvm_dlg.main.name_items.setvalue "corn wheat rice other"
+.wel_duvm_dlg.main.vn_hhsize.setvalue "hhsize"
+.wel_duvm_dlg.main.vn_hhexp.setvalue "hh_current_inc"
+.wel_duvm_dlg.main.vn_hhwe.setvalue  "sweight"
+.wel_duvm_dlg.resop.vn_dec.setvalue "decile"
+.wel_duvm_dlg.main.vl_indcat.setvalue  "sex educ "
+.wel_duvm_dlg.main.vl_indcon.setvalue  "age"
+.wel_duvm_dlg.main.vn_cluster.setvalue "psu"
+.wel_duvm_dlg.main.vn_region.setvalue "rururb"
+.wel_duvm_dlg.resop.sp_dec.setvalue "3"
+.wel_duvm_dlg.resop.n_boot.setvalue "0"
 #delimit cr
 end
 

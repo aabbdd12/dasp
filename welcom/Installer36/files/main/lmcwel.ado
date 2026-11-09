@@ -360,7 +360,7 @@ tempname mat11 ;
 matrix `mat11'= e(est);
 tabtitmc 11 en;
 local tabtit = "`r(tabtit)'";
-distable `mat11', dec1(0) dec2(0) dec3(2) dec4(0) dec5(2) dec6(2)   atit(`langr') head1(`tabtit')  head2(`head2') ;
+wel_distable `mat11', dec1(0) dec2(0) dec3(2) dec4(0) dec5(2) dec6(2)   atit(`langr') head1(`tabtit')  head2(`head2') ;
 mk_xtab_lmc `1' ,  matn(`mat11') dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0) dec1(0) dec2(0) dec3(2) dec4(0) dec5(2) dec6(2) control(2);
 cap matrix drop `mat`tjob`i''';
 };
@@ -378,7 +378,7 @@ tabtitmc `tjob`i'';
 
 if `tjob`i''==21  local tabtit Table 2.1: Proportion of workers by economic sectors (in %) ; 
 
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Sectors) head1(`tabtit')  head2(`head2') ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Sectors) head1(`tabtit')  head2(`head2') ;
 mk_xtab_lmc `1' ,  matn(`mat`tjob`i''') dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0);
 cap matrix drop `mat`tjob`i''';
 };
@@ -391,7 +391,7 @@ matrix `mat`tjob`i'''= e(est);
 tabtitmc `tjob`i''; 
 
 if `tjob`i''==31  local tabtit Table 3.1: Average household income by economic sectors  ;
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Sectors) head1(`tabtit')  head2(`head2') ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Sectors) head1(`tabtit')  head2(`head2') ;
 mk_xtab_lmc `1' ,  matn(`mat`tjob`i''') dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0);
 cap matrix drop `mat`tjob`i''';
 };
@@ -405,7 +405,7 @@ matrix `mat`tjob`i'''= e(est);
 tabtitmc `tjob`i''; 
 
 if `tjob`i''==32  local tabtit Table 3.2: Average per capita income by economic sectors  ;
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Sectors) head1(`tabtit')  head2(`head2') ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Sectors) head1(`tabtit')  head2(`head2') ;
 mk_xtab_lmc `1' ,  matn(`mat`tjob`i''') dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0);
 cap matrix drop `mat`tjob`i''';
 };
@@ -437,7 +437,7 @@ tempname  mat`tjob`i'' ;
 matrix `mat`tjob`i'''= e(est);
 tabtitmc `tjob`i''; 
 local tabtit = "`r(tabtit)'";
-distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Sectors) head1(`tabtit')  head2(`head2') ;
+wel_distable `mat`tjob`i''', dec(`dec`tjob`i''') atit(Sectors) head1(`tabtit')  head2(`head2') ;
 mk_xtab_lmc `1' ,  matn(`mat`tjob`i''') dec(`dec`tjob`i''') xfil(`xfil') xshe(table_`tjob`i'') xtit(`tabtit') xlan(`lan') dste(0);
 
 cap matrix drop `mat`tjob`i''_`s'';

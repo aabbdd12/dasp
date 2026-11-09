@@ -370,8 +370,8 @@ end;
 
 
 
-capture program drop curvnpe;
-program define curvnpe, rclass sortpreserve;
+capture program drop wel_curvnpe;
+program define wel_curvnpe, rclass sortpreserve;
 version 9.2;
 syntax varlist(min=1)[, 
 XVAR(varname) 

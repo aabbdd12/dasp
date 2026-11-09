@@ -40,7 +40,7 @@ window menu append item "Price(s) and Well-being" /*
 window menu append separator "WELCOM"   
 
 window menu append item "Demand System Models" /* 
-        */   "The DUVM model"        "db duvm" 
+        */   "The DUVM model"        "db wel_duvm" 
 window menu append item "Demand System Models" /* 
         */   "The AIDS/QUAIDS model(s)"        "db wquaids" 
 window menu append item "Demand System Models" /* 

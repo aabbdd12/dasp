@@ -20,8 +20,8 @@ d
 f files/main/almcwel.ado       
 f files/main/almcwel2.ado      
 f files/main/asdbsave_lmc.ado  
-f files/main/basicstats.ado    
-f files/main/distable.ado 
+f files/main/wel_basicstats.ado    
+f files/main/wel_distable.ado 
 f files/main/distable2.ado  
 f files/main/distable0.ado     
 f files/main/labor_info_lmcwel.idlg

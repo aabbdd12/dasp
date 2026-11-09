@@ -4,12 +4,12 @@ INCLUDE graph_header
 POSITION . . 560 100
 
 
-DIALOG main, label("WELCOM| Initialise the dialog box of the  command: duvm") tabtitle("Main")
+DIALOG main, label("WELCOM| Initialise the dialog box of the  command: wel_duvm") tabtitle("Main")
 
   
 BEGIN
   TEXT     tx_using      20     20     200        .,       ///
-        label("Filename of duvm dialog box inputs:")
+        label("Filename of wel_duvm dialog box inputs:")
 
         FILE  fnamex      220    @     280      .,    ///
         label ("Browse...")    save                    ///

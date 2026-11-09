@@ -11,7 +11,7 @@ migropt 3 en ;
 local glegend legend(order( 1 "45° line"  2 "L(p): Lorenz" 3 "C(p): Concentration curve")); 
 
 
-clore `pcexp' `varlist', rank (`pcexp') hsize(`hsize') 
+wel_clore `pcexp' `varlist', rank (`pcexp') hsize(`hsize') 
 title(`r(gtitle)')  
 xtitle(`r(gxtitle)')
 ytitle(`r(gytitle)') 

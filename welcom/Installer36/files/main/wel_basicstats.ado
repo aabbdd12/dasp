@@ -2,8 +2,8 @@
 
 #delim ;
 
-capture program drop basicstats;
-program define  basicstats, rclass;
+capture program drop wel_basicstats;
+program define  wel_basicstats, rclass;
 version 9.2;
 syntax varlist  [, HSize(varname) HGroup(varname)  STAT(string) DENOM(varname)];
 preserve;

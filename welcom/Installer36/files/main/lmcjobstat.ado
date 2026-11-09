@@ -84,7 +84,7 @@ if ( "`hsize'"!="") qui replace `_ths'=`hsize';
 cap svy: total;
 if ( "`r(settings)'"==", clear") qui svyset _n, vce(linearized);
 forvalues k = 1/$indica {;
-basicstats ``k'' ,  hsize(`_ths') hgroup(`hgroup') stat(`stat') denom(`denom');
+wel_basicstats ``k'' ,  hsize(`_ths') hgroup(`hgroup') stat(`stat') denom(`denom');
 local pos = 1;
 forvalues i=1/`indig1' {;
 qui replace `EST`k''=  `r(est`i')'  in `pos';
@@ -107,7 +107,7 @@ if ("`rtot'" ~= "") qui replace `Variable' = "`rtot'" in `indig1';
 
 
 
-basicstats `total' ,  hsize(`_ths')  hgroup(`hgroup') stat(`stat') denom(`denom');
+wel_basicstats `total' ,  hsize(`_ths')  hgroup(`hgroup') stat(`stat') denom(`denom');
 local kk1 = $indica+1;
 local pos=1;
 forvalues i=1/`indig1' {;
